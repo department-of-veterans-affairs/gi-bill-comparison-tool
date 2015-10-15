@@ -40,8 +40,12 @@ RSpec.describe Institution, type: :model do
   end
 
   describe '#city' do
-    it 'cannot be blank' do
-      expect(build(:institution, city: nil)).not_to be_valid
+    it 'can be blank if country is not USA' do
+      expect(build(:institution, country: 'lampshade', city: nil)).to be_valid
+    end
+
+    it 'cannot be blank if country is USA' do
+      expect(build(:institution, country: 'usa', city: nil)).not_to be_valid
     end
   end
 

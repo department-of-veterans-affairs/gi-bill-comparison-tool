@@ -1,8 +1,8 @@
 class Institution < ActiveRecord::Base
   belongs_to :institution_type, inverse_of: :institutions
 
-  validates_presence_of :facility_code, :institution, :country, :institution_type_id, :city
-  validates_presence_of :state, :zip, if: :in_usa?
+  validates_presence_of :facility_code, :institution, :country, :institution_type_id
+  validates_presence_of :state, :zip, :city, if: :in_usa?
 
   validates_uniqueness_of :facility_code
 
