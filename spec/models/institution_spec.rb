@@ -96,5 +96,26 @@ RSpec.describe Institution, type: :model do
       expect(correspondence_school).to be_correspondence 
       expect(correspondence_school).not_to be_flight 
     end 
-  end  
+  end 
+
+  describe '.autocomplete' do 
+    let!(:ny1) { create :institution }
+    let!(:ny2) { create :institution }
+    let!(:ny3) { create :institution, institution: 'Institution 3 New York' }
+    let!(:nj1) { create :institution, institution: 'New Jersey Institution 1' }
+    let(:search_term) { 'new york' }
+
+    before(:each) do 
+      @institutions = Institution.autocomplete(search_term).map { |i| i.value }
+    end
+
+    it 'gets institutions starting with the search term' do
+      expect(@institutions.size).to eql(2)
+      expect(@institutions).to include(ny1.facility_code, ny2.facility_code)
+    end
+
+    it 'does not get institutions not starting with the search term' do
+      expect(@institutions).not_to include(nj1.facility_code, ny3.facility_code)
+    end
+  end
 end
