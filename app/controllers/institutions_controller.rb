@@ -4,9 +4,9 @@ class InstitutionsController < ApplicationController
   end
 
   def autocomplete
-    search = params[:term]
-
-    results = Institution.select('facility_code as value, institution as label').where("institution ~* ?", "^#{search}")
+    search_term = params[:term]
+    
+    results = Institution.autocomplete(search_term)
     respond_to do |format|
       format.json { render json: results }
     end

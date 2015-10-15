@@ -3,7 +3,7 @@ FactoryGirl.define do
     institution_type
 
     sequence :facility_code do |n| "#{n}" end
-    sequence :institution do |n| "Institution #{n}" end
+    sequence :institution do |n| "New York Institution #{n}" end
 
     country "USA"
     city "anytown"

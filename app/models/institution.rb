@@ -20,4 +20,9 @@ class Institution < ActiveRecord::Base
   def in_usa?
     country.try(:downcase) == 'usa'
   end
+
+  def self.autocomplete(search_term)
+    Institution.select('facility_code as value, institution as label')
+      .where("institution ~* ?", "^#{search_term}")
+  end
 end
