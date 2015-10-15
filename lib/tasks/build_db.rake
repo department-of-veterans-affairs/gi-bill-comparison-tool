@@ -8,9 +8,9 @@ task :load_csv, [:csv_file] => [:environment, :build_db] do |t, args|
   ActiveRecord::Base.transaction do
     CSV.foreach(args[:csv_file], headers: true, encoding: "iso-8859-1:utf-8", header_converters: :symbol) do |row|
   		count += 1
+      
       row = row.to_hash
   		LoadCsvHelper.convert(row)
-
   		Institution.create!(row)
 
   		print "\r Records: #{count}" 
