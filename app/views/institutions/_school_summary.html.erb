@@ -1,0 +1,30 @@
+<div style="background-color: #ddd; height: 15em; width: 25em; padding: 1em; margin: 1em; float: left">
+	<h3><%= school_summary[:institution] %></h3>
+
+	<% if school_summary[:country].downcase == 'usa' %>
+		<h4><%= "#{school_summary[:city]}, #{school_summary[:state]} #{school_summary[:zip]}".upcase %></h4>
+	<% else %>
+		<h4><%= "#{school_summary[:city]}, #{school_summary[:country]}".upcase %>
+	<% end %>
+
+	<div>
+		<ul>
+			<% if school_summary[:poe] %>
+				<li>Principles of Excellence</li>
+			<% end %>
+			<% if school_summary[:student_veteran] %>
+				<li>Veterans Group</li>
+			<% end %>
+			<% if school_summary[:eight_keys] %>
+				<li>Eight Keys</li>
+			<% end %>
+			<% if school_summary[:sec702] %>
+				<li>Complies with Choice Act</li>
+			<% end %>
+		</ul>
+	</div>
+
+	<div>
+		<a href="#" style="display:inline-block; background-color: #aaa; width: 100%; text-align: center" >Learn More</a>
+	</div>
+</div>
