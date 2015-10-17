@@ -16,7 +16,7 @@
 <!-- Military Status -->
   <div class="form-group top-aligned">
     <label for="military-status">Military Status: </label>
-    <select id="military-status" name="military-status" alt="Select military status">
+    <select id="military-status" name="military_status" alt="Select military status">
       <option value="veteran">Veteran</option>
       <option value="active duty">Active Duty</option>
       <option value="national guard / reserves">National Guard / Reserves</option>
@@ -30,16 +30,16 @@
     <span class="question">Is your husband or wife on active duty? </span>
 
     <label class="radio" for="spouse-active-duty-yes">Yes</label>
-    <input id="spouse-active-duty-yes" name="spouse-active-duty" type="radio" value="yes">
+    <input id="spouse-active-duty-yes" name="spouse_active_duty" type="radio" value="yes">
 
     <label class="radio" for="spouse-active-duty-no">No</label>
-    <input id="spouse-active-duty-no" name="spouse-active-duty" type="radio" value="no" checked>
+    <input id="spouse-active-duty-no" name="spouse_active_duty" type="radio" value="no" checked>
   </div>
 
   <!-- GI Bill Chapter Being Used -->
   <div id="gi-bill-chapter-form" class="form-group top-aligned">
     <label for="gi-bill-chapter">Which GI Bill benefit are you thinking of using ?</label>
-    <select id="gi-bill-chapter" name="type-of-benefits" 
+    <select id="gi-bill-chapter" name="gi_bill_chapter" 
     	alt="Select which GI Bill benefit you are thinking of using">
       <option value="33" selected>Post-9/11 GI Bill (Ch 33)</option>
       <option value="30">Montgomery GI Bill (Ch 30)</option>
@@ -53,7 +53,7 @@
   <!-- Post-9/11 GI Bill Spectific Controls -->
   <div id="cumulative-service-form" class="form-group top-aligned">
     <label for="cumulative-service">Cumulative Post 9-11 Active Duty Service: </label>
-    <select id="cumulative-service" name="post-9-11-service" 
+    <select id="cumulative-service" name="post_911_service" 
     	alt="Select amount of cumulative Post 9-11 Active Duty Service">
       <option value="1.0" selected>36+ months: 100% (includes BASIC)</option>
       <option value="0.9">30 months: 90% (includes BASIC)</option>
@@ -82,7 +82,7 @@
   <!-- REAP GI Bill Spectific Controls -->
   <div id="consecutive-service-form" class="form-group top-aligned">
     <label for="consecutive-service">Length of Longest Active Duty Tour: </label>
-    <select id="consecutive-service" name="longest-consecutive-tour" 
+    <select id="consecutive-service" name="consecutive_service" 
     	alt="Select the length of your longest actice duty tour">
       <option value="0.8" selected>2+ years of consecutive service: 80%</option>
       <option value="0.6">1+ year of consecutive service: 60%</option>
@@ -103,10 +103,10 @@
     	class="info-link" aria-describedby="post911-eligible-tooltip">i</a>
     </span>
     <label class="radio" for="elig-for-post-gi-bill-yes">Yes</label>
-    <input id="elig-for-post-gi-bill-yes" name="post-9-11-eligible" type="radio" value="yes">
+    <input id="elig-for-post-gi-bill-yes" name="post_911_eligible" type="radio" value="yes">
 
     <label class="radio" for="elig-for-post-gi-bill-no">No</label>
-    <input id="elig-for-post-gi-bill-no" name="post-9-11-eligible" type="radio" value="no" checked>
+    <input id="elig-for-post-gi-bill-no" name="post_911_eligible" type="radio" value="no" checked>
   </div>
 
   <div id="number-of-dependents-form" class="form-group top-aligned">
@@ -146,11 +146,13 @@
     <span class="question">Taking all online classes?</span>
 
     <label class="radio" for="online-classes-yes">Yes</label>
-    <input id="online-classes-yes" name="Online Courses" type="radio" value="yes">
+    <input id="online-classes-yes" name="online" type="radio" value="yes">
 
     <label class="radio" for="online-classes-no">No</label>
-    <input id="online-classes-no" name="Online Courses" type="radio" value="no" checked>
+    <input id="online-classes-no" name="online" type="radio" value="no" checked>
   </div>
+
+  <%= submit_tag 'Search' %>
 <% end %>
 
 <script>
