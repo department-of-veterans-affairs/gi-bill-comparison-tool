@@ -1,1 +1,8 @@
-<%= render partial: 'school_summary', collection: @results %>
+<div>
+	<%= render partial: 'yourself', locals: { use_label: false } %>
+	<a style="display:block" href="<%= root_path %>">Select New Schools</a></div>
+</div>
+
+<div>
+	<%= render partial: 'school_summary', collection: @schools %>
+</div>
