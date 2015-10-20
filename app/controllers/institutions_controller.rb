@@ -13,10 +13,6 @@ class InstitutionsController < ApplicationController
       online_classes: 'no',
       institution_search: ''
     }
-
-    @schools = {
-
-    }
   end
 
   def autocomplete
