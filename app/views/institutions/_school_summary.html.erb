@@ -1,30 +1,44 @@
-<div style="background-color: #ddd; height: 15em; width: 25em; padding: 1em; margin: 1em; float: left">
+<div id="<%= school_summary[:facility_code] %>"  
+	style="background-color: #ddd; height: 15em; width: 25em; padding: 1em; margin: 1em; float: left"
+
+	data-facility-code="<%= school_summary[:facility_code] %>"
+	data-institution="<%= school_summary[:institution] %>"
+	data-city="<%= school_summary[:city] %>"
+	data-state="<%= school_summary[:state] %>" 
+	data-country="<%= school_summary[:country] %>" 
+	data-type="<%= school_summary[:name] %>"
+	data-poe="<%= Institution.to_bool(school_summary[:poe]) %>"
+	data-student-vetran="<%= Institution.to_bool(school_summary[:student_veteran]) %>"
+	data-eight-keys="<%= Institution.to_bool(school_summary[:eight_keys]) %>"
+	data-yellow-ribbon="<%= Institution.to_bool(school_summary[:yr]) %>"
+>
 	<h3><%= school_summary[:institution] %></h3>
 
 	<% if school_summary[:country].downcase == 'usa' %>
-		<h4><%= "#{school_summary[:city]}, #{school_summary[:state]} #{school_summary[:zip]}".upcase %></h4>
+		<h4>
+			<%= "#{school_summary[:city]}, #{school_summary[:state]} #{school_summary[:zip]}".upcase %></h4>
 	<% else %>
 		<h4><%= "#{school_summary[:city]}, #{school_summary[:country]}".upcase %>
 	<% end %>
 
 	<div>
 		<ul>
-			<% if school_summary[:poe] %>
+			<% if Institution.to_bool(school_summary[:poe]) %>
 				<li>Principles of Excellence</li>
 			<% end %>
-			<% if school_summary[:student_veteran] %>
+			<% if Institution.to_bool(school_summary[:student_veteran]) %>
 				<li>Veterans Group</li>
 			<% end %>
-			<% if school_summary[:eight_keys] %>
+			<% if Institution.to_bool(school_summary[:eight_keys]) %>
 				<li>Eight Keys</li>
 			<% end %>
-			<% if school_summary[:sec702] %>
-				<li>Complies with Choice Act</li>
+			<% if Institution.to_bool(school_summary[:yr]) %>
+				<li>Yellow Ribbon</li>
 			<% end %>
 		</ul>
 	</div>
 
 	<div>
-		<a href="#" style="display:inline-block; background-color: #aaa; width: 100%; text-align: center" >Learn More</a>
+		<a href="#" style="display:inline-block; background-color: #aaa; width: 100%; text-align: center">Learn More</a>
 	</div>
 </div>
