@@ -9,20 +9,58 @@ class Institution < ActiveRecord::Base
   validates_inclusion_of :poe, :yr, :student_veteran, :eight_keys, :dodmou, :online_all, 
       :sec_702, :accredited, :hcm_status, in: [true, false]
 
+  #############################################################################
+  ## correspondence?
+  ## True if school is a correspondence school
+  #############################################################################
   def correspondence?
     institution_type.name.downcase == 'correspondence'
   end
 
+  #############################################################################
+  ## flight?
+  ## True if school is a flight school
+  #############################################################################
   def flight?
     institution_type.name.downcase == 'flight'
   end
 
+  #############################################################################
+  ## in_usa?
+  ## True if school is in USA
+  #############################################################################
   def in_usa?
     country.try(:downcase) == 'usa'
   end
 
+  #############################################################################
+  ## autocomplete
+  ## Given a search term representing a partial school name, returns all
+  ## schools starting with the search term.
+  #############################################################################
   def self.autocomplete(search_term)
     Institution.select('facility_code as value, institution as label')
       .where("institution ~* ?", "^#{search_term}")
+  end
+
+  #############################################################################
+  ## search
+  ## Searchs for schools containing the search_term in their name or city. 
+  ## Also used when a facility_code is passed in. Results are returned as an
+  ## array of hashes, even when there is only one hit.
+  ##
+  ## NOTE: facility_code is used for uniqueness, therefore it is possible that
+  ## schools will appear to be duplicated since they have the same name but
+  ## different facility codes.
+  #############################################################################
+  def self.search(search_term)
+    fac = Institution.where(facility_code: search_term).to_sql
+    inst = Institution.where("institution ~* ?", "#{search_term}").to_sql
+    city = Institution.where("city ~* ?", "#{search_term}").to_sql
+
+    results = ActiveRecord::Base.connection.execute("#{fac} UNION #{inst} UNION #{city} ORDER BY institution")
+    results = results.map do |res| 
+      res.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
+    end.uniq { |res| res[:facility_code] }
   end
 end
