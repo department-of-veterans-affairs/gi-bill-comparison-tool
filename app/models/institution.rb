@@ -1,4 +1,6 @@
 class Institution < ActiveRecord::Base
+  TRUTHY = %w(yes true t 1)
+
   belongs_to :institution_type, inverse_of: :institutions
 
   validates_presence_of :facility_code, :institution, :country, :institution_type_id
@@ -8,6 +10,10 @@ class Institution < ActiveRecord::Base
 
   validates_inclusion_of :poe, :yr, :student_veteran, :eight_keys, :dodmou, :online_all, 
       :sec_702, :accredited, :hcm_status, in: [true, false]
+
+  scope :with_type, -> { 
+    select('institutions.*, institution_types.name').joins(:institution_type) 
+  }
 
   #############################################################################
   ## correspondence?
@@ -34,6 +40,14 @@ class Institution < ActiveRecord::Base
   end
 
   #############################################################################
+  ## to_bool
+  ## Converts boolean text values to boolean types
+  #############################################################################
+  def self.to_bool(value)
+    TRUTHY.include?(value.try(:downcase))
+  end
+
+  #############################################################################
   ## autocomplete
   ## Given a search term representing a partial school name, returns all
   ## schools starting with the search term.
@@ -54,13 +68,13 @@ class Institution < ActiveRecord::Base
   ## different facility codes.
   #############################################################################
   def self.search(search_term)
-    fac = Institution.where(facility_code: search_term).to_sql
-    inst = Institution.where("institution ~* ?", "#{search_term}").to_sql
-    city = Institution.where("city ~* ?", "#{search_term}").to_sql
+    fac = Institution.with_type.where(facility_code: search_term).to_sql
+    inst = Institution.with_type.where("institution ~* ?", "#{search_term}").to_sql
+    city = Institution.with_type.where("city ~* ?", "#{search_term}").to_sql
 
-    results = ActiveRecord::Base.connection.execute("#{fac} UNION #{inst} UNION #{city} ORDER BY institution")
-    results = results.map do |res| 
-      res.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
-    end.uniq { |res| res[:facility_code] }
+    schools = ActiveRecord::Base.connection.execute("#{fac} UNION #{inst} UNION #{city} ORDER BY institution")
+    schools = schools.map do |school| 
+      school.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
+    end.uniq { |school| school[:facility_code] }
   end
 end
