@@ -1,0 +1,193 @@
+<!-- ====================================================================== -->
+<!-- == yourself                                                            -->
+<!-- == Controls that are used to compute benefits calculations and pertain --> 
+<!-- == to the user.                                                        -->
+<!--                                                                        -->
+<!-- == use_label: true if using labels for these controls.                 --> 
+<!-- ====================================================================== -->
+
+<!-- Military status -->
+<div class="form-group top-aligned">
+  <% if use_label %>
+    <label for="military-status">Military Status: </label>
+  <%end %>
+
+  <select id="military-status" name="military_status" alt="Select military status">
+    <% { 
+      'veteran' => 'Veteran', 'active duty' => 'Active Duty', 
+      'national guard / reserves' => 'National Guard / Reserves',
+      'spouse' => 'Spouse', 'child' => 'Child' 
+    }.each_pair do |value, label| %>
+      <option value="<%= value %>" 
+        <%= 'selected' if value == @inputs[:military_status] %>
+      ><%= label %></option>
+    <% end %>
+  </select>
+</div>
+
+<!-- Spouse on active duty -->
+<div id="spouse-active-duty-form">
+  <% if use_label %>
+    <label for="spouse-active-duty">Is your spouse on active duty? </label>
+  <% end %>
+  
+  <select id="spouse-active-duty" name="spouse_active_duty" alt="Spouse Active Duty? Yes/No">
+    <% { 
+      'yes' => 'Spouse Active Duty', 'no' => 'Spouse Not Active Duty'
+    }.each_pair do |value, label| %>
+      <option value="<%= value %>" 
+        <%= 'selected' if value == @inputs[:spouse_active_duty] %>
+      ><%= label %></option>
+    <% end %>
+  </select>
+</div>
+
+<!-- GI bill chapter -->
+<div id="gi-bill-chapter-form" class="form-group top-aligned">
+  <% if use_label %>
+    <label for="gi-bill-chapter">Which GI Bill benefit are you thinking of using?</label>
+  <% end %>
+
+  <select id="gi-bill-chapter" name="gi_bill_chapter" alt="Select which GI Bill benefit you are thinking of using">
+    <% { 
+      '33' => 'Post-9/11 GI Bill (Ch 33)', '30' => 'Montgomery GI Bill (Ch 30)', 
+      '1606' => 'Select Reserve GI Bill (Ch 1606)', '1607' => 'REAP GI Bill (Ch 1607)',
+      '31' => 'Vocational Rehabilitation & Employment (VR&E)', 
+      '35' => 'Dependents Educational Assistance (DEA)' 
+    }.each_pair do |value, label| %>
+      <option value="<%= value %>" 
+        <%= 'selected' if value == @inputs[:gi_bill_chapter] %>
+      ><%= label %></option>
+    <% end %>
+  </select>
+</div>
+
+<!-- Post-9/11 GI Bill Spectific Controls -->
+<div id="cumulative-service-form" class="form-group top-aligned">
+  <% if use_label %>
+    <label for="cumulative-service">Cumulative Post 9-11 Active Duty Service: </label>
+  <% end %>
+
+  <select id="cumulative-service" name="cumulative_service" alt="Select amount of cumulative Post 9-11 Active Duty Service">
+    <% { 
+      '1.0' => '36+ months: 100% (includes BASIC)', '0.9' => '30 months: 90% (includes BASIC)', 
+      '0.8' => '24 months: 80% (includes BASIC)', '0.7' => '18 months: 70% (excludes BASIC)',
+      '0.6' => '12 months: 60% (excludes BASIC)', '0.5' => '6 months: 50% (excludes BASIC)',
+      '0.4' => '90 days: 40% (excludes BASIC)', '0.0' => 'Less than 90 days 0% (excludes BASIC)',
+      '1.00' => 'GYSGT Fry Scholarship: 100%', 'service discharge' => 'Service-Connected Discharge: 100%'
+    }.each_pair do |value, label| %>
+      <option value="<%= value %>" 
+        <%= 'selected' if value == @inputs[:cumulative_service] %>
+      ><%= label %></option>
+    <% end %>
+  </select>
+</div>
+
+<!-- Montgomery Gi Bill Spectific Controls -->
+<div id="enlistment-service-form" class="form-group top-aligned">
+  <% if use_label %>
+    <label for="enlistment-service">Completed an enlistment of: </label>
+  <% end %>
+
+  <select id="enlistment-service" name="enlistment_service" alt="Select length of your enlistment">
+    <% { 
+      '3' => '3 or more years', '2' => '2 or more years'
+    }.each_pair do |value, label| %>
+      <option value="<%= value %>" 
+        <%= 'selected' if value == @inputs[:enlistment_service] %>
+      ><%= label %></option>
+    <% end %>
+  </select>
+</div>
+
+<!-- Select Reserve GI Bill Spectific Controls: None -->
+
+<!-- REAP GI Bill Spectific Controls -->
+<div id="consecutive-service-form" class="form-group top-aligned">
+  <% if use_label %>
+    <label for="consecutive-service">Length of Longest Active Duty Tour: </label>
+  <% end %>
+
+  <select id="consecutive-service" name="consecutive_service" alt="Select the length of your longest actice duty tour">
+    <% {
+      '0.8' => '2+ years of consecutive service: 80%', '0.6' => '1+ year of consecutive service: 60%', 
+      '0.4' => '90+ days of consecutive service: 40%'
+    }.each_pair do |value, label| %>
+      <option value="<%= value %>" 
+        <%= 'selected' if value == @inputs[:consecutive_service] %>
+      ><%= label %></option>
+    <% end %>    
+  </select>
+</div>
+
+<!-- Vocational Rehabilitation & Employment Controls -->
+<% if use_label %>
+  <div class="form-group top-aligned" id="voc-rehab-warning">
+    To apply for VR&E benefits, please <a href="http://vabenefits.vba.va.gov/vonapp/main.asp" 
+			onclick="track('Tool Tips', 'Voc Rehab Warning');" target="_blank">visit this site.</a>
+  </div>
+<% end %>
+
+<div id="elig-for-post-gi-bill-form" class="form-group">
+  <% if @label %>
+    <label for="elig-for-post-gi-bill">Are you eligible for the Post-9/11 GI Bill?</label>
+  <% end %>
+
+  <select id="elig-for-post-gi-bill" name="elig_for_post_gi_bill" alt="Eligible for Post 9/11 GI Bill?">
+    <% { 
+      'yes' => 'Eligilble for Post-9/11 Gi Bill', 'no' => 'Not Eligilble for Post-9/11 Gi Bill'
+    }.each_pair do |value, label| %>
+      <option value="<%= value %>" 
+        <%= 'selected' if value == @inputs[:elig_for_post_gi_bill] %>
+      ><%= label %></option>
+    <% end %>
+  </select>
+</div>
+
+<div id="number-of-dependents-form" class="form-group top-aligned">
+  <% if use_label %>
+    <label for="number-of-dependents">Number of Dependents </label>
+  <% end %>
+
+  <select id="number-of-dependents" name="number_of_dependents" alt="Select the number of dependents you have">
+    <% { 
+      '0' => '0 Dependents', '1' => '1 Dependent', '2' => '2 Dependents',
+      '3' => '3 Dependents', '4' => '4 Dependents', '5' => '5 Dependents'
+    }.each_pair do |value, label| %>
+      <option value="<%= value %>" 
+        <%= 'selected' if value == @inputs[:number_of_dependents] %>
+      ><%= label %></option>
+    <% end %>
+  </select>
+</div>
+
+<!-- Dependents Educational Assistance Spectific Controls: None -->
+
+<script>
+$(document).ready(function() {
+  /////////////////////////////////////////////////////////////////////////////
+  // Military Status select
+  /////////////////////////////////////////////////////////////////////////////
+  $('#military-status').change(function() { 
+    showDependent('#military-status', 'spouse', '#spouse-active-duty-form', 100);
+  }).change();
+
+  /////////////////////////////////////////////////////////////////////////////
+  // GI Bill benefit select
+  /////////////////////////////////////////////////////////////////////////////
+  $('#gi-bill-chapter').change(function() { 
+    var opt = $(this).val();
+
+    showDependent('#gi-bill-chapter', '33', '#cumulative-service-form', 100);
+    showDependent('#gi-bill-chapter', '30', '#enlistment-service-form', 100);
+    showDependent('#gi-bill-chapter', '1607', '#consecutive-service-form', 100);
+
+    <% if use_label %> 
+      showDependent('#gi-bill-chapter', '31', '#voc-rehab-warning', 100);
+    <% end %>
+    
+    showDependent('#gi-bill-chapter', '31', '#elig-for-post-gi-bill-form', 100);
+    showDependent('#gi-bill-chapter', '31', '#number-of-dependents-form', 100);
+  }).change();
+});
+</script>
