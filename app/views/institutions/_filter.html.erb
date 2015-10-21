@@ -1,0 +1,88 @@
+<h3>Refine My Search</h3>
+<div>
+	<h4>Location</h4>
+	<label for="state">State: </label>
+	<select id="state" name="state" class="filter-ctl">
+		<option value="all" selected>All</option>
+		<% @states.each_pair do |state, count| %>
+			<option value="<%= state %>">
+				<%= "#{state.upcase} (#{count})" %>
+			</option>
+		<% end %>
+	</select>
+	<br/>
+	<label for="country">Country: </label>
+	<select id="country" name="country" class="filter-ctl">
+		<option value="all" selected>All</option>
+		<% @countries.each_pair do |country, count| %>
+			<option value="<%= country %>">
+				<%= "#{country.upcase} (#{count})" %>
+			</option>
+		<% end %>
+	</select>
+</div>
+
+<div>
+	<h4>School Features</h4>
+	<input type="checkbox" name="poe" class="filter-ctl" value="true">
+		Principles of Excellence (<%= @poes %>)
+	</input><br/>
+	<input type="checkbox" name="student-veteran" class="filter-ctl" value="true">
+		Student Veteran Group (<%= @student_veterans %>)
+	</input><br/>
+	<input id="eight-keys" type="checkbox" name="eight-keys" class="filter-ctl" value="true">
+		8 Keys to Veteran Success (<%= @eight_keys %>)
+	</input><br/>	
+	<input id="yr" type="checkbox" name="yr" class="filter-ctl" value="true">
+		Yellow Ribbon Scholarships (<%= @yrs %>)
+	</input>
+</div>
+
+<div>
+	<h4>Types of Schools</h4>
+	<% @types.each_pair do |type, count| %>
+		<input type="checkbox" value="<%= type %>" name="type" class="filter-ctl">
+			<%= type.split.map(&:capitalize).join(' ') %> (<%= count %>)
+		</input><br/>
+	<% end %>
+</div>
+
+<script>
+$(document).ready(function() {
+	var conditions = $('.filter-ctl');
+	var schools = $('.school_summary');
+
+	/////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////
+	var select = function(school_list, key, value) {
+		key = 'data-' + key;
+
+		for (var i = 0; i < school_list.length; i++) {
+			if (school_list[i].is(':visible')) {
+				if (school_list[i].data(key) != value)
+					school_list[i].hide();
+			}
+		}
+	};
+
+	/////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////
+	var filter = function(schools, conditions) {
+		var state = $('#state').val();
+		var country = $('#country').val().toLowerCase();
+
+		if ($.inArray(country, ['all', 'usa']) == -1) {
+			$('#state').prop('disabled', true).val('all');
+		}
+		else {
+			$('#state').prop('disabled', false);
+		}
+
+		schools.show();
+		select(schools, 'state', $('#state').data)
+	};
+
+	// Country select - Non-USA selection disables states selection
+	$('#country').change(function() { filter(schools, conditions); });
+});
+</script>

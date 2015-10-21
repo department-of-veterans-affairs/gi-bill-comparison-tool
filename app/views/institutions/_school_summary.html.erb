@@ -1,5 +1,6 @@
 <div id="<%= school_summary[:facility_code] %>"  
 	style="background-color: #ddd; height: 15em; width: 25em; padding: 1em; margin: 1em; float: left"
+	class="school_summary"
 
 	data-facility-code="<%= school_summary[:facility_code] %>"
 	data-institution="<%= school_summary[:institution] %>"
@@ -7,34 +8,26 @@
 	data-state="<%= school_summary[:state] %>" 
 	data-country="<%= school_summary[:country] %>" 
 	data-type="<%= school_summary[:name] %>"
-	data-poe="<%= Institution.to_bool(school_summary[:poe]) %>"
-	data-student-vetran="<%= Institution.to_bool(school_summary[:student_veteran]) %>"
-	data-eight-keys="<%= Institution.to_bool(school_summary[:eight_keys]) %>"
-	data-yellow-ribbon="<%= Institution.to_bool(school_summary[:yr]) %>"
+	data-poe="<%= school_summary[:poe] %>"
+	data-student-vetran="<%= school_summary[:student_veteran] %>"
+	data-eight-keys="<%= school_summary[:eight_keys] %>"
+	data-yellow-ribbon="<%= school_summary[:yr] %>"
 >
 	<h3><%= school_summary[:institution] %></h3>
 
 	<% if school_summary[:country].downcase == 'usa' %>
 		<h4>
-			<%= "#{school_summary[:city]}, #{school_summary[:state]} #{school_summary[:zip]}".upcase %></h4>
+			<%= "#{school_summary[:city]}, #{school_summary[:state]} #{school_summary[:zip]}" %></h4>
 	<% else %>
-		<h4><%= "#{school_summary[:city]}, #{school_summary[:country]}".upcase %>
+		<h4><%= "#{school_summary[:city]}, #{school_summary[:country]}" %>
 	<% end %>
 
 	<div>
-		<ul>
-			<% if Institution.to_bool(school_summary[:poe]) %>
-				<li>Principles of Excellence</li>
-			<% end %>
-			<% if Institution.to_bool(school_summary[:student_veteran]) %>
-				<li>Veterans Group</li>
-			<% end %>
-			<% if Institution.to_bool(school_summary[:eight_keys]) %>
-				<li>Eight Keys</li>
-			<% end %>
-			<% if Institution.to_bool(school_summary[:yr]) %>
-				<li>Yellow Ribbon</li>
-			<% end %>
+		<ul style="list-style-type: none">
+			<li><%= school_summary[:poe] ? "\u2714" : "\u2716" %> Principles of Excellence</li>
+			<li><%= school_summary[:student_veteran] ? "\u2714" : "\u2716" %> Student Veteran Group</li>
+			<li><%= school_summary[:eight_keys] ? "\u2714" : "\u2716" %> 8 Keys to Veteran Success</li>
+			<li><%= school_summary[:yr] ? "\u2714" : "\u2716" %> Yellow Ribbon Scholarships</li>
 		</ul>
 	</div>
 
