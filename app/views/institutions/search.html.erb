@@ -3,6 +3,10 @@
 	<a style="display:block" href="<%= root_path %>">Select New Schools</a></div>
 </div>
 
-<div>
+<div style="float:left; min-width: 20%">
+	<%= render partial: 'filter' %>
+</div>
+
+<div style="float:left; width: 80%">
 	<%= render partial: 'school_summary', collection: @schools %>
 </div>

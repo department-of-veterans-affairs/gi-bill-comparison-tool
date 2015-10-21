@@ -37,8 +37,35 @@ class InstitutionsController < ApplicationController
       online_classes: params[:online_classes],
       institution_search: params[:institution_search]
     }
-    
-    @schools = @inputs[:institution_search].blank? ? [] : Institution.search(@inputs[:institution_search])
+
+    @states = Hash.new(0)
+    @countries = Hash.new(0)
+    @types = Hash.new(0)
+    @student_veterans = 0
+    @yrs = 0
+    @poes = 0
+    @eight_keys = 0
+    @schools = []
+
+    if @inputs[:institution_search].present?
+      @schools = Institution.search(@inputs[:institution_search])
+
+      @schools.each do |school|
+        school[:student_veteran] = to_bool(school[:student_veteran])
+        school[:poe] = to_bool(school[:poe])
+        school[:yr] = to_bool(school[:yr])
+        school[:eight_keys] = to_bool(school[:eight_keys])
+
+        @states[school[:state]] += 1 unless school[:state].blank?
+        @countries[school[:country]] += 1 unless school[:country].blank?
+        @types[school[:name]] += 1
+
+        @student_veterans += 1 if school[:student_veteran]
+        @poes += 1 if school[:poe]
+        @yrs += 1 if school[:yr]
+        @eight_keys += 1 if school[:eight_keys]
+       end
+    end
     
     respond_to do |format|
       format.json { render json: @schools }
