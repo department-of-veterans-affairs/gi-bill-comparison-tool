@@ -5,10 +5,20 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
 
-<%= yield %>
+  <%= render partial: "layouts/header" %>
+
+  <div class="main-content">
+    <div class="usa-grid">
+      <%= yield %>
+    </div>
+  </div>
+  
+  <%= render partial: "layouts/footer" %>
 
 </body>
 </html>
+
