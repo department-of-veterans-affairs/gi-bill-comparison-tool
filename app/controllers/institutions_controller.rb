@@ -40,7 +40,7 @@ class InstitutionsController < ApplicationController
 
     @schools = []
 
-    @types = InstitutionType.pluck(:name).uniq
+    @types = InstitutionType.pluck(:name).uniq.map { |t| t.downcase }
     @countries = []
     @states = []
 

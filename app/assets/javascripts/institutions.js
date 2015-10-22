@@ -35,7 +35,10 @@ var refreshCheckbox = function(checkbox, summaries) {
 	var key = $(checkbox).attr('name').replace('_', '-');
 
 	// Holds the value that the school summaries should have to be counted
-	var value = $(checkbox).val() === "true";
+	var value = $(checkbox).val();
+	if (value === "true" || value === "false")
+		value = value === "true";
+	
 	var text = $(checkbox).data('text');
 
 	var count = 0
