@@ -1,22 +1,54 @@
-<div class="heading solid orange">
-	<h3>GI Bill<sup>&reg;</sup> Comparison Tool</h3>
-</div>
-
-<p style="padding: .5em .75em; 1em .75em;">Calculate your benefits and research approved programs.</p>
-
-<!-- ================================================== -->
-<!--                School Selection Form               -->
-<!-- ================================================== -->
-<%= form_tag("/search", id: "input-section", style: "") do %>
-  <!-- About Yourself Section -->
-  <a name="about_yourself"></a>
-  <div class="heading solid navy table"><h3>Tell us about yourself.</h3></div>
-  <%= render partial: 'yourself', locals: { use_label: true } %>
-
-  <!-- About Your School Section -->
-  <a name="about_your_school"></a>
-  <div class="heading solid navy table"><h3>About your school:</h3></div>
-  <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
-
+<div class="usa-width-three-fourths">
+  <!-- ================================================== -->
+  <!--                School Selection Form               -->
+  <!-- ================================================== -->
+  <%= form_tag("/search", id: "input-section", style: "") do %>
+    <div class="usa-card">
+      <div class="usa-card-header">
+        Step 1: Tell Us About Yourself
+      </div>
+      <div class="usa-card-content">
+          <!-- About Yourself Section -->
+          <%= render partial: 'yourself', locals: { use_label: true } %>
+        <p>
+          Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit. 
+        </p>
+      </div>
+    </div>
+    <div class="usa-card">
+      <div class="usa-card-header">
+        Step 2: About Your School
+      </div>
+      <div class="usa-card-content">
+          <!-- About Your School Section -->
+          <a name="about_your_school"></a>
+          <div class="heading solid navy table"><h3>About your school:</h3></div>
+          <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
+        <p>
+          Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit. 
+        </p>
+      </div>
+    </div>
   <%= submit_tag 'Search Schools' %>
-<% end %>
+  <% end %>
+</div>
+<div class="usa-width-one-fourth">
+  <div class="usa-card usa-card-fill">
+    <div class="usa-card-header">
+      Did You Know?
+    </div>
+    <div class="usa-card-content">
+      <p>
+        Did you know that
+        you may qualify for
+        more than one GI
+        Bill Program?
+        Vets.gov will soon be launching a
+        new tool to help you determine
+        which GI Bill Benefit will best help
+        you achieve your academic goals!
+        Learn More About GI Bill Benefits
+      </p>
+    </div>
+  </div>
+</div>
