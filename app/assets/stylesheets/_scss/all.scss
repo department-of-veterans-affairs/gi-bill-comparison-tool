@@ -14,11 +14,6 @@
 @import 'core/grid';
 @import 'core/utilities';
 
-// VA components -------------- //
-@import 'components/va';
-@import 'components/va-header';
-@import 'components/va-footer';
-
 // Elements -------------- //
 // Styles basic html elements
 
@@ -29,7 +24,6 @@
 @import 'elements/table';
 @import 'elements/figure';
 @import 'elements/labels';
-
 
 // Components -------------- //
 
@@ -42,4 +36,9 @@
 @import 'components/alerts';
 @import 'components/accordions';
 
+// VA components -------------- //
 
+@import 'va-components/va';
+@import 'va-components/va-header';
+@import 'va-components/va-footer';
+@import 'va-components/va-cards';
