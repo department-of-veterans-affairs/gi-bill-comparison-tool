@@ -1,8 +1,3 @@
-// VA components -------------- //
-@import 'components/va';
-@import 'components/va-header';
-@import 'components/va-footer';
-
 // Vendor -------------- //
 
 @import 'lib/bourbon/bourbon';
@@ -19,6 +14,10 @@
 @import 'core/grid';
 @import 'core/utilities';
 
+// VA components -------------- //
+@import 'components/va';
+@import 'components/va-header';
+@import 'components/va-footer';
 
 // Elements -------------- //
 // Styles basic html elements
