@@ -41,6 +41,17 @@
 		class="filter" value="true" data-text="8 Keys to Veteran Success" />
 	<label id="eight-keys-label" for="eight-keys"></label><br/>
 </div>
+
+<div>
+	<h4>Types of Schools</h4>
+	<% @types.each do |type| %>
+		<% id, name = type.gsub(' ', '-'), type.gsub(' ', '_') %>
+
+		<input type="checkbox" id="<%= id %>" name="type" 
+			class="filter" value="<%= type %>" data-text="<%= to_caps(type) %>" />
+		<label id="<%= id %>-label" for="<%= id %>"></label><br/>
+	<% end %>
+</div>
 <script>
 $(document).ready(function() {
 	/////////////////////////////////////////////////////////////////////////////
@@ -94,5 +105,16 @@ $(document).ready(function() {
 		refreshFilters(".school_summary", ".filter");
 	});
 
+	/////////////////////////////////////////////////////////////////////////////
+	// Feature changes
+	/////////////////////////////////////////////////////////////////////////////
+	$(".filter:checkbox").each(function() {
+		if ($(this).attr('name') === 'type') {
+			$(this).change(function() {
+				runFilter(".school_summary", ".filter");
+				refreshFilters(".school_summary", ".filter");				
+			});
+		}
+	});
 });
 </script>

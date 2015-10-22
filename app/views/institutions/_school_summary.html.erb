@@ -7,7 +7,7 @@
 	data-city="<%= school_summary[:city] %>"
 	data-state="<%= school_summary[:state] %>" 
 	data-country="<%= school_summary[:country] %>" 
-	data-type="<%= school_summary[:name] %>"
+	data-type="<%= school_summary[:name].try(:downcase) %>"
 	data-poe="<%= school_summary[:poe] %>"
 	data-student-veteran="<%= school_summary[:student_veteran] %>"
 	data-eight-keys="<%= school_summary[:eight_keys] %>"

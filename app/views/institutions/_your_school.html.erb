@@ -33,7 +33,7 @@
 
   <select id="online-classes" name="online_classes" alt="Online? Yes/No">
     <% { 
-      'yes' => 'All', 'no' => 'None', 'no' => 'Both online and on-campus'
+      'yes' => 'All', 'no' => 'None', 'both' => 'Both online and on-campus'
     }.each_pair do |value, label| %>
       <option value="<%= value %>" 
         <%= 'selected' if value == @inputs[:online_classes] %>
