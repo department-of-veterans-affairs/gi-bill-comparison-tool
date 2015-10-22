@@ -1,4 +1,4 @@
-@charset "UTF-8";
+
 html, body {
   padding: 0;
   margin: 0;
@@ -12,89 +12,61 @@ html, body {
   .usa-site-navbar .logo h1 a {
     color: #fff; }
 
-.usa-footer-primary-section.va {
-  background-color: #0e345e; }
-
-.usa-footer-secondary_section.va.one {
-  background-color: #003F72;
-  height: 10rem;
-  padding-top: 2rem; }
-
-.usa-footer-secondary_section.va.two {
-  background-color: #0083BE;
-  height: 10rem;
-  padding-top: 2rem; }
-
-.usa-footer-primary-section.va h2, .usa-footer-primary-section.va h4, .usa-footer-primary-section.va p, .usa-footer-primary-section.va li a, .usa-footer-secondary_section.va.one h2, .usa-footer-secondary_section.va.one h4, .usa-footer-secondary_section.va.one p, .usa-footer-secondary_section.va.one li a, .usa-footer-secondary_section.va.two h2, .usa-footer-secondary_section.va.two h4, .usa-footer-secondary_section.va.two p, .usa-footer-secondary_section.va.two li a {
-  color: #fff; }
+.va-site-navbar {
+  background-color: #003F72; }
+  .va-site-navbar .logo h1 a {
+    color: #fff; }
 
 .va-site-header {
   background-color: #0083BE;
+  border-bottom: 1px solid #aeb0b5;
   left: 0;
   top: 0;
   width: 100%;
   z-index: 1; }
 
-.va-site-header .va-site-navbar.upper {
-  height: 6rem; }
-
-.logo h1 a {
-  background: url(../logo/logo.png) top left no-repeat;
-  width: 263px;
-  height: 50px;
-  background-size: contain;
-  text-indent: 180%;
-  white-space: nowrap;
-  overflow: hidden;
-  display: block;
-  width: 210px;
-  height: 50px;
-  border-bottom: none;
-  text-decoration: none; }
-  .logo h1 a:hover, .logo h1 a:active, .logo h1 a:focus {
-    background: url(../logo/logo-hover.png) top left no-repeat;
-    background-size: contain; }
-
-.va-site-header .va-site-navbar.lower {
-  background-color: #003F72;
-  color: #fff;
-  height: 10rem; }
-  .va-site-header .va-site-navbar.lower h1 {
-    padding-top: 25px; }
-
+@media only screen and (min-width: 40.063em) {
+  h1 a {
+    background: url(../img/logo/logo.png) top left no-repeat;
+    width: 263px;
+    height: 50px;
+    background-size: contain; } }
 .va-site-header a {
   border-bottom: none; }
 
+@media screen and (min-width: 850px) {
+  .va-site-header .va-site-navbar {
+    height: 8rem; } }
 .va-site-header .va-site-navbar .logo {
   float: left;
   text-align: center;
   padding-top: 1.3rem;
   width: 70%; }
 
-.va-site-header .va-site-navbar .logo, .va-site-header .va-site-navbar .logo-secondary {
-  padding-left: 3rem;
-  text-align: left;
-  padding-top: 0;
-  width: auto; }
-
+@media screen and (min-width: 850px) {
+  .va-site-header .va-site-navbar .logo {
+    padding-left: 3rem;
+    text-align: left;
+    padding-top: 0;
+    width: auto; } }
 .va-site-header .va-site-navbar h1 {
   margin: 0;
   font-size: 1.5rem; }
 
-.va-site-header .va-site-navbar h1 {
-  display: block;
-  font-size: 2rem;
-  margin-top: .9rem; }
-
+@media screen and (min-width: 850px) {
+  .va-site-header .va-site-navbar h1 {
+    display: block;
+    font-size: 2rem;
+    margin-top: .9rem; } }
 .va-site-header .va-site-navbar .usa-button-list {
   float: right;
   display: none;
   margin-top: -5px; }
 
-.va-site-header .va-site-navbar .usa-button-list {
-  display: block;
-  padding-right: 3rem; }
-
+@media screen and (min-width: 850px) {
+  .va-site-header .va-site-navbar .usa-button-list {
+    display: block;
+    padding-right: 3rem; } }
 .va-site-header .va-site-navbar .usa-button-list li {
   display: inline;
   font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif; }
@@ -121,13 +93,13 @@ html, body {
 .va-site-header .disclaimer .stage a {
   text-decoration: underline; }
 
-.va-site-header .disclaimer .us-official {
-  margin-left: 177px; }
+@media screen and (min-width: 850px) {
+  .va-site-header .disclaimer .us-official {
+    margin-left: 177px; }
 
-.va-site-header .disclaimer .stage {
-  float: right;
-  padding: 0; }
-
+  .va-site-header .disclaimer .stage {
+    float: right;
+    padding: 0; } }
 html {
   box-sizing: border-box; }
 
@@ -1054,8 +1026,8 @@ select {
   -webkit-appearance: none;
   appearance: none;
   background-color: #ffffff;
-  background-image: url("../arrow-down.png");
-  background-image: url("../arrow-down.svg");
+  background-image: url("../img/arrow-down.png");
+  background-image: url("../img/arrow-down.svg");
   background-position: right 1.3rem center;
   background-repeat: no-repeat;
   background-size: 1.3rem; }
@@ -1945,8 +1917,8 @@ li.usa-footer-primary-content {
     .usa-footer-big ul {
       padding-bottom: 0; } }
   .usa-footer-big ul .usa-footer-primary-link {
-    background-image: url("../arrow-down.png");
-    background-image: url("../arrow-down.svg");
+    background-image: url("../img/arrow-down.png");
+    background-image: url("../img/arrow-down.svg");
     background-position: 1.5rem center;
     background-repeat: no-repeat;
     background-size: 1.3rem;
@@ -1959,8 +1931,8 @@ li.usa-footer-primary-content {
   .usa-footer-big ul.hidden {
     padding-bottom: 0; }
     .usa-footer-big ul.hidden .usa-footer-primary-link {
-      background-image: url("../arrow-right.png");
-      background-image: url("../arrow-right.svg");
+      background-image: url("../img/arrow-right.png");
+      background-image: url("../img/arrow-right.svg");
       cursor: pointer;
       margin: 0; }
       @media screen and (min-width: 600px) {
@@ -2326,3 +2298,18 @@ fieldset {
     margin-bottom: 0; }
 
 /*# sourceMappingURL=all.css.map */
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
