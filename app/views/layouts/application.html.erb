@@ -8,8 +8,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
+  <header class="va-site-header" role="banner">
+    <nav class="va-site-navbar upper">
+      <div class="logo">
+        <h1 role="banner">
+          <a href="http://department-of-veterans-affairs.github.io/beta-site">Vets.gov
+          </a>
+        </h1>
+      </div>
+    </nav>
+    <nav class="va-site-navbar lower">
+      <div class="logo-secondary">
+        <h1>
+          GI Bill Benefits Comparison Tool
+        </h1>
+        <p class="usa-text-small"> 
+          Learn about education programs and compare estimated benefits by school
+        </p>
+      </div>
+    </nav>
+  </header>
 
-<%= yield %>
+  <div class="main-content">
+    <div class="usa-grid usa-grid-example usa-grid-example-blank">
+      <div class="usa-width-one-whole">
+        <p>Partial with rollover graphics will go here</p>
+      </div>
+    </div>
+    <div class="usa-grid usa-grid-example usa-grid-example-blank">
+      <%= yield %>
+    </div>
+  </div>
 
+
+
+  <footer class="usa-footer usa-footer-big usa-sans" role="contentinfo">
+    <div class="usa-grid usa-footer-return-to-top">
+      <a href="#">Return to top</a>
+    </div>
+    <div class="usa-footer-primary-section va">
+      <div class="usa-grid-full">
+        <nav class="usa-footer-nav usa-width-one-whole">
+          <h2>Vets.gov</h2>
+          <ul class="usa-unstyled-list usa-width-one-fourth usa-footer-primary-content">
+            <h4 class="usa-footer-primary-link">Benefits</h4>
+            <li><a href="#">Disability Benefits</a></li>
+            <li><a href="#">Education &amp; Training</a></li>
+          </ul>
+          <ul class="usa-unstyled-list usa-width-one-fourth usa-footer-primary-content">
+            <h4 class="usa-footer-primary-link">Resources</h4>
+            <li><a href="#">Veteran Employment Center</a></li>
+            <li><a href="#">Facility Locator</a></li>
+            <li><a href="#">GI Bill Comparison Tool</a></li>
+          </ul>
+          <ul class="usa-unstyled-list usa-width-one-fourth usa-footer-primary-content">
+            <h4 class="usa-footer-primary-link">Process</h4>
+            <li><a href="#">Playbook</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+          <ul class="usa-unstyled-list usa-width-one-fourth usa-footer-primary-content">
+            <h4 class="usa-footer-primary-link">Connect</h4>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">[ICON][ICON]</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="usa-footer-secondary_section va one usa-footer-big-secondary-section">
+      <div class="usa-grid">
+        <div class="usa-footer-logo usa-width-one-fourth">
+          <img class="usa-footer-logo-img" src="../assets/logo/logo.png" alt="Logo image">
+        </div>
+        <div class="usa-footer-logo usa-width-one-half">
+          <p class="usa-footer-logo-heading">U.S. Department of Veterans Affairs</p>
+        </div>
+
+        <div class="usa-footer-contact-links usa-width-one-fourth">
+          <p>VA.gov | Accessibility | Privacy | USA.gov</p>
+        </div>
+      </div>
+    </div>
+    <div class="usa-footer-secondary_section va two usa-footer-big-secondary-section">
+      <div class="usa-grid">
+        <div class="usa-footer-contact-links usa-width-one-whole">
+          <p>Help Us Create vets.gov: A Message from Secretary Robert McDonald We need your feedback to make Vets.gov better.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
+
