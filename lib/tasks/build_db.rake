@@ -131,6 +131,9 @@ class LoadCsvHelper
   ## Removes single and double quotes from strings.
   #############################################################################
   def self.to_str(value)
-    value.to_s.gsub(/["']/, '').truncate(255)
+    value = value.to_s.gsub(/["']/, '').truncate(255)
+    value = value.split.map(&:capitalize).join(' ') if value.present?
+
+    value
   end
 end
