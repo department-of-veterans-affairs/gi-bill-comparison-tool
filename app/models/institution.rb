@@ -72,7 +72,12 @@ class Institution < ActiveRecord::Base
     inst = Institution.with_type.where("institution ~* ?", "#{search_term}").to_sql
     city = Institution.with_type.where("city ~* ?", "#{search_term}").to_sql
 
-    schools = ActiveRecord::Base.connection.execute("#{fac} UNION #{inst} UNION #{city} ORDER BY institution")
+    if search_term.present?
+      schools = ActiveRecord::Base.connection.execute("#{fac} UNION #{inst} UNION #{city} ORDER BY institution")
+    else
+      schools = ActiveRecord::Base.connection.execute(Institution.with_type.to_sql)
+    end
+
     schools = schools.map do |school| 
       school.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
     end.uniq { |school| school[:facility_code] }

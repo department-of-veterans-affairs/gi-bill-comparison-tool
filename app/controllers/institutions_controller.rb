@@ -44,7 +44,7 @@ class InstitutionsController < ApplicationController
     @countries = []
     @states = []
 
-    if @inputs[:institution_search].present?
+ #   if @inputs[:institution_search].present?
       @schools = Institution.search(@inputs[:institution_search])
  
       @schools.each do |school|
@@ -56,7 +56,7 @@ class InstitutionsController < ApplicationController
         @states << school[:state] if school[:state].present?
         @countries << school[:country] if school[:country].present?
       end
-    end
+#    end
 
     @countries = @countries.uniq
     @states = @states.uniq

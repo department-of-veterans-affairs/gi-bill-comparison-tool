@@ -15,10 +15,39 @@ var showDependent = function(source, value, dependent, delay) {
 ///////////////////////////////////////////////////////////////////////////////
 var refreshFilters = function(summaries, filterClass) {
 	$(filterClass).each(function() {
-		if ($(this).prop("tagName") === "SELECT")
+		if ($(this).prop("tagName").toLowerCase() === "select")
 			refreshSelect("#" + $(this).attr("id"), summaries);
+		else if ($(this).prop('type').toLowerCase() === "checkbox")
+			refreshCheckbox("#" + $(this).attr("id"), summaries);
 	});
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// refreshCheckbox
+// refreshes the counts of a checkbox filter based on the values present in the 
+// visible school summaries.
+///////////////////////////////////////////////////////////////////////////////
+var refreshCheckbox = function(checkbox, summaries) {
+	var visible = $(summaries + ":visible");
+	var all = $(summaries);
+
+	// Holds the data key used to search the school summaries
+	var key = $(checkbox).attr('name').replace('_', '-');
+
+	// Holds the value that the school summaries should have to be counted
+	var value = $(checkbox).val() === "true";
+	var text = $(checkbox).data('text');
+
+	var count = 0
+	// Get the we're looking for this visible schools having the checkbox value
+	// usually true or false.
+	$(visible).each(function() {
+		if ($(this).data(key) == value) 
+			count++;
+	});
+
+	$(checkbox + "-label").text(text + " (" + count + ")");
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // refreshSelect
@@ -33,34 +62,33 @@ var refreshSelect = function(select, summaries) {
 	var options = {};
 
 	// Holds the data key used to search the school summaries
-	var key = $(select).attr('name');
+	var key = $(select).attr('name').replace('_', '-');
 
 	// Get the options and counts using each visible school
-	for (var i = 0; i < visible.length; i++) {
-		value = $(visible[i]).data(key);
+	// for (var i = 0; i < visible.length; i++) {
+	$(visible).each(function() {
+		value = $(this).data(key);
 
 		if (options.hasOwnProperty(value))
 			options[value]++;
 		else
 			options[value] = 1;
-	}
+	});
 
 	// Set the count for all
 	options['all'] = all.length;
 
-	// For the option label, we capitalize the first letter in each word
-	var first = /\b([a-z])/g;
-
 	// Go through each option in the select and add a new count and label
 	$(select + ' option').each(function() {
 		var value = $(this).val(); 
-		var text = value.replace(first, function(m) { return m.toUpperCase(); });
+		var text = $(this).data('text');
 
 		// If the value has no count, there are no schools visible with that value
-		if (!options.hasOwnProperty(value)) 
+		if (!options.hasOwnProperty(value))
 			options[value] = 0;
 
 		$(this).text(text + ' (' + options[value] + ')');
+		options[value] === 0 ? $(this).hide(0) : $(this).show(0);
 	});
 };
 
@@ -89,14 +117,24 @@ var test = function(summaries, key, value) {
 /////////////////////////////////////////////////////////////////////////////
 var runFilter = function(summaries, filterClass) {
 	// Make all schools visible and start filtering
-	$(summaries).show(0);
+	$(summaries).show();
 	
 	// Run for each filter, only checking schools that have passed
 	$(filterClass).each(function() {
-		var key = $(this).attr('name');
-		var value = $(this).val();
+		var key = $(this).attr('name').replace('_', '-');
 
-		// Only test visible schools (i.e., the ones that have passed so far)
-		test($(summaries + ":visible"), key, value);
+		// Run the test for selects and inputs that are not checkboxes. If the
+		// input is a checkbox, run only if checked.
+		var type = $(this).prop('type').toLowerCase();
+
+		if ( type !== "checkbox" || this.checked) {
+			var value = $(this).val();
+
+			if (value === "true" || value === "false")
+				value = value === "true";
+
+			// Only test visible schools (i.e., the ones that have passed so far)
+			test($(summaries + ":visible"), key, value);
+		}
 	});
 };

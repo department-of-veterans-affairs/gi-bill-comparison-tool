@@ -28,12 +28,12 @@
 <!-- Online classes -->
 <div id="online-classes-form" class="form-group">
   <% if use_label %>
-    <label for="online-classes">Taking all online classes? </label>
+    <label for="online-classes">Will you be taking classes online? </label>
   <% end %>
 
   <select id="online-classes" name="online_classes" alt="Online? Yes/No">
     <% { 
-      'yes' => 'All Classes Online', 'no' => 'No Classes Online'
+      'yes' => 'All', 'no' => 'None', 'no' => 'Both online and on-campus'
     }.each_pair do |value, label| %>
       <option value="<%= value %>" 
         <%= 'selected' if value == @inputs[:online_classes] %>
@@ -48,7 +48,7 @@ $(document).ready(function() {
   // Institution autocomplete
   /////////////////////////////////////////////////////////////////////////////
   $('#institution-search').autocomplete({
-    minLength : 5,
+    minLength : 3,
     source: "<%= autocomplete_path(:json) %>",
     select: function(event, ui) {
       event.preventDefault();
