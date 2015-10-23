@@ -1,10 +1,13 @@
 <h3>Refine My Search</h3>
 <div>
 	<h4>Institution</h4>
-		<input type="checkbox" id="employer" name="type" 
-			class="filter" value="ojt" data-text="Employer" />
-		<label id="employer-label" for="employer"></label><br/>
-</div>
+		<input type="checkbox" id="school" name="school" 
+			class="filter" value="true" data-text="School" />
+		<label id="school-label" for="school"></label><br/>
+
+		<input type="checkbox" id="employer" name="employer" 
+			class="filter" value="true" data-text="Employer" />
+		<label id="employer-label" for="employer"></label><br/></div>
 <div>
 	<h4>Location</h4>
 	<label for="state">State: </label>
@@ -84,6 +87,11 @@ $(document).ready(function() {
 	// Institution changes
 	/////////////////////////////////////////////////////////////////////////////
 	$("#employer").change(function() {
+		runFilter(".school_summary", ".filter");
+		refreshFilters(".school_summary", ".filter");
+	});
+
+	$("#school").change(function() {
 		runFilter(".school_summary", ".filter");
 		refreshFilters(".school_summary", ".filter");
 	});
