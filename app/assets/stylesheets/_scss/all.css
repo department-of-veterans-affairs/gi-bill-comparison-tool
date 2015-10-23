@@ -2210,10 +2210,18 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
 form {
   max-width: none; }
 
+.inline-field {
+  float: left;
+  width: auto; }
+
+.inline-button {
+  margin-top: 0;
+  padding-right: 0; }
+
 .school_summary {
   background-color: #f1f1f1;
-  height: 40rem;
-  width: 22rem;
+  height: 45rem;
+  width: 35rem;
   padding: 1em;
   margin: 0 0 1rem 1rem;
   float: left; }
