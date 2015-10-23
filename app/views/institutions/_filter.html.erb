@@ -64,10 +64,11 @@
 
 <script>
 $(document).ready(function() {
+	var searchTerm = "<%= @inputs[:institution_search] %>";
 	/////////////////////////////////////////////////////////////////////////////
 	// Populate initial counts for states and countries
 	/////////////////////////////////////////////////////////////////////////////
-	refreshFilters(".school_summary", ".filter");
+	refreshFilters(".school_summary", ".filter", searchTerm);
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Disable state filter when the country is not US or all on country change.
@@ -81,7 +82,7 @@ $(document).ready(function() {
 			$("#states").prop("disabled", false);
 
 		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter");
+		refreshFilters(".school_summary", ".filter", searchTerm);
 	});
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -89,12 +90,12 @@ $(document).ready(function() {
 	/////////////////////////////////////////////////////////////////////////////
 	$("#employer").change(function() {
 		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter");
+		refreshFilters(".school_summary", ".filter", searchTerm);
 	});
 
 	$("#school").change(function() {
 		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter");
+		refreshFilters(".school_summary", ".filter", searchTerm);
 	});
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -102,7 +103,7 @@ $(document).ready(function() {
 	/////////////////////////////////////////////////////////////////////////////
 	$("#states").change(function() {
 		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter");
+		refreshFilters(".school_summary", ".filter", searchTerm);
 	});
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -110,22 +111,22 @@ $(document).ready(function() {
 	/////////////////////////////////////////////////////////////////////////////
 	$("#student-veteran").change(function() {
 		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter");
+		refreshFilters(".school_summary", ".filter", searchTerm);
 	});
 
 	$("#yr").change(function() {
 		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter");
+		refreshFilters(".school_summary", ".filter", searchTerm);
 	});
 
 	$("#poe").change(function() {
 		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter");
+		refreshFilters(".school_summary", ".filter", searchTerm);
 	});
 	
 	$("#eight-keys").change(function() {
 		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter");
+		refreshFilters(".school_summary", ".filter", searchTerm);
 	});
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -135,7 +136,7 @@ $(document).ready(function() {
 		if ($(this).attr('name') === 'type') {
 			$(this).change(function() {
 				runFilter(".school_summary", ".filter");
-				refreshFilters(".school_summary", ".filter");				
+				refreshFilters(".school_summary", ".filter", searchTerm);				
 			});
 		}
 	});
