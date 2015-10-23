@@ -24,7 +24,6 @@
     <% end %>
   </select>
 </div>
-
 <!-- Spouse on active duty -->
 <div id="spouse-active-duty-form">
   <% if use_label %>
@@ -47,6 +46,7 @@
   <% if use_label %>
     <label for="gi-bill-chapter">Which GI Bill benefit are you thinking of using?</label>
   <% end %>
+  <a id="go" rel="leanModal" name="training" href="#training">info icon</a>
 
   <select id="gi-bill-chapter" name="gi_bill_chapter" alt="Select which GI Bill benefit you are thinking of using">
     <% { 
@@ -161,6 +161,20 @@
   </select>
 </div>
 
+
+<!-- Training Modal -->
+ <div id="training" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+  <div>
+    <h3>Which GI Bill benefit are you thinking of using?</h3>
+    <a class="modal_close" href="#">x</a>
+    <p>
+      You may be eligible for several types of VA education and training benefits depending on when and how long you served. There are several things to consider before you apply for a GI Bill program. One person may benefit more by using the Montgomery GI Bill while another may make an irrevocable election and use the Post-9/11 GI Bill instead. This tool allows you to compare the different programs and make an educated decision on which benefit best suits your needs.
+      For more detailed information on eligibility requirements and general program benefits, please check out
+      <a href="http://www.benefits.va.gov/gibill/comparison_tool.asp">this page</a>.
+    </p>
+  </div>
+</div>
+
 <!-- Dependents Educational Assistance Spectific Controls: None -->
 
 <script>
@@ -190,4 +204,7 @@ $(document).ready(function() {
     showDependent('#gi-bill-chapter', '31', '#number-of-dependents-form', 100);
   }).change();
 });
+
+// Makes the modals work!
+$("a[rel*=leanModal]").leanModal();
 </script>
