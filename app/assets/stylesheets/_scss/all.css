@@ -2309,18 +2309,20 @@ form {
 .usa-footer-primary-section.va h2, .usa-footer-primary-section.va h4, .usa-footer-primary-section.va p, .usa-footer-primary-section.va li, .usa-footer-primary-section.va a, .usa-footer-secondary_section.va.one h2, .usa-footer-secondary_section.va.one h4, .usa-footer-secondary_section.va.one p, .usa-footer-secondary_section.va.one li, .usa-footer-secondary_section.va.one a, .usa-footer-secondary_section.va.two h2, .usa-footer-secondary_section.va.two h4, .usa-footer-secondary_section.va.two p, .usa-footer-secondary_section.va.two li, .usa-footer-secondary_section.va.two a {
   color: #fff; }
 
+.usa-footer-secondary_section.va.one .footer-crisis a {
+  color: #222; }
+
 .footer-crisis {
   background: #FAC922;
-  margin: 1.625rem 0;
-  padding: .25rem 0;
-  color: #222;
+  margin: 0.5rem;
+  padding: 1rem;
   font-size: .85em; }
   .footer-crisis span {
-    font-weight: bold; }
+    font-weight: bold;
+    color: #222; }
   .footer-crisis a {
     display: inline;
-    text-decoration: none !important;
-    color: black; }
+    text-decoration: none !important; }
     .footer-crisis a:hover {
       border-bottom: 2px solid #FAC922; }
     @media (481px) {
