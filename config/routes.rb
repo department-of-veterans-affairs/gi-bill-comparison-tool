@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'institutions#home'
-  get 'autocomplete' => 'institutions#autocomplete', as: :autocomplete
-  post 'search' => 'institutions#search', as: :search
+  
+  get 'institutions/profile' => 'institutions#profile', as: :profile
+  get 'institutions/autocomplete' => 'institutions#autocomplete', as: :autocomplete
+  post 'institutions/search' => 'institutions#search', as: :search
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
