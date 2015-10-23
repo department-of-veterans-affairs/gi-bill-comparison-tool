@@ -7,6 +7,9 @@
   <%= render partial: 'filter' %>
 </div>
 
-<div class="usa-width-three-fourths">
-  <%= render partial: 'school_summary', collection: @schools %>
+<div>
+	<p id="totals"></p>
+	<div class="usa-width-three-fourths">
+  	<%= render partial: 'school_summary', collection: @schools %>
+	</div>
 </div>
