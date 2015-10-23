@@ -2216,6 +2216,9 @@ form {
 ul li:before {
   content: none; }
 
+.usa-search.usa-search-big.extra [type="submit"], .usa-search.usa-search-big .usa-search-submit {
+  width: 20rem; }
+
 .school_summary {
   background-color: #f1f1f1;
   height: 35rem;

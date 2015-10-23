@@ -32,11 +32,16 @@
   	</label>
   <% end %>
 
-  <input id="institution-search" name="institution_search" 
-  	placeholder="Search by School or Employer Name" 
-  	title="Enter school/employer name" 
-  />
-
+  <div class="usa-search usa-search-big extra">
+    <div role="search">
+      <input id="institution-search" name="institution_search" 
+      	placeholder="Search by School or Employer Name" 
+      	title="Enter school/employer name"
+        type="search" 
+      />
+      <%= submit_tag 'Search Schools', :class => "usa-search-submit-text" %>
+    </div>
+  </div>
 <!-- Commenting out for now -->
 <!--   <% if advanced %>    -->   	    
 <!--    <div>               -->          
@@ -45,7 +50,7 @@
 <!--   <% end %>           -->    
 
 </div>
-<%= submit_tag 'Search Schools' %>  
+
 
 <script>
 $(document).ready(function() {
