@@ -1,11 +1,12 @@
 <div class="usa-width-one-whole">
   <%= render partial: 'yourself', locals: { use_label: false } %>
-  <a style="display:block" href="<%= root_path %>">Select New Schools</a></div>
+  <a href="<%= root_path %>">Select New Schools</a></div>
 </div>
 
-<div class="usa-width-one-fourth">
-  <%= render partial: 'filter' %>
-</div>
+<div class="usa-grid">
+  <div class="usa-width-one-fourth">
+    <%= render partial: 'filter' %>
+  </div>
 
 <div>
 	<p id="totals"></p>
