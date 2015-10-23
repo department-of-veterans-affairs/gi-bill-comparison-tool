@@ -13,13 +13,18 @@ var showDependent = function(source, value, dependent, delay) {
 // refreshFilters
 // Refreshes all filters provided in argument.
 ///////////////////////////////////////////////////////////////////////////////
-var refreshFilters = function(summaries, filterClass) {
+var refreshFilters = function(summaries, filterClass, search) {
 	$(filterClass).each(function() {
 		if ($(this).prop("tagName").toLowerCase() === "select")
 			refreshSelect("#" + $(this).attr("id"), summaries);
 		else if ($(this).prop('type').toLowerCase() === "checkbox")
 			refreshCheckbox("#" + $(this).attr("id"), summaries);
 	});
+
+	// Update totals line
+	var visible = $(summaries + ":visible");
+	$('#totals').text("Showing " + visible.length 
+		+ ' Results matching the term "' + search + '"');
 };
 
 ///////////////////////////////////////////////////////////////////////////////
