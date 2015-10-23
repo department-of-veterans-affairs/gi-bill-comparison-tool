@@ -2210,13 +2210,8 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
 form {
   max-width: none; }
 
-.inline-field {
-  float: left;
-  width: auto; }
-
-.inline-button {
-  margin-top: 0;
-  padding-right: 0; }
+.usa-grid-full {
+  max-width: 1200px; }
 
 .school_summary {
   background-color: #f1f1f1;
