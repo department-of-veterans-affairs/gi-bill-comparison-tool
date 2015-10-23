@@ -1,6 +1,7 @@
 <div id="<%= school_summary[:facility_code] %>"  
 	class="school_summary"
 
+	data-id="<%= school_summary[:id] %>" 
 	data-facility-code="<%= school_summary[:facility_code] %>"
 	data-institution="<%= school_summary[:institution] %>"
 	data-city="<%= school_summary[:city] %>"
@@ -34,6 +35,26 @@
 	</div>
 
 	<div>
-		<a href="#">Learn More</a>
+		<a id="a-<%= school_summary[:id] %>" href="#">Learn More</a>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		$("#a-<%= school_summary[:id] %>").click(function() {
+			href = "<%= profile_path %>?id=<%= school_summary[:id] %>";
+			href += "&military-status=" + $("#military-status").val();
+			href += "&spouse_active_duty=" + $("#spouse-active-duty").val();
+			href += "&gi_bill_chapter=" + $("#gi-bill-chapter").val();
+			href += "&cumulative_service=" + $("#cumulative-service").val();
+			href += "&enlistment_service=" + $("#enlistment-service").val();
+			href += "&consecutive_service=" + $("#consecutive-service").val();
+			href += "&elig_for_post_gi_bill=" + $("#elig-for-post-gi-bill").val();
+			href += "&number_of_dependents=" + $("#number-of-dependents").val();
+			href += "&online_classes=" + $("#online-classes").val();
+			href += "&institution_search" + $("#institution_search").val();
+
+			$(this).attr("href", href);
+		});
+	});
+</script>

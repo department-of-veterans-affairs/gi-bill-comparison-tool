@@ -128,7 +128,7 @@ var test = function(summaries, key, value) {
 var runFilter = function(summaries, filterClass) {
 	// Make all schools visible and start filtering
 	$(summaries).show();
-	
+
 	// Run for each filter, only checking schools that have passed
 	$(filterClass).each(function() {
 		var key = $(this).attr('name').replace('_', '-');
@@ -144,7 +144,15 @@ var runFilter = function(summaries, filterClass) {
 				value = value === "true";
 
 			// Only test visible schools (i.e., the ones that have passed so far)
-			test($(summaries + ":visible"), key, value);
+			test($(summaries).filter(":visible"), key, value);
 		}
 	});
 };
+
+/////////////////////////////////////////////////////////////////////////////
+// formProfileUrl
+/////////////////////////////////////////////////////////////////////////////
+var formProfileUrl = function(id) {
+	url = "<%= profile_path %>?id=" + id;
+	url += "&military_status=" + $("military-status").val();
+}
