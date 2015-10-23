@@ -4,6 +4,15 @@
 </div>
 
 <div>
-	<p>TBD Total Students</p>
-	<a href="#">TBD Link to School</a>
+	<!-- Holds student attendance and link -->
 <div>
+
+<div>
+	<h4>VA Summary</h4>
+	<p><%= @school.gibill %> GI Bill Students</p>
+		<ul>
+		<li><%= @school.poe ? "\u2714" : "\u2716" %> Principles of Excellence</li>
+		<li><%= @school.student_veteran ? "\u2714" : "\u2716" %> Student Veteran Group</li>
+		<li><%= @school.eight_keys ? "\u2714" : "\u2716" %> 8 Keys to Veteran Success</li>
+		<li><%= @school.yr ? "\u2714" : "\u2716" %> Yellow Ribbon Scholarships</li>
+	</ul>
