@@ -1,6 +1,7 @@
 class Institution < ActiveRecord::Base
   TRUTHY = %w(yes true t 1)
-
+  EMPLOYER = 'ojt'
+  
   belongs_to :institution_type, inverse_of: :institutions
 
   validates_presence_of :facility_code, :institution, :country, :institution_type_id
