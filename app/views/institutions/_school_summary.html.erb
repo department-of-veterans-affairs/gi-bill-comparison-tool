@@ -43,7 +43,7 @@
 	$(document).ready(function() {
 		$("#a-<%= school_summary[:id] %>").click(function() {
 			href = "<%= profile_path %>?facility_code=<%= school_summary[:facility_code] %>";
-			href += "&military-status=" + $("#military-status").val();
+			href += "&military_status=" + $("#military-status").val();
 			href += "&spouse_active_duty=" + $("#spouse-active-duty").val();
 			href += "&gi_bill_chapter=" + $("#gi-bill-chapter").val();
 			href += "&cumulative_service=" + $("#cumulative-service").val();
