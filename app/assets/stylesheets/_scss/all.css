@@ -2213,10 +2213,13 @@ form {
 .usa-grid-full {
   max-width: 1200px; }
 
+ul li:before {
+  content: none; }
+
 .school_summary {
   background-color: #f1f1f1;
-  height: 45rem;
-  width: 35rem;
+  height: 35rem;
+  width: 28rem;
   padding: 1em;
   margin: 0 0 1rem 1rem;
   float: left; }
@@ -2224,7 +2227,6 @@ form {
     list-style-type: none;
     margin-top: 0; }
     .school_summary ul li {
-      display: inline;
       list-style-type: none; }
 
 .va-site-header {
