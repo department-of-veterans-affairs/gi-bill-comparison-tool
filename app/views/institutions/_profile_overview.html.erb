@@ -10,9 +10,26 @@
 <div>
 	<h4>VA Summary</h4>
 	<p><%= @school.gibill %> GI Bill Students</p>
-		<ul>
-		<li><%= @school.poe ? "\u2714" : "\u2716" %> Principles of Excellence</li>
+	<ul>
 		<li><%= @school.student_veteran ? "\u2714" : "\u2716" %> Student Veteran Group</li>
-		<li><%= @school.eight_keys ? "\u2714" : "\u2716" %> 8 Keys to Veteran Success</li>
 		<li><%= @school.yr ? "\u2714" : "\u2716" %> Yellow Ribbon Scholarships</li>
+		<li><%= @school.poe ? "\u2714" : "\u2716" %> Principles of Excellence</li>
+		<li><%= @school.dodmou ? "\u2714" : "\u2716" %> Military Tuition Assistance (TA)</li>
+		<li><%= @school.eight_keys ? "\u2714" : "\u2716" %> 8 Keys to Veteran Success</li>
 	</ul>
+</div>
+
+<div>
+	<h3>Benefits Estimator</h3>
+	<div>
+		<div>
+			<h5>Tuition and Fees</h5>
+		</div>		
+		<div>
+			<h5>Housing Allowance</h5>
+		</div>		
+		<div>
+			<h5>Book Stipend</h5>
+		</div>
+	</div>
+</div>
