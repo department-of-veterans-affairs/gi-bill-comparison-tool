@@ -42,7 +42,7 @@
 <script>
 	$(document).ready(function() {
 		$("#a-<%= school_summary[:id] %>").click(function() {
-			href = "<%= profile_path %>?id=<%= school_summary[:id] %>";
+			href = "<%= profile_path %>?facility_code=<%= school_summary[:facility_code] %>";
 			href += "&military-status=" + $("#military-status").val();
 			href += "&spouse_active_duty=" + $("#spouse-active-duty").val();
 			href += "&gi_bill_chapter=" + $("#gi-bill-chapter").val();

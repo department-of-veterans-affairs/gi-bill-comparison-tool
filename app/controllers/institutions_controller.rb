@@ -30,7 +30,7 @@ class InstitutionsController < ApplicationController
       institution_search: params[:institution_search]
     }
 
-    @school = Institution.find_by(id: 1)
+    @school = Institution.find_by(facility_code: params[:facility_code])
     @type = @school.institution
 
     respond_to do |format|
