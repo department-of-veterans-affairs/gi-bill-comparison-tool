@@ -1,5 +1,4 @@
 <div id="<%= school_summary[:facility_code] %>"  
-	style="background-color: #ddd; height: 15em; width: 25em; padding: 1em; margin: 1em; float: left"
 	class="school_summary"
 
 	data-facility-code="<%= school_summary[:facility_code] %>"
@@ -15,17 +14,18 @@
 	data-eight-keys="<%= school_summary[:eight_keys] %>"
 	data-yr="<%= school_summary[:yr] %>"
 >
-	<h3><%= school_summary[:institution] %></h3>
+	<h4><%= school_summary[:institution] %></h4>
 
 	<% if school_summary[:country].downcase == 'usa' %>
-		<h4>
-			<%= "#{school_summary[:city]}, #{school_summary[:state]} #{school_summary[:zip]}" %></h4>
+		<small>
+			<%= "#{school_summary[:city]}, #{school_summary[:state]} #{school_summary[:zip]}" %>
+		</small>
 	<% else %>
-		<h4><%= "#{school_summary[:city]}, #{school_summary[:country]}" %>
+		<p><%= "#{school_summary[:city]}, #{school_summary[:country]}" %></p>
 	<% end %>
 
 	<div>
-		<ul style="list-style-type: none">
+		<ul>
 			<li><%= school_summary[:poe] ? "\u2714" : "\u2716" %> Principles of Excellence</li>
 			<li><%= school_summary[:student_veteran] ? "\u2714" : "\u2716" %> Student Veteran Group</li>
 			<li><%= school_summary[:eight_keys] ? "\u2714" : "\u2716" %> 8 Keys to Veteran Success</li>
@@ -34,6 +34,6 @@
 	</div>
 
 	<div>
-		<a href="#" style="display:inline-block; background-color: #aaa; width: 100%; text-align: center">Learn More</a>
+		<a href="#">Learn More</a>
 	</div>
 </div>
