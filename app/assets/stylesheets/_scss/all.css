@@ -2204,8 +2204,25 @@ html, body {
   color: #222;
   transition: all 0.3s ease-in-out; }
 
+h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
+  font-family: "Roboto Slab", serif; }
+
 form {
   max-width: none; }
+
+.school_summary {
+  background-color: #f1f1f1;
+  height: 40rem;
+  width: 22rem;
+  padding: 1em;
+  margin: 0 0 1rem 1rem;
+  float: left; }
+  .school_summary ul {
+    list-style-type: none;
+    margin-top: 0; }
+    .school_summary ul li {
+      display: inline;
+      list-style-type: none; }
 
 .va-site-header {
   background-color: #0083BE;
@@ -2213,7 +2230,7 @@ form {
   top: 0;
   width: 100%;
   z-index: 1;
-  margin-bottom: 40px; }
+  margin-bottom: 5rem; }
   .va-site-header .va-site-navbar.upper {
     height: 6rem; }
 
@@ -2236,7 +2253,7 @@ form {
   color: #fff;
   height: 15rem; }
   .va-site-header .va-site-navbar.lower h1 {
-    padding-top: 5rem; }
+    padding-top: 3rem; }
 
 .va-site-header a {
   border-bottom: none; }
@@ -2255,31 +2272,8 @@ form {
 
 .va-site-header .va-site-navbar h1 {
   margin: 0;
-  font-size: 1.5rem;
   display: block;
-  font-size: 2rem;
   margin-top: .9rem; }
-
-.va-site-header .disclaimer {
-  padding: .5rem 2rem;
-  color: white;
-  text-align: center;
-  font-size: 1.36rem;
-  border-bottom: 1px solid #616161;
-  font-weight: 100; }
-
-.va-site-header .disclaimer .us-official {
-  margin: 0;
-  margin-left: 177px; }
-
-.va-site-header .disclaimer .stage {
-  float: none;
-  display: block;
-  padding-top: 5px;
-  float: right;
-  padding: 0; }
-  .va-site-header .disclaimer .stage a {
-    text-decoration: underline; }
 
 .usa-footer-big .usa-footer-primary-section.va {
   padding-bottom: 4rem; }

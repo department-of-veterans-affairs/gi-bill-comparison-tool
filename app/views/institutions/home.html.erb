@@ -1,4 +1,9 @@
 <div class="usa-width-three-fourths">
+  <!--  PLACEHOLDER FOR DEMO -->  
+  <img src="../assets/demo-temp/education-nav.png">
+  <p>&nbsp;</p>
+</div>
+<div class="usa-width-three-fourths">
   <!-- ================================================== -->
   <!--                School Selection Form               -->
   <!-- ================================================== -->
@@ -9,10 +14,17 @@
       </div>
       <div class="usa-card-content">
           <!-- About Yourself Section -->
-          <%= render partial: 'yourself', locals: { use_label: true } %>
-        <p>
-          Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit. 
-        </p>
+          <div class="usa-width-one-half">
+            <%= render partial: 'yourself', locals: { use_label: true } %>
+          </div>
+          <div class="usa-width-one-half">
+            <label>
+              Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit. 
+              <!--  PLACEHOLDER FOR DEMO -->  
+              <br><br>
+              <img src="../assets/demo-temp/home-yourself.png">
+            </label>
+          </div>
       </div>
     </div>
     <div class="usa-card">
@@ -38,17 +50,16 @@
       Did You Know?
     </div>
     <div class="usa-card-content">
+      <h4>
+        Did you know that you may qualify for more than one GI Bill Program?
+      </h4>
       <p>
-        Did you know that
-        you may qualify for
-        more than one GI
-        Bill Program?
-        Vets.gov will soon be launching a
-        new tool to help you determine
-        which GI Bill Benefit will best help
-        you achieve your academic goals!
-        Learn More About GI Bill Benefits
+        Vets.gov will soon be launching a new tool to help you determine
+        which GI Bill Benefit will best help you achieve your academic goals!
       </p>
+      <small><a href="#">
+        Learn More About GI Bill Benefits
+      </a></small>
     </div>
   </div>
 </div>
