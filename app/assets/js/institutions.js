@@ -34,14 +34,16 @@ var refreshCheckbox = function(checkbox, summaries) {
 	// Holds the data key used to search the school summaries
 	var key = $(checkbox).attr('name').replace('_', '-');
 
+	// Holds string that is used as root of label.
+	var text = $(checkbox).data('text');
+
 	// Holds the value that the school summaries should have to be counted
 	var value = $(checkbox).val();
 	if (value === "true" || value === "false")
 		value = value === "true";
 	
-	var text = $(checkbox).data('text');
-
-	var count = 0
+	var count = 0;
+	
 	// Get the we're looking for this visible schools having the checkbox value
 	// usually true or false.
 	$(visible).each(function() {
