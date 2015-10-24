@@ -9,7 +9,7 @@
 <!-- Military status -->
 <div class="form-group top-aligned">
   <% if use_label %>
-    <label for="military-status">Military Status: </label>
+    <label for="military-status">Military Status: <i class="fa fa-info-circle"></i></label>
   <%end %>
 
   <select id="military-status" name="military_status" alt="Select military status">
@@ -24,11 +24,10 @@
     <% end %>
   </select>
 </div>
-
 <!-- Spouse on active duty -->
 <div id="spouse-active-duty-form">
   <% if use_label %>
-    <label for="spouse-active-duty">Is your spouse on active duty? </label>
+    <label for="spouse-active-duty">Is your spouse on active duty? <i class="fa fa-info-circle"></i> </label>
   <% end %>
   
   <select id="spouse-active-duty" name="spouse_active_duty" alt="Spouse Active Duty? Yes/No">
@@ -45,9 +44,9 @@
 <!-- GI bill chapter -->
 <div id="gi-bill-chapter-form" class="form-group top-aligned">
   <% if use_label %>
-    <label for="gi-bill-chapter">Which GI Bill benefit are you thinking of using?</label>
+    <label for="gi-bill-chapter">Which GI Bill benefit are you thinking of using?   <a id="go" rel="leanModal" name="training" href="#training"><i class="fa fa-info-circle"></i> </a>
+</label>
   <% end %>
-
   <select id="gi-bill-chapter" name="gi_bill_chapter" alt="Select which GI Bill benefit you are thinking of using">
     <% { 
       '33' => 'Post-9/11 GI Bill (Ch 33)', '30' => 'Montgomery GI Bill (Ch 30)', 
@@ -65,7 +64,7 @@
 <!-- Post-9/11 GI Bill Spectific Controls -->
 <div id="cumulative-service-form" class="form-group top-aligned">
   <% if use_label %>
-    <label for="cumulative-service">Cumulative Post 9-11 Active Duty Service: </label>
+    <label for="cumulative-service">Cumulative Post 9-11 Active Duty Service: <i class="fa fa-info-circle"></i> </label>
   <% end %>
 
   <select id="cumulative-service" name="cumulative_service" alt="Select amount of cumulative Post 9-11 Active Duty Service">
@@ -86,7 +85,7 @@
 <!-- Montgomery Gi Bill Spectific Controls -->
 <div id="enlistment-service-form" class="form-group top-aligned">
   <% if use_label %>
-    <label for="enlistment-service">Completed an enlistment of: </label>
+    <label for="enlistment-service">Completed an enlistment of: <i class="fa fa-info-circle"></i> </label>
   <% end %>
 
   <select id="enlistment-service" name="enlistment_service" alt="Select length of your enlistment">
@@ -105,7 +104,7 @@
 <!-- REAP GI Bill Spectific Controls -->
 <div id="consecutive-service-form" class="form-group top-aligned">
   <% if use_label %>
-    <label for="consecutive-service">Length of Longest Active Duty Tour: </label>
+    <label for="consecutive-service">Length of Longest Active Duty Tour: <i class="fa fa-info-circle"></i> </label>
   <% end %>
 
   <select id="consecutive-service" name="consecutive_service" alt="Select the length of your longest actice duty tour">
@@ -161,6 +160,20 @@
   </select>
 </div>
 
+
+<!-- Training Modal -->
+ <div id="training" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+  <div>
+    <h3>Which GI Bill benefit are you thinking of using?</h3>
+    <a class="modal_close" href="#">x</a>
+    <p>
+      You may be eligible for several types of VA education and training benefits depending on when and how long you served. There are several things to consider before you apply for a GI Bill program. One person may benefit more by using the Montgomery GI Bill while another may make an irrevocable election and use the Post-9/11 GI Bill instead. This tool allows you to compare the different programs and make an educated decision on which benefit best suits your needs.
+      For more detailed information on eligibility requirements and general program benefits, please check out
+      <a href="http://www.benefits.va.gov/gibill/comparison_tool.asp">this page</a>.
+    </p>
+  </div>
+</div>
+
 <!-- Dependents Educational Assistance Spectific Controls: None -->
 
 <script>
@@ -190,4 +203,7 @@ $(document).ready(function() {
     showDependent('#gi-bill-chapter', '31', '#number-of-dependents-form', 100);
   }).change();
 });
+
+// Makes the modals work!
+$("a[rel*=leanModal]").leanModal();
 </script>
