@@ -4257,9 +4257,6 @@ ul li:before {
     display: inline-block !important;
     float: left;
     margin-right: 1rem; }
-  .filter-horizontal .pull-right {
-    float: left;
-    width: auto; }
   .filter-horizontal .form-group .filter-item {
     width: 15rem;
     margin-right: -1rem;
@@ -4276,6 +4273,13 @@ ul li:before {
     padding: 3px;
     position: relative;
     pointer-events: none; }
+
+.left-rail {
+  margin-top: 43px;
+  margin-bottom: 3rem; }
+  .left-rail label, .left-rail input, .left-rail input[type="text"], .left-rail input[type="email"], .left-rail input[type="password"], .left-rail input[type="url"], .left-rail input[type="tel"], .left-rail input[type="number"], .left-rail input[type="search"], .left-rail input[type="file"], .left-rail input[type="date"], .left-rail input[type="datetime-local"], .left-rail input[type="month"], .left-rail input[type="time"], .left-rail input[type="week"], .left-rail textarea, .left-rail select {
+    margin-top: 1rem;
+    font-size: 1.25rem; }
 
 .va-site-header {
   background-color: #0083BE;
