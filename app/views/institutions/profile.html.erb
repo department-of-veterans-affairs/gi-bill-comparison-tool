@@ -1,7 +1,12 @@
-<div class="usa-width-one-whole">
+<div class="usa-width-one-whole filter-horizontal">
   <%= render partial: 'yourself', locals: { use_label: false } %>
-  <a href="<%= root_path %>">Select New Schools</a></div>
+    <p class="pull-right">
+      <a href="<%= root_path %>">Select New Schools</a>
+    </p>
 </div>
+<!-- This closing div is extra .... but necessary? -->
+ </div>
+
 
 <div class="usa-width-one-whole">
 	<%= render partial: 'profile_overview' %>
