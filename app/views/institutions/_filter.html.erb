@@ -1,66 +1,66 @@
-<h3>Refine My Search</h3>
-<div>
-	<h4>Institution</h4>
+<div class="usa-card usa-card-fill left-rail">
+	<div class="usa-card-header">
+		Refine My Search
+	</div>
+	<div class="usa-card-content">
+		<h4>Institution</h4>
 		<input type="checkbox" id="school" name="school" 
 			class="filter" value="true" data-text="School" />
-		<label id="school-label" for="school"></label><br/>
+		<label id="school-label" for="school"></label>
 
 		<input type="checkbox" id="employer" name="employer" 
 			class="filter" value="true" data-text="Employer" />
-		<label id="employer-label" for="employer"></label><br/></div>
-<div>
-	<h4>Location</h4>
-	<label for="state">State: </label>
-	<select id="states" name="state" class="filter">
-		<option value="all" data-text="All" selected>&nbsp;</option>
-		<% @states.each do |state| %>
-			<option value="<%= state %>" data-text="<%= state.upcase %>">
-				&nbsp;
-			</option>
+		<label id="employer-label" for="employer"></label>
+
+		<h4>Location</h4>
+		<label for="state">State: </label>
+		<select id="states" name="state" class="filter">
+			<option value="all" data-text="All" selected>&nbsp;</option>
+			<% @states.each do |state| %>
+				<option value="<%= state %>" data-text="<%= state.upcase %>">
+					&nbsp;
+				</option>
+			<% end %>
+		</select>
+		<label for="country">Country: </label>
+		<select id="countries" name="country" class="filter">
+			<option value="all" data-text="All" selected>&nbsp;</option>
+			<% @countries.each do |country| %>
+				<option value="<%= country %>" data-text="<%= to_caps(country) %>">
+					&nbsp;
+				</option>
+			<% end %>
+		</select>
+
+		<h4>Location</h4>
+		<input type="checkbox" id="student-veteran" name="student_veteran" 
+			class="filter" value="true" data-text="Student Veteran Group" />
+		<label id="student-veteran-label" for="student-veteran"></label>
+
+		<input type="checkbox" id="yr" name="yr" 
+			class="filter" value="true" data-text="Yellow Ribbon Scholarship" />
+		<label id="yr-label" for="yr"></label>
+
+		<input type="checkbox" id="poe" name="poe" 
+			class="filter" value="true" data-text="Principles of Excellence" />
+		<label id="poe-label" for="poe"></label>
+
+		<input type="checkbox" id="eight-keys" name="eight_keys" 
+			class="filter" value="true" data-text="8 Keys to Veteran Success" />
+		<label id="eight-keys-label" for="eight-keys"></label>
+
+		<h4>Types of Schools</h4>
+
+		<% @types.each do |type| %>
+			<% id, name = type.gsub(' ', '-'), type.gsub(' ', '_') %>
+			<input type="checkbox" id="<%= id %>" name="type" 
+				class="filter" value="<%= type %>" data-text="<%= to_caps(type) %>" />
+			<label id="<%= id %>-label" for="<%= id %>"></label>
 		<% end %>
-	</select>
-	<br/>
 
-	<label for="country">Country: </label>
-	<select id="countries" name="country" class="filter">
-		<option value="all" data-text="All" selected>&nbsp;</option>
-		<% @countries.each do |country| %>
-			<option value="<%= country %>" data-text="<%= to_caps(country) %>">
-				&nbsp;
-			</option>
-		<% end %>
-	</select>
+	</div>
 </div>
 
-<div>
-	<h4>Location</h4>
-	<input type="checkbox" id="student-veteran" name="student_veteran" 
-		class="filter" value="true" data-text="Student Veteran Group" />
-	<label id="student-veteran-label" for="student-veteran"></label><br/>
-
-	<input type="checkbox" id="yr" name="yr" 
-		class="filter" value="true" data-text="Yellow Ribbon Scholarship" />
-	<label id="yr-label" for="yr"></label><br/>
-
-	<input type="checkbox" id="poe" name="poe" 
-		class="filter" value="true" data-text="Principles of Excellence" />
-	<label id="poe-label" for="poe"></label><br/>
-
-	<input type="checkbox" id="eight-keys" name="eight_keys" 
-		class="filter" value="true" data-text="8 Keys to Veteran Success" />
-	<label id="eight-keys-label" for="eight-keys"></label><br/>
-</div>
-
-<div>
-	<h4>Types of Schools</h4>
-	<% @types.each do |type| %>
-		<% id, name = type.gsub(' ', '-'), type.gsub(' ', '_') %>
-
-		<input type="checkbox" id="<%= id %>" name="type" 
-			class="filter" value="<%= type %>" data-text="<%= to_caps(type) %>" />
-		<label id="<%= id %>-label" for="<%= id %>"></label><br/>
-	<% end %>
-</div>
 
 <script>
 $(document).ready(function() {
