@@ -8,23 +8,6 @@
 <!-- == form_id: the id selector for the form receiving the select event.   --> 
 <!-- ====================================================================== -->
 
-<div id="institution-search-form" class="form-group">
-	<% if use_label %>
-  	<label class="institution-search-label" for="institution-search">
-  		Enter a school or employer name to search: 
-  	</label>
-  <% end %>
-
-  <input id="institution-search" name="institution_search" 
-  	placeholder="Search by School or Employer Name" 
-  	title="Enter school/employer name" 
-  />
-
-  <% if advanced %>
- 	  <div><a href="#advancedsearch">Advanced search</a></div>
-  <% end %>
-</div>
-
 <!-- Online classes -->
 <div id="online-classes-form" class="form-group">
   <% if use_label %>
@@ -39,9 +22,36 @@
         <%= 'selected' if value == @inputs[:online_classes] %>
       ><%= label %></option>
     <% end %>
-    <%= submit_tag 'Search Schools' %>  
   </select>
 </div>
+
+<div id="institution-search-form" class="form-group">
+	<% if use_label %>
+  	<label class="institution-search-label" for="institution-search">
+  		Enter a school or employer name to search:
+
+  	</label>
+  <% end %>
+
+  <div class="usa-search usa-search-big extra">
+    <div role="search">
+      <input id="institution-search" name="institution_search" 
+      	placeholder="Search by School or Employer Name" 
+      	title="Enter school/employer name"
+        type="search" 
+      />
+      <%= submit_tag 'Search Schools', :class => "usa-search-submit-text" %>
+    </div>
+  </div>
+<!-- Commenting out for now -->
+<!--   <% if advanced %>    -->   	    
+<!--    <div>               -->          
+<!--      <a href="#advancedsearch">Advanced search</a> -->        
+<!--    </div>              -->      
+<!--   <% end %>           -->    
+
+</div>
+
 
 <script>
 $(document).ready(function() {
