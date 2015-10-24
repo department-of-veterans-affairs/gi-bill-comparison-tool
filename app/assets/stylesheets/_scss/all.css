@@ -4230,6 +4230,9 @@ form {
 ul li:before {
   content: none; }
 
+.pull-right {
+  float: right; }
+
 .usa-search.usa-search-big.extra [type="submit"], .usa-search.usa-search-big .usa-search-submit {
   width: 20rem; }
 
@@ -4246,28 +4249,33 @@ ul li:before {
     .school_summary ul li {
       list-style-type: none; }
 
-#lean_overlay {
-  position: fixed;
-  z-index: 100;
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 100%;
-  background: #000;
-  display: none; }
-
-#training {
-  width: 500px;
-  padding: 3rem;
-  display: none;
-  background: #FFF; }
-
-.modal_close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: block;
-  z-index: 2; }
+.filter-horizontal {
+  border-bottom: solid #f1f1f1 thin;
+  padding-bottom: 2rem;
+  margin-bottom: 3rem; }
+  .filter-horizontal .filter-p[style] {
+    display: inline-block !important;
+    float: left;
+    margin-right: 1rem; }
+  .filter-horizontal .pull-right {
+    float: left;
+    width: auto; }
+  .filter-horizontal .form-group .filter-item {
+    width: 15rem;
+    margin-right: -1rem;
+    float: left;
+    background-image: none; }
+  .filter-horizontal .form-group:after {
+    font-family: FontAwesome;
+    content: "\f013";
+    display: inline;
+    float: left;
+    left: -12px;
+    margin-top: 12px;
+    background: #fff;
+    padding: 3px;
+    position: relative;
+    pointer-events: none; }
 
 .va-site-header {
   background-color: #0083BE;
@@ -4434,5 +4442,28 @@ ul li:before {
     margin-top: 0; }
   .usa-card-content > *:last-child {
     margin-bottom: 0; }
+
+#lean_overlay {
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  display: none; }
+
+#training {
+  width: 500px;
+  padding: 3rem;
+  display: none;
+  background: #FFF; }
+
+.modal_close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: block;
+  z-index: 2; }
 
 /*# sourceMappingURL=all.css.map */
