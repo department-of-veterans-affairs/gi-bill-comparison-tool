@@ -47,7 +47,7 @@
 <div id="gi-bill-chapter-form" class="form-group top-aligned">
   <% if use_label %>
     <label for="gi-bill-chapter">Which GI Bill benefit are you thinking of using?   <a id="go" rel="leanModal" name="training" href="#training"><i class="fa fa-info-circle"></i> </a>
-</label>
+    </label>
   <% end %>
   <select id="gi-bill-chapter" name="gi_bill_chapter" alt="Select which GI Bill benefit you are thinking of using" class="filter-item">
     <% { 
@@ -162,9 +162,8 @@
   </select>
 </div>
 
-
 <!-- Training Modal -->
- <div id="training" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+<div id="training" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
   <div>
     <h3>Which GI Bill benefit are you thinking of using?</h3>
     <a class="modal_close" href="#">x</a>
@@ -177,6 +176,23 @@
 </div>
 
 <!-- Dependents Educational Assistance Spectific Controls: None -->
+
+<!-- Online classes -->
+<div id="online-classes-form" class="form-group">
+  <% if use_label %>
+    <label for="online-classes">Will you be taking classes online? </label>
+  <% end %>
+
+  <select id="online-classes" name="online_classes" alt="Online? Yes/No" class="filter-item">
+    <% { 
+      'yes' => 'All', 'no' => 'None', 'both' => 'Both online and on-campus'
+    }.each_pair do |value, label| %>
+      <option value="<%= value %>" 
+        <%= 'selected' if value == @inputs[:online_classes] %>
+      ><%= label %></option>
+    <% end %>
+  </select>
+</div>
 
 <script>
 $(document).ready(function() {

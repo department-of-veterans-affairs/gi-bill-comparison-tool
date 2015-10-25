@@ -172,7 +172,7 @@ var runEstimator = function() {
 	estimator.setCumulativeService("#cumulative-service");
 	estimator.setEnlistmentService("#enlistment-service");
 	estimator.setConsecutiveService("#consecutive-service");
-	estimator.setTier();
+	estimator.setOnline("#online-classes");
 
 	// Set school summaries, if any
 	$(".school_summary").each(function() {
@@ -181,8 +181,10 @@ var runEstimator = function() {
 
 		estimator.setInstitutionType(id);
 		estimator.setCountry(id);
+		estimator.setBah(id);
 
-		$(id + "-est-tuition-fees").html(estimator.getTuitionFees() + "<br/>Tuition and Fees");
+		$(id + "-est-tuition-fees").html(estimator.getTuitionFees() + "<br/>Tuition &amp; Fees");
+		$(id + "-est-housing-allowance").html(estimator.getHousingAllowance() + "<br/>Housing");
 	});
 }
 
