@@ -249,7 +249,7 @@ Estimator.prototype.getTuitionFees = function () {
   if (this.old_gi_bill == true)
     est_tuition_fees = '$0 / year ';
   else if (this.institution_type == 'ojt') 
-  	est_tuition_fees = '';
+  	est_tuition_fees = 'N/A';
 	else if (this.gi_bill_chap == 31)
 		est_tuition_fees = this.isFlightOrCorrespondence() ? '$0 year' : 'Full Cost of Attendance';
   else if (this.isFlight())

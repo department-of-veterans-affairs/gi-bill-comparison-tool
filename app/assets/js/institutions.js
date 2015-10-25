@@ -182,7 +182,7 @@ var runEstimator = function() {
 		estimator.setInstitutionType(id);
 		estimator.setCountry(id);
 
-		$(id + "-est-tuition-fees").html(estimator.getTuitionFees());
+		$(id + "-est-tuition-fees").html(estimator.getTuitionFees() + "<br/>Tuition and Fees");
 	});
 }
 
