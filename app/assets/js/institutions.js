@@ -197,9 +197,9 @@ var runEstimator = function() {
 		estimator.setCountry(id);
 		estimator.setBah(id);
 
-		$(id + "-est-tuition-fees").html(estimator.getTuitionFees() + "<br/>Tuition &amp; Fees");
-		$(id + "-est-housing-allowance").html(estimator.getHousingAllowance() + "<br/>Housing");
-		$(id + "-est-book-stipend").html(estimator.getBookStipend() + "<br/>Books");
+		$("#est-tuition-fees").html(estimator.getTuitionFees() + "<br/>Tuition &amp; Fees");
+		$("#est-housing-allowance").html(estimator.getHousingAllowance() + "<br/>Housing");
+		$("#est-book-stipend").html(estimator.getBookStipend() + "<br/>Books");
 	});
 }
 
