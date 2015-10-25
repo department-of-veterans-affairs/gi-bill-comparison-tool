@@ -31,8 +31,7 @@ class InstitutionsController < ApplicationController
     }
 
     @school = Institution.find_by(facility_code: params[:facility_code])
-    @type = @school.institution
-
+ 
     respond_to do |format|
       format.json { render json: @school }
       format.html

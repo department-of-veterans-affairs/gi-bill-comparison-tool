@@ -158,5 +158,31 @@ var formProfileUrl = function(id) {
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// Benefits Estimator
+// runEstimator
 /////////////////////////////////////////////////////////////////////////////
+var runEstimator = function() {
+	var estimator = new Estimator();
+
+	// Get current values of the about yourself header
+	estimator.setMilitaryStatus("#military-status");
+	estimator.setSpouseActiveDuty("#spouse-active-duty");
+	estimator.setGiBillChap("#gi-bill-chapter");
+	estimator.setNumberOfDepend("#number-of-dependents");
+	estimator.setPost911Elig("#elig-for-post-gi-bill");
+	estimator.setCumulativeService("#cumulative-service");
+	estimator.setEnlistmentService("#enlistment-service");
+	estimator.setConsecutiveService("#consecutive-service");
+	estimator.setTier();
+
+	// Set school summaries, if any
+	$(".school_summary").each(function() {
+		var facility_code = $(this).attr('id');
+		var id = "#" + facility_code
+
+		estimator.setInstitutionType(id);
+		estimator.setCountry(id);
+
+		$(id + "-est-tuition-fees").html(estimator.getTuitionFees());
+	});
+}
+

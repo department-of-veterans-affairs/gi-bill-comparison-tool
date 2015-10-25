@@ -185,6 +185,7 @@ $(document).ready(function() {
   /////////////////////////////////////////////////////////////////////////////
   $('#military-status').change(function() { 
     showDependent('#military-status', 'spouse', '#spouse-active-duty-form', 100);
+    runEstimator();
   }).change();
 
   /////////////////////////////////////////////////////////////////////////////

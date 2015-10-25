@@ -1,4 +1,7 @@
-<div>
+<div id="<%= @school.facility_code %>"
+	data-type="<%= @school.institution_type.name %>"
+	data-country="<%= @school.country %>"
+>
 	<h3><%= @school.institution %></h3>
 	<h5><%= @school.city %>, <%= @school.state %></h5>
 </div>
