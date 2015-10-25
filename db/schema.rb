@@ -32,30 +32,42 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.string   "state"
     t.string   "zip"
     t.string   "country",                                             null: false
+    t.float    "bah"
     t.integer  "cross"
     t.string   "ope"
-    t.float    "bah"
-    t.boolean  "poe",                                                 null: false
-    t.boolean  "yr",                                                  null: false
+    t.string   "insturl"
+    t.string   "vet_tuition_policy_url"
+    t.integer  "pred_degree_awarded"
+    t.integer  "locale"
     t.integer  "gibill"
+    t.string   "undergrad_enrollment"
+    t.boolean  "yr",                                                  null: false
     t.boolean  "student_veteran",                                     null: false
     t.string   "student_veteran_link"
+    t.boolean  "poe",                                                 null: false
+    t.boolean  "eight_keys",                                          null: false
+    t.boolean  "dodmou",                                              null: false
+    t.boolean  "sec_702",                                             null: false
     t.string   "vetsuccess_name"
     t.string   "vetsuccess_email"
-    t.boolean  "eight_keys",                                          null: false
-    t.boolean  "sec_702",                                             null: false
-    t.boolean  "dodmou",                                              null: false
-    t.float    "grad_rate"
-    t.integer  "grad_rate_rank"
-    t.float    "default_rate"
-    t.float    "avg_stu_loan_debt"
-    t.integer  "avg_stu_loan_debt_rank"
-    t.integer  "indicator_group"
-    t.float    "salary"
+    t.boolean  "credit_for_mil_training"
+    t.boolean  "vet_poc"
+    t.boolean  "student_vet_grp_ipeds"
+    t.boolean  "soc_member"
+    t.string   "retention_rate_veteran"
+    t.string   "retention_all_students"
+    t.string   "persistance_rate_veteran"
+    t.string   "graduation_rate_veteran"
+    t.string   "graduation_rate_all_students"
+    t.string   "transfer_out_rate_veteran"
+    t.string   "transfer_out_rate_all_students"
+    t.string   "salary_all_students"
+    t.string   "repayment_rate_all_students"
+    t.string   "avg_stu_loan_debt"
     t.string   "calendar"
-    t.float    "tuition_in_state"
-    t.float    "tuition_out_of_state"
-    t.float    "books"
+    t.string   "tuition_in_state"
+    t.string   "tuition_out_of_state"
+    t.string   "books"
     t.boolean  "online_all",                                          null: false
     t.float    "p911_tuition_fees"
     t.integer  "p911_recipients"
@@ -64,6 +76,8 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.boolean  "accredited",                                          null: false
     t.string   "accreditation_type"
     t.string   "accreditation_status"
+    t.boolean  "caution_flag"
+    t.string   "caution_flag_reason"
     t.integer  "complaints_facility_code"
     t.integer  "complaints_financial_by_fac_code"
     t.integer  "complaints_quality_by_fac_code"
@@ -90,9 +104,6 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.integer  "complaints_jobs_by_ope_id_do_not_sum"
     t.integer  "complaints_transcript_by_ope_id_do_not_sum"
     t.integer  "complaints_other_by_ope_id_do_not_sum"
-    t.boolean  "hcm_status",                                          null: false
-    t.string   "hcm_type"
-    t.string   "hcm_reason"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
   end

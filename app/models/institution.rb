@@ -10,7 +10,7 @@ class Institution < ActiveRecord::Base
   validates_uniqueness_of :facility_code
 
   validates_inclusion_of :poe, :yr, :student_veteran, :eight_keys, :dodmou, :online_all, 
-      :sec_702, :accredited, :hcm_status, in: [true, false]
+      :sec_702, :accredited, in: [true, false]
 
   scope :with_type, -> { 
     select('institutions.*, institution_types.name').joins(:institution_type) 
