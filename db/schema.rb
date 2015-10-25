@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.boolean  "accredited",                                          null: false
     t.string   "accreditation_type"
     t.string   "accreditation_status"
-    t.boolean  "caution_flag"
+    t.boolean  "caution_flag",                                        null: false
     t.string   "caution_flag_reason"
     t.integer  "complaints_facility_code"
     t.integer  "complaints_financial_by_fac_code"

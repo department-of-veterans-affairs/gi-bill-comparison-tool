@@ -56,7 +56,7 @@ class CreateInstitutions < ActiveRecord::Migration
       t.boolean :accredited, null: false 
       t.string :accreditation_type  
       t.string :accreditation_status  
-      t.boolean :caution_flag
+      t.boolean :caution_flag, null: false
       t.string :caution_flag_reason
 
       # Complaint Data
