@@ -11,7 +11,9 @@ task :load_csv, [:csv_file] => [:environment, :build_db] do |t, args|
       
       row = row.to_hash
   		LoadCsvHelper.convert(row)
-  		Institution.create!(row)
+
+      # puts "#{row[:facility_code]}: #{row[:institution]}" 
+  		Institution.create(row)
 
   		print "\r Records: #{count}" 
     end
