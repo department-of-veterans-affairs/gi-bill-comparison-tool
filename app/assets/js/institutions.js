@@ -185,6 +185,7 @@ var runEstimator = function() {
 
 		$(id + "-est-tuition-fees").html(estimator.getTuitionFees() + "<br/>Tuition &amp; Fees");
 		$(id + "-est-housing-allowance").html(estimator.getHousingAllowance() + "<br/>Housing");
+		$(id + "-est-book-stipend").html(estimator.getBookStipend() + "<br/>Books");
 	});
 }
 

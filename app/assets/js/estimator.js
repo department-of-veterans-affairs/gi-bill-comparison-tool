@@ -30,6 +30,7 @@ function Estimator() {
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.TFCAP = 21084.89;
 Estimator.prototype.AVGBAH = 1566;
+Estimator.prototype.BSCAP  = 1000,
 Estimator.prototype.FLTTFCAP = 12048.50;
 Estimator.prototype.CORRESPONDTFCAP = 10241.22;
 
@@ -189,6 +190,10 @@ Estimator.prototype.setConsecutiveService = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.setInstitutionType = function(id) {
 	this.institution_type = $(id).data('type').toLowerCase();
+
+  // Hack
+  if (this.institution_type == "for profit")
+    this.institution_type = "private";
 
 	return this;
 };
@@ -410,7 +415,7 @@ Estimator.prototype.getHousingAllowance = function () {
 
 	if (this.gi_bill_chap == 31  && this.isFlightOrCorrespondence()) 
     estimated = '$0 / month';
-  else if (this.old_gi_bill && calculated.only_tuition_fees)
+  else if (this.old_gi_bill && this.only_tuition_fees)
     estimated = this.formatCurrency(this.monthly_rate) + ' / month (full time)*';
  	else if (this.old_gi_bill || this.vre_only) 
     estimated = this.formatCurrency(this.monthly_rate) + ' / month (full time)';
@@ -434,5 +439,29 @@ Estimator.prototype.getHousingAllowance = function () {
   return estimated;
  };
 
+///////////////////////////////////////////////////////////////////////////////
+// getBookStipend
+// Calculates the estimated book stipend.
+///////////////////////////////////////////////////////////////////////////////
+Estimator.prototype.getBookStipend = function () {
+  var estimated = null;
+
+  this.setDependents();
+
+  alert(this.old_gi_bill);
+
+  if (this.old_gi_bill)
+    estimated = '$0 / year';
+  else if (this.isFlight())
+    estimated = '$0 / year';
+  else if (this.isCorrespondence())
+    estimated = '$0 / year';
+  else if (this.gi_bill_chap == 31)
+    estimated = 'Full Cost of Books/Supplies';
+  else
+    estimated = this.formatCurrency(this.tier * this.BSCAP) + ' / year';
+
+  return estimated;
+  };
 
 
