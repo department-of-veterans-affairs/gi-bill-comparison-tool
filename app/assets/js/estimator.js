@@ -6,7 +6,6 @@ function Estimator() {
 	this.military_status = null;
 	this.spouse_active_duty = null;
 	this.gi_bill_chap = null;
-	this.old_gi_bill = null;
 	this.number_of_depend = null;
 	this.post_911_elig = null;
   this.cumulative_service = null;
@@ -14,20 +13,44 @@ function Estimator() {
   this.consecutive_service = null;
   this.institution_type = null;
   this.country = null;
+  this.online = null;
+  this.bah = null;
 
   // Dependent Values
+  this.old_gi_bill = null;
   this.service_discharge = null;
   this.tier = null;
+  this.vre_only = null;
+  this.monthly_rate = null;
+  this.only_tuition_fees = null;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
+Estimator.prototype.TFCAP = 21084.89;
+Estimator.prototype.AVGBAH = 1566;
 Estimator.prototype.FLTTFCAP = 12048.50;
 Estimator.prototype.CORRESPONDTFCAP = 10241.22;
-Estimator.prototype.TFCAP = 21084.89;
+
+Estimator.prototype.MGIB3YRRATE = 1717;
+Estimator.prototype.MGIB2YRRATE = 1395;
+Estimator.prototype.SRRATE = 367;
+
+Estimator.prototype.DEARATE = 1018;
+Estimator.prototype.DEARATEOJT = 743;
+
+Estimator.prototype.VRE0DEPRATE = 603.33;
+Estimator.prototype.VRE1DEPRATE = 748.38;
+Estimator.prototype.VRE2DEPRATE = 881.91;
+Estimator.prototype.VREINCRATE = 64.28;
+Estimator.prototype.VRE0DEPRATEOJT = 527.51;
+Estimator.prototype.VRE1DEPRATEOJT = 637.92;
+Estimator.prototype.VRE2DEPRATEOJT = 735.20;
+Estimator.prototype.VREINCRATEOJT = 47.82;
 
 ///////////////////////////////////////////////////////////////////////////////
+// formatCurrency
 // Formats currency in USD
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.formatCurrency = function (num) {
@@ -36,6 +59,17 @@ Estimator.prototype.formatCurrency = function (num) {
   // match a digit if it's followed by 3 other digits, appending a comma to each match
   return '$' + str.replace(/\d(?=(\d{3})+$)/g, '$&,');
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// setDependents
+// Sets dependent values in order.
+///////////////////////////////////////////////////////////////////////////////
+Estimator.prototype.setDependents = function() {
+  this.setTier();
+  this.setVreOnly();
+  this.setOnlyTuitionFees();
+  this.setMonthlyRate();
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // setMilitaryStatus
@@ -93,7 +127,7 @@ Estimator.prototype.setNumberOfDepend = function(id) {
 // Saves as bool.
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.setPost911Elig = function(id) {
-	this.post_911_elig = $(id).prop('checked');
+	this.post_911_elig = $(id).val() == 'yes';
 	return this;
 };
 
@@ -120,6 +154,18 @@ Estimator.prototype.setCumulativeService = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.setEnlistmentService = function(id) {
 	this.enlistment_service = Number($(id).val());
+	return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// setOnline
+// Sets online value from the element with the id argument.
+//
+// Saves as boolean.
+///////////////////////////////////////////////////////////////////////////////
+Estimator.prototype.setOnline = function(id) {
+	this.institution_type = $(id).val() === 'yes';
+
 	return this;
 };
 
@@ -161,8 +207,21 @@ Estimator.prototype.setCountry = function(id) {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
+// setBah
+// Sets BAH from the element with the id argument. It expects the
+// value in that element's data-bah.
+//
+// Saves as float.
+///////////////////////////////////////////////////////////////////////////////
+Estimator.prototype.setBah = function(id) {
+	this.bah = parseFloat($(id).data('bah'));
+
+	return this;	
+};
+
+///////////////////////////////////////////////////////////////////////////////
 // setTier
-// Sets the tier for the benefits estimator. 
+// Gets the tier for the benefits estimator. 
 //
 // Saves as a float [0, 1]
 ///////////////////////////////////////////////////////////////////////////////
@@ -176,6 +235,78 @@ Estimator.prototype.setTier = function() {
 
 	return this;
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// setVREOnly
+// Calculate if eligible for VR&E and Post-9/11 Benefits.
+//
+// Saves as boolean.
+///////////////////////////////////////////////////////////////////////////////
+Estimator.prototype.setVreOnly = function () {
+ 	this.vre_only = (this.gi_bill_chap == 31 && !this.post_911_elig);
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// 
+// Calculate if monthly benefit can only be spent on tuition/fees
+//
+// Saves as boolean.
+///////////////////////////////////////////////////////////////////////////////
+Estimator.prototype.setOnlyTuitionFees = function () {
+  if (this.military_status == 'active duty' && (this.gi_bill_chap == 30 || this.gi_bill_chap == 1607))
+    this.only_tuition_fees = true;
+  else if ((this.isCorrespondence() || this.isFlight()) && this.old_gi_bill == true)
+    this.only_tuition_fees = true;    
+  else
+    this.only_tuition_fees = false;
+  };
+
+///////////////////////////////////////////////////////////////////////////////
+// setMonthlyRate
+// Calculate the monthly benefit rate for non-chapter 33 benefits.
+//
+// Saves as float.
+///////////////////////////////////////////////////////////////////////////////
+Estimator.prototype.setMonthlyRate = function () {      
+  if (this.gi_bill_chap == 30 && this.enlistment_service == 3 && this.institution_type == 'ojt')
+    this.monthly_rate = this.MGIB3YRRATE * 0.75;	
+  else if (this.gi_bill_chap == 30 && this.enlistment_service == 3) 
+    this.monthlyrate = this.MGIB3YRRATE;
+  else if (this.gi_bill_chap == 30 && this.enlistment_service == 2 && this.institution_type == 'ojt')
+    this.monthly_rate = this.MGIB2YRRATE * 0.75;
+  else if (this.gi_bill_chap == 30 && this.enlistment_service == 2)
+    this.monthly_rate = this.MGIB2YRRATE;
+  else if (this.gi_bill_chap == 1607 && this.institution_type == 'ojt')
+    this.monthly_rate = this.MGIB3YRRATE * this.consecutive_service * 0.75;
+  else if (this.gi_bill_chap == 1607)
+    this.monthly_rate = this.MGIB3YRRATE * this.consecutive_service;
+  else if (this.gi_bill_chap == 1606 && this.institution_type == 'ojt') 
+    this.monthly_rate = this.SRRATE * 0.75;
+  else if (this.gi_bill_chap == 1606)
+  	this.monthly_rate = this.SRRATE;
+  else if (this.gi_bill_chap == 35 && this.institution_type == 'ojt')
+    this.monthly_rate = this.DEARATEOJT;
+  else if (this.gi_bill_chap == 35 && this.institution_type == 'flight') 
+  	this.monthly_rate = 0;
+  else if (this.gi_bill_chap == 35)
+    this.monthly_rate = this.DEARATE;
+  else if (this.gi_bill_chap == 31 && this.number_of_depend == 0 && this.institution_type == 'ojt') 
+  	this.monthly_rate = this.VRE0DEPRATEOJT;
+  else if (this.gi_bill_chap == 31 && this.number_of_depend == 0) 
+    this.monthly_rate = this.VRE0DEPRATE;
+  else if (this.gi_bill_chap == 31 && this.number_of_depend == 1 && this.institution_type == 'ojt')
+    this.monthly_rate = this.VRE1DEPRATEOJT;
+  else if (this.gi_bill_chap == 31 && this.number_of_depend == 1)
+  	this.monthly_rate = this.VRE1DEPRATE;
+  else if (this.gi_bill_chap == 31 && this.number_of_depend == 2 && this.institution_type == 'ojt')
+		this.monthly_rate = this.VRE2DEPRATEOJT;
+  else if (this.gi_bill_chap == 31 && this.number_of_depend == 2)
+  	this.monthly_rate = this.VRE2DEPRATE;
+  else if (this.gi_bill_chap == 31 && this.number_of_depend > 2 && this.institution_type == 'ojt')
+    this.monthly_rate = this.VRE2DEPRATEOJT + ((this.number_of_depend - 2) * this.VREINCRATEOJT);
+  else if (this.gi_bill_chap == 31 && this.number_of_depend > 2)
+  	this.monthly_rate = this.VRE2DEPRATE + ((this.number_of_depend-2) * this.VREINCRATE) ;
+  };
 
 ///////////////////////////////////////////////////////////////////////////////
 // isPublic
@@ -244,22 +375,64 @@ Estimator.prototype.isFlightOrCorrespondence = function() {
 // Returns a float.
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.getTuitionFees = function () {
-	var est_tuition_fees = null;
+	var estimated = null;
+
+  this.setDependents();
 
   if (this.old_gi_bill == true)
-    est_tuition_fees = '$0 / year ';
+    estimated = '$0 / year ';
   else if (this.institution_type == 'ojt') 
-  	est_tuition_fees = 'N/A';
+  	estimated = 'N/A';
 	else if (this.gi_bill_chap == 31)
-		est_tuition_fees = this.isFlightOrCorrespondence() ? '$0 year' : 'Full Cost of Attendance';
+		estimated = this.isFlightOrCorrespondence() ? '$0 year' : 'Full Cost of Attendance';
   else if (this.isFlight())
-    est_tuition_fees = this.formatCurrency(this.FLTTFCAP * this.tier) + ' / year (up to)';
+    estimated = this.formatCurrency(this.FLTTFCAP * this.tier) + ' / year (up to)';
   else if (this.isCorrespondence())
-  	est_tuition_fees = this.formatCurrency(this.CORRESPONDTFCAP * this.tier) + ' / year (up to)';
+  	estimated = this.formatCurrency(this.CORRESPONDTFCAP * this.tier) + ' / year (up to)';
   else if (this.isPublic()) 
-  	est_tuition_fees = Math.round(this.tier * 100) + '% of instate tuition';
+  	estimated = Math.round(this.tier * 100) + '% of instate tuition';
   else
-  	est_tuition_fees = this.formatCurrency(this.TFCAP * this.tier) + ' / year (up to)';
+  	estimated = this.formatCurrency(this.TFCAP * this.tier) + ' / year (up to)';
 
-  return est_tuition_fees;
+  return estimated;
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// getHousingAllowance
+// Computes and returns the estimator's Housing Allowance. 
+//
+// Returns a float.
+///////////////////////////////////////////////////////////////////////////////
+Estimator.prototype.getHousingAllowance = function () {
+	var estimated = null;
+
+  this.setDependents();
+
+	if (this.gi_bill_chap == 31  && this.isFlightOrCorrespondence()) 
+    estimated = '$0 / month';
+  else if (this.old_gi_bill && calculated.only_tuition_fees)
+    estimated = this.formatCurrency(this.monthly_rate) + ' / month (full time)*';
+ 	else if (this.old_gi_bill || this.vre_only) 
+    estimated = this.formatCurrency(this.monthly_rate) + ' / month (full time)';
+  else if (this.military_status == 'active duty')
+    estimated = '$0 / month';
+  else if (this.military_status == 'spouse' && this.spouse_active_duty)
+  	estimated = '$0 / month';
+  else if (this.isFlight())
+  	estimated = '$0 / month';
+  else if (this.isCorrespondence())
+  	estimated = '$0 / month';
+  else if (this.isOjt())
+  	estimated = this.formatCurrency(this.tier * this.bah) + ' / month';
+  else if (this.online)
+    estimated = this.formatCurrency(this.tier * this.AVGBAH / 2) + ' / month (full time)';
+  else if (this.country != 'usa')
+    estimated = this.formatCurrency(this.tier * this.AVGBAH) + ' / month (full time)';
+  else
+    estimated = this.formatCurrency(this.tier * this.bah) + ' / month (full time)';
+
+  return estimated;
+ };
+
+
+

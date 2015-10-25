@@ -14,6 +14,7 @@
 	data-student-veteran="<%= school_summary[:student_veteran] %>"
 	data-eight-keys="<%= school_summary[:eight_keys] %>"
 	data-yr="<%= school_summary[:yr] %>"
+	data-bah="<%= school_summary[:bah] %>"
 >
 	<h4><%= school_summary[:institution] %></h4>
 
@@ -24,6 +25,8 @@
 	<% else %>
 		<p><%= "#{school_summary[:city]}, #{school_summary[:country]}" %></p>
 	<% end %>
+
+	<h6>Institution Type: <%= school_summary[:name] %></h6><br/>
 
 	<div>
 		<ul>
@@ -36,9 +39,11 @@
 
 	<div>
 		<p>Based on your selections:</p>
-		<ul>
-			<li id="<%= school_summary[:facility_code] %>-est-tuition-fees"></li>
-		</ul>
+			<ul>
+				<li id="<%= school_summary[:facility_code] %>-est-tuition-fees"></li>
+				<li id="<%= school_summary[:facility_code] %>-est-housing-allowance"></li>
+				<li id="<%= school_summary[:facility_code] %>-est-book-stipend"></li>
+			</ul>
 	</div>
 
 	<div>
