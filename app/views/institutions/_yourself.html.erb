@@ -185,7 +185,6 @@ $(document).ready(function() {
   /////////////////////////////////////////////////////////////////////////////
   $('#military-status').change(function() { 
     showDependent('#military-status', 'spouse', '#spouse-active-duty-form', 100);
-    runEstimator();
   }).change();
 
   /////////////////////////////////////////////////////////////////////////////
@@ -204,6 +203,10 @@ $(document).ready(function() {
     
     showDependent('#gi-bill-chapter', '31', '#elig-for-post-gi-bill-form', 100);
     showDependent('#gi-bill-chapter', '31', '#number-of-dependents-form', 100);
+  }).change();
+
+  $('.filter-item').change(function() {
+    runEstimator();
   }).change();
 });
 
