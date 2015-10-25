@@ -71,6 +71,7 @@ class InstitutionsController < ApplicationController
       school[:poe] = to_bool(school[:poe])
       school[:yr] = to_bool(school[:yr])
       school[:eight_keys] = to_bool(school[:eight_keys])
+      school[:caution_flag] = to_bool(school[:caution_flag])
 
       school[:profile_url] = "#{profile_path}?facility_code=#{school[:facility_code]}"
       school[:profile_url] += "&military_status=" + @inputs[:military_status]
