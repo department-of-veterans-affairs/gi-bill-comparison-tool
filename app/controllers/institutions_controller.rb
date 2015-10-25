@@ -72,6 +72,18 @@ class InstitutionsController < ApplicationController
       school[:yr] = to_bool(school[:yr])
       school[:eight_keys] = to_bool(school[:eight_keys])
 
+      school[:profile_url] = "#{profile_path}?facility_code=#{school[:facility_code]}"
+      school[:profile_url] += "&military_status=" + @inputs[:military_status]
+      school[:profile_url] += "&spouse_active_duty=" + @inputs[:spouse_active_duty]
+      school[:profile_url] += "&gi_bill_chapter=" + @inputs[:gi_bill_chapter]
+      school[:profile_url] += "&cumulative_service=" + @inputs[:cumulative_service]
+      school[:profile_url] += "&enlistment_service=" + @inputs[:enlistment_service]
+      school[:profile_url] += "&consecutive_service=" + @inputs[:consecutive_service]
+      school[:profile_url] += "&elig_for_post_gi_bill=" + @inputs[:elig_for_post_gi_bill]
+      school[:profile_url] += "&number_of_dependents=" + @inputs[:number_of_dependents]
+      school[:profile_url] += "&online_classes=" + @inputs[:online_classes]
+      school[:profile_url] += "&institution_search" + @inputs[:institution_search]
+
       @states << school[:state] if school[:state].present?
       @countries << school[:country] if school[:country].present?
     end
