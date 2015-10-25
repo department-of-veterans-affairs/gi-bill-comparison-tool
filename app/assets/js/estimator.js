@@ -448,8 +448,6 @@ Estimator.prototype.getBookStipend = function () {
 
   this.setDependents();
 
-  alert(this.old_gi_bill);
-
   if (this.old_gi_bill)
     estimated = '$0 / year';
   else if (this.isFlight())
