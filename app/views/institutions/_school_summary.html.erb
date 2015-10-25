@@ -16,7 +16,7 @@
 	data-yr="<%= school_summary[:yr] %>"
 	data-bah="<%= school_summary[:bah] %>"
 >
-	<h4><%= school_summary[:institution] %></h4>
+	<h4><a href="#"><%= school_summary[:institution] %></a></h4>
 
 	<% if school_summary[:country].downcase == 'usa' %>
 		<small>
@@ -26,7 +26,8 @@
 		<p><%= "#{school_summary[:city]}, #{school_summary[:country]}" %></p>
 	<% end %>
 
-	<h6>Institution Type: <%= school_summary[:name] %></h6><br/>
+	<h6><%= school_summary[:gibill] %> Student Veterans</h6><br/>
+
 	<div>
 		<p>Based on your selections:</p>
 			<ul>

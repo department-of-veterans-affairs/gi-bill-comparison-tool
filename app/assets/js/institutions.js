@@ -187,5 +187,19 @@ var runEstimator = function() {
 		$(id + "-est-housing-allowance").html(estimator.getHousingAllowance() + "<br/>Housing");
 		$(id + "-est-book-stipend").html(estimator.getBookStipend() + "<br/>Books");
 	});
+
+	// Set the profile page if present
+	$(".profile_overview").each(function() {
+		var facility_code = $(this).attr('id');
+		var id = "#" + facility_code
+
+		estimator.setInstitutionType(id);
+		estimator.setCountry(id);
+		estimator.setBah(id);
+
+		$(id + "-est-tuition-fees").html(estimator.getTuitionFees() + "<br/>Tuition &amp; Fees");
+		$(id + "-est-housing-allowance").html(estimator.getHousingAllowance() + "<br/>Housing");
+		$(id + "-est-book-stipend").html(estimator.getBookStipend() + "<br/>Books");
+	});
 }
 
