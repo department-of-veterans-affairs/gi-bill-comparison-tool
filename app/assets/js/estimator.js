@@ -445,7 +445,7 @@ Estimator.prototype.getHousingAllowance = function () {
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.getBookStipend = function () {
   var estimated = null;
-
+  
   this.setDependents();
 
   if (this.old_gi_bill)
