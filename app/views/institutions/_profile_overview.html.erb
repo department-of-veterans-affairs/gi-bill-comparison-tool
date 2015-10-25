@@ -1,4 +1,5 @@
 <div id="<%= @school.facility_code %>"
+	class="profile_overview"
 	data-type="<%= @school.institution_type.name %>"
 	data-country="<%= @school.country %>"
 	data-bah="<%= @school.bah %>"
@@ -28,12 +29,15 @@
 	<div>
 		<div>
 			<h5>Tuition and Fees</h5>
+			<p id="est-tuition-fees"></p>
 		</div>		
 		<div>
 			<h5>Housing Allowance</h5>
+			<p id="est-housing-allowance"></p>
 		</div>		
 		<div>
 			<h5>Book Stipend</h5>
+			<p id="est-book-stipend"></p>
 		</div>
 	</div>
 </div>
