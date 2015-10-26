@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.integer  "complaints_grades_by_fac_code"
     t.integer  "complaints_credit_transfer_by_fac_code"
     t.integer  "complaints_credit_job_by_fac_code"
+    t.integer  "complaints_job_by_fac_code"
     t.integer  "complaints_transcript_by_fac_code"
     t.integer  "complaints_other_by_fac_code"
     t.integer  "complaints_main_campus_roll_up"
