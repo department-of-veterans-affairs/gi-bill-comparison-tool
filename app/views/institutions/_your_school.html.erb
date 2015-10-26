@@ -40,7 +40,7 @@
       	title="Enter school/employer name"
         type="search" 
       />
-      <%= submit_tag 'Search Schools', :class => "usa-search-submit-text" %>
+      <%= submit_tag 'Search Schools', id: "search-button", :class => "usa-search-submit-text" %>
     </div>
   </div>
 <!-- Commenting out for now -->
@@ -72,10 +72,16 @@ $(document).ready(function() {
     //}
   });
 
-  $('#institution').keypress(function(event) { 
-    if (event.keyCode == 13) {
-     	event.preventDefault();
+  $('#institution-search').keypress(function(e) { 
+    if ((e.keyCode == 13 || e.which == 13) && !$(this).val()) {
+     	e.preventDefault();
      }
+  });
+
+  $("#search-button").click(function(e) {
+    if (!$('#institution-search').val()) {
+      e.preventDefault();
+    }
   });
 });
 </script>
