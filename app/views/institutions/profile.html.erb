@@ -63,7 +63,7 @@
 		<div class="outcome usa-width-one-whole">
 			<%= render partial: 'profile_outcomes', 
 				locals: { 
-					outcome: "transfer-out", 
+					outcome: "retention", 
 					vrate: number_with_precision(@school.retention_rate_veteran.to_f * 100, precision: 2),
 					crate: number_with_precision(@school.retention_all_students.to_f * 100, precision: 2),
 					nrate: 10.8
