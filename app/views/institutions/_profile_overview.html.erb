@@ -4,13 +4,33 @@
 	data-country="<%= @school.country %>"
 	data-bah="<%= @school.bah %>"
 >
+	<% if @school[:caution_flag] %>
+		<h5 style="color:white; background-color:red">
+			<%= @school[:caution_flag_reason] %>
+		</h5>
+	<% end %>
+
 	<h3><%= @school.institution %></h3>
 	<h5><%= @school.city %>, <%= @school.state %></h5>
 </div>
 
 <div>
 	<!-- Holds student attendance and link -->
+	<p>
+		<%= format_number_or_null(@school.undergrad_enrollment, "Total Student") %>
+	</p>
+
+	<% if @school.insturl.present? %>
+		<p><a href="http://<%= @school.insturl.downcase %>">
+			<%= @school.insturl.downcase %>
+		</a></p>
+	<% end %>
 <div>
+
+<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
+<ul>
+	<li><%= @school.institution_type.name.upcase %></li>
+</ul>
 
 <div>
 	<h4>VA Summary</h4>

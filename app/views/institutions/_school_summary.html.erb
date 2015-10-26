@@ -24,7 +24,7 @@
 	<div>
 	</div>
 
-	<h4><a href="<%= school_summary[:profile_url] %>">
+	<h4><a class="a-<%= school_summary[:id] %>" href="#">
 		<%= school_summary[:institution] %>
 	</a></h4>
 
@@ -48,13 +48,13 @@
 	</div>
 
 	<div>
-		<a id="a-<%= school_summary[:id] %>" href="<%= school_summary[:profile_url] %>">Learn More</a>
+		<a class="a-<%= school_summary[:id] %>" href="#">Learn More</a>
 	</div>
 </div>
 
 <script>
 	$(document).ready(function() {
-		$("#a-<%= school_summary[:id] %>").click(function() {
+		$(".a-<%= school_summary[:id] %>").click(function() {
 			href = "<%= profile_path %>?facility_code=<%= school_summary[:facility_code] %>";
 			href += "&military_status=" + $("#military-status").val();
 			href += "&spouse_active_duty=" + $("#spouse-active-duty").val();
@@ -65,7 +65,7 @@
 			href += "&elig_for_post_gi_bill=" + $("#elig-for-post-gi-bill").val();
 			href += "&number_of_dependents=" + $("#number-of-dependents").val();
 			href += "&online_classes=" + $("#online-classes").val();
-			href += "&institution_search" + $("#institution_search").val();
+			href += "&institution_search=" + $("#institution_search").val();
 
 			$(this).attr("href", href);
 		});

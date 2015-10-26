@@ -7,12 +7,13 @@
 <!-- ====================================================================== -->
 
 <!-- This will show up only on the filter/search view and is hidden in the landing page view via the filter-p class. Sorry about the magic -->
- <p class="filter-p filter-item " style="display: none;"> About You: </p>
+<p class="filter-p filter-item " style="display: none;"> About You: </p>
+
 <!-- Military status -->
 <div class="form-group top-aligned">
   <% if use_label %>
     <label for="military-status">Military Status: <i class="fa fa-info-circle"></i></label>
-  <%end %>
+  <% end %>
 
   <select id="military-status" name="military_status" alt="Select military status" class="filter-item">
     <% { 
@@ -26,6 +27,7 @@
     <% end %>
   </select>
 </div>
+
 <!-- Spouse on active duty -->
 <div id="spouse-active-duty-form">
   <% if use_label %>
