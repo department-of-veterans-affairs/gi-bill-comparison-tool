@@ -4221,6 +4221,13 @@ html, body {
 h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
   font-family: "Roboto Slab", serif; }
 
+.ui-autocomplete {
+  background-color: #fff;
+  border: 1px solid #849097;
+  text-indent: 1rem; }
+  .ui-autocomplete .ui-state-focus {
+    background-color: #ddd; }
+
 form {
   max-width: none; }
 
