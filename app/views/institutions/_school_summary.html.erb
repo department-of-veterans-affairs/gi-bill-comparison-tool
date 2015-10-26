@@ -14,15 +14,13 @@
 	data-student-veteran="<%= school_summary[:student_veteran] %>"
 	data-eight-keys="<%= school_summary[:eight_keys] %>"
 	data-yr="<%= school_summary[:yr] %>"
-	data-bah="<%= school_summary[:bah] %>"
->
+	data-bah="<%= school_summary[:bah] %>">
+
 	<% if school_summary[:caution_flag] %>
 		<h5 style="color:white; background-color:red">
 			<a class="a-<%= school_summary[:id] %>" href="#">Caution Flag</a>
 		</h5>
 	<% end %>
-	<div>
-	</div>
 
 	<h4><a class="a-<%= school_summary[:id] %>" href="#">
 		<%= school_summary[:institution] %>
@@ -36,20 +34,16 @@
 		<p><%= "#{school_summary[:city]}, #{school_summary[:country]}" %></p>
 	<% end %>
 
-	<h6><%= school_summary[:gibill] %> Student Veterans</h6><br/>
+	<p><%= school_summary[:gibill] %> Student Veterans</p>
 
-	<div>
-		<p>Based on your selections:</p>
-			<ul>
-				<li id="<%= school_summary[:facility_code] %>-est-tuition-fees"></li>
-				<li id="<%= school_summary[:facility_code] %>-est-housing-allowance"></li>
-				<li id="<%= school_summary[:facility_code] %>-est-book-stipend"></li>
-			</ul>
-	</div>
+	<ul>
+		<lh>Based on your selections:</lh>
+		<li id="<%= school_summary[:facility_code] %>-est-tuition-fees"></li>
+		<li id="<%= school_summary[:facility_code] %>-est-housing-allowance"></li>
+		<li id="<%= school_summary[:facility_code] %>-est-book-stipend"></li>
+	</ul>
 
-	<div>
 		<a class="a-<%= school_summary[:id] %>" href="#">Learn More</a>
-	</div>
 </div>
 
 <script>

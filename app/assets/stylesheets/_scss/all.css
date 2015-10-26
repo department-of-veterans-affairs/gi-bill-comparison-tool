@@ -4259,9 +4259,16 @@ ul li:before {
   padding: 1em;
   margin: 0 0 1rem 1rem;
   float: left; }
+  .school_summary h4 {
+    margin-top: 0; }
+  .school_summary p, .school_summary li, .school_summary lh {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    font-size: 1.5rem; }
   .school_summary ul {
     list-style-type: none;
-    margin-top: 0; }
+    margin-top: 0;
+    margin-bottom: 0; }
     .school_summary ul li {
       list-style-type: none; }
 
