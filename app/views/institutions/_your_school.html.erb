@@ -8,6 +8,25 @@
 <!-- == form_id: the id selector for the form receiving the select event.   --> 
 <!-- ====================================================================== -->
 <div id="institution-search-form" class="form-group">
+
+  <!-- If on the home form, online is part of the institution search -->
+  <!-- It will not appear in the about you section -->
+  <% if use_label %>  
+    <div id="online-classes-form" class="form-group">
+      <label for="online-classes">Will you be taking classes online? </label>
+
+      <select id="online-classes" name="online_classes" alt="Online? Yes/No" class="filter-item">
+        <% { 
+          'yes' => 'All', 'no' => 'None', 'both' => 'Both online and on-campus'
+        }.each_pair do |value, label| %>
+          <option value="<%= value %>" 
+            <%= 'selected' if value == @inputs[:online_classes] %>
+          ><%= label %></option>
+        <% end %>
+      </select>
+    </div>
+  <% end %>
+
 	<% if use_label %>
   	<label class="institution-search-label" for="institution-search">
   		Enter a school or employer name to search:
