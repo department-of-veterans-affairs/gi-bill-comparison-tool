@@ -17,7 +17,9 @@
 	data-bah="<%= school_summary[:bah] %>"
 >
 	<% if school_summary[:caution_flag] %>
-		<h5 style="color:white; background-color:red">Caution: Under Ed Monitoring</h5>
+		<h5 style="color:white; background-color:red">
+			<%= school_summary[:caution_flag_reason] %>
+		</h5>
 	<% end %>
 	<div>
 	</div>
