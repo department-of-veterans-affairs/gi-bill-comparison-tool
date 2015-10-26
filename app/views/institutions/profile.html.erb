@@ -15,11 +15,13 @@
 	<%= render partial: 'profile_additional_resources' %>
 </div>
 
-<h3>Your calculated benefits</h3>
+<a name="benefits"></a>
+<h3>Benefits Calculator</h3>
 <div class="usa-width-one-whole">
 	<%= render partial: 'profile_benefits_calculator' %>
 </div>
 
+<a name="outcomes"></a>
 <h3>Outcomes</h3>
 <!-- Graduation Rates -->
 <div>
@@ -73,6 +75,12 @@
 	<% else %>
 		<div class="usa-width-one-whole"><span>Retention Rate Data Not Available</span></div>
 	<% end %>
+</div>
+
+<a name="summary"></a>
+<div>
+	<h3>School Summary (<%= pluralize(@school.complaints_facility_code, " Complaint") %>)</h3>
+	<%= render partial: 'profile_summary' %>
 </div>
 
 

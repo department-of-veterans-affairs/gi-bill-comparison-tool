@@ -18,7 +18,7 @@
 >
 	<% if school_summary[:caution_flag] %>
 		<h5 style="color:white; background-color:red">
-			<%= school_summary[:caution_flag_reason] %>
+			<a class="a-<%= school_summary[:id] %>" href="#">Caution Flag</a>
 		</h5>
 	<% end %>
 	<div>
