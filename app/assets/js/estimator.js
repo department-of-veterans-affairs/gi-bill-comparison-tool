@@ -190,7 +190,7 @@ Estimator.prototype.setConsecutiveService = function(id) {
 Estimator.prototype.setInstitutionType = function(id) {
 	this.institution_type = $(id).data('type').toLowerCase();
 
-  // Hack
+  // Hacky fix
   if (this.institution_type == "for profit")
     this.institution_type = "private";
 
