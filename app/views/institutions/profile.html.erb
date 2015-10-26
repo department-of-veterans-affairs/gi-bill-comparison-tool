@@ -4,89 +4,103 @@
   	<a href="<%= root_path %>">Select New Schools</a>
   </p>
 </div>
-<!-- This closing div is extra .... but necessary? -->
+
+<%= form_tag(search_path, id: "back-form") do %>
+	<a id="back-link" href="">Back to Search Results</a>
+<% end %>
+
+<%= render partial: 'profile_overview' %>
+
+<div class="usa-width-one-whole new-row">
+	<div class="usa-accordion">
+	  <ul class="usa-unstyled-list">
+	    <li>
+	      <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-0">
+					<h3>Benefits Calculator</h3>
+	      </button>
+	      <div id="collapsible-0" aria-hidden="true" class="usa-accordion-content">
+					<%= render partial: 'profile_benefits_calculator' %>
+	      </div>
+	    </li>
+	    <li>
+	      <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-1">
+					<h3>Outcomes</h3>
+	      </button>
+	      <div id="collapsible-1" aria-hidden="true" class="usa-accordion-content">
+					<!-- Graduation Rates -->
+					<div>
+						<% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>
+							<div class="outcome usa-width-one-whole">
+								<%= render partial: 'profile_outcomes', 
+									locals: { 
+										outcome: "graduation", 
+										vrate: number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
+										crate: number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
+										nrate: 43.8
+									} 
+								%>
+							</div>
+						<% else %>
+							<div class="usa-width-one-whole">
+								<span>Graduation Rate Data Not Available</span>
+							</div>
+						<% end %>
+					</div>
+
+					<!-- Transfer out Rates -->
+					<div>
+						<% if is_number?(@school.transfer_out_rate_veteran) && is_number?(@school.transfer_out_rate_all_students) %>
+							<div class="outcome usa-width-one-whole">
+								<%= render partial: 'profile_outcomes', 
+									locals: { 
+										outcome: "transfer-out", 
+										vrate: number_with_precision(@school.transfer_out_rate_veteran.to_f * 100, precision: 2),
+										crate: number_with_precision(@school.transfer_out_rate_all_students.to_f * 100, precision: 2),
+										nrate: 10.8
+									} 
+								%>
+							</div>
+						<% else %>
+							<div class="usa-width-one-whole"><span>Transfer-out Rate Data Not Available</span></div>
+						<% end %>
+					</div>
+
+					<!-- Retention Rates -->
+					<div>
+						<% if is_number?(@school.retention_rate_veteran) && is_number?(@school.retention_all_students) %>
+							<div class="outcome usa-width-one-whole">
+								<%= render partial: 'profile_outcomes', 
+									locals: { 
+										outcome: "retention", 
+										vrate: number_with_precision(@school.retention_rate_veteran.to_f * 100, precision: 2),
+										crate: number_with_precision(@school.retention_all_students.to_f * 100, precision: 2),
+										nrate: 10.8
+									} 
+								%>
+							</div>
+						<% else %>
+							<div class="usa-width-one-whole">
+								<span>Retention Rate Data Not Available</span>
+							</div>
+						<% end %>
+					</div>
+	      </div>
+	    </li>
+	    <li>
+	      <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-2">
+	        <h3>School Summary (<%= pluralize(@school.complaints_facility_code, " Complaint") %>)</h3>
+	      </button>
+	      <div id="collapsible-2" aria-hidden="true" class="usa-accordion-content">
+					<%= render partial: 'profile_summary' %>
+	      </div>
+	    </li>
+	  </ul>
+	</div>
 </div>
 
-<div>
-	<%= form_tag(search_path, id: "back-form") do %>
-		<a id="back-link" href="">Back to Search Results</a>
-	<% end %>
+<!-- Extra closing divs for some thing i haven't found yet -->
 </div>
-
-<div class="usa-width-one-whole">
-	<%= render partial: 'profile_overview' %>
 </div>
-
-<div>
-	<%= render partial: 'profile_additional_resources' %>
-</div>
-
-<a name="benefits"></a>
-<h3>Benefits Calculator</h3>
-<div class="usa-width-one-whole">
-	<%= render partial: 'profile_benefits_calculator' %>
-</div>
-
-<a name="outcomes"></a>
-<h3>Outcomes</h3>
-<!-- Graduation Rates -->
-<div>
-	<% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>
-		<div class="outcome usa-width-one-whole">
-			<%= render partial: 'profile_outcomes', 
-				locals: { 
-					outcome: "graduation", 
-					vrate: number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
-					crate: number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
-					nrate: 43.8
-				} 
-			%>
-		</div>
-	<% else %>
-		<div class="usa-width-one-whole"><span>Graduation Rate Data Not Available</span></div>
-	<% end %>
-</div>
-
-<!-- Transfer out Rates -->
-<div>
-	<% if is_number?(@school.transfer_out_rate_veteran) && is_number?(@school.transfer_out_rate_all_students) %>
-		<div class="outcome usa-width-one-whole">
-			<%= render partial: 'profile_outcomes', 
-				locals: { 
-					outcome: "transfer-out", 
-					vrate: number_with_precision(@school.transfer_out_rate_veteran.to_f * 100, precision: 2),
-					crate: number_with_precision(@school.transfer_out_rate_all_students.to_f * 100, precision: 2),
-					nrate: 10.8
-				} 
-			%>
-		</div>
-	<% else %>
-		<div class="usa-width-one-whole"><span>Transfer-out Rate Data Not Available</span></div>
-	<% end %>
-</div>
-
-<!-- Retention Rates -->
-<div>
-	<% if is_number?(@school.retention_rate_veteran) && is_number?(@school.retention_all_students) %>
-		<div class="outcome usa-width-one-whole">
-			<%= render partial: 'profile_outcomes', 
-				locals: { 
-					outcome: "retention", 
-					vrate: number_with_precision(@school.retention_rate_veteran.to_f * 100, precision: 2),
-					crate: number_with_precision(@school.retention_all_students.to_f * 100, precision: 2),
-					nrate: 10.8
-				} 
-			%>
-		</div>
-	<% else %>
-		<div class="usa-width-one-whole"><span>Retention Rate Data Not Available</span></div>
-	<% end %>
-</div>
-
-<a name="summary"></a>
-<div>
-	<h3>School Summary (<%= pluralize(@school.complaints_facility_code, " Complaint") %>)</h3>
-	<%= render partial: 'profile_summary' %>
 </div>
 
 <script>
