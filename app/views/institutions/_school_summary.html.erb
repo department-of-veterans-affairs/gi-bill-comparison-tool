@@ -65,7 +65,7 @@
 			href += "&elig_for_post_gi_bill=" + $("#elig-for-post-gi-bill").val();
 			href += "&number_of_dependents=" + $("#number-of-dependents").val();
 			href += "&online_classes=" + $("#online-classes").val();
-			href += "&institution_search=" + $("#institution_search").val();
+			href += "&institution_search=<%= @inputs[:institution_search] %>";
 
 			$(this).attr("href", href);
 		});
