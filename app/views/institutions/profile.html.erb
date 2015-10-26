@@ -11,7 +11,7 @@
 
 <%= render partial: 'profile_overview' %>
 
-<div class="usa-width-one-whole new-row">
+<div class="usa-width-three-fourths new-row">
 	<div class="usa-accordion">
 	  <ul class="usa-unstyled-list">
 	    <li>
@@ -23,67 +23,59 @@
 	      </div>
 	    </li>
 	    <li>
-	      <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-1">
+	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-1">
 					<h3>Outcomes</h3>
 	      </button>
-	      <div id="collapsible-1" aria-hidden="true" class="usa-accordion-content">
+	      <div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">
+            <!--  PLACEHOLDER FOR DEMO -->  
+            <img src="../assets/demo-temp/outcomes.png">
 					<!-- Graduation Rates -->
-					<div>
-						<% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>
-							<div class="outcome usa-width-one-whole">
-								<%= render partial: 'profile_outcomes', 
-									locals: { 
-										outcome: "graduation", 
-										vrate: number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
-										crate: number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
-										nrate: 43.8
-									} 
-								%>
-							</div>
-						<% else %>
-							<div class="usa-width-one-whole">
-								<span>Graduation Rate Data Not Available</span>
-							</div>
-						<% end %>
-					</div>
+<!-- 					<% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>
+						<div class="outcome usa-width-one-whole">
+							<%= render partial: 'profile_outcomes', 
+								locals: { 
+									outcome: "graduation", 
+									vrate: number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
+									crate: number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
+									nrate: 43.8
+								} 
+							%>
+						</div>
+					<% else %>
+						<p>Graduation Rate Data Not Available</p>
+					<% end %> -->
 
 					<!-- Transfer out Rates -->
-					<div>
-						<% if is_number?(@school.transfer_out_rate_veteran) && is_number?(@school.transfer_out_rate_all_students) %>
-							<div class="outcome usa-width-one-whole">
-								<%= render partial: 'profile_outcomes', 
-									locals: { 
-										outcome: "transfer-out", 
-										vrate: number_with_precision(@school.transfer_out_rate_veteran.to_f * 100, precision: 2),
-										crate: number_with_precision(@school.transfer_out_rate_all_students.to_f * 100, precision: 2),
-										nrate: 10.8
-									} 
-								%>
-							</div>
-						<% else %>
-							<div class="usa-width-one-whole"><span>Transfer-out Rate Data Not Available</span></div>
-						<% end %>
-					</div>
+<!-- 					<% if is_number?(@school.transfer_out_rate_veteran) && is_number?(@school.transfer_out_rate_all_students) %>
+						<div class="outcome">
+							<%= render partial: 'profile_outcomes', 
+								locals: { 
+									outcome: "transfer-out", 
+									vrate: number_with_precision(@school.transfer_out_rate_veteran.to_f * 100, precision: 2),
+									crate: number_with_precision(@school.transfer_out_rate_all_students.to_f * 100, precision: 2),
+									nrate: 10.8
+								} 
+							%>
+						</div>
+					<% else %>
+						<div class="usa-width-one-whole"><span>Transfer-out Rate Data Not Available</span></div>
+					<% end %> -->
 
 					<!-- Retention Rates -->
-					<div>
-						<% if is_number?(@school.retention_rate_veteran) && is_number?(@school.retention_all_students) %>
-							<div class="outcome usa-width-one-whole">
-								<%= render partial: 'profile_outcomes', 
-									locals: { 
-										outcome: "retention", 
-										vrate: number_with_precision(@school.retention_rate_veteran.to_f * 100, precision: 2),
-										crate: number_with_precision(@school.retention_all_students.to_f * 100, precision: 2),
-										nrate: 10.8
-									} 
-								%>
-							</div>
-						<% else %>
-							<div class="usa-width-one-whole">
-								<span>Retention Rate Data Not Available</span>
-							</div>
-						<% end %>
-					</div>
+<!-- 					<% if is_number?(@school.retention_rate_veteran) && is_number?(@school.retention_all_students) %>
+						<div class="outcome">
+							<%= render partial: 'profile_outcomes', 
+								locals: { 
+									outcome: "retention", 
+									vrate: number_with_precision(@school.retention_rate_veteran.to_f * 100, precision: 2),
+									crate: number_with_precision(@school.retention_all_students.to_f * 100, precision: 2),
+									nrate: 10.8
+								} 
+							%>
+						</div>
+					<% else %>
+						<p>Retention Rate Data Not Available</p>
+					<% end %> -->
 	      </div>
 	    </li>
 	    <li>
