@@ -21,4 +21,14 @@ module InstitutionsHelper
       what + " #{v}"
     end
   end
+
+  def format_pct_or_null(v)
+    if is_number?(v)
+      number_with_precision(v, precision: 2)
+    elsif v.blank?
+      0
+    else
+      v
+    end
+  end
 end

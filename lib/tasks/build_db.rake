@@ -134,8 +134,8 @@ class LoadCsvHelper
   #############################################################################
   def self.to_str(value)
     value = value.to_s.gsub(/["']/, '').truncate(255)
+
     if value.present?
-      value = "Data Not Available" if value.downcase == "null"
       value = value.split.map(&:capitalize).join(' ') 
     end
 

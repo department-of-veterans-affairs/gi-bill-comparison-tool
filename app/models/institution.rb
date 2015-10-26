@@ -1,7 +1,7 @@
 class Institution < ActiveRecord::Base
   TRUTHY = %w(yes true t 1)
   EMPLOYER = 'ojt'
-  
+
   belongs_to :institution_type, inverse_of: :institutions
 
   validates_presence_of :facility_code, :institution, :country, :institution_type_id
@@ -15,6 +15,69 @@ class Institution < ActiveRecord::Base
   scope :with_type, -> { 
     select('institutions.*, institution_types.name').joins(:institution_type) 
   }
+
+  before_save :numbers_with_null, on: [:create]
+
+  #############################################################################
+  ## numbers_with_null
+  ## Certain number-like fields are allowed to contain nulls or strings too.
+  ## If blank, these fields equate to null as well.
+  #############################################################################
+  def numbers_with_null
+    if retention_rate_veteran.blank? || retention_rate_veteran.downcase == "null"
+      self.retention_rate_veteran = "Data not available" 
+    end
+
+    if retention_all_students.blank? || retention_all_students.downcase == "null"
+      self.retention_all_students = "Data not available" 
+    end
+
+    if persistance_rate_veteran.blank? || persistance_rate_veteran.downcase == "null"
+      self.persistance_rate_veteran = "Data not available" 
+    end
+
+    if graduation_rate_veteran.blank? || graduation_rate_veteran.downcase == "null"
+      self.graduation_rate_veteran = "Data not available" 
+    end
+
+    if graduation_rate_all_students.blank? || graduation_rate_all_students.downcase == "null"
+      self.graduation_rate_all_students = "Data not available" 
+    end
+
+    if transfer_out_rate_veteran.blank? || transfer_out_rate_veteran.downcase == "null"
+      self.transfer_out_rate_veteran = "Data not available" 
+    end
+
+    if transfer_out_rate_all_students.blank? || transfer_out_rate_all_students.downcase == "null"
+      self.transfer_out_rate_all_students = "Data not available" 
+    end
+
+    if salary_all_students.blank? || salary_all_students.downcase == "null"
+      self.salary_all_students = "Data not available" 
+    end
+
+    if repayment_rate_all_students.blank? || repayment_rate_all_students.downcase == "null"
+      self.repayment_rate_all_students = "Data not available" 
+    end
+
+    if avg_stu_loan_debt.blank? || avg_stu_loan_debt.downcase == "null"
+      self.avg_stu_loan_debt = "Data not available" 
+    end
+
+    if tuition_in_state.blank? || tuition_in_state.downcase == "null"
+      self.tuition_in_state = "Data not available" 
+    end
+
+    if tuition_out_of_state.blank? || tuition_out_of_state.downcase == "null"
+      self.tuition_out_of_state = "Data not available" 
+    end
+
+    if books.blank? || books.downcase == "null"
+      self.books = "Data not available" 
+    end
+
+    true
+  end
 
   #############################################################################
   ## correspondence?

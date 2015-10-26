@@ -7,7 +7,6 @@
 <!-- This closing div is extra .... but necessary? -->
 </div>
 
-
 <div class="usa-width-one-whole">
 	<%= render partial: 'profile_overview' %>
 </div>
@@ -16,6 +15,64 @@
 	<%= render partial: 'profile_additional_resources' %>
 </div>
 
+<h3>Your calculated benefits</h3>
 <div class="usa-width-one-whole">
 	<%= render partial: 'profile_benefits_calculator' %>
 </div>
+
+<h3>Student Veteran Outcomes</h3>
+<!-- Graduation Rates -->
+<div>
+	<% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>
+		<div class="outcome usa-width-one-whole">
+			<%= render partial: 'profile_outcomes', 
+				locals: { 
+					outcome: "graduation", 
+					vrate: number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
+					crate: number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
+					nrate: 43.8
+				} 
+			%>
+		</div>
+	<% else %>
+		<div class="usa-width-one-whole"><span>Graduation Rate Data Not Available</span></div>
+	<% end %>
+</div>
+
+<!-- Transfer out Rates -->
+<div>
+	<% if is_number?(@school.transfer_out_rate_veteran) && is_number?(@school.transfer_out_rate_all_students) %>
+		<div class="outcome usa-width-one-whole">
+			<%= render partial: 'profile_outcomes', 
+				locals: { 
+					outcome: "transfer-out", 
+					vrate: number_with_precision(@school.transfer_out_rate_veteran.to_f * 100, precision: 2),
+					crate: number_with_precision(@school.transfer_out_rate_all_students.to_f * 100, precision: 2),
+					nrate: 10.8
+				} 
+			%>
+		</div>
+	<% else %>
+		<div class="usa-width-one-whole"><span>Transfer-out Rate Data Not Available</span></div>
+	<% end %>
+</div>
+
+<!-- Retention Rates -->
+<div>
+	<% if is_number?(@school.retention_rate_veteran) && is_number?(@school.retention_all_students) %>
+		<div class="outcome usa-width-one-whole">
+			<%= render partial: 'profile_outcomes', 
+				locals: { 
+					outcome: "transfer-out", 
+					vrate: number_with_precision(@school.retention_rate_veteran.to_f * 100, precision: 2),
+					crate: number_with_precision(@school.retention_all_students.to_f * 100, precision: 2),
+					nrate: 10.8
+				} 
+			%>
+		</div>
+	<% else %>
+		<div class="usa-width-one-whole"><span>Retention Rate Data Not Available</span></div>
+	<% end %>
+</div>
+
+
