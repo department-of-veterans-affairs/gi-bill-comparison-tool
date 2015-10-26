@@ -2143,15 +2143,15 @@ fieldset {
     width: 100%; }
 .usa-accordion button[aria-expanded=false],
 .usa-accordion-bordered button[aria-expanded=false] {
-  background-image: url("../img/plus.png");
-  background-image: url("../img/plus.svg");
+  background-image: url("../plus.png");
+  background-image: url("../plus.svg");
   background-repeat: no-repeat;
   background-size: 1.3rem; }
 .usa-accordion button,
 .usa-accordion-bordered button {
   background-color: #f1f1f1;
-  background-image: url("../img/minus.png");
-  background-image: url("../img/minus.svg");
+  background-image: url("../minus.png");
+  background-image: url("../minus.svg");
   background-position: right 3rem center;
   background-repeat: no-repeat;
   background-size: 13px;
@@ -4227,11 +4227,20 @@ form {
 .usa-grid-full {
   max-width: 1200px; }
 
+.main-content {
+  margin-bottom: 10rem; }
+
 ul li:before {
   content: none; }
 
 .pull-right {
   float: right; }
+
+.usa-grid-full .usa-width-three-fourths .nested {
+  margin-right: 0; }
+
+.new-row {
+  margin-top: 1rem; }
 
 .usa-search.usa-search-big.extra [type="submit"], .usa-search.usa-search-big .usa-search-submit {
   width: 20rem; }

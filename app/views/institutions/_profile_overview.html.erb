@@ -1,63 +1,89 @@
-<div id="<%= @school.facility_code %>"
-	class="profile_overview"
-	data-type="<%= @school.institution_type.name %>"
-	data-country="<%= @school.country %>"
-	data-bah="<%= @school.bah %>"
->
-	<% if @school[:caution_flag] %>
-		<h5 style="color:white; background-color:red">
-			<a href="#summary">Caution Flay</a>
-		</h5>
-	<% end %>
+<div class="usa-width-three-fourths">
 
-	<h3><%= @school.institution %></h3>
-	<h5><%= @school.city %>, <%= @school.state %></h5>
-</div>
+	<div class="usa-width-two-thirds">
+		<div id="<%= @school.facility_code %>"
+			class="profile_overview"
+			data-type="<%= @school.institution_type.name %>"
+			data-country="<%= @school.country %>"
+			data-bah="<%= @school.bah %>">
 
-<div>
-	<!-- Holds student attendance and link -->
-	<p>
-		<%= format_number_or_null(@school.undergrad_enrollment, "Total Student") %>
-	</p>
+			<% if @school[:caution_flag] %>
+				<h5 style="color:white; background-color:red">
+					<a href="#summary">Caution Flay</a>
+				</h5>
+			<% end %>
 
-	<% if @school.insturl.present? %>
-		<p><a href="http://<%= @school.insturl.downcase %>">
-			<%= @school.insturl.downcase %>
-		</a></p>
-	<% end %>
-<div>
+			<h2><%= @school.institution %></h2>
+			<p><%= @school.city %>, <%= @school.state %></p>
+		</div>
+		<!-- Holds student attendance and link -->
+		<p>
+			<%= format_number_or_null(@school.undergrad_enrollment, "Total Student") %>
+		</p>
 
-<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
-<ul>
-	<li><%= @school.institution_type.name.upcase %></li>
-</ul>
+		<% if @school.insturl.present? %>
+			<p><a href="http://<%= @school.insturl.downcase %>">
+				<%= @school.insturl.downcase %>
+			</a></p>
+		<% end %>
 
-<div>
-	<h4>VA Summary</h4>
-	<p><%= @school.gibill %> GI Bill Students</p>
-	<ul>
-		<li><%= @school.student_veteran ? "\u2714" : "\u2716" %> Student Veteran Group</li>
-		<li><%= @school.yr ? "\u2714" : "\u2716" %> Yellow Ribbon Scholarships</li>
-		<li><%= @school.poe ? "\u2714" : "\u2716" %> Principles of Excellence</li>
-		<li><%= @school.dodmou ? "\u2714" : "\u2716" %> Military Tuition Assistance (TA)</li>
-		<li><%= @school.eight_keys ? "\u2714" : "\u2716" %> 8 Keys to Veteran Success</li>
-	</ul>
-</div>
+		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
+		<ul>
+			<li><%= @school.institution_type.name.upcase %></li>
+		</ul>
+	</div>
 
-<div>
-	<h3>Benefits Estimator</h3>
-	<div>
-		<div>
+	<div class="usa-width-one-third nested usa-card usa-card-fill">
+	  <div class="usa-card-header">
+			<h4>VA Summary</h4>
+	  </div>
+	  <div class="usa-card-content">
+			<p><%= @school.gibill %> GI Bill Students</p>
+			<ul>
+				<li><%= @school.student_veteran ? "\u2714" : "\u2716" %> Student Veteran Group</li>
+				<li><%= @school.yr ? "\u2714" : "\u2716" %> Yellow Ribbon Scholarships</li>
+				<li><%= @school.poe ? "\u2714" : "\u2716" %> Principles of Excellence</li>
+				<li><%= @school.dodmou ? "\u2714" : "\u2716" %> Military Tuition Assistance (TA)</li>
+				<li><%= @school.eight_keys ? "\u2714" : "\u2716" %> 8 Keys to Veteran Success</li>
+			</ul>
+	  </div>
+	</div>
+
+	<div class="usa-width-one-whole usa-card usa-card-fill">
+	  <div class="usa-card-header">
+			<h3>Benefits Estimator</h3>
+		</div>
+	</div>
+
+	<div class="usa-width-one-third usa-card usa-card-fill">
+	  <div class="usa-card-content">	
 			<h5>Tuition and Fees</h5>
 			<p id="est-tuition-fees"></p>
-		</div>		
-		<div>
+		</div>
+	</div>
+
+	<div class="usa-width-one-third usa-card usa-card-fill">
+	  <div class="usa-card-content">	
 			<h5>Housing Allowance</h5>
 			<p id="est-housing-allowance"></p>
-		</div>		
-		<div>
+		</div>
+	</div>
+
+	<div class="usa-width-one-third usa-card usa-card-fill">
+	  <div class="usa-card-content">	
 			<h5>Book Stipend</h5>
 			<p id="est-book-stipend"></p>
 		</div>
 	</div>
 </div>
+
+<div class="usa-width-one-fourth usa-card usa-card-fill">
+  <div class="usa-card-header">
+		<h4>Additional Resources</h4>
+  </div>
+  <div class="usa-card-content">	
+  	<%= render partial: 'profile_additional_resources' %>
+  </div>
+</div>
+
+
