@@ -13,3 +13,29 @@
  *= require "_scss/all"
  *= require_self
  */
+
+/*********************************************************
+** Stying for outcomes
+*********************************************************/
+/* styling for the line */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/* This needs to be changed so that there are two colors */
+.bar {
+  fill: yellow;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: #444;
+  stroke-width: 1.5px;
+}
