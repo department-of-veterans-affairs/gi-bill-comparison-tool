@@ -1,0 +1,26 @@
+// Modal stuff, will need to be scaled with more than one modal!
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+#training {
+  width: 500px;
+  padding: 3rem;
+  display:none;
+  background: #FFF;
+}
+
+.modal_close { 
+  position: absolute; 
+  top: 12px; 
+  right: 12px; 
+  display: block; 
+  z-index: 2; 
+}
