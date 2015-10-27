@@ -28,6 +28,5 @@ config/initializers/secret_token.rb
 # Ignore sass-cache files
 .sass-cache
 .sass-cache/*
-_scss
 app/.DS_Store
 app/views/.DS_Store

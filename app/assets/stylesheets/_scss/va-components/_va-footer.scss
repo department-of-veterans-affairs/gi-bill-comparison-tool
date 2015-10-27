@@ -1,0 +1,67 @@
+// Footer
+
+.usa-footer-big .usa-footer-primary-section.va {
+  padding-bottom: 4rem;
+}
+.usa-footer-primary-section.va{
+  background-color: #0e345e;
+  @include media($medium-screen) {
+    li a {
+      background: none;
+      text-decoration: none;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      padding: .65em 0;
+      display: inline-block;
+      &:hover {
+        color: #fff;
+        text-decoration: none;
+        border-bottom: 2px solid #0083BE;
+        text-shadow: 0 0 5px rgba(255,255,255,0.4);
+      }
+    }
+  }
+}
+.usa-footer-secondary_section.va.one {
+  background-color: $va-primary-color;
+  height: 10rem;
+  padding-top: 2rem;
+}
+
+.usa-footer-secondary_section.va.two {
+  background-color: $va-secondary-color;
+  height: 10rem;
+  padding-top: 2rem;
+}
+
+.usa-footer-primary-section.va, .usa-footer-secondary_section.va.one, .usa-footer-secondary_section.va.two {
+  h2, h4, p, li, a {
+    color: #fff;
+  }
+}
+.usa-footer-secondary_section.va.one .footer-crisis a { 
+  color: $va-body-content-color;
+}
+
+.footer-crisis {
+  background:$va-body-accent-color;
+  margin: 0.5rem;
+  padding: 1rem;
+  font-size: .85em;
+  span {
+    font-weight: bold;
+    color: $va-body-content-color;
+  }
+  a {
+    display:inline;
+    text-decoration: none!important;
+    &:hover {
+      border-bottom: 2px solid $va-body-accent-color;
+    }
+    @media($small-screen) {
+      padding: .25em 0;
+    }
+    @media($medium-screen) {
+      display:block
+    }
+  }
+}
