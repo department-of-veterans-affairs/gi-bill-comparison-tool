@@ -4,24 +4,27 @@
 	</div>
 	<div class="usa-card-content">
 		<h4>Institution</h4>
-		<input type="checkbox" id="school" name="school" 
-			class="filter" value="true" data-text="School" />
+		<input type="checkbox" id="school" name="institution-type" 
+			class="filter" value="school" data-text="School" 
+			data-count="0" />
 		<label id="school-label" for="school"></label>
 
-		<input type="checkbox" id="employer" name="employer" 
-			class="filter" value="true" data-text="Employer" />
+		<input type="checkbox" id="employer" name="institution-type" 
+			class="filter" value="employer" data-text="Employer" 
+			data-count="0"/>
 		<label id="employer-label" for="employer"></label>
 
 		<h4>Location</h4>
 		<label for="state">State: </label>
 		<select id="states" name="state" class="filter">
-			<option value="all" data-text="All" selected>&nbsp;</option>
+			<option value="all" data-text="All" data-count="0" selected>&nbsp;</option>
 			<% @states.each do |state| %>
-				<option value="<%= state %>" data-text="<%= state.upcase %>">
+				<option value="<%= state %>" data-count="0" data-text="<%= state.upcase %>">
 					&nbsp;
 				</option>
 			<% end %>
 		</select>
+
 		<label for="country">Country: </label>
 		<select id="countries" name="country" class="filter">
 			<option value="all" data-text="All" selected>&nbsp;</option>
@@ -61,14 +64,10 @@
 	</div>
 </div>
 
-
 <script>
 $(document).ready(function() {
+	var filter = new Filter(".filter", ".school_summary");
 	var searchTerm = "<%= @inputs[:institution_search] %>";
-	/////////////////////////////////////////////////////////////////////////////
-	// Populate initial counts for states and countries
-	/////////////////////////////////////////////////////////////////////////////
-	refreshFilters(".school_summary", ".filter", searchTerm);
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Disable state filter when the country is not US or all on country change.
@@ -80,65 +79,6 @@ $(document).ready(function() {
 			$("#states").prop("disabled", true).val("all");
 		else
 			$("#states").prop("disabled", false);
-
-		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter", searchTerm);
-	});
-
-	/////////////////////////////////////////////////////////////////////////////
-	// Institution changes
-	/////////////////////////////////////////////////////////////////////////////
-	$("#employer").change(function() {
-		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter", searchTerm);
-	});
-
-	$("#school").change(function() {
-		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter", searchTerm);
-	});
-
-	/////////////////////////////////////////////////////////////////////////////
-	// State changes
-	/////////////////////////////////////////////////////////////////////////////
-	$("#states").change(function() {
-		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter", searchTerm);
-	});
-
-	/////////////////////////////////////////////////////////////////////////////
-	// Feature changes
-	/////////////////////////////////////////////////////////////////////////////
-	$("#student-veteran").change(function() {
-		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter", searchTerm);
-	});
-
-	$("#yr").change(function() {
-		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter", searchTerm);
-	});
-
-	$("#poe").change(function() {
-		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter", searchTerm);
-	});
-	
-	$("#eight-keys").change(function() {
-		runFilter(".school_summary", ".filter");
-		refreshFilters(".school_summary", ".filter", searchTerm);
-	});
-
-	/////////////////////////////////////////////////////////////////////////////
-	// Feature changes
-	/////////////////////////////////////////////////////////////////////////////
-	$(".filter:checkbox").each(function() {
-		if ($(this).attr('name') === 'type') {
-			$(this).change(function() {
-				runFilter(".school_summary", ".filter");
-				refreshFilters(".school_summary", ".filter", searchTerm);				
-			});
-		}
 	});
 });
 </script>

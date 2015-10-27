@@ -56,3 +56,11 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.5.0'
 end
 
+# MPH Deployment stuff
+group :development do
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-env-config', git: "https://github.com/greggersh/capistrano-env-config", branch: "dotenv-2.0.2"
+end
+
