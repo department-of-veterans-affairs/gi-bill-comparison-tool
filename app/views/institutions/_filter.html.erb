@@ -4,12 +4,17 @@
 	</div>
 	<div class="usa-card-content">
 		<h4>Institution</h4>
-		<input type="checkbox" id="school" name="institution-type" 
+		<input type="radio" id="all-school" name="institution-type" 
+			class="filter" value="all" data-text="All" 
+			data-count="0" checked />
+		<label id="all-school-label" for="all-school"></label>
+
+		<input type="radio" id="school" name="institution-type" 
 			class="filter" value="school" data-text="School" 
 			data-count="0" />
 		<label id="school-label" for="school"></label>
 
-		<input type="checkbox" id="employer" name="institution-type" 
+		<input type="radio" id="employer" name="institution-type" 
 			class="filter" value="employer" data-text="Employer" 
 			data-count="0"/>
 		<label id="employer-label" for="employer"></label>

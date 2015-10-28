@@ -412,6 +412,7 @@ Estimator.prototype.getHousingAllowance = function () {
 
   this.setDependents();
 
+  // alert(this.old_gi_bill && this.only_tuition_fees)
 	if (this.gi_bill_chap == 31  && this.isFlightOrCorrespondence()) 
     estimated = '$0 / month';
   else if (this.old_gi_bill && this.only_tuition_fees)

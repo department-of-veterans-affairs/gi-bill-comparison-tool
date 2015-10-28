@@ -118,6 +118,19 @@ Filter.prototype.checkboxMatch = function(value, data) {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
+// radioMatch
+// Matches the radio value to a data value.
+// 
+// Return: boolean
+///////////////////////////////////////////////////////////////////////////////
+Filter.prototype.radioMatch = function(value, data) {
+	value = value.toLowerCase();
+	data = data.toLowerCase(); 
+
+	return !value || value === "all" || value === data;
+};
+
+///////////////////////////////////////////////////////////////////////////////
 // selectMatch
 // Matches the select value to a data value. With selects there is an
 // "all" value that represents all options. Moreover, we wish to return the 
@@ -190,6 +203,8 @@ Filter.prototype.runFilter = function() {
 					show = show && filterThis.checkboxMatch(value, data); break;
 				case "select":
 					show = show && filterThis.selectMatch(name, value, data); break;
+				case "radio":
+					show = show && filterThis.radioMatch(value, data); break;
 				default:
 					show = show && (!value || value === data);
 			}
@@ -230,6 +245,10 @@ Filter.prototype.filterCount = function(content) {
 				if (value === "all" || value === data)
 					$(this).data('count', Number($(this).data('count')) + 1);
 			});
+		}
+		else if (type === "radio") {
+			if (value === "all" || value === data)
+				$(this).data('count', Number($(this).data('count')) + 1);
 		}
 		else if (value === data) {
 			$(this).data('count', Number($(this).data('count')) + 1);
