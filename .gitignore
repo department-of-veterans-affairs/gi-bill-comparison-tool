@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+# MPH 
+.DS_Store
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
