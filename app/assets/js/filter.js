@@ -242,13 +242,17 @@ Filter.prototype.filterCount = function(content) {
 			$('[name="' + name + '"] option').each(function() {
 				value = $(this).val().toLowerCase();
 
-				if (value === "all" || value === data)
+				if (value === data)
 					$(this).data('count', Number($(this).data('count')) + 1);
+				else if (value === "all")
+					$(this).data('count', filterThis.contents.length);
 			});
 		}
 		else if (type === "radio") {
-			if (value === "all" || value === data)
+			if (value === data)
 				$(this).data('count', Number($(this).data('count')) + 1);
+			else if (value === "all")
+				$(this).data('count', filterThis.contents.length);
 		}
 		else if (value === data) {
 			$(this).data('count', Number($(this).data('count')) + 1);
