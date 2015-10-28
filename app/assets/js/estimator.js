@@ -275,7 +275,7 @@ Estimator.prototype.setMonthlyRate = function () {
   if (this.gi_bill_chap == 30 && this.enlistment_service == 3 && this.institution_type == 'ojt')
     this.monthly_rate = this.MGIB3YRRATE * 0.75;	
   else if (this.gi_bill_chap == 30 && this.enlistment_service == 3) 
-    this.monthlyrate = this.MGIB3YRRATE;
+    this.monthly_rate = this.MGIB3YRRATE;
   else if (this.gi_bill_chap == 30 && this.enlistment_service == 2 && this.institution_type == 'ojt')
     this.monthly_rate = this.MGIB2YRRATE * 0.75;
   else if (this.gi_bill_chap == 30 && this.enlistment_service == 2)
@@ -412,7 +412,8 @@ Estimator.prototype.getHousingAllowance = function () {
 
   this.setDependents();
 
-  // alert(this.old_gi_bill && this.only_tuition_fees)
+  //alert(this.old_gi_bill || this.vre_only);
+
 	if (this.gi_bill_chap == 31  && this.isFlightOrCorrespondence()) 
     estimated = '$0 / month';
   else if (this.old_gi_bill && this.only_tuition_fees)
