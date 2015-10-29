@@ -8,32 +8,28 @@
 // TODO: add contents change function to enable filtering by dynamic contents.
 ///////////////////////////////////////////////////////////////////////////////
 function Filter(filters, contents) {
-	var filterThis = this;
-
-	this.filterList = {};
+	var othis = this;
 
 	this.contents = $(contents);
 	this.filters = $(filters);
 
+	this.filterList = this.initFilterList();
+	$(this.filters).each(function() { 
+		t = othis.setFilterValue(this);
+	});
+
 	// Reset the filter counts, setup filter labels
 	this.resetFilterCount();
+	this.countAll();
 
-	$(this.filters).each(function() { filterThis.getFilterValue(this) });
-	$(this.contents).each(function() { filterThis.filterCount(this) });
+	$(this.contents).each(function() { othis.setFilterCount(this) });
 	this.updateFilterText();
 
 	// Iterate through each filter in the list
 	$(this.filters).each(function() {
-		var name = $(this).attr("name");
-		var type = filterThis.getFilterType(this, name);
-
-		// Only need add control group once (checkbox group)
-		if (!filterThis.filterList.hasOwnProperty(name))
-			filterThis.filterList[name] = { ptype: type, pvalue: null };
-
 		// Add a change handler and get the initial value
 		$(this).change(function() {
-			filterThis.resetFilterCount().getFilterValue(this).runFilter().updateFilterText();
+			othis.resetFilterCount().setFilterValue(this).runFilter().updateFilterText();
 		});
 	});
 }
@@ -54,39 +50,57 @@ Filter.prototype.getFilterType = function(filter) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// getFilterValue
-// Constructs a value based on the type of filter control.
+// setFilterValue
+// Adds a new value to the filter list.
 //
 // Return: this
 ///////////////////////////////////////////////////////////////////////////////
-Filter.prototype.getFilterValue = function(control) {
-	var value = $(control).val();
-	var name = $(control).attr('name');
-	var prop = null;
+Filter.prototype.setFilterValue = function(filter) {
+	var name = $(filter).attr('name');
+	var type = this.filterList[name].type;
+	var prop_value = this.filterList[name].value;
 
-	if (!(prop = this.filterList[name]))
-		prop = { ptype: this.getFilterType(control), pvalue: null }
-
-	switch (prop.ptype) {
+	switch (type) {
 	case "checkbox":
-		prop.pvalue = prop.pvalue || [];
+		prop_value = [];
 
-		var idx = $.inArray(value, prop.pvalue);
-		var checked = $(control).prop("checked");
-
-		// Add if not on the list and checked
-		// Remive if on the list and not checked.
-		if (idx == -1 && checked)
-			prop.pvalue.push(value);
-		else if (idx > -1 && !checked)
-			prop.pvalue.splice(idx, 1);
+		$("input:checkbox[name=" + name + "]:checked").each(function() {
+			prop_value.push($(this).val());
+		});
+		break;
+	
+	case "radio":
+		var value = $("input:radio[name=" + name + "]:checked").val(); 
+		prop_value = (value === "all") ? null : value;
 		break;
 	default:
-		prop.pvalue = value;
+		var value = $(filter).val();
+		prop_value = (value === "all") ? null : value;
 	}
 
-	this.filterList[name] = prop;
+	this.filterList[name].value = prop_value;
 	return this;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// initFilterList
+// Initializes the filterList with the intitial value of the control. For 
+// filters, a null or empty value indicates there is no filter in play.
+///////////////////////////////////////////////////////////////////////////////
+Filter.prototype.initFilterList = function() {
+	var othis = this;
+	var list = {};
+
+	$(this.filters).each(function() {
+		var name = $(this).attr("name");
+		var type = othis.getFilterType(this);
+
+		list[name] = {};
+		list[name].type = type;
+		list[name].value = (type === "checkbox") ? [] : null;
+	});
+
+	return list;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -102,56 +116,6 @@ Filter.prototype.getContentData = function(content, name) {
 	if (typeof(data) === 'boolean') data = String(data);
 	return data;
 }
-
-///////////////////////////////////////////////////////////////////////////////
-// checkboxMatch
-// Matches the checkbox value to a data value. With checkboxes, we can have
-// multiple values (for checkboxes with the same name) that are or-ed. 
-// Implicitly when all checkboxes are unchecked with the same name it is 
-// treated as "all", that is, all values of the checkbox group are considered
-// checked.
-// 
-// Return: boolean
-///////////////////////////////////////////////////////////////////////////////
-Filter.prototype.checkboxMatch = function(value, data) {
-	return !value || value.length == 0 || $.inArray(data, value) > -1;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// radioMatch
-// Matches the radio value to a data value.
-// 
-// Return: boolean
-///////////////////////////////////////////////////////////////////////////////
-Filter.prototype.radioMatch = function(value, data) {
-	value = value.toLowerCase();
-	data = data.toLowerCase(); 
-
-	return !value || value === "all" || value === data;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// selectMatch
-// Matches the select value to a data value. With selects there is an
-// "all" value that represents all options. Moreover, we wish to return the 
-// option element that is matched. If no match, null is returned.
-// 
-// Return: object
-///////////////////////////////////////////////////////////////////////////////
-Filter.prototype.selectMatch = function(name, value, data) {
-	var option = null;
-
-	name = name.replace('_', '-');
-	value = value.toLowerCase();
-	data = data.toLowerCase();
-
-	if (value === "all")
-		option = $('[name="' + name + '"] option[value="all"]');
-	else if (value === data)
-		option = $('[name="' + name + '"] option[value="' + data + '"]');
-
-	return option;
-};
 
 ///////////////////////////////////////////////////////////////////////////////
 // resetFilterCount
@@ -178,83 +142,49 @@ Filter.prototype.resetFilterCount = function() {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// runFilter
-// Filter contents by data-name, where name is the name of the filter applied.
-//
-// Return: this
+// countAll
+// Counts all contents, and uses that count for "all" values, because they
+// never change.
 ///////////////////////////////////////////////////////////////////////////////
-Filter.prototype.runFilter = function() {
-	var filterThis = this;
+Filter.prototype.countAll = function() {
+	var othis = this;
 
-	// Reset the filter counts
-	this.resetFilterCount();
-
-	// For each content element, show only if ALL filters are satisfied.
-	$(this.contents).each(function() {
-		var show = true;
-
-		for (var name in filterThis.filterList) {
-			var value = filterThis.filterList[name].pvalue;
-			var type = filterThis.filterList[name].ptype;
-			var data = filterThis.getContentData(this, name);
-
-			switch(type) {
-				case "checkbox":
-					show = show && filterThis.checkboxMatch(value, data); break;
-				case "select":
-					show = show && filterThis.selectMatch(name, value, data); break;
-				case "radio":
-					show = show && filterThis.radioMatch(value, data); break;
-				default:
-					show = show && (!value || value === data);
-			}
-
-			if (!show) break;
-		}
-
-		show ? $(this).show() : $(this).hide();
-		filterThis.filterCount(this);
+	$("[value=all]").each(function() {
+		$(this).data('count', othis.contents.length);
 	});
-
-	return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// filterCount
+// setFilterCount
 // Updates the number of visible content elements having each filters value.
 //
 // Return: this
 ///////////////////////////////////////////////////////////////////////////////
-Filter.prototype.filterCount = function(content) {
+Filter.prototype.setFilterCount = function(content) {
 	if (!$(content).is(':visible')) return;
 
-	var filterThis = this;
+	var othis = this;
 
 	$(this.filters).each(function() {
 		var name = $(this).attr('name');
 		var value = $(this).val().toLowerCase();
-		var type = filterThis.getFilterType(this);
-		var data = filterThis.getContentData(content, name).toLowerCase();
+		var type = othis.getFilterType(this);
+		var data = othis.getContentData(content, name).toLowerCase();
 		var ctl = null;
 
 		// If the filter is a select, get the option
 		if (type === "select") {
 			$('[name="' + name + '"] option').each(function() {
 				value = $(this).val().toLowerCase();
-
-				if (value === data)
-					$(this).data('count', Number($(this).data('count')) + 1);
-				else if (value === "all")
-					$(this).data('count', filterThis.contents.length);
+				if (value !== "all" && value === data)
+					$(this).data('count', Number($(this).data('count')) + 1); 
 			});
 		}
 		else if (type === "radio") {
-			if (value === data)
-				$(this).data('count', Number($(this).data('count')) + 1);
-			else if (value === "all")
-				$(this).data('count', filterThis.contents.length);
+			if (value !== "all" && value === data)
+				$(this).data('count', Number($(this).data('count')) + 1); 
 		}
-		else if (value === data) {
+		else if (value !== "all" && value === data) {
 			$(this).data('count', Number($(this).data('count')) + 1);
 		}	
 	});
@@ -269,10 +199,10 @@ Filter.prototype.filterCount = function(content) {
 // Return: this
 ///////////////////////////////////////////////////////////////////////////////
 Filter.prototype.updateFilterText = function () {
-	var filterThis = this;
+	var othis = this;
 
 	$(this.filters).each(function() {
-		var type = filterThis.getFilterType(this);
+		var type = othis.getFilterType(this);
 		var id = $(this).attr('id');
 
 		var count;
@@ -296,3 +226,94 @@ Filter.prototype.updateFilterText = function () {
 
 	return this;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// checkboxMatch
+// Matches the checkbox value to a data value. With checkboxes, we can have
+// multiple values (for checkboxes with the same name) that are or-ed. 
+// Implicitly when all checkboxes are unchecked with the same name it is 
+// treated as "all", that is, all values of the checkbox group are considered
+// checked.
+// 
+// Return: boolean
+///////////////////////////////////////////////////////////////////////////////
+Filter.prototype.checkboxMatch = function(value, data) {
+	return value.length == 0 || $.inArray(data, value) > -1;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// radioMatch
+// Matches the radio value to a data value.
+// 
+// Return: boolean
+///////////////////////////////////////////////////////////////////////////////
+Filter.prototype.radioMatch = function(value, data) {
+	if (value === null) return true;
+	return value.toLowerCase() === data.toLowerCase();
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// selectMatch
+// Matches the select value to a data value. With selects there is an
+// "all" value that represents all options. Moreover, we wish to return the 
+// option element that is matched. If no match, null is returned.
+// 
+// Return: object
+///////////////////////////////////////////////////////////////////////////////
+Filter.prototype.selectMatch = function(name, value, data) {
+	if (value === null) return $('[name="' + name + '"] option[value="all"]');
+
+	var option = null;
+
+	name = name.replace('_', '-');
+	value = value.toLowerCase();
+	data = data.toLowerCase();
+
+	if (value === data)
+		option = $('[name="' + name + '"] option[value="' + data + '"]');
+
+	return option;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// runFilter
+// Filter contents by data-name, where name is the name of the filter applied.
+//
+// Return: this
+///////////////////////////////////////////////////////////////////////////////
+Filter.prototype.runFilter = function() {
+	var othis = this;
+
+	// Reset the filter counts
+	this.resetFilterCount();
+
+	// For each content element, show only if ALL filters are satisfied.
+	$(this.contents).each(function() {
+		var show = true;
+
+		for (var name in othis.filterList) {
+			var value = othis.filterList[name].value;
+			var type = othis.filterList[name].type;
+			var data = othis.getContentData(this, name);
+
+			switch(type) {
+				case "checkbox":
+					show = show && othis.checkboxMatch(value, data); break;
+				case "select":
+					show = show && othis.selectMatch(name, value, data); break;
+				case "radio":
+					show = show && othis.radioMatch(value, data); break;
+				default:
+					show = show && (!value || value === data);
+			}
+
+			if (!show) break;
+		}
+
+		show ? $(this).show() : $(this).hide();
+		othis.countAll();
+		othis.setFilterCount(this);
+	});
+
+	return this;
+};
