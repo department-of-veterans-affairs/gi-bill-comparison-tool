@@ -390,13 +390,13 @@ Estimator.prototype.getTuitionFees = function () {
 	else if (this.gi_bill_chap == 31)
 		estimated = this.isFlightOrCorrespondence() ? '$0 year' : 'Full Cost of Attendance';
   else if (this.isFlight())
-    estimated = this.formatCurrency(this.FLTTFCAP * this.tier) + ' / year (up to)';
+    estimated = this.formatCurrency(this.FLTTFCAP * this.tier) + ' / year';
   else if (this.isCorrespondence())
-  	estimated = this.formatCurrency(this.CORRESPONDTFCAP * this.tier) + ' / year (up to)';
+  	estimated = this.formatCurrency(this.CORRESPONDTFCAP * this.tier) + ' / year';
   else if (this.isPublic()) 
   	estimated = Math.round(this.tier * 100) + '% of instate tuition';
   else
-  	estimated = this.formatCurrency(this.TFCAP * this.tier) + ' / year (up to)';
+  	estimated = this.formatCurrency(this.TFCAP * this.tier) + ' / year';
 
   return estimated;
 };
@@ -417,9 +417,9 @@ Estimator.prototype.getHousingAllowance = function () {
 	if (this.gi_bill_chap == 31  && this.isFlightOrCorrespondence()) 
     estimated = '$0 / month';
   else if (this.old_gi_bill && this.only_tuition_fees)
-    estimated = this.formatCurrency(this.monthly_rate) + ' / month (full time)*';
+    estimated = this.formatCurrency(this.monthly_rate) + ' / month*';
  	else if (this.old_gi_bill || this.vre_only) 
-    estimated = this.formatCurrency(this.monthly_rate) + ' / month (full time)';
+    estimated = this.formatCurrency(this.monthly_rate) + ' / month';
   else if (this.military_status == 'active duty')
     estimated = '$0 / month';
   else if (this.military_status == 'spouse' && this.spouse_active_duty)
@@ -431,11 +431,11 @@ Estimator.prototype.getHousingAllowance = function () {
   else if (this.isOjt())
   	estimated = this.formatCurrency(this.tier * this.bah) + ' / month';
   else if (this.online)
-    estimated = this.formatCurrency(this.tier * this.AVGBAH / 2) + ' / month (full time)';
+    estimated = this.formatCurrency(this.tier * this.AVGBAH / 2) + ' / month';
   else if (this.country != 'usa')
-    estimated = this.formatCurrency(this.tier * this.AVGBAH) + ' / month (full time)';
+    estimated = this.formatCurrency(this.tier * this.AVGBAH) + ' / month';
   else
-    estimated = this.formatCurrency(this.tier * this.bah) + ' / month (full time)';
+    estimated = this.formatCurrency(this.tier * this.bah) + ' / month';
 
   return estimated;
  };
