@@ -18,7 +18,7 @@ class CreateInstitutions < ActiveRecord::Migration
       t.string :insturl
       t.string :vet_tuition_policy_url
       t.integer :pred_degree_awarded
-      t.integer :locale
+      t.string :locale # Integer with "null" string values
       t.integer :gibill
       t.string :undergrad_enrollment # Integer with "null" string values
       t.boolean :yr, null: false
@@ -34,9 +34,13 @@ class CreateInstitutions < ActiveRecord::Migration
       t.boolean :vet_poc
       t.boolean :student_vet_grp_ipeds 
       t.boolean :soc_member
-      t.string :retention_rate_veteran #Float with "null" strings.
-      t.string :retention_all_students #Float with "null" strings.
-      t.string :persistance_rate_veteran #Float with "null" strings.
+      t.string :va_highest_degree_offered
+      t.float :retention_rate_veteran_ba      
+      t.float :retention_all_students_ba       
+      t.float :retention_rate_veteran_otb        
+      t.float :retention_all_students_otb      
+      t.float :persistance_rate_veteran_ba   
+      t.float :persistance_rate_veteran_otb
       t.string :graduation_rate_veteran #Float with "null" strings.
       t.string :graduation_rate_all_students #Float with "null" strings.
       t.string :transfer_out_rate_veteran #Float with "null" strings.
@@ -96,6 +100,7 @@ class CreateInstitutions < ActiveRecord::Migration
       t.index :city
       t.index :state
       
+      # Past Columns
       # t.float :grad_rate 
       # t.integer :grad_rate_rank  
       # t.float :default_rate  
@@ -106,6 +111,10 @@ class CreateInstitutions < ActiveRecord::Migration
       # t.boolean :hcm_status, null: false  
       # t.string :hcm_type  
       # t.string :hcm_reason
+      # t.string :retention_rate_veteran #Float with "null" strings.
+      # t.string :retention_all_students #Float with "null" strings.
+      # t.string :persistance_rate_veteran #Float with "null" strings.
+
     end
   end
 end
