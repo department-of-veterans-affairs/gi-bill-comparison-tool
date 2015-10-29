@@ -22,9 +22,9 @@
 	data-bah="<%= school_summary[:bah] %>">
 
 	<% if school_summary[:caution_flag] %>
-		<h5 style="color:white; background-color:red">
-			<a class="a-<%= school_summary[:id] %>" href="#">Caution Flag</a>
-		</h5>
+		<div class="caution">
+			<a class="a-<%= school_summary[:id] %> searchresults-caution" href="#">Caution Flag</a>
+        </div>
 	<% end %>
 
 	<h4><a class="a-<%= school_summary[:id] %>" href="#">

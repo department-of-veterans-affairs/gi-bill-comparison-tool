@@ -11,6 +11,7 @@
     margin-top: 1rem;
   }
 
+
   > ul {
     color: $color-base;
     margin: 0;
@@ -25,6 +26,8 @@
       width: 100%;
     }
   }
+ 
+
 
   .usa-card-header {
     background-color: $color-gray-lighter;
@@ -81,3 +84,15 @@
     margin-bottom: 0;
   }
 }
+
+.caution{
+    background-color: aqua;
+
+    &:link{
+        font-family: $open-sans;
+        color: #fff;
+    }
+    }
+    
+.searchresults-caution{
+    }    
