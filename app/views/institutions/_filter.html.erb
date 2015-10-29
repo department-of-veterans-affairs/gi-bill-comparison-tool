@@ -24,7 +24,7 @@
 		<select id="states" name="state" class="filter">
 			<option value="all" data-text="All" data-count="0" selected>&nbsp;</option>
 			<% @states.each do |state| %>
-				<option value="<%= state %>" data-count="0" data-text="<%= state.upcase %>">
+				<option value="<%= state %>" data-text="<%= state.upcase %>" data-count="0">
 					&nbsp;
 				</option>
 			<% end %>
@@ -32,9 +32,9 @@
 
 		<label for="country">Country: </label>
 		<select id="countries" name="country" class="filter">
-			<option value="all" data-text="All" selected>&nbsp;</option>
+			<option value="all" data-text="All" data-count="0" selected>&nbsp;</option>
 			<% @countries.each do |country| %>
-				<option value="<%= country %>" data-text="<%= to_caps(country) %>">
+				<option value="<%= country %>" data-text="<%= to_caps(country) %>" data-count="0">
 					&nbsp;
 				</option>
 			<% end %>
@@ -42,19 +42,23 @@
 
 		<h4>School Features</h4>
 		<input type="checkbox" id="student-veteran" name="student_veteran" 
-			class="filter" value="true" data-text="Student Veteran Group" />
+			class="filter" value="true" data-text="Student Veteran Group" 
+			data-count="0" />
 		<label id="student-veteran-label" for="student-veteran"></label>
 
 		<input type="checkbox" id="yr" name="yr" 
-			class="filter" value="true" data-text="Yellow Ribbon Scholarship" />
+			class="filter" value="true" data-text="Yellow Ribbon Scholarship" 
+			data-count="0" />
 		<label id="yr-label" for="yr"></label>
 
 		<input type="checkbox" id="poe" name="poe" 
-			class="filter" value="true" data-text="Principles of Excellence" />
+			class="filter" value="true" data-text="Principles of Excellence" 
+			data-count="0" />
 		<label id="poe-label" for="poe"></label>
 
 		<input type="checkbox" id="eight-keys" name="eight_keys" 
-			class="filter" value="true" data-text="8 Keys to Veteran Success" />
+			class="filter" value="true" data-text="8 Keys to Veteran Success" 
+			data-count="0" />
 		<label id="eight-keys-label" for="eight-keys"></label>
 
 		<h4>Types of Schools</h4>
@@ -62,7 +66,8 @@
 		<% @types.each do |type| %>
 			<% id, name = type.gsub(' ', '-'), type.gsub(' ', '_') %>
 			<input type="checkbox" id="<%= id %>" name="type" 
-				class="filter" value="<%= type %>" data-text="<%= to_caps(type) %>" />
+				class="filter" value="<%= type %>" data-text="<%= to_caps(type) %>" 
+				data-count="0" />
 			<label id="<%= id %>-label" for="<%= id %>"></label>
 		<% end %>
 
@@ -77,13 +82,13 @@ $(document).ready(function() {
 	/////////////////////////////////////////////////////////////////////////////
 	// Disable state filter when the country is not US or all on country change.
 	/////////////////////////////////////////////////////////////////////////////
-	$("#countries").change(function() {
-		var value = $(this).val().toLowerCase();
+	// $("#countries").change(function() {
+	// 	var value = $(this).val().toLowerCase();
 
-		if ($.inArray(value, ["all", "usa"]) == -1)
-			$("#states").prop("disabled", true).val("all");
-		else
-			$("#states").prop("disabled", false);
-	});
+	// 	if ($.inArray(value, ["all", "usa"]) == -1)
+	// 		$("#states").prop("disabled", true).val("all");
+	// 	else
+	// 		$("#states").prop("disabled", false);
+	// });
 });
 </script>
