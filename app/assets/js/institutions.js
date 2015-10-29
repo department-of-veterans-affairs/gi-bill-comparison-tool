@@ -43,9 +43,9 @@ var runEstimator = function() {
 		estimator.setCountry(id);
 		estimator.setBah(id);
 
-		$(id + "-est-tuition-fees").html(estimator.getTuitionFees() + "<br/>Tuition &amp; Fees");
-		$(id + "-est-housing-allowance").html(estimator.getHousingAllowance() + "<br/>Housing");
-		$(id + "-est-book-stipend").html(estimator.getBookStipend() + "<br/>Books");
+		$(id + "-est-tuition-fees").html(estimator.getTuitionFees());
+		$(id + "-est-housing-allowance").html(estimator.getHousingAllowance());
+		$(id + "-est-book-stipend").html(estimator.getBookStipend());
 	});
 
 	// Set the profile page if present
@@ -57,9 +57,9 @@ var runEstimator = function() {
 		estimator.setCountry(id);
 		estimator.setBah(id);
 
-		$("#est-tuition-fees").html(estimator.getTuitionFees() + "<br/>Tuition &amp; Fees");
-		$("#est-housing-allowance").html(estimator.getHousingAllowance() + "<br/>Housing");
-		$("#est-book-stipend").html(estimator.getBookStipend() + "<br/>Books");
+		$("#est-tuition-fees").html(estimator.getTuitionFees());
+		$("#est-housing-allowance").html(estimator.getHousingAllowance());
+		$("#est-book-stipend").html(estimator.getBookStipend());
 	});
 }
 

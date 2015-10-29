@@ -24,16 +24,16 @@ class Institution < ActiveRecord::Base
   ## If blank, these fields equate to null as well.
   #############################################################################
   def numbers_with_null
-    if retention_rate_veteran.blank? || retention_rate_veteran.downcase == "null"
-      self.retention_rate_veteran = "Data not available" 
+    if insturl.blank? || insturl.downcase == "null"
+      self.locale = "Data not available" 
     end
 
-    if retention_all_students.blank? || retention_all_students.downcase == "null"
-      self.retention_all_students = "Data not available" 
+    if locale.blank? || locale.downcase == "null"
+      self.locale = "Data not available" 
     end
 
-    if persistance_rate_veteran.blank? || persistance_rate_veteran.downcase == "null"
-      self.persistance_rate_veteran = "Data not available" 
+    if undergrad_enrollment.blank? || undergrad_enrollment.downcase == "null"
+      self.undergrad_enrollment = "Data not available" 
     end
 
     if graduation_rate_veteran.blank? || graduation_rate_veteran.downcase == "null"
