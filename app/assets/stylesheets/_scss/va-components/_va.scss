@@ -36,6 +36,31 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
   font-family: $roboto-slab;
 }
 
+
+// Home Teaser Block - Lots of styles, I know....rl
+
+.home-teaser{
+    text-align: center;
+}
+
+.teaser-head{
+    font-size: 1.2rem;
+}
+
+.teaser-container{
+    padding: 1.5rem;
+}
+
+.fa-teaser{
+    font-size: 4rem;
+    color: $va-secondary-color;
+}
+.teaser-figure{
+    font-family: $roboto-slab;
+    font-size: 3rem;
+    color: $va-primary-color;
+}
+
 .ui-autocomplete {
     background-color: #fff;
     border: 1px solid $olso-gray;
@@ -85,7 +110,7 @@ ul li {
   background-color: $color-gray-lightest;
   height: 35rem;
   width: 28rem;
-  padding: 1em;
+  padding: 0 1em 1em 1em;
   margin: 0 0 1rem 1rem;
   float: left;
 
