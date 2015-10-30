@@ -1,3 +1,4 @@
+<% if (@school.complaints_main_campus_roll_up > 0) %>
 <div id="complaint-box">
   <div class="heading solid navy table"><h3>Complaint Breakdown <span class="source"><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#sourcedata" onclick="track('Tool Tips', 'Complaint Box / Source');" target="_blank" alt="Click here for more information." title="Download data file used for the GI Bill Comparison Tool.">Source</a></span></h3></div>
   <table class="dark-background">
@@ -88,8 +89,13 @@
     </tfoot>
   </table>
 </div>
+<% end %>
 
-<div id="<%= @school.facility_code %>-caution-flag-reason %>">
-  <h4>Caution Flag Reason</h4>
-  <p><%= @school.caution_flag_reason %></p>
+<div>
+  <% if @school.caution_flag %>
+    <h4>Caution Flag Reason</h4>
+    <p><%= @school.caution_flag_reason %></p>
+  <% else %>
+    <p>No Caution Flags</p>
+  <% end %>
 </div>

@@ -91,7 +91,7 @@
 	        <h3>Caution Flags (<%= pluralize(@school.complaints_facility_code, " Complaint") %>)</h3>
 	      </button>
 	      <div id="collapsible-3" aria-hidden="true" class="usa-accordion-content">
-					<%= render(partial: 'profile_complaints') if (@school.complaints_main_campus_roll_up > 0) %>
+					<%= render(partial: 'profile_complaints') %>
 	      </div>
 	    </li>
 	  </ul>
