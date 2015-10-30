@@ -1,19 +1,23 @@
 // VA header and logo
 .va-site-header{
-  background-color: $va-secondary-color;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: 1; 
-  margin-bottom: 5rem;
-  .va-site-navbar.upper{
-    height: 6rem;
-  }
+//  background-color: $va-secondary-color;
+//  left: 0;
+//  top: 0;
+//  width: 100%;
+//  z-index: 1;
+//    padding-top: 15.3px;
+////  margin-bottom: 5rem;
+//  .va-site-navbar.upper{
+//    height: 7.8rem;
+//  }
+}
+
+header{
+margin-bottom: 1.7rem;
 }
 
 .logo h1 a {
   background: url(../logo/logo.png) top left no-repeat;
-  width: 263px;
   height: 50px;
   background-size: contain;
   text-indent: 180%;
@@ -30,7 +34,7 @@
   background: $va-primary-color url(../thread.png) top left no-repeat;
   background-size: cover;
   color: #fff;
-  height: 15rem;  
+  height: 23rem;  
   h1 {
     padding-top: 3rem;
   } 
@@ -48,7 +52,7 @@
 }
 
 .va-site-header .va-site-navbar .logo, .va-site-header .va-site-navbar .logo-secondary  {
-  padding-left: 3rem;
+//  padding-left: 3rem;
   text-align: left;
   padding-top: 0;
   width: auto; 
@@ -59,3 +63,25 @@
   display: block;
   margin-top: .9rem; 
 } 
+
+.message {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    span {
+
+      display:inline-block;
+      padding-left: .25em;
+
+    }
+    p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding: 0;
+    }
+    a{
+     color: #fff;   
+    }
+  }

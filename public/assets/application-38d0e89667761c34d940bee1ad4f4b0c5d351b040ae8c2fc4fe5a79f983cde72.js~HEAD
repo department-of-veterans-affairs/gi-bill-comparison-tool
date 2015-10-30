@@ -11296,7 +11296,7 @@ Estimator.prototype.formatCurrency = function (num) {
 	var str = Math.round(Number(num)).toString();
     
   // match a digit if it's followed by 3 other digits, appending a comma to each match
-  return '$' + str.replace(/\d(?=(\d{3})+$)/g, '$&,');
+  return '<span class="estimator-dollar-sign">$</span>' + str.replace(/\d(?=(\d{3})+$)/g, '$&,');
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -11403,7 +11403,7 @@ Estimator.prototype.setEnlistmentService = function(id) {
 // Saves as boolean.
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.setOnline = function(id) {
-	this.institution_type = $(id).val() === 'yes';
+	this.online = $(id).val() === 'yes';
 	return this;
 };
 
@@ -11622,19 +11622,19 @@ Estimator.prototype.getTuitionFees = function () {
   this.setDependents();
 
   if (this.old_gi_bill == true)
-    estimated = '$0 / year ';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>';
   else if (this.institution_type == 'ojt') 
   	estimated = 'N/A';
 	else if (this.gi_bill_chap == 31)
-		estimated = this.isFlightOrCorrespondence() ? '$0 year' : 'Full Cost of Attendance';
+		estimated = this.isFlightOrCorrespondence() ? '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>' : '<span class="search-text-values">Full Cost of Attendance</span';
   else if (this.isFlight())
-    estimated = this.formatCurrency(this.FLTTFCAP * this.tier) + ' / year';
+    estimated = this.formatCurrency(this.FLTTFCAP * this.tier) + '</br><span class="estimate-qualifier">per year</span>';
   else if (this.isCorrespondence())
-  	estimated = this.formatCurrency(this.CORRESPONDTFCAP * this.tier) + ' / year';
+  	estimated = this.formatCurrency(this.CORRESPONDTFCAP * this.tier) + '</br><span class="estimate-qualifier">per year</span>';
   else if (this.isPublic()) 
-  	estimated = Math.round(this.tier * 100) + '% of instate tuition';
+  	estimated = Math.round(this.tier * 100) + '<span class="estimator-dollar-sign">%</span></br><span class="estimate-qualifier">of instate tuition</span>';
   else
-  	estimated = this.formatCurrency(this.TFCAP * this.tier) + ' / year';
+  	estimated = this.formatCurrency(this.TFCAP * this.tier) + '</br><span class="estimate-qualifier">per year</span>';
 
   return estimated;
 };
@@ -11653,27 +11653,27 @@ Estimator.prototype.getHousingAllowance = function () {
   //alert(this.old_gi_bill || this.vre_only);
 
 	if (this.gi_bill_chap == 31  && this.isFlightOrCorrespondence()) 
-    estimated = '$0 / month';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.old_gi_bill && this.only_tuition_fees)
-    estimated = this.formatCurrency(this.monthly_rate) + ' / month*';
+    estimated = this.formatCurrency(this.monthly_rate) + '</br><span class="estimate-qualifier">per month</span>';
  	else if (this.old_gi_bill || this.vre_only) 
-    estimated = this.formatCurrency(this.monthly_rate) + ' / month';
+    estimated = this.formatCurrency(this.monthly_rate) + '</br><span class="estimate-qualifier">per month</span>';
   else if (this.military_status == 'active duty')
-    estimated = '$0 / month';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.military_status == 'spouse' && this.spouse_active_duty)
-  	estimated = '$0 / month';
+  	estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.isFlight())
-  	estimated = '$0 / month';
+  	estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.isCorrespondence())
-  	estimated = '$0 / month';
+  	estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.isOjt())
-  	estimated = this.formatCurrency(this.tier * this.bah) + ' / month';
+  	estimated = this.formatCurrency(this.tier * this.bah) + '</br><span class="estimate-qualifier">per month</span>';
   else if (this.online)
-    estimated = this.formatCurrency(this.tier * this.AVGBAH / 2) + ' / month';
+    estimated = this.formatCurrency(this.tier * this.AVGBAH / 2) + '</br><span class="estimate-qualifier">per month</span>';
   else if (this.country != 'usa')
-    estimated = this.formatCurrency(this.tier * this.AVGBAH) + ' / month';
+    estimated = this.formatCurrency(this.tier * this.AVGBAH) + '</br><span class="estimate-qualifier">per month</span>';
   else
-    estimated = this.formatCurrency(this.tier * this.bah) + ' / month';
+    estimated = this.formatCurrency(this.tier * this.bah) + '</br><span class="estimate-qualifier">per month</span>';
 
   return estimated;
  };
@@ -11688,15 +11688,15 @@ Estimator.prototype.getBookStipend = function () {
   this.setDependents();
 
   if (this.old_gi_bill)
-    estimated = '$0 / year';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>';
   else if (this.isFlight())
-    estimated = '$0 / year';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>';
   else if (this.isCorrespondence())
-    estimated = '$0 / year';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>';
   else if (this.gi_bill_chap == 31)
-    estimated = 'Full Cost of Books/Supplies';
+    estimated = '<span class="search-text-values">Full Cost of Books & Supplies</span>';
   else
-    estimated = this.formatCurrency(this.tier * this.BSCAP) + ' / year';
+    estimated = this.formatCurrency(this.tier * this.BSCAP) + '</br><span class="estimate-qualifier">per year</span>';
 
   return estimated;
   };
@@ -12798,8 +12798,8 @@ selectivizr.com
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//  require turbolinks
 
 
 
+// require turbolinks
 

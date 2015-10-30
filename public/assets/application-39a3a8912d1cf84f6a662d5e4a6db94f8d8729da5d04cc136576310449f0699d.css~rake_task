@@ -1,4 +1,4 @@
-@charset "UTF-8";
+
 html {
   box-sizing: border-box; }
 
@@ -4305,11 +4305,19 @@ ul li:before {
     margin-top: 1rem;
     font-size: 1.25rem; }
 
-header {
-  margin-bottom: 1.7rem; }
+.va-site-header {
+  background-color: #0083BE;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 5rem; }
+  .va-site-header .va-site-navbar.upper {
+    height: 6rem; }
 
 .logo h1 a {
   background: url(../logo/logo.png) top left no-repeat;
+  width: 263px;
   height: 50px;
   background-size: contain;
   text-indent: 180%;
@@ -4324,7 +4332,7 @@ header {
   background: #003F72 url(../thread.png) top left no-repeat;
   background-size: cover;
   color: #fff;
-  height: 23rem; }
+  height: 15rem; }
   .va-site-header .va-site-navbar.lower h1 {
     padding-top: 3rem; }
 
@@ -4338,6 +4346,7 @@ header {
   width: 70%; }
 
 .va-site-header .va-site-navbar .logo, .va-site-header .va-site-navbar .logo-secondary {
+  padding-left: 3rem;
   text-align: left;
   padding-top: 0;
   width: auto; }
@@ -4346,22 +4355,6 @@ header {
   margin: 0;
   display: block;
   margin-top: .9rem; }
-
-.message {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #fff; }
-  .message span {
-    display: inline-block;
-    padding-left: .25em; }
-  .message p {
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding: 0; }
-  .message a {
-    color: #fff; }
 
 .usa-footer-big .usa-footer-primary-section.va {
   padding-bottom: 4rem; }
@@ -4669,3 +4662,48 @@ a.va-search-learnmore {
   margin-bottom: 2rem; }
 
 /*# sourceMappingURL=all.css.map */
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+/*********************************************************
+** Stying for outcomes
+*********************************************************/
+/* line 21, /Users/marc/Projects/gi-bill-comparison-tool-new/app/assets/stylesheets/application.scss */
+.outcome {
+  font-size: 1em;
+  /* styling for the line */
+  /* This needs to be changed so that there are two colors */
+}
+/* line 25, /Users/marc/Projects/gi-bill-comparison-tool-new/app/assets/stylesheets/application.scss */
+.outcome .axis path,
+.outcome .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+/* line 33, /Users/marc/Projects/gi-bill-comparison-tool-new/app/assets/stylesheets/application.scss */
+.outcome .bar {
+  fill: yellow;
+}
+/* line 37, /Users/marc/Projects/gi-bill-comparison-tool-new/app/assets/stylesheets/application.scss */
+.outcome .x.axis path {
+  display: none;
+}
+/* line 41, /Users/marc/Projects/gi-bill-comparison-tool-new/app/assets/stylesheets/application.scss */
+.outcome .line {
+  fill: none;
+  stroke: #444;
+  stroke-width: 1.5px;
+}
