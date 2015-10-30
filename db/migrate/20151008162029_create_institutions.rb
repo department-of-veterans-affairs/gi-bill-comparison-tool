@@ -18,9 +18,9 @@ class CreateInstitutions < ActiveRecord::Migration
       t.string :insturl
       t.string :vet_tuition_policy_url
       t.integer :pred_degree_awarded, default: 0
-      t.string :locale # Integer with "null" string values
+      t.integer :locale, default: nil # Integer with "null" string values
       t.integer :gibill, default: 0
-      t.string :undergrad_enrollment # Integer with "null" string values
+      t.integer :undergrad_enrollment, default: nil # Integer with "null" string values
       t.boolean :yr, null: false
       t.boolean :student_veteran, null: false 
       t.string :student_veteran_link  
@@ -41,17 +41,17 @@ class CreateInstitutions < ActiveRecord::Migration
       t.float :retention_all_students_otb, default: 0.0      
       t.float :persistance_rate_veteran_ba, default: 0.0   
       t.float :persistance_rate_veteran_otb, default: 0.0
-      t.string :graduation_rate_veteran #Float with "null" strings.
-      t.string :graduation_rate_all_students #Float with "null" strings.
-      t.string :transfer_out_rate_veteran #Float with "null" strings.
-      t.string :transfer_out_rate_all_students #Float with "null" strings.
-      t.string :salary_all_students #Float with "null" and other terms
-      t.string :repayment_rate_all_students #Float with "null" and other terms
-      t.string :avg_stu_loan_debt #Float with "null" and other terms
+      t.float :graduation_rate_veteran, default: nil #Float with "null" strings.
+      t.float :graduation_rate_all_students, default: nil #Float with "null" strings.
+      t.float :transfer_out_rate_veteran, default: nil #Float with "null" strings.
+      t.float :transfer_out_rate_all_students, default: nil #Float with "null" strings.
+      t.float :salary_all_students, default: nil #Float with "null" and other terms
+      t.float :repayment_rate_all_students, default: nil #Float with "null" and other terms
+      t.float :avg_stu_loan_debt, default: nil #Float with "null" and other terms
       t.string :calendar 
-      t.string :tuition_in_state #Float with "null" and other terms
-      t.string :tuition_out_of_state #Float with "null" and other terms
-      t.string :books #Float with "null" and other terms
+      t.float :tuition_in_state, default: nil #Float with "null" and other terms
+      t.float :tuition_out_of_state, default: nil #Float with "null" and other terms
+      t.float :books, default: nil #Float with "null" and other terms
       t.boolean :online_all, null: false
       t.float :p911_tuition_fees, default: 0.0 
       t.integer :p911_recipients, default: 0 

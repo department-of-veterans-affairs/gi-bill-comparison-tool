@@ -8,11 +8,8 @@ task :load_csv, [:csv_file] => [:environment, :build_db] do |t, args|
   ActiveRecord::Base.transaction do
     CSV.foreach(args[:csv_file], headers: true, encoding: "iso-8859-1:utf-8", header_converters: :symbol) do |row|
   		count += 1
-      
-      row = row.to_hash
-  		LoadCsvHelper.convert(row)
-
-      # puts "#{row[:facility_code]}: #{row[:institution]}" 
+    
+      row = LoadCsvHelper.convert(row.to_hash) 		
   		Institution.create(row)
 
   		print "\r Records: #{count}" 
@@ -77,15 +74,23 @@ class LoadCsvHelper
     cnv_row = {};
 
     get_columns.each do |name|
-      if conversion = CONVERSIONS[Institution.columns_hash[name].type]
-        if (cnv = LoadCsvHelper.send(conversion, row[name.to_sym])).present?
+      col_type = Institution.columns_hash[name].type
+
+      if conversion = CONVERSIONS[col_type]
+        cnv = LoadCsvHelper.send(conversion, row[name.to_sym])
+
+        if col_type == :integer || col_type == :float
+          cnv_row[name.to_sym] = cnv if cnv.present?
+        else
           cnv_row[name.to_sym] = cnv
         end
       end
     end
 
-    to_institution_type(row)
-    pad_zip(row)
+    cnv_row[:institution_type_id] = to_institution_type(row)
+    cnv_row[:zip] = pad_zip(row)
+
+    cnv_row
   end
 
   #############################################################################
@@ -94,8 +99,10 @@ class LoadCsvHelper
   ## removes fields in the CSV that have become redundant.
   #############################################################################
   def self.to_institution_type(row)
-    row[:institution_type_id] = InstitutionType.find_or_create_by(name: row[:type]).try(:id)
+    id = InstitutionType.find_or_create_by(name: row[:type]).try(:id)
     [:type, :correspondence, :flight].each { |key| row.delete(key) }
+
+    id
   end
 
   #############################################################################
@@ -103,7 +110,7 @@ class LoadCsvHelper
   ## Pads the CSV zip code to 5 characters if necessary.
   #############################################################################
   def self.pad_zip(row)
-    row[:zip] = row[:zip].try(:rjust, 5, '0')
+    row[:zip].try(:rjust, 5, '0')
   end
 
   #############################################################################
