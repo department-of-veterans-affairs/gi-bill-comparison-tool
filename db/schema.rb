@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.string   "insturl"
     t.string   "vet_tuition_policy_url"
     t.integer  "pred_degree_awarded",                                 default: 0
-    t.string   "locale"
+    t.integer  "locale"
     t.integer  "gibill",                                              default: 0
-    t.string   "undergrad_enrollment"
+    t.integer  "undergrad_enrollment"
     t.boolean  "yr",                                                                null: false
     t.boolean  "student_veteran",                                                   null: false
     t.string   "student_veteran_link"
@@ -61,17 +61,17 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.float    "retention_all_students_otb",                          default: 0.0
     t.float    "persistance_rate_veteran_ba",                         default: 0.0
     t.float    "persistance_rate_veteran_otb",                        default: 0.0
-    t.string   "graduation_rate_veteran"
-    t.string   "graduation_rate_all_students"
-    t.string   "transfer_out_rate_veteran"
-    t.string   "transfer_out_rate_all_students"
-    t.string   "salary_all_students"
-    t.string   "repayment_rate_all_students"
-    t.string   "avg_stu_loan_debt"
+    t.float    "graduation_rate_veteran"
+    t.float    "graduation_rate_all_students"
+    t.float    "transfer_out_rate_veteran"
+    t.float    "transfer_out_rate_all_students"
+    t.float    "salary_all_students"
+    t.float    "repayment_rate_all_students"
+    t.float    "avg_stu_loan_debt"
     t.string   "calendar"
-    t.string   "tuition_in_state"
-    t.string   "tuition_out_of_state"
-    t.string   "books"
+    t.float    "tuition_in_state"
+    t.float    "tuition_out_of_state"
+    t.float    "books"
     t.boolean  "online_all",                                                        null: false
     t.float    "p911_tuition_fees",                                   default: 0.0
     t.integer  "p911_recipients",                                     default: 0

@@ -16,69 +16,6 @@ class Institution < ActiveRecord::Base
     select('institutions.*, institution_types.name').joins(:institution_type) 
   }
 
-  before_save :numbers_with_null, on: [:create]
-
-  #############################################################################
-  ## numbers_with_null
-  ## Certain number-like fields are allowed to contain nulls or strings too.
-  ## If blank, these fields equate to null as well.
-  #############################################################################
-  def numbers_with_null
-    if insturl.blank? || insturl.downcase == "null"
-      self.locale = "Data not available" 
-    end
-
-    if locale.blank? || locale.downcase == "null"
-      self.locale = "Data not available" 
-    end
-
-    if undergrad_enrollment.blank? || undergrad_enrollment.downcase == "null"
-      self.undergrad_enrollment = "Data not available" 
-    end
-
-    if graduation_rate_veteran.blank? || graduation_rate_veteran.downcase == "null"
-      self.graduation_rate_veteran = "Data not available" 
-    end
-
-    if graduation_rate_all_students.blank? || graduation_rate_all_students.downcase == "null"
-      self.graduation_rate_all_students = "Data not available" 
-    end
-
-    if transfer_out_rate_veteran.blank? || transfer_out_rate_veteran.downcase == "null"
-      self.transfer_out_rate_veteran = "Data not available" 
-    end
-
-    if transfer_out_rate_all_students.blank? || transfer_out_rate_all_students.downcase == "null"
-      self.transfer_out_rate_all_students = "Data not available" 
-    end
-
-    if salary_all_students.blank? || salary_all_students.downcase == "null"
-      self.salary_all_students = "Data not available" 
-    end
-
-    if repayment_rate_all_students.blank? || repayment_rate_all_students.downcase == "null"
-      self.repayment_rate_all_students = "Data not available" 
-    end
-
-    if avg_stu_loan_debt.blank? || avg_stu_loan_debt.downcase == "null"
-      self.avg_stu_loan_debt = "Data not available" 
-    end
-
-    if tuition_in_state.blank? || tuition_in_state.downcase == "null"
-      self.tuition_in_state = "Data not available" 
-    end
-
-    if tuition_out_of_state.blank? || tuition_out_of_state.downcase == "null"
-      self.tuition_out_of_state = "Data not available" 
-    end
-
-    if books.blank? || books.downcase == "null"
-      self.books = "Data not available" 
-    end
-
-    true
-  end
-
   #############################################################################
   ## correspondence?
   ## True if school is a correspondence school
