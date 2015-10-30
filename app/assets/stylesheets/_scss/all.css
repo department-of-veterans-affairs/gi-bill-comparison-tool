@@ -4246,6 +4246,9 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
   .ui-autocomplete .ui-state-focus {
     background-color: #ddd; }
 
+.ui-helper-hidden-accessible {
+  display: none; }
+
 form {
   max-width: none; }
 
