@@ -1,0 +1,8 @@
+<div>
+	<ul>
+		<li>Post-9/11 GI Bill Recipients: <%=  number_with_delimiter(@school.p911_recipients) %></li>
+		<li>Post-9/11 GI Bill: <%= number_to_currency(@school.p911_tuition_fees) %></li>
+		<li>Yellow Ribbon Recipients: <%=  number_with_delimiter(@school.p911_yr_recipients) %></li>
+		<li>Yellow Ribbon: <%= number_to_currency(@school.p911_yellow_ribbon) %></li>
+	</ul>
+</div>
