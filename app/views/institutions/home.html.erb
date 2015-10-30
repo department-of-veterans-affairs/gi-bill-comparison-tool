@@ -129,12 +129,29 @@
       <div class="usa-card-content">
           <!-- About Your School Section -->
           <a name="about_your_school"></a>
-          <div class="heading solid navy table"><h3>About your school:</h3></div>
+          <div class="heading solid navy table"><h3>About your school:<a id="go" rel="leanModal" name="status" href="#aboutSchool"><i class="fa fa-info-circle info-icons"></i></a></h3></div>
           <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
       </div>
     </div>
   <% end %>
 </div>
+
+<!-- About School Modal -->
+<div id="aboutSchool" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>Post 9/11 GI Bill Approved Programs</h3>
+    
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+        
+   <p>You can use the <a title="Post-9/11 GI Bill" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_380" target="_blank">Post-9/11 GI Bill</a> at colleges, universities, trade schools, and for on-the-job training, apprenticeship, and flight schools. To see what programs are currently approved for VA benefits, go to our <a title="website" href="http://www.benefits.va.gov/gibill/index.asp" id="anch_381" target="_blank">website</a>. You can use the Post 9/11 GI Bill for tutorial assistance, licensing/certification tests (attorney license, cosmetology license, etc.) and national exams (SAT, LSAT, etc.).</p>
+    
+    <p>The Post 9/11 GI Bill Comparison Tool uses a list of schools offering approved programs from VA’s database. The GI Bill Comparison Tool will update its list of approved programs quarterly. However, new information is added to the VA database every day. <a title="Click here" href="http://inquiry.vba.va.gov/weamspub/buildSearchInstitutionCriteria.do" id="anch_382" target="_blank">Click here</a> to access a list of approved schools by state.</p>
+</div>
+</div> 
+
+<!--END About School Modal -->
+
+
 <div class="usa-width-one-fourth">
   <div class="usa-card usa-card-fill">
     <div class="usa-card-header">
@@ -154,3 +171,9 @@
     </div>
   </div>
 </div>
+
+
+<script>    
+// Makes the modals work!
+$("a[rel*=leanModal]").leanModal();
+</script>
