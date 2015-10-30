@@ -4305,19 +4305,11 @@ ul li:before {
     margin-top: 1rem;
     font-size: 1.25rem; }
 
-.va-site-header {
-  background-color: #0083BE;
-  left: 0;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-  margin-bottom: 5rem; }
-  .va-site-header .va-site-navbar.upper {
-    height: 6rem; }
+header {
+  margin-bottom: 1.7rem; }
 
 .logo h1 a {
   background: url(../logo/logo.png) top left no-repeat;
-  width: 263px;
   height: 50px;
   background-size: contain;
   text-indent: 180%;
@@ -4332,7 +4324,7 @@ ul li:before {
   background: #003F72 url(../thread.png) top left no-repeat;
   background-size: cover;
   color: #fff;
-  height: 15rem; }
+  height: 23rem; }
   .va-site-header .va-site-navbar.lower h1 {
     padding-top: 3rem; }
 
@@ -4346,7 +4338,6 @@ ul li:before {
   width: 70%; }
 
 .va-site-header .va-site-navbar .logo, .va-site-header .va-site-navbar .logo-secondary {
-  padding-left: 3rem;
   text-align: left;
   padding-top: 0;
   width: auto; }
@@ -4355,6 +4346,22 @@ ul li:before {
   margin: 0;
   display: block;
   margin-top: .9rem; }
+
+.message {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff; }
+  .message span {
+    display: inline-block;
+    padding-left: .25em; }
+  .message p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0; }
+  .message a {
+    color: #fff; }
 
 .usa-footer-big .usa-footer-primary-section.va {
   padding-bottom: 4rem; }
