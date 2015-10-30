@@ -67,10 +67,14 @@
 
 
 <script>
-$(document).ready(function() {
+$(document).ready(function() {  
+  <% if current_page?(controller: 'institutions', action: 'home') %>
+    $('#institution-search').val("");
+  <% end %>
+  
   /////////////////////////////////////////////////////////////////////////////
   // Institution autocomplete
-  /////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////  
   $('#institution-search').autocomplete({
     minLength : 3,
     source: "<%= autocomplete_path(:json) %>",
