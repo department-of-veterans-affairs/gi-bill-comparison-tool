@@ -74,9 +74,13 @@ class LoadCsvHelper
   def self.convert(row)
     # For each column name in the CSV, get the column's data type and convert
     # the row to the appropriate type.
+    cnv_row = {};
+
     get_columns.each do |name|
       if conversion = CONVERSIONS[Institution.columns_hash[name].type]
-        row[name.to_sym] = LoadCsvHelper.send(conversion, row[name.to_sym])
+        if (cnv = LoadCsvHelper.send(conversion, row[name.to_sym])).present?
+          cnv_row[name.to_sym] = cnv
+        end
       end
     end
 
@@ -116,7 +120,7 @@ class LoadCsvHelper
   ## characters.
   #############################################################################
   def self.to_int(value)
-    value.try(:gsub, /[\$,]/, '').to_i
+    value.try(:gsub, /[\$,]|null/i, '')
   end
 
   #############################################################################
@@ -125,7 +129,7 @@ class LoadCsvHelper
   ## characters.
   #############################################################################
   def self.to_float(value)
-    value.try(:gsub, /[\$,]/, '').to_f
+    value.try(:gsub, /[\$,]|null/i, '')
   end
 
   #############################################################################

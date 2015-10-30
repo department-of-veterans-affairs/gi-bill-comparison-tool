@@ -12,14 +12,14 @@ class CreateInstitutions < ActiveRecord::Migration
       t.string :country, null: false
 
       # School Metrics
-      t.float :bah 
-      t.integer :cross 
+      t.float :bah, default: 0.0
+      t.integer :cross, default: 0 
       t.string :ope 
       t.string :insturl
       t.string :vet_tuition_policy_url
-      t.integer :pred_degree_awarded
+      t.integer :pred_degree_awarded, default: 0
       t.string :locale # Integer with "null" string values
-      t.integer :gibill
+      t.integer :gibill, default: 0
       t.string :undergrad_enrollment # Integer with "null" string values
       t.boolean :yr, null: false
       t.boolean :student_veteran, null: false 
@@ -35,12 +35,12 @@ class CreateInstitutions < ActiveRecord::Migration
       t.boolean :student_vet_grp_ipeds 
       t.boolean :soc_member
       t.string :va_highest_degree_offered
-      t.float :retention_rate_veteran_ba      
-      t.float :retention_all_students_ba       
-      t.float :retention_rate_veteran_otb        
-      t.float :retention_all_students_otb      
-      t.float :persistance_rate_veteran_ba   
-      t.float :persistance_rate_veteran_otb
+      t.float :retention_rate_veteran_ba, default: 0.0      
+      t.float :retention_all_students_ba, default: 0.0       
+      t.float :retention_rate_veteran_otb, default: 0.0        
+      t.float :retention_all_students_otb, default: 0.0      
+      t.float :persistance_rate_veteran_ba, default: 0.0   
+      t.float :persistance_rate_veteran_otb, default: 0.0
       t.string :graduation_rate_veteran #Float with "null" strings.
       t.string :graduation_rate_all_students #Float with "null" strings.
       t.string :transfer_out_rate_veteran #Float with "null" strings.
@@ -53,10 +53,10 @@ class CreateInstitutions < ActiveRecord::Migration
       t.string :tuition_out_of_state #Float with "null" and other terms
       t.string :books #Float with "null" and other terms
       t.boolean :online_all, null: false
-      t.float :p911_tuition_fees 
-      t.integer :p911_recipients 
-      t.float :p911_yellow_ribbon  
-      t.integer :p911_yr_recipients   
+      t.float :p911_tuition_fees, default: 0.0 
+      t.integer :p911_recipients, default: 0 
+      t.float :p911_yellow_ribbon, default: 0.0  
+      t.integer :p911_yr_recipients, default: 0   
       t.boolean :accredited, null: false 
       t.string :accreditation_type  
       t.string :accreditation_status  
@@ -64,33 +64,33 @@ class CreateInstitutions < ActiveRecord::Migration
       t.string :caution_flag_reason
 
       # Complaint Data
-      t.integer :complaints_facility_code  
-      t.integer :complaints_financial_by_fac_code  
-      t.integer :complaints_quality_by_fac_code  
-      t.integer :complaints_refund_by_fac_code 
-      t.integer :complaints_marketing_by_fac_code  
-      t.integer :complaints_accreditation_by_fac_code  
-      t.integer :complaints_degree_requirements_by_fac_code  
-      t.integer :complaints_student_loans_by_fac_code  
-      t.integer :complaints_grades_by_fac_code 
-      t.integer :complaints_credit_transfer_by_fac_code  
-      t.integer :complaints_credit_job_by_fac_code 
-      t.integer :complaints_job_by_fac_code
-      t.integer :complaints_transcript_by_fac_code 
-      t.integer :complaints_other_by_fac_code  
-      t.integer :complaints_main_campus_roll_up  
-      t.integer :complaints_financial_by_ope_id_do_not_sum 
-      t.integer :complaints_quality_by_ope_id_do_not_sum 
-      t.integer :complaints_refund_by_ope_id_do_not_sum  
-      t.integer :complaints_marketing_by_ope_id_do_not_sum 
-      t.integer :complaints_accreditation_by_ope_id_do_not_sum 
-      t.integer :complaints_degree_requirements_by_ope_id_do_not_sum 
-      t.integer :complaints_student_loans_by_ope_id_do_not_sum 
-      t.integer :complaints_grades_by_ope_id_do_not_sum  
-      t.integer :complaints_credit_transfer_by_ope_id_do_not_sum 
-      t.integer :complaints_jobs_by_ope_id_do_not_sum  
-      t.integer :complaints_transcript_by_ope_id_do_not_sum  
-      t.integer :complaints_other_by_ope_id_do_not_sum 
+      t.integer :complaints_facility_code, default: 0  
+      t.integer :complaints_financial_by_fac_code, default: 0  
+      t.integer :complaints_quality_by_fac_code, default: 0  
+      t.integer :complaints_refund_by_fac_code, default: 0 
+      t.integer :complaints_marketing_by_fac_code, default: 0  
+      t.integer :complaints_accreditation_by_fac_code, default: 0  
+      t.integer :complaints_degree_requirements_by_fac_code, default: 0  
+      t.integer :complaints_student_loans_by_fac_code, default: 0  
+      t.integer :complaints_grades_by_fac_code, default: 0 
+      t.integer :complaints_credit_transfer_by_fac_code, default: 0  
+      t.integer :complaints_credit_job_by_fac_code, default: 0 
+      t.integer :complaints_job_by_fac_code, default: 0
+      t.integer :complaints_transcript_by_fac_code, default: 0 
+      t.integer :complaints_other_by_fac_code, default: 0  
+      t.integer :complaints_main_campus_roll_up, default: 0  
+      t.integer :complaints_financial_by_ope_id_do_not_sum, default: 0 
+      t.integer :complaints_quality_by_ope_id_do_not_sum, default: 0 
+      t.integer :complaints_refund_by_ope_id_do_not_sum, default: 0  
+      t.integer :complaints_marketing_by_ope_id_do_not_sum, default: 0 
+      t.integer :complaints_accreditation_by_ope_id_do_not_sum, default: 0 
+      t.integer :complaints_degree_requirements_by_ope_id_do_not_sum, default: 0 
+      t.integer :complaints_student_loans_by_ope_id_do_not_sum, default: 0 
+      t.integer :complaints_grades_by_ope_id_do_not_sum, default: 0  
+      t.integer :complaints_credit_transfer_by_ope_id_do_not_sum, default: 0 
+      t.integer :complaints_jobs_by_ope_id_do_not_sum, default: 0  
+      t.integer :complaints_transcript_by_ope_id_do_not_sum, default: 0  
+      t.integer :complaints_other_by_ope_id_do_not_sum, default: 0 
 
       t.timestamps null: false
 
