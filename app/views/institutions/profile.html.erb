@@ -62,20 +62,20 @@
 					<% end %> -->
 
 					<!-- Retention Rates -->
-<!-- 					<% if is_number?(@school.retention_rate_veteran_ba) && is_number?(@school.retention_rate_veteran_ba) %>
+ 					<% if is_number?(@school.retention_rate_veteran_ba) && is_number?(@school.retention_rate_veteran_ba) %>
 						<div class="outcome">
 							<%= render partial: 'profile_outcomes', 
 								locals: { 
 									outcome: "retention", 
-									vrate: number_with_precision(@school.retention_rate_veteran_ba.to_f * 100, precision: 2),
-									crate: number_with_precision(@school.retention_all_students_ba.to_f * 100, precision: 2),
+									vrate: number_with_precision(@veteran_retention_rate * 100, precision: 2),
+									crate: number_with_precision(@all_student_retention_rate * 100, precision: 2),
 									nrate: 10.8
 								} 
 							%>
 						</div>
 					<% else %>
 						<p>Retention Rate Data Not Available</p>
-					<% end %> -->
+					<% end %>
 	      </div>
 	    </li>
 	    <li>

@@ -83,4 +83,48 @@ class Institution < ActiveRecord::Base
       school.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
     end.uniq { |school| school[:facility_code] }
   end
+
+  #############################################################################
+  ## get_veteran_retention_rate
+  ## Calculates veteran retention rate adapted from Patrick's JS functions
+  #############################################################################
+  def get_veteran_retention_rate
+    rate = nil
+
+    if retention_rate_veteran_ba.nil?
+      rate = retention_rate_veteran_otb.nil? ? nil : retention_rate_veteran_otb
+    elsif retention_rate_veteran_otb.nil?
+      rate = retention_rate_veteran_ba.nil? ? nil : retention_rate_veteran_ba
+    end
+
+    if pred_degree_awarded > 0
+      rate = [3, 4].include?(pred_degree_awarded) ? retention_rate_veteran_ba : retention_rate_veteran_otb
+    elsif va_highest_degree_offered.present?
+      rate = (va_highest_degree_offered == "4-year") ? retention_rate_veteran_ba : retention_rate_veteran_otb
+    end
+
+    rate
+  end
+
+  #############################################################################
+  ## get_all_student_retention_rate
+  ## Calculates all students retention rate adapted from Patrick's JS functions
+  #############################################################################
+  def get_all_student_retention_rate
+    rate = nil
+
+    if retention_all_students_ba.nil?
+      rate = retention_all_students_otb.nil? ? nil : retention_all_students_otb
+    elsif retention_all_students_otb.nil?
+      rate = retention_all_students_ba.nil? ? nil : retention_all_students_ba
+    end
+
+    if pred_degree_awarded > 0
+      rate = [3, 4].include?(pred_degree_awarded) ? retention_all_students_ba : retention_all_students_otb
+    elsif va_highest_degree_offered.present?
+      rate = (va_highest_degree_offered == "4-year") ? retention_all_students_ba : retention_all_students_otb
+    end
+
+    rate
+  end
 end
