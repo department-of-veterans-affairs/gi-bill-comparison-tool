@@ -16,69 +16,6 @@ class Institution < ActiveRecord::Base
     select('institutions.*, institution_types.name').joins(:institution_type) 
   }
 
-  before_save :numbers_with_null, on: [:create]
-
-  #############################################################################
-  ## numbers_with_null
-  ## Certain number-like fields are allowed to contain nulls or strings too.
-  ## If blank, these fields equate to null as well.
-  #############################################################################
-  def numbers_with_null
-    if insturl.blank? || insturl.downcase == "null"
-      self.locale = "Data not available" 
-    end
-
-    if locale.blank? || locale.downcase == "null"
-      self.locale = "Data not available" 
-    end
-
-    if undergrad_enrollment.blank? || undergrad_enrollment.downcase == "null"
-      self.undergrad_enrollment = "Data not available" 
-    end
-
-    if graduation_rate_veteran.blank? || graduation_rate_veteran.downcase == "null"
-      self.graduation_rate_veteran = "Data not available" 
-    end
-
-    if graduation_rate_all_students.blank? || graduation_rate_all_students.downcase == "null"
-      self.graduation_rate_all_students = "Data not available" 
-    end
-
-    if transfer_out_rate_veteran.blank? || transfer_out_rate_veteran.downcase == "null"
-      self.transfer_out_rate_veteran = "Data not available" 
-    end
-
-    if transfer_out_rate_all_students.blank? || transfer_out_rate_all_students.downcase == "null"
-      self.transfer_out_rate_all_students = "Data not available" 
-    end
-
-    if salary_all_students.blank? || salary_all_students.downcase == "null"
-      self.salary_all_students = "Data not available" 
-    end
-
-    if repayment_rate_all_students.blank? || repayment_rate_all_students.downcase == "null"
-      self.repayment_rate_all_students = "Data not available" 
-    end
-
-    if avg_stu_loan_debt.blank? || avg_stu_loan_debt.downcase == "null"
-      self.avg_stu_loan_debt = "Data not available" 
-    end
-
-    if tuition_in_state.blank? || tuition_in_state.downcase == "null"
-      self.tuition_in_state = "Data not available" 
-    end
-
-    if tuition_out_of_state.blank? || tuition_out_of_state.downcase == "null"
-      self.tuition_out_of_state = "Data not available" 
-    end
-
-    if books.blank? || books.downcase == "null"
-      self.books = "Data not available" 
-    end
-
-    true
-  end
-
   #############################################################################
   ## correspondence?
   ## True if school is a correspondence school
@@ -145,5 +82,49 @@ class Institution < ActiveRecord::Base
     schools = schools.map do |school| 
       school.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
     end.uniq { |school| school[:facility_code] }
+  end
+
+  #############################################################################
+  ## get_veteran_retention_rate
+  ## Calculates veteran retention rate adapted from Patrick's JS functions
+  #############################################################################
+  def get_veteran_retention_rate
+    rate = nil
+
+    if retention_rate_veteran_ba.nil?
+      rate = retention_rate_veteran_otb.nil? ? nil : retention_rate_veteran_otb
+    elsif retention_rate_veteran_otb.nil?
+      rate = retention_rate_veteran_ba.nil? ? nil : retention_rate_veteran_ba
+    end
+
+    if pred_degree_awarded > 0
+      rate = [3, 4].include?(pred_degree_awarded) ? retention_rate_veteran_ba : retention_rate_veteran_otb
+    elsif va_highest_degree_offered.present?
+      rate = (va_highest_degree_offered == "4-year") ? retention_rate_veteran_ba : retention_rate_veteran_otb
+    end
+
+    rate
+  end
+
+  #############################################################################
+  ## get_all_student_retention_rate
+  ## Calculates all students retention rate adapted from Patrick's JS functions
+  #############################################################################
+  def get_all_student_retention_rate
+    rate = nil
+
+    if retention_all_students_ba.nil?
+      rate = retention_all_students_otb.nil? ? nil : retention_all_students_otb
+    elsif retention_all_students_otb.nil?
+      rate = retention_all_students_ba.nil? ? nil : retention_all_students_ba
+    end
+
+    if pred_degree_awarded > 0
+      rate = [3, 4].include?(pred_degree_awarded) ? retention_all_students_ba : retention_all_students_otb
+    elsif va_highest_degree_offered.present?
+      rate = (va_highest_degree_offered == "4-year") ? retention_all_students_ba : retention_all_students_otb
+    end
+
+    rate
   end
 end
