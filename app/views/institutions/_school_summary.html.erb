@@ -23,32 +23,60 @@
 
 	<% if school_summary[:caution_flag] %>
 		<div class="caution">
-			<a class="a-<%= school_summary[:id] %> searchresults-caution" href="#">Caution Flag</a>
+			<a class="a-<%= school_summary[:id] %> searchresults-caution" href="#"><i class="fa fa-exclamation-triangle"></i> Caution Flag</a>
         </div>
 	<% end %>
-
-	<h4><a class="a-<%= school_summary[:id] %>" href="#">
-		<%= school_summary[:institution] %>
-	</a></h4>
-
+    
+<div class="search-content"><!-- Start SEARCH RESULTS CONTENT DIV -->
+   <!-- Divs added to preserve consistent heights regardless of # of lines -->
+    
+    <div class="search-insitution-name"><!-- Institution name -->
+        <h4><a class="a-<%= school_summary[:id] %>" href="#">
+            <%= school_summary[:institution] %>
+        </a></h4>
+    </div><!-- END Institution name -->
+    
+    <div class="search-locality"><!-- locality data -->
 	<% if school_summary[:country].downcase == 'usa' %>
-		<small>
+		
 			<%= "#{school_summary[:city]}, #{school_summary[:state]} #{school_summary[:zip]}" %>
-		</small>
+		
 	<% else %>
-		<p><%= "#{school_summary[:city]}, #{school_summary[:country]}" %></p>
+		<%= "#{school_summary[:city]}, #{school_summary[:country]}" %>
 	<% end %>
+    </div><!-- END locality data -->
+    
+    <div class="search-vet-count"><!-- # of Student Vets -->
+	   <span class="vet-count-value"><%= school_summary[:gibill] %></span> Student Veterans
+    </div><!-- END # of Student Vets -->
+    
+    <div class="search-benefits-values-container"><!-- Contains the benefit values divs -->
 
-	<p><%= school_summary[:gibill] %> Student Veterans</p>
+        <div class="search-selections-label">You may be eligible for up to:</div>
+        
+		<div class="search-value-each usa-width-one-third"> <!-- tuition -->
+            <div class="icon"><i class="fa fa-graduation-cap fa-search-result"></i></div>
+            <div id="<%= school_summary[:facility_code] %>-est-tuition-fees"></div>
+        </div><!-- END tuition -->
+        
+        
+		<div class="search-value-each usa-width-one-third"><!-- housing -->
+            <div class="icon"><i class="fa fa-home fa-search-result"></i></div>
+            <div id="<%= school_summary[:facility_code] %>-est-housing-allowance"></div>
+        </div><!-- END Housing -->
+    
+    
+		<div class="search-value-each usa-width-one-third"><!-- Books -->
+            <div class="icon"><i class="fa fa-book fa-search-result"></i></div>
+            <div id="<%= school_summary[:facility_code] %>-est-book-stipend"></div>
+        </div><!-- END books -->
+    
+    </div><!-- Contains the benefit values divs -->
 
-	<ul>
-		<lh>Based on your selections:</lh>
-		<li id="<%= school_summary[:facility_code] %>-est-tuition-fees"></li>
-		<li id="<%= school_summary[:facility_code] %>-est-housing-allowance"></li>
-		<li id="<%= school_summary[:facility_code] %>-est-book-stipend"></li>
-	</ul>
-
-		<a class="a-<%= school_summary[:id] %>" href="#">Learn More</a>
+    <div class="search-learnmore-div"><!-- Contains the learn more div for consistent position -->
+        <a class="a-<%= school_summary[:id] %> usa-button-primary va-search-learnmore" href="#">Learn More</a>
+    </div>
+     </div> <!-- END learn more div -->
 </div>
 
 <script>

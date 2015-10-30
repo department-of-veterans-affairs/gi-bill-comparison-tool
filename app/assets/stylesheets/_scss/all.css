@@ -4273,26 +4273,6 @@ ul li:before {
 .usa-search.usa-search-big.extra [type="submit"], .usa-search.usa-search-big .usa-search-submit {
   width: 20rem; }
 
-.school_summary {
-  background-color: #f1f1f1;
-  height: 35rem;
-  width: 28rem;
-  padding: 0 1em 1em 1em;
-  margin: 0 0 1rem 1rem;
-  float: left; }
-  .school_summary h4 {
-    margin-top: 0; }
-  .school_summary p, .school_summary li, .school_summary lh {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-    font-size: 1.5rem; }
-  .school_summary ul {
-    list-style-type: none;
-    margin-top: 0;
-    margin-bottom: 0; }
-    .school_summary ul li {
-      list-style-type: none; }
-
 .filter-horizontal {
   border-bottom: solid #f1f1f1 thin;
   padding-bottom: 2rem;
@@ -4430,6 +4410,26 @@ ul li:before {
       .footer-crisis a {
         display: block; } }
 
+.school_summary {
+  position: relative;
+  background-color: #f1f1f1;
+  height: 36rem;
+  width: 28rem;
+  margin: 0 0 1rem 1rem;
+  float: left; }
+  .school_summary h4 {
+    margin-top: 0; }
+  .school_summary p, .school_summary li, .school_summary lh {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    font-size: 1.5rem; }
+  .school_summary ul {
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 0; }
+    .school_summary ul li {
+      list-style-type: none; }
+
 .usa-card + .usa-card,
 .usa-card + .usa-card-bordered,
 .usa-card-bordered + .usa-card,
@@ -4491,11 +4491,88 @@ ul li:before {
   .usa-card-content > *:last-child {
     margin-bottom: 0; }
 
+.light-type {
+  color: #444; }
+
 .caution {
-  background-color: aqua; }
-  .caution:link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #FAC922;
+  height: 2.5rem;
+  width: 100%;
+  padding: 0 .5rem .5rem 1.7rem; }
+  .caution a {
+    color: #000;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
-    color: #fff; }
+    text-decoration: none;
+    font-size: 1.2rem; }
+
+.search-count-headline {
+  margin-left: 1.5rem;
+  line-height: .8rem; }
+
+.search-content {
+  padding: 1.7rem;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; }
+
+.search-insitution-name {
+  margin-top: 1.3rem;
+  height: 7rem; }
+  .search-insitution-name a {
+    color: #003F72; }
+
+.search-locality {
+  font-size: 1.4rem;
+  margin: 0 0 1.7rem 0; }
+
+.search-vet-count {
+  margin: 0 0 1.7rem 0;
+  font-size: 1.4rem; }
+
+.vet-count-value {
+  font-family: "Roboto Slab", serif;
+  font-size: 2.2rem;
+  color: #0083BE; }
+
+.search-selections-label {
+  font-size: 1.3rem;
+  color: #aeb0b5;
+  margin-bottom: 1.7rem; }
+
+.search-value-each {
+  font-family: "Roboto Slab", serif;
+  font-size: 2.2rem;
+  color: #0083BE;
+  line-height: 1.1rem;
+  text-align: center; }
+
+.search-text-values {
+  font-size: 1.2rem; }
+
+.fa-search-result {
+  color: #003F72;
+  font-size: 3rem;
+  margin-bottom: .8rem; }
+
+.estimate-qualifier {
+  font-size: 1rem;
+  color: #444;
+  line-height: .5rem; }
+
+.estimator-dollar-sign {
+  font-size: 1rem;
+  color: #999; }
+
+a.va-search-learnmore {
+  width: 100%;
+  margin: 1.7rem 0; }
+
+.search-learnmore-div {
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  width: 26rem; }
 
 #lean_overlay {
   position: fixed;
