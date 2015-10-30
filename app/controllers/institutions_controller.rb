@@ -17,7 +17,7 @@ class InstitutionsController < ApplicationController
 
   def profile
     @id = params[:id]
-    @inputs = { 
+    @inputs = {
       military_status: params[:military_status],
       spouse_active_duty: params[:spouse_active_duty],
       gi_bill_chapter: params[:gi_bill_chapter],
@@ -31,11 +31,11 @@ class InstitutionsController < ApplicationController
     }
 
     @school = Institution.find_by(facility_code: params[:facility_code])
- 
+
     respond_to do |format|
       format.json { render json: @school }
       format.html
-    end    
+    end
   end
 
   def autocomplete
@@ -48,7 +48,7 @@ class InstitutionsController < ApplicationController
   end
 
   def search
-    @inputs = { 
+    @inputs = {
       military_status: params[:military_status],
       spouse_active_duty: params[:spouse_active_duty],
       gi_bill_chapter: params[:gi_bill_chapter],
@@ -66,6 +66,24 @@ class InstitutionsController < ApplicationController
     @states = []
 
     @schools = Institution.search(@inputs[:institution_search])
+
+    # Pagination
+    if has_a_valid_int(params, :page) && has_a_valid_int(params, :num_schools)
+      page_param = params[:page].to_i
+      num_schools_param = params[:num_schools].to_i
+
+      @page = 1
+      if (@schools.length.to_f / num_schools_param) > page_param.to_f
+        @page = page_param
+      end
+
+      start_index = (@page * num_schools_param) - num_schools_param
+      end_index = start_index + num_schools_param - 1
+
+      @schools = @schools[start_index..end_index]
+    end
+
+    # Generate URLs for school profiles and construct a list of states and countries
     @schools.each do |school|
       school[:student_veteran] = to_bool(school[:student_veteran])
       school[:poe] = to_bool(school[:poe])
@@ -98,7 +116,11 @@ class InstitutionsController < ApplicationController
     end
   end
 
-  def to_bool(val)
+  def to_bool (val)
     %w(yes true t 1).include?(val.to_s)
+  end
+
+  def has_a_valid_int(a_hash, key)
+    a_hash.has_key?(key) && a_hash[key] =~ /^\d+$/ && a_hash[key].to_i > 0
   end
 end
