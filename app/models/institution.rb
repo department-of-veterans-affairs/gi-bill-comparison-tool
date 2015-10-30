@@ -118,7 +118,7 @@ class Institution < ActiveRecord::Base
   #############################################################################
   def self.autocomplete(search_term)
     Institution.select('facility_code as value, institution as label')
-      .where("institution ~* ?", "^#{search_term}")
+      .where("institution ~* ?", "^#{search_term}").limit(10)
   end
 
   #############################################################################

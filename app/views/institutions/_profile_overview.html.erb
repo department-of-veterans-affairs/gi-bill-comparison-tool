@@ -7,7 +7,7 @@
 			data-country="<%= @school.country %>"
 			data-bah="<%= @school.bah %>">
 
-			<% if @school[:caution_flag] %>
+			<% if @school.caution_flag %>
 				<h5 style="color:white; background-color:red">
 					<a href="#summary">Caution Flag</a>
 				</h5>
