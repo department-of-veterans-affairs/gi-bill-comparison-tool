@@ -92,26 +92,9 @@ class InstitutionsController < ApplicationController
     @countries = @countries.uniq
     @states = @states.uniq
 
-    if (@schools.length == 1)
-      href = "#{profile_path}?facility_code=#{@schools[0][:facility_code]}";
-      href += "&military_status=" + @inputs[:military_status]
-      href += "&spouse_active_duty=" + @inputs[:spouse_active_duty]
-      href += "&gi_bill_chapter=" + @inputs[:gi_bill_chapter]
-      href += "&cumulative_service=" + @inputs[:cumulative_service]
-      href += "&enlistment_service=" + @inputs[:enlistment_service]
-      href += "&consecutive_service=" + @inputs[:consecutive_service]
-      href += "&elig_for_post_gi_bill=" + @inputs[:elig_for_post_gi_bill]
-      href += "&number_of_dependents=" + @inputs[:number_of_dependents]
-      href += "&online_classes=" + @inputs[:online_classes]
-      href += "&institution_search" + @inputs[:institution_search]
-
-      redirect_to href
-      return
-    end
-    
     respond_to do |format|
       format.json { render json: @schools }
-      format.html
+      format.html { redirect_to @schools[0][:profile_url] if @schools.length == 1 }
     end
   end
 
