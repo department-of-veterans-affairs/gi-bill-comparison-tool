@@ -28,7 +28,7 @@
 	      </button>
 	      <div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">
             <!--  PLACEHOLDER FOR DEMO -->  
-            <img src="../assets/demo-temp/outcomes.png">
+            <!-- <img src="../assets/demo-temp/outcomes.png"> -->
 					<!-- Graduation Rates -->
 <!-- 					<% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>
 						<div class="outcome usa-width-one-whole">
@@ -62,7 +62,7 @@
 					<% end %> -->
 
 					<!-- Retention Rates -->
- 					<% if is_number?(@school.retention_rate_veteran_ba) && is_number?(@school.retention_rate_veteran_ba) %>
+ 					<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
 						<div class="outcome">
 							<%= render partial: 'profile_outcomes', 
 								locals: { 
