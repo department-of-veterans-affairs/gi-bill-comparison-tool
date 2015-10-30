@@ -165,7 +165,7 @@ Estimator.prototype.setEnlistmentService = function(id) {
 // Saves as boolean.
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.setOnline = function(id) {
-	this.institution_type = $(id).val() === 'yes';
+	this.online = $(id).val() === 'yes';
 	return this;
 };
 
