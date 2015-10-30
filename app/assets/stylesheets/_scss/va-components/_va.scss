@@ -62,12 +62,20 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
 }
 
 .ui-autocomplete {
+  overflow: auto;
+  max-height: 100px;
+}
+.ui-autocomplete {
     background-color: #fff;
     border: 1px solid $olso-gray;
     text-indent: 1rem;
     .ui-state-focus {
       background-color: #ddd;
     }
+}
+
+.ui-helper-hidden-accessible{
+  display: none;
 }
 
 // OVERRIDES FOR WDS
