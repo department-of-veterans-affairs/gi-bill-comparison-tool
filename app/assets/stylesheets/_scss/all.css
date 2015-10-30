@@ -4240,10 +4240,6 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
   color: #003F72; }
 
 .ui-autocomplete {
-  overflow: auto;
-  max-height: 100px; }
-
-.ui-autocomplete {
   background-color: #fff;
   border: 1px solid #849097;
   text-indent: 1rem; }
