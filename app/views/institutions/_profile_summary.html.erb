@@ -1,1 +1,17 @@
-<div></div>
+<div>
+	<ul>
+		<li>Accredited? <%= @school.accredited ? 'Yes' : 'No' %></li>
+		<% if @school.accredited %>
+			<li>Type of Accrediation:  <%= @school.accreditation_type %></li>
+		<% end %>
+		<% if @school.vet_tuition_policy_url.present? %>
+			<li>Link to Veterans Tuition Policy: <a href="http://<%= @school.vet_tuition_policy_url %>">Here</a></li>
+		<% end %>
+		<li>Single Point of Contact For Veterans: <%= @school.vet_poc ? 'Yes' : 'No' %></li>
+		<li>Credit for Military Training: <%= @school.credit_for_mil_training ? 'Yes' : 'No' %></li>
+		<li>Servicemember Opportunity College Member: <%= @school.soc_member ? 'Yes' : 'No' %></li>
+		<li>VA Facility Code: <%= @school.facility_code %></li>
+		<li>ED IPEDS Code: <%= @school.cross %></li>
+		<li>ED OPE Code: <%= @school.ope %></li>
+	</ul>
+</div>
