@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   
   get 'institutions/profile' => 'institutions#profile', as: :profile
   get 'institutions/autocomplete' => 'institutions#autocomplete', as: :autocomplete
+  get 'institutions/search' => 'institutions#search'
   post 'institutions/search' => 'institutions#search', as: :search
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
