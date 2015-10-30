@@ -62,13 +62,13 @@
 					<% end %> -->
 
 					<!-- Retention Rates -->
-<!-- 					<% if is_number?(@school.retention_rate_veteran) && is_number?(@school.retention_all_students) %>
+<!-- 					<% if is_number?(@school.retention_rate_veteran_ba) && is_number?(@school.retention_rate_veteran_ba) %>
 						<div class="outcome">
 							<%= render partial: 'profile_outcomes', 
 								locals: { 
 									outcome: "retention", 
-									vrate: number_with_precision(@school.retention_rate_veteran.to_f * 100, precision: 2),
-									crate: number_with_precision(@school.retention_all_students.to_f * 100, precision: 2),
+									vrate: number_with_precision(@school.retention_rate_veteran_ba.to_f * 100, precision: 2),
+									crate: number_with_precision(@school.retention_all_students_ba.to_f * 100, precision: 2),
 									nrate: 10.8
 								} 
 							%>
@@ -80,10 +80,18 @@
 	    </li>
 	    <li>
 	      <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-2">
-	        <h3>School Summary (<%= pluralize(@school.complaints_facility_code, " Complaint") %>)</h3>
+	        <h3>School Summary</h3>
 	      </button>
 	      <div id="collapsible-2" aria-hidden="true" class="usa-accordion-content">
 					<%= render partial: 'profile_summary' %>
+	      </div>
+	    </li>
+	    <li>
+	      <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-3">
+	        <h3>Caution Flags (<%= pluralize(@school.complaints_facility_code, " Complaint") %>)</h3>
+	      </button>
+	      <div id="collapsible-3" aria-hidden="true" class="usa-accordion-content">
+					<%= render(partial: 'profile_complaints') if (@school.complaints_main_campus_roll_up > 0) %>
 	      </div>
 	    </li>
 	  </ul>
