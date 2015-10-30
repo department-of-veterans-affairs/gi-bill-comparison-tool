@@ -1,8 +1,8 @@
-<h2>Showing <%= @schools.length %> Results matching the term "<%= @inputs[:institution_search] %>"</h2>
+
 <div class="usa-width-one-whole filter-horizontal">
   <%= render partial: 'yourself', locals: { use_label: false } %>
     <p class="pull-right">
-      <a href="<%= root_path %>">Select New Schools</a>
+      <a href="<%= root_path %>">New Search</a>
     </p>
 </div>
 
@@ -14,6 +14,7 @@
   <div>
 		<p id="totals"></p>
 		<div class="usa-width-three-fourths">
+            <p class="search-count-headline"><span class="light-type">Showing</span> <b><%= @schools.length %></b> <span class="light-type">results matching the term <i><b></span>"<%= @inputs[:institution_search] %>"</i></b><p>
   		<%= render partial: 'school_summary', collection: @schools %>
 		</div>
 	</div>

@@ -3,6 +3,35 @@
 // It's basically all the same everything, but without the interaction renamed as usa-card.
 // and all the hover / opening / closing states removed
 
+.school_summary {
+    position: relative;
+  background-color: $color-gray-lightest;
+  height: 36rem;
+  width: 28rem;
+//  padding: 0 1em 1em 1em;
+  margin: 0 0 1rem 1rem;
+  float: left;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  p, li, lh {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    font-size: 1.5rem;
+  }
+
+  ul {
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    li { 
+      list-style-type: none;
+    }
+  }
+}
 .usa-card,
 .usa-card-bordered {
 
@@ -85,14 +114,98 @@
   }
 }
 
+.light-type{
+    color: $va-tertiary-color;
+}
 .caution{
-    background-color: aqua;
-
-    &:link{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $va-body-accent-color;
+    height: 2.5rem;
+    width: 100%;
+    padding: 0 .5rem .5rem 1.7rem;
+    
+    a{
+        color: #000;
         font-family: $open-sans;
-        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
     }
     }
     
 .searchresults-caution{
-    }    
+    }
+.search-count-headline{
+    margin-left: 1.5rem;
+    line-height: .8rem;
+}
+.search-content{
+    padding: 1.7rem;
+    font-family: $open-sans;
+}
+.search-insitution-name{
+    margin-top: 1.3rem;
+    height: 7rem;
+    a{
+    color: $va-primary-color;
+    }
+}
+.search-locality{
+    font-size: 1.4rem;
+    margin: 0 0 1.7rem 0;
+}
+.search-vet-count{
+    margin: 0 0 1.7rem 0;
+    font-size: 1.4rem;   
+}
+.vet-count-value{
+    font-family: $roboto-slab;
+    font-size: 2.2rem;
+    color: $va-secondary-color;
+}
+.search-benefits-values-container{
+}
+.search-selections-label{
+    font-size: 1.3rem;
+    color: #aeb0b5;
+    margin-bottom: 1.7rem;
+}
+.search-value-each{
+    font-family: $roboto-slab;
+    font-size: 2.2rem;
+    color: $va-secondary-color;
+    line-height: 1.1rem;
+    text-align: center;
+}
+.search-text-values{
+    font-size: 1.2rem;
+}
+
+.fa-search-result{
+    color: $va-primary-color;
+    font-size: 3rem;
+    margin-bottom: .8rem;
+}
+
+.estimate-qualifier{
+    font-size: 1rem;
+    color: #444;
+    line-height: .5rem;
+}
+
+.estimator-dollar-sign{
+    font-size: 1rem;
+    color: #999;
+}
+a.va-search-learnmore{
+    width: 100%;
+    margin: 1.7rem 0;
+}
+
+.search-learnmore-div{
+    position:absolute;
+    bottom: 0;
+    left: 1rem;
+    width: 26rem;
+}
