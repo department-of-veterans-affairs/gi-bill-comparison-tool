@@ -84,3 +84,6 @@ production:
   database: gi-bill-comparison-tool_production
   username: gi-bill-comparison-tool
   password: <%= ENV['GI-BILL-COMPARISON-TOOL_DATABASE_PASSWORD'] %>
+
+
+
