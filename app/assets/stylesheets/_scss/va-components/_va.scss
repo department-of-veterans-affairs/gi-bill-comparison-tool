@@ -36,8 +36,20 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
   font-family: $roboto-slab;
 }
 
+a{
+    font-family: $open-sans;
+    color: $va-primary-color;
+    
+    &:visited{
+    color: $va-secondary-color;
+    }
+}
+
 .caption{
     font-size: 1.2rem;
+    a{
+    font-size: 1.2rem;
+    }
 }
 
 // Home Teaser Block - Lots of styles, I know....rl

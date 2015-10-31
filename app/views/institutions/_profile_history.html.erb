@@ -1,8 +1,23 @@
-<div>
-	<ul>
-		<li>Post-9/11 GI Bill Recipients: <%=  number_with_delimiter(@school.p911_recipients) %></li>
-		<li>Post-9/11 GI Bill: <%= number_to_currency(@school.p911_tuition_fees) %></li>
-		<li>Yellow Ribbon Recipients: <%=  number_with_delimiter(@school.p911_yr_recipients) %></li>
-		<li>Yellow Ribbon: <%= number_to_currency(@school.p911_yellow_ribbon) %></li>
-	</ul>
+<div class="usa-width-one-whole">
+    
+    <table class="usa-table-borderless">
+    <thead>
+        <tr>
+            <th scope="col">Benefit</th>
+            <th scope="col">Recipients</th>
+            <th scope="col">Paid (FY'14)</th>
+        </tr>
+        </thead>
+        <tr>
+            <th>Post-9/11 GI Bill:</td>
+            <td><%=  number_with_delimiter(@school.p911_recipients) %></td>
+            <td><%= number_to_currency(@school.p911_tuition_fees) %></td>
+        </tr>
+        <tr>
+            <th>Yellow Ribbon:</td>
+            <td><%=  number_with_delimiter(@school.p911_yr_recipients) %></td>
+            <td><%= number_to_currency(@school.p911_yellow_ribbon) %></td>
+        </tr>
+        
+    </table>
 </div>
