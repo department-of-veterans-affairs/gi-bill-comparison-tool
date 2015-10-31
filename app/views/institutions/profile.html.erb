@@ -1,4 +1,4 @@
-<div class="usa-width-one-whole filter-horizontal">
+<div id="horiz-filters-noprint" class="usa-width-one-whole filter-horizontal">
   <%= render partial: 'yourself', locals: { use_label: false } %>
   <div class="usa-button-primary search-button-new">
   	<a href="<%= root_path %>">New Search</a>
@@ -6,7 +6,9 @@
 </div>
 
 <%= form_tag(search_path, id: "back-form") do %>
-	<a id="back-link" href="">Back to Search Results</a>
+    <div id="backtosearch-noprint">
+	<a id="back-link" href=""><i class="fa fa-chevron-left back-chevron"></i> Back to Search Results</a>
+    </div>
 <% end %>
 
 <%= render partial: 'profile_overview' %>
@@ -78,27 +80,26 @@
 					<% end %>
 	      </div>
 	    </li>
-	    <li>
-	      <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-2">
+	    
+	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-2">
 	        <h3>School Summary</h3>
 	      </button>
-	      <div id="collapsible-2" aria-hidden="true" class="usa-accordion-content">
+	      <div id="collapsible-2" aria-hidden="false" class="usa-accordion-content">
 					<%= render partial: 'profile_summary' %>
 	      </div>
-	    </li>
 	    <li>
-	      <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-3">
-	        <h3>Caution Flags (<%= pluralize(@school.complaints_facility_code, " Complaint") %>)</h3>
+	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-3">
+	        <h3>Caution Flags (<%= @school.complaints_main_campus_roll_up %> Student Complaints)</h3>
 	      </button>
-	      <div id="collapsible-3" aria-hidden="true" class="usa-accordion-content">
+	      <div id="collapsible-3" aria-hidden="false" class="usa-accordion-content">
 					<%= render partial: 'profile_complaints' %>
 	      </div>
 	    </li>
 	    <li>
-	      <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-4">
+	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-4">
 	        <h3>Historical School Information</h3>
 	      </button>
-	      <div id="collapsible-4" aria-hidden="true" class="usa-accordion-content">
+	      <div id="collapsible-4" aria-hidden="false" class="usa-accordion-content">
 					<%= render partial: 'profile_history' %>
 	      </div>
 	    </li>
