@@ -1,3 +1,22 @@
+<style>
+
+.bar {
+  fill: yellow;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+
 <div id="horiz-filters-noprint" class="usa-width-one-whole filter-horizontal">
   <%= render partial: 'yourself', locals: { use_label: false } %>
   <div class="usa-button-primary search-button-new">
@@ -28,59 +47,100 @@
 	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-1">
 					<h3>Outcomes</h3>
 	      </button>
-	      <div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">
+<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">
             <!--  PLACEHOLDER FOR DEMO -->  
             <!-- <img src="../assets/demo-temp/outcomes.png"> -->
-					<!-- Graduation Rates -->
-<!-- 					<% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>
-						<div class="outcome usa-width-one-whole">
-							<%= render partial: 'profile_outcomes', 
-								locals: { 
-									outcome: "graduation", 
-									vrate: number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
-									crate: number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
-									nrate: 43.8
-								} 
-							%>
-						</div>
-					<% else %>
-						<p>Graduation Rate Data Not Available</p>
-					<% end %> -->
 
-					<!-- Transfer out Rates -->
-<!-- 					<% if is_number?(@school.transfer_out_rate_veteran) && is_number?(@school.transfer_out_rate_all_students) %>
-						<div class="outcome">
-							<%= render partial: 'profile_outcomes', 
-								locals: { 
-									outcome: "transfer-out", 
-									vrate: number_with_precision(@school.transfer_out_rate_veteran.to_f * 100, precision: 2),
-									crate: number_with_precision(@school.transfer_out_rate_all_students.to_f * 100, precision: 2),
-									nrate: 10.8
-								} 
-							%>
-						</div>
-					<% else %>
-						<div class="usa-width-one-whole"><span>Transfer-out Rate Data Not Available</span></div>
-					<% end %> -->
+		<table>
+		<tr>
+		  <th>Graduation Rate</th>
+		  <th>Retention Rate</th>
+		  <th>Salaries After Directly After College</th>
+		  <th>Repayment Rate</th>
+		</tr>
+		<!-- Graduation Rates -->
+		<% #if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>
+			<div class="outcome usa-width-one-whole">
+			<tr>
+				<td><div id="graduation-<%= @school.facility_code %>"></div></td>
+				<%= render partial: 'profile_grad_rates', 
+					locals: { 
+						outcome: "graduation", 
+						vrate: 58.5,#number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
+						crate: 74.5,#number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
+						nrate: 59
+					} 
+				%>
+			</div>
+			<% #else %>
+				<!--<td><p>Graduation Rate Data Not Available</p></td>-->
+			<% #end %> 
 
-					<!-- Retention Rates -->
- 					<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
-						<div class="outcome">
-							<%= render partial: 'profile_outcomes', 
-								locals: { 
-									outcome: "retention", 
-									vrate: number_with_precision(@veteran_retention_rate * 100, precision: 2),
-									crate: number_with_precision(@all_student_retention_rate * 100, precision: 2),
-									nrate: 10.8
-								} 
-							%>
-						</div>
-					<% else %>
-						<p>Retention Rate Data Not Available</p>
-					<% end %>
+			<!-- Transfer out Rates -->
+<!-- 			<#% if is_number?(@school.transfer_out_rate_veteran) && is_number?(@school.transfer_out_rate_all_students) %>
+				<div class="outcome">
+				<#%= render partial: 'profile_outcomes', 
+					locals: { 
+						outcome: "transfer-out", 
+						vrate: number_with_precision(@school.transfer_out_rate_veteran.to_f * 100, precision: 2),
+						crate: number_with_precision(@school.transfer_out_rate_all_students.to_f * 100, precision: 2),
+						nrate: 10.8
+					} 
+				%>
+				</div>
+			<#% else %>
+				<div class="usa-width-one-whole"><span>Transfer-out Rate Data Not Available</span></div>
+			<#% #end %> -->
+					
+		<!-- Retention Rates -->
+ 		<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
+			<td><div id="retention-<%= @school.facility_code %>"></div></td>
+			<div class="outcome">
+			<%= render partial: 'profile_retention', 
+				locals: { 
+					outcome: "retention", 
+					vrate: number_with_precision(@veteran_retention_rate * 100, precision: 2),
+					crate: number_with_precision(@all_student_retention_rate * 100, precision: 2),
+					nrate: 10.8
+					} 
+			%>
+			</div>
+			<% else %>
+				<td><p>Retention Rate Data Not Available</p></td>
+			<% end %>
+		<% if @school.salary_all_students.present? %>
+                        <td><div id="salaries-<%= @school.facility_code %>"></div></td>
+                        <div class="outcome">
+                        <%= render partial: 'profile_salaries',
+                                locals: {
+                                        outcome: "salaries",
+                                        vrate: @school.salary_all_students,
+                                        nrate: 48127
+                                        }
+                        %>
+                        </div>
+                        <% else %>
+                                <td><p>Salary Data Not Available</p></td>
+                        <% end %>
+
+		<% if @school.repayment_rate_all_students.present? %>
+                        <td><div id="repayment-<%= @school.facility_code %>"></div></td>
+                        <div class="outcome">
+                        <%= render partial: 'profile_repayment',
+                                locals: {
+                                        outcome: "repayment",
+                                        vrate: number_with_precision(@school.repayment_rate_all_students * 100, precision: 2),
+                                        nrate: 86.3
+                                        }
+                        %>
+                        </div>
+                        <% else %>
+                                <td><p>Salary Data Not Available</p></td>
+                        <% end %>
+</table>
+
 	      </div>
-	    </li>
-	    
+
 	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-2">
 	        <h3>School Summary</h3>
 	      </button>
