@@ -8,17 +8,17 @@
 			data-bah="<%= @school.bah %>">
 
 			<% if @school.caution_flag %>
-				<h5 style="color:white; background-color:red">
-					<a href="#summary">Caution Flag</a>
-				</h5>
+				<div class="caution-profile">
+					<a href="#jumpflag"><i class="fa fa-exclamation-triangle"></i> Caution Flag</a>
+                </div>
 			<% end %>
 
-			<h2><%= @school.institution %></h2>
+			<h2 class="profile-head"><%= @school.institution %></h2>
 			<p><%= @school.city %>, <%= @school.state %></p>
 		</div>
 		<!-- Holds student attendance and link -->
 		<p>
-			<%= format_number_or_null(@school.undergrad_enrollment, "Total Student") %>
+            <%= format_number_or_null(@school.undergrad_enrollment, "Total Enrollment:") %>
 		</p>
 
 		<% if @school.insturl.present? %>
@@ -28,23 +28,53 @@
 		<% end %>
 
 		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
-		<ul>
-			<li><%= @school.institution_type.name.upcase %></li>
-		</ul>
+		<div class="usa-width-four-sixths">
+            
+            <div class="profile-institute-descriptors usa-width-one-sixth"> <!--PLACE DATA BEFORE "YEARS" TEXT -->
+                <span class="profile-years-programs">4</span><!-- replace this with data -->
+                <p class="estimate-qualifier">YEARS</p>
+            </div>
+            
+			<div class="profile-institute-descriptors usa-width-one-sixth"><!--HAS DATA. ADD OTHERS LIKE THIS ONE -->
+                <i class="fa fa-university fa-profile-descriptors"></i>
+                <p class="estimate-qualifier"><%= @school.institution_type.name.upcase %></p>
+            </div>
+            
+            <div class="profile-institute-descriptors usa-width-one-sixth"><!--NEEDS DATA  -->
+                <i class="fa fa-map fa-profile-descriptors"></i>
+                <p class="estimate-qualifier">CITY</p><!-- RELACE THIS WITH DATA -->
+            </div>
+            
+            <div class="profile-institute-descriptors usa-width-one-sixth"><!--NEEDS DATA  -->
+                <i class="fa fa-users fa-profile-descriptors"></i>
+                <p class="estimate-qualifier">MEDIUM</p><!-- RELACE THIS WITH DATA -->
+            </div>
+            
+		</div>
 	</div>
 
 	<div class="usa-width-one-third nested usa-card usa-card-fill">
 	  <div class="usa-card-header">
 			<h4>VA Summary</h4>
 	  </div>
-	  <div class="usa-card-content">
-			<p><%= @school.gibill %> GI Bill Students</p>
+	  <div class="usa-card-content va-summary-card">
+          <p><span class="search-value-each"><%= @school.gibill %></span> GI Bill Students</p>
 			<ul>
-				<li><%= @school.student_veteran ? "\u2714" : "\u2716" %> Student Veteran Group</li>
-				<li><%= @school.yr ? "\u2714" : "\u2716" %> Yellow Ribbon Scholarships</li>
-				<li><%= @school.poe ? "\u2714" : "\u2716" %> Principles of Excellence</li>
-				<li><%= @school.dodmou ? "\u2714" : "\u2716" %> Military Tuition Assistance (TA)</li>
-				<li><%= @school.eight_keys ? "\u2714" : "\u2716" %> 8 Keys to Veteran Success</li>
+				 <% v_str = '<span class="programs-' + (@school.student_veteran ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+                <li><%= v_str.html_safe %> <span class="programs-text">Student Veteran Group</span></li>
+                
+                <% v_str = '<span class="programs-' + (@school.yr ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+                <li><%= v_str.html_safe %> <span class="programs-text">Yellow Ribbon Scholarships</span></li>
+                
+                <% v_str = '<span class="programs-' + (@school.poe ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+                <li><%= v_str.html_safe %> <span class="programs-text">Principles of Excellence</span></li>
+                
+                <% v_str = '<span class="programs-' + (@school.dodmou ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+                <li><%= v_str.html_safe %> <span class="programs-text">Military Tuition Assistance (TA)</span></li>
+
+                <% v_str = '<span class="programs-' + (@school.eight_keys ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+                <li><%= v_str.html_safe %> <span class="programs-text">8 Keys to Veteran Success</span></li>
+                
 			</ul>
 	  </div>
 	</div>
@@ -57,27 +87,27 @@
 
 	<div class="usa-width-one-third usa-card usa-card-fill">
 	  <div class="usa-card-content">	
-			<h5>Tuition and Fees</h5>
+			<h4>Tuition and Fees</h4>
 			<p id="est-tuition-fees"></p>
 		</div>
 	</div>
 
 	<div class="usa-width-one-third usa-card usa-card-fill">
 	  <div class="usa-card-content">	
-			<h5>Housing Allowance</h5>
+			<h4>Housing Allowance</h4>
 			<p id="est-housing-allowance"></p>
 		</div>
 	</div>
 
 	<div class="usa-width-one-third usa-card usa-card-fill">
 	  <div class="usa-card-content">	
-			<h5>Book Stipend</h5>
+			<h4>Book Stipend</h4>
 			<p id="est-book-stipend"></p>
 		</div>
 	</div>
 </div>
 
-<div class="usa-width-one-fourth usa-card usa-card-fill">
+<div id="additional-resources" class="usa-width-one-fourth usa-card usa-card-fill">
   <div class="usa-card-header">
 		<h4>Additional Resources</h4>
   </div>

@@ -10,12 +10,12 @@
     display: none;
 }
 
-#training {
-  width: 500px;
-  padding: 3rem;
-  display:none;
-  background: #FFF;
-}
+//#training {
+//  width: 500px;
+//  padding: 3rem;
+//  display:none;
+//  background: #FFF;
+//}
 
 .modal_close { 
   position: absolute; 
@@ -23,4 +23,22 @@
   right: 12px; 
   display: block; 
   z-index: 2; 
+}
+
+.modal-style{
+  width: 500px;
+  padding: 3rem;
+  display:none;
+  background: #FFF;
+}
+
+modal-style-wide{
+  width: 800px;
+  padding: 3rem;
+  display:none;
+  background: #FFF;
+}
+
+.info-icons{
+ padding-left: 1rem;
 }
