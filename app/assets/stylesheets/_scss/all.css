@@ -4221,8 +4221,16 @@ html, body {
 h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
   font-family: "Roboto Slab", serif; }
 
+a {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  color: #003F72; }
+  a:visited {
+    color: #0083BE; }
+
 .caption {
   font-size: 1.2rem; }
+  .caption a {
+    font-size: 1.2rem; }
 
 .home-teaser {
   text-align: center; }
@@ -4441,6 +4449,12 @@ header {
       .footer-crisis a {
         display: block; } }
 
+.usa-footer-logo {
+  width: 100px;
+  height: 50px;
+  background-image: url(/app/assets/img/va_images/seal-footer.svg);
+  background-color: bisque; }
+
 .school_summary {
   position: relative;
   background-color: #f1f1f1;
@@ -4640,6 +4654,85 @@ modal-style-wide {
 .calc-questions, .calc-outputs {
   padding: 0 1rem; }
 
+.back-chevron {
+  font-size: 1.7rem; }
+
+.caution-profile {
+  background-color: #FAC922;
+  height: 5.2rem;
+  width: 100%;
+  padding: 0 .5rem .5rem 1.7rem; }
+  .caution-profile a {
+    color: #000;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    font-size: 2rem;
+    line-height: 5.2rem; }
+
+.profile-head {
+  color: #003F72; }
+
+.fa-profile-descriptors {
+  font-size: 3rem;
+  color: #003F72; }
+
+.profile-institute-descriptors {
+  text-align: center;
+  margin-top: 1.7rem; }
+
+.profile-years-programs {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #003F72;
+  line-height: 3rem; }
+
+.fa-additional-resources {
+  background-color: #0071bc;
+  color: #fff;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  margin: .25rem;
+  margin-right: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 3rem; }
+  .fa-additional-resources:hover, .fa-additional-resources :active {
+    background-color: #FAC922; }
+
+.horz-timeline-text {
+  font-size: 1.5rem; }
+  .horz-timeline-text a {
+    font-size: 1.5rem; }
+
+.programs-text {
+  font-size: 1.4rem; }
+  .programs-text a {
+    font-size: 1.5rem; }
+
+.current-location {
+  background-color: #FAC922; }
+
+.programs-yes, .programs-no {
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+  font-size: 1.7rem;
+  margin: 1rem; }
+
+.programs-yes {
+  color: #0083BE; }
+
+.programs-no {
+  color: #888; }
+
+.va-summary-card {
+  padding: 2rem;
+  background-color: #fff; }
+
+.caution-profile-summary {
+  background-color: #FAC922; }
+
 /* Timeline */
 .timeline {
   position: relative; }
@@ -4700,5 +4793,21 @@ modal-style-wide {
   text-align: center;
   font-size: 1.3rem;
   margin-bottom: 2rem; }
+
+.complaints-student {
+  background-color: #fff; }
+
+@media print {
+  #additional-resources {
+    display: none; }
+
+  #footer {
+    display: none; }
+
+  #horiz-filters-noprint {
+    display: none; }
+
+  #backtosearch-noprint {
+    display: none; } }
 
 /*# sourceMappingURL=all.css.map */
