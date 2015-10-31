@@ -1,0 +1,119 @@
+<!--<div>
+  <div id="<%= outcome %>-<%= @school.facility_code %>"></div>
+  <h5><%= outcome.capitalize %> Rate Data</h5>
+-->
+<script>
+
+//stolen from here - http://stackoverflow.com/questions/3883342/add-commas-to-a-number-in-jquery
+function commaSeparateNumber(val){
+    while (/(\d+)(\d{3})/.test(val.toString())){
+      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+    }
+    return val;
+  }
+
+var all_salaries = JSON.parse('{"group":"All","average":<%= vrate %>}'); // {"group":"VETS","percentage":29};
+var national_ave = JSON.parse('{"group":"national_average","average":<%= nrate %>}'); // {"group":"national_ave","percentage":59};
+
+var data = [
+	all_salaries
+];
+
+var SCALING_FACTOR = 3;
+
+var national_average_data = [
+	{"group":"dummy","average":national_ave.average,"x":10}, //dummy data so that the line works
+	{"group":"national_average","average":national_ave.average,"x":450}
+]; //making this iterable
+
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var width = width/(SCALING_FACTOR*2);
+var height = height/SCALING_FACTOR;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var x2 = d3.scale.ordinal()
+  .rangeBands([0, width], 0);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom"); 
+
+/*sets up the margins */
+var svg = d3.select("#<%= outcome %>-<%= @school.facility_code %>").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+/* This shows the values on the x axis*/
+x.domain(data.map(function(d) { return d.group; }));
+x2.domain(data.map(function(d) { return d.group; }));
+
+/* this shows the values on the y axis */
+y.domain([0, 100000]);
+
+/* this adds the axis to the svg */
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+var RECT_SCALE = 2;
+
+/* This appends the data to the bar charts */
+svg.selectAll(".bar")
+    .data(data)
+    .enter().append("rect")
+    .attr("class", "bar")
+    .attr("x", function(d) { return x(d.group); })
+    .attr("width", x.rangeBand())
+    .attr("y", function(d) { return y(d.average); })
+    .attr("height", function(d) { return height - y(d.average); });
+
+/* this appends labels to the top of each bar */
+svg.selectAll(".label")
+    .data(data)
+    .enter().append("text")
+    .attr("text-anchor", "middle")
+    .attr("class", "label")
+    .attr("font-size","24px")
+    .attr("x", function(d) { return x(d.group) + (x.rangeBand() / 4); })
+    .attr("y", function(d) { return y(d.average) - 15; })
+    .attr("dx","20")
+    .attr("dy","40")
+    .text(function(d){ return "$"+ commaSeparateNumber(d.average); });
+
+  /* this appends the line to the chart */
+ var line = d3.svg.line()
+    .x(function(d, i) { 
+      return d.x; }) 
+    .y(function(d, i) { return y(national_ave.average); })
+    .interpolate("linear"); //This is the height of the line
+
+
+svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("id","salary_curve")
+      .attr("stroke","grey")
+      .attr("stroke-width",2)
+      //.attr("fill","none")
+      .attr("d", line(national_average_data));
+
+svg.append("text")
+    .attr("font-size","16px")
+    .attr("dx","80") 
+    .append("textPath")
+    .attr("xlink:href", "#salary_curve")
+    .text("< "+ "$"+ commaSeparateNumber(national_ave.average));
+    
+</script>

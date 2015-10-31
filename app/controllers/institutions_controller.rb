@@ -1,3 +1,4 @@
+
 class InstitutionsController < ApplicationController
   def home
     @url = Rails.env.production? ? request.host : 'http://localhost:3000'
@@ -33,7 +34,6 @@ class InstitutionsController < ApplicationController
     @school = Institution.find_by(facility_code: params[:facility_code])
     @veteran_retention_rate = @school.get_veteran_retention_rate
     @all_student_retention_rate = @school.get_all_student_retention_rate
- 
     respond_to do |format|
       format.json { render json: @school }
       format.html
