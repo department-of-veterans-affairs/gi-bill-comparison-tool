@@ -1,8 +1,8 @@
 <div class="usa-width-one-whole filter-horizontal">
   <%= render partial: 'yourself', locals: { use_label: false } %>
-  <p class="pull-right">
-  	<a href="<%= root_path %>">Select New Schools</a>
-  </p>
+  <div class="usa-button-primary search-button-new">
+  	<a href="<%= root_path %>">New Search</a>
+  </div>
 </div>
 
 <%= form_tag(search_path, id: "back-form") do %>

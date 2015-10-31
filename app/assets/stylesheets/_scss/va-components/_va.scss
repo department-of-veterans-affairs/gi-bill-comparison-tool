@@ -36,6 +36,9 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
   font-family: $roboto-slab;
 }
 
+.caption{
+    font-size: 1.2rem;
+}
 
 // Home Teaser Block - Lots of styles, I know....rl
 
@@ -110,7 +113,19 @@ ul li {
   width: 20rem;
 }
 
+.radio{
+    margin-right: 2rem;
+}
 
+.about-this-tool{
+    margin-bottom: 1.7rem;
+}
+.applinks{
+    text-align: center;
+    font-family: $open-sans;
+    font-size: 1.7rem;
+    margin: 3.4rem;
+}
 
 // All the stuff for showing the form vertically along the top
 // TODO: @Emilyville make better for mobile
@@ -126,10 +141,14 @@ ul li {
   }
   .form-group {
     .filter-item {
-      width: 15rem;
-      margin-right: -1rem;
-      float: left;
-      background-image: none;
+        margin-top: 1rem;
+        width: 15%;
+        height: 4rem;
+        margin-right: -1rem;
+        float: left;
+        background-image: none;
+        font-size: 1.3rem;
+        line-height: 1.3rem;
     }
     &:after {
       font-family: FontAwesome;
@@ -137,13 +156,17 @@ ul li {
       display: inline;
       float: left;
       left: -12px;
-      margin-top: 12px;
+      margin-top: 18px;
       background: #fff;
       padding: 3px;
       position: relative;
       pointer-events: none;
     }
   }
+}
+.search-button-new{
+    height: 4rem;
+    a{color: #fff;}
 }
 
 // All the stuff for showing the left rail
