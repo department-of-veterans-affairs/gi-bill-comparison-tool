@@ -29,27 +29,26 @@
 
 		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
 		<div class="usa-width-four-sixths">
-            
-            <div class="profile-institute-descriptors usa-width-one-sixth"> <!--PLACE DATA BEFORE "YEARS" TEXT -->
-                <span class="profile-years-programs">4</span><!-- replace this with data -->
-                <p class="estimate-qualifier">YEARS</p>
-            </div>
-            
+			<% hdo = @school.va_highest_degree_offered.present? ? @school.va_highest_degree_offered : 'N/A' %>
+      <div class="profile-institute-descriptors usa-width-one-sixth"> <!--PLACE DATA BEFORE "YEARS" TEXT -->
+          <span class="profile-years-programs"><%= hdo %></span>
+          <p class="estimate-qualifier">YEARS</p>
+      </div>
+      
 			<div class="profile-institute-descriptors usa-width-one-sixth"><!--HAS DATA. ADD OTHERS LIKE THIS ONE -->
-                <i class="fa fa-university fa-profile-descriptors"></i>
-                <p class="estimate-qualifier"><%= @school.institution_type.name.upcase %></p>
-            </div>
-            
-            <div class="profile-institute-descriptors usa-width-one-sixth"><!--NEEDS DATA  -->
-                <i class="fa fa-map fa-profile-descriptors"></i>
-                <p class="estimate-qualifier">CITY</p><!-- RELACE THIS WITH DATA -->
-            </div>
-            
-            <div class="profile-institute-descriptors usa-width-one-sixth"><!--NEEDS DATA  -->
-                <i class="fa fa-users fa-profile-descriptors"></i>
-                <p class="estimate-qualifier">MEDIUM</p><!-- RELACE THIS WITH DATA -->
-            </div>
-            
+          <i class="fa fa-university fa-profile-descriptors"></i>
+          <p class="estimate-qualifier"><%= @school.institution_type.name.upcase %></p>
+      </div>
+      
+      <div class="profile-institute-descriptors usa-width-one-sixth"><!--NEEDS DATA  -->
+          <i class="fa fa-map fa-profile-descriptors"></i>
+          <p class="estimate-qualifier"><%= @school.city %></p>
+      </div>
+      
+      <div class="profile-institute-descriptors usa-width-one-sixth"><!--NEEDS DATA  -->
+          <i class="fa fa-users fa-profile-descriptors"></i>
+          <p class="estimate-qualifier">MEDIUM</p><!-- RELACE THIS WITH DATA -->
+      </div>            
 		</div>
 	</div>
 

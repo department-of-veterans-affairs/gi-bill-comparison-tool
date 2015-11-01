@@ -4809,5 +4809,36 @@ modal-style-wide {
 
   #backtosearch-noprint {
     display: none; } }
+.outcome {
+  font-size: 1em;
+  /* styling for the line */
+  /* This needs to be changed so that there are two colors */ }
+  .outcome .axis path,
+  .outcome .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges; }
+  .outcome .bar {
+    fill: #FAC922; }
+  .outcome .x.axis path {
+    display: none; }
+  .outcome .line {
+    fill: none;
+    stroke: #444;
+    stroke-width: 1.5px; }
+
+.ui-autocomplete {
+  max-height: 200px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden; }
+
+.outcome-measure {
+  background-color: #f1f1f1;
+  margin: 1rem 1rem 1rem  0;
+  padding: 1rem; }
+
+.bar #vets {
+  fill: #f1f1f1; }
 
 /*# sourceMappingURL=all.css.map */
