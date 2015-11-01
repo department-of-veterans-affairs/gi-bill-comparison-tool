@@ -78,17 +78,5 @@
 $(document).ready(function() {
 	var filter = new Filter(".filter", ".school_summary");
 	var searchTerm = "<%= @inputs[:institution_search] %>";
-
-	/////////////////////////////////////////////////////////////////////////////
-	// Disable state filter when the country is not US or all on country change.
-	/////////////////////////////////////////////////////////////////////////////
-	// $("#countries").change(function() {
-	// 	var value = $(this).val().toLowerCase();
-
-	// 	if ($.inArray(value, ["all", "usa"]) == -1)
-	// 		$("#states").prop("disabled", true).val("all");
-	// 	else
-	// 		$("#states").prop("disabled", false);
-	// });
 });
 </script>
