@@ -11,10 +11,10 @@
 							<!--         <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#in_state_residency" onclick="track('Tool Tips', 'Calculator / In-State Student');" target="_blank" class="info-link" aria-describedby="in-state-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information about in-state tuition</span></a>-->
 						</label>
 						<!--        	<span class="aria-tooltip" id="in-state-tooltip" role="tooltip">In-state residents are charged a discounted rate of tuition and fees.</span>-->
-        		<label class="radio" for="in-state-yes">Yes</label>
         		<input id="in-state-yes" name="In-state" type="radio" value="yes" checked=""/>
-        		<label class="radio" for="in-state-no">No</label>
+        		<label class="radio" for="in-state-yes">Yes</label>
         		<input id="in-state-no" name="In-state" type="radio" value="no"/>
+        		<label class="radio" for="in-state-no">No</label>
       		</div>
 
       		<div id="tuition-fees-form" class="form-group top-aligned">
@@ -370,6 +370,13 @@
 
 <script>
 $(document).ready(function() {
-	
+	var institution_type = <%= @school.institution_type.name.downcase %>;
+
+	(institution_type === "public") ? $("#in-state").show(0) : $("#in-state").hide(0);
+	(institution_type !== 'ojt') ? $("#tuition-assist-form").show(0) : $("#tuition-assist-form").hide(0);
+	(institution_type !== 'ojt') ? $("#enrolled-form").show(0) : $("#enrolled-form").hide(0);
+	(institution_type !== 'ojt') ? $("#enrolled-form-old-gi-bill").show(0) : $("#enrolled-form-old-gi-bill").hide(0);
+	(institution_type !== 'ojt') ? $("#calendar-form").show(0) : $("#calendar-form").hide(0);
+	(institution_type !== 'ojt') ? $("#working-form").show(0) : $("#working-form").hide(0);
 });
 </script>
