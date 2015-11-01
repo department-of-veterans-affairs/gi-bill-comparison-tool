@@ -1,0 +1,45 @@
+.outcome {
+	font-size: 1em;
+
+	/* styling for the line */
+	.axis path,
+	.axis line {
+  	fill: none;
+  	stroke: #000;
+  	shape-rendering: crispEdges;
+	}	
+
+	/* This needs to be changed so that there are two colors */
+	.bar {
+	  fill: $va-body-accent-color;
+	}
+
+	.x.axis path {
+	  display: none;
+	}
+
+	.line {
+	  fill: none;
+	  stroke: #444;
+	  stroke-width: 1.5px;
+	}
+}
+
+.ui-autocomplete {
+  max-height: 200px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+}
+
+.outcome-measure{
+    background-color: #f1f1f1;
+    margin: 1rem 1rem 1rem  0;
+    padding: 1rem;
+}
+
+.bar{
+    #vets{
+        fill: #f1f1f1;
+    }
+}
