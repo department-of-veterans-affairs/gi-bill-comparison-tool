@@ -1,5 +1,5 @@
 <script>
-var ave_repayment_rate = JSON.parse('{"group":"VETS","percentage":<%= vrate %>}'); // {"group":"VETS","percentage":29};
+var ave_repayment_rate = JSON.parse('{"group":"All","percentage":<%= vrate %>}'); // {"group":"VETS","percentage":29};
 var national_ave = JSON.parse('{"group":"national_average","percentage":<%= nrate %>}'); // {"group":"national_ave","percentage":59};
 
 var data = [
@@ -60,8 +60,9 @@ svg.selectAll(".bar")
     .data(data)
     .enter().append("rect")
     .attr("class", "bar")
-    .attr("x", function(d) { return x(d.group); })
-    .attr("width", x.rangeBand())
+    .attr("x", "2.5rem")
+    .attr("width", "10rem")
+    .attr("background-color", "$va-body-accent-color")
     .attr("y", function(d) { return y(d.percentage); })
     .attr("height", function(d) { return height - y(d.percentage); });
 
@@ -96,10 +97,10 @@ svg.append("path")
       .attr("d", line(national_average_data));
 
 svg.append("text")
-    .attr("font-size","16px")
+    .attr("font-size","12px")
     .attr("dx","80") 
     .append("textPath")
     .attr("xlink:href", "#repayment_curve")
-    .text("< "+ national_ave.percentage);
+    .text(national_ave.percentage + "% Nat'l");
     
 </script>
