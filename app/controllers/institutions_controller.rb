@@ -123,12 +123,8 @@ class InstitutionsController < ApplicationController
   def to_bool (val)
     %w(yes true t 1).include?(val.to_s)
   end
-<<<<<<< HEAD
-end
-=======
 
   def has_a_valid_int(a_hash, key)
     a_hash.has_key?(key) && a_hash[key] =~ /^\d+$/ && a_hash[key].to_i > 0
   end
 end
->>>>>>> 7e81590a5f80f85af60e6dc58ae05782e3c1dcfa
