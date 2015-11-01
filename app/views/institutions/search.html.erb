@@ -13,34 +13,36 @@
   <div>
     <div class="usa-width-three-fourths">
 
+
       <p class="search-count-headline">
-        <% if @total_pages > 1 && @page != 1 %>
-          <a href="<%= @page_urls[@page-1] %>">&larr;Previous</a>
-        <% end %>
-
-        <% if @start_page > 1 %>
-          <a href="<%= @page_urls[:first] %>">First</a>
-        <% end %>
-
-        <% @page_range.each do |page_num| %>
-          <% if page_num != @page %>
-            <a href="<%= @page_urls[page_num] %>"><%= page_num %></a>
-          <% else %>
-            <%= page_num %>
+        <% if @total_pages > 1 %>
+          <% if @page != 1 %>
+            <a href="<%= @page_urls[@page-1] %>">&larr;Previous</a>
           <% end %>
-        <% end %>
 
-        <% if @end_page < @total_pages %>
-          <a href="<%= @page_urls[:last] %>">Last</a>
-        <% end %>
+          <% if @start_page > 1 %>
+            <a href="<%= @page_urls[:first] %>">First</a>
+          <% end %>
 
-        <% if @total_pages > 1 && @page != @total_pages %>
-          <a href="<%= @page_urls[@page+1] %>">Next&rarr;</a>
+          <% @page_range.each do |page_num| %>
+            <% if page_num != @page %>
+              <a href="<%= @page_urls[page_num] %>"><%= page_num %></a>
+            <% else %>
+              <%= page_num %>
+            <% end %>
+          <% end %>
+
+          <% if @end_page < @total_pages %>
+            <a href="<%= @page_urls[:last] %>">Last</a>
+          <% end %>
+
+          <% if @page != @total_pages %>
+            <a href="<%= @page_urls[@page+1] %>">Next&rarr;</a>
+          <% end %>
+        <% else %>
+          <br/>
         <% end %>
       </p>
-
-
-
 
 
       <%= render partial: 'school_summary', collection: @schools %>
