@@ -58,10 +58,10 @@ group :development, :test do
 end
 
 # MPH Deployment stuff
-group :development do
-  gem 'capistrano', '~> 3.4.0'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-env-config', git: "https://github.com/greggersh/capistrano-env-config", branch: "dotenv-2.0.2"
-end
+# group :development do
+#   gem 'capistrano', '~> 3.4.0'
+#   gem 'capistrano-bundler'
+#   gem 'capistrano-rails'
+#   gem 'capistrano-env-config', git: "https://github.com/greggersh/capistrano-env-config", branch: "dotenv-2.0.2"
+# end
 
