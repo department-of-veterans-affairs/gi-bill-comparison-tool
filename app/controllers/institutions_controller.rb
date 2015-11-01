@@ -71,19 +71,19 @@ class InstitutionsController < ApplicationController
     @countries = []
     @states = []
 
-    @schools = Institution.search(@inputs[:institution_search])
-    @total_schools = @schools.length
+    @results = Institution.search(@inputs[:institution_search])
+    @total_results = @results.length
 
     # Pagination
     @page = 1
     @total_pages = 1
     @before_pages = []
     @after_pages = []
-    if has_a_valid_int(params, :page) && has_a_valid_int(params, :num_schools) && @total_schools > 1
+    if has_a_valid_int(params, :page) && has_a_valid_int(params, :num_schools) && @total_results > 1
       page_param = params[:page].to_i
       num_schools_param = params[:num_schools].to_i
 
-      @total_pages = (@schools.length.to_f / num_schools_param.to_f).ceil
+      @total_pages = (@results.length.to_f / num_schools_param.to_f).ceil
       if @total_pages >= page_param.to_f
         @page = page_param
       end
@@ -91,7 +91,7 @@ class InstitutionsController < ApplicationController
       start_index = (@page * num_schools_param) - num_schools_param
       end_index = start_index + num_schools_param - 1
 
-      @schools = @schools[start_index..end_index]
+      @results = @results[start_index..end_index]
 
       # TODO: Move the rest of the pagination logic to the ERB
       @start_page = 1
@@ -122,26 +122,31 @@ class InstitutionsController < ApplicationController
       @page_urls[:last] = make_url(@inputs, search_page_path, @total_pages)
     end
 
+    # Filters schools based on input criteria
+    @schools = @results.select{|s| s[:institution_type_id] != "2"}
+    @employers = @results.select{|s| s[:institution_type_id] == "2"}
+
+
+
     # Generate URLs for school profiles and construct a list of states and countries
-    @schools.each do |school|
-      school[:student_veteran] = to_bool(school[:student_veteran])
-      school[:poe] = to_bool(school[:poe])
-      school[:yr] = to_bool(school[:yr])
-      school[:eight_keys] = to_bool(school[:eight_keys])
-      school[:caution_flag] = to_bool(school[:caution_flag])
+    @results.each do |result|
+      result[:student_veteran] = to_bool(result[:student_veteran])
+      result[:poe] = to_bool(result[:poe])
+      result[:yr] = to_bool(result[:yr])
+      result[:eight_keys] = to_bool(result[:eight_keys])
+      result[:caution_flag] = to_bool(result[:caution_flag])
+      result[:profile_url] = make_url(@inputs, profile_path, @page, result)
 
-      school[:profile_url] = make_url(@inputs, profile_path, @page, school)
-
-      @states << school[:state] if school[:state].present?
-      @countries << school[:country] if school[:country].present?
+      @states << result[:state] if result[:state].present?
+      @countries << result[:country] if result[:country].present?
     end
 
     @countries = @countries.uniq
     @states = @states.uniq
 
     respond_to do |format|
-      format.json { render json: @schools }
-      format.html { redirect_to @schools[0][:profile_url] if @schools.length == 1 }
+      format.json { render json: @results }
+      format.html { redirect_to @results[0][:profile_url] if @results.length == 1 }
     end
   end
 
