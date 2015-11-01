@@ -74,6 +74,8 @@
   <!--                School Selection Form               -->
   <!-- ================================================== -->
   <%= form_tag(search_path, id: "input-section", style: "") do %>
+    <input name="page" value="1" type="hidden"/>
+    <input name="num_schools" value="<%= SCHOOLS_PER_PAGE %>" type="hidden"/>
     <div class="usa-card">
       <div class="usa-card-header">
         Step 1: Tell Us About Yourself
