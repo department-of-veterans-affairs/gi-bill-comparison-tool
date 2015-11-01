@@ -14,14 +14,14 @@
     <div class="usa-width-three-fourths">
       <p class="search-count-headline">
         <span class="light-type">Showing</span>
-        <strong><%= @schools.length %></strong>
+        <strong><%= @schools.length %></strong> of <%= @total_schools %>
         <span class="light-type">
           results matching the term
           <em><strong>"<%= @inputs[:institution_search] %>"</strong></em>
         </span>
 
-        <%= render partial: 'school_summary', collection: @schools %>
       </p>
+      <%= render partial: 'school_summary', collection: @schools %>
     </div>
   </div>
 </div>
