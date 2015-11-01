@@ -5,12 +5,12 @@
 	<div class="usa-card-content">
 		<h4>Institution</h4>
 		<input type="radio" id="all-school" name="institution-type" 
-			class="filter" value="all" data-text="All" 
+			class="filter" value="all" data-text="All"
 			data-count="0" checked />
-		<label id="all-school-label" for="all-school"></label>
+		<label id="all-school-label" for="all-school">All (<%= @total_schools %>)</label>
 
 		<input type="radio" id="school" name="institution-type" 
-			class="filter" value="school" data-text="School" 
+			class="filter" value="school" data-text="School"
 			data-count="0" />
 		<label id="school-label" for="school"></label>
 
@@ -75,8 +75,8 @@
 </div>
 
 <script>
-$(document).ready(function() {
-	var filter = new Filter(".filter", ".school_summary");
-	var searchTerm = "<%= @inputs[:institution_search] %>";
-});
+//$(document).ready(function() {
+//	var filter = new Filter(".filter", ".school_summary");
+//	var searchTerm = "<%= @inputs[:institution_search] %>";
+//});
 </script>

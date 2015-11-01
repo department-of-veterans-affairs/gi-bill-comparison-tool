@@ -96,7 +96,7 @@ class InstitutionsController < ApplicationController
       # TODO: Move the rest of the pagination logic to the ERB
       @start_page = 1
       @end_page = @total_pages
-      @page_url = make_search_page_url(@inputs, @page)
+      @page_url = make_url(@inputs, search_page_path, @page)
 
       # When < 10 pages: Do nothing
 
@@ -117,9 +117,9 @@ class InstitutionsController < ApplicationController
       @page_range = (@start_page..@end_page)
 
       @page_urls = {}
-      @page_range.each { |p| @page_urls[p] = make_search_page_url(@inputs, p) }
-      @page_urls[:first] = make_search_page_url(@inputs, 1)
-      @page_urls[:last] = make_search_page_url(@inputs, @total_pages)
+      @page_range.each { |p| @page_urls[p] = make_url(@inputs, search_page_path, p) }
+      @page_urls[:first] = make_url(@inputs, search_page_path, 1)
+      @page_urls[:last] = make_url(@inputs, search_page_path, @total_pages)
     end
 
     # Generate URLs for school profiles and construct a list of states and countries
@@ -130,21 +130,7 @@ class InstitutionsController < ApplicationController
       school[:eight_keys] = to_bool(school[:eight_keys])
       school[:caution_flag] = to_bool(school[:caution_flag])
 
-      school[:profile_url] = make_search_page_url(@inputs, @page, school)
-
-      school[:profile_url] = "#{profile_path}?facility_code=#{school[:facility_code]}"
-      school[:profile_url] += "&military_status=" + @inputs[:military_status]
-      school[:profile_url] += "&spouse_active_duty=" + @inputs[:spouse_active_duty]
-      school[:profile_url] += "&gi_bill_chapter=" + @inputs[:gi_bill_chapter]
-      school[:profile_url] += "&cumulative_service=" + @inputs[:cumulative_service]
-      school[:profile_url] += "&enlistment_service=" + @inputs[:enlistment_service]
-      school[:profile_url] += "&consecutive_service=" + @inputs[:consecutive_service]
-      school[:profile_url] += "&elig_for_post_gi_bill=" + @inputs[:elig_for_post_gi_bill]
-      school[:profile_url] += "&number_of_dependents=" + @inputs[:number_of_dependents]
-      school[:profile_url] += "&online_classes=" + @inputs[:online_classes]
-      school[:profile_url] += "&institution_search" + @inputs[:institution_search]
-      school[:profile_url] += "&page=#{@page}"
-      school[:profile_url] += "&num_schools=#{SCHOOLS_PER_PAGE}"
+      school[:profile_url] = make_url(@inputs, profile_path, @page, school)
 
       @states << school[:state] if school[:state].present?
       @countries << school[:country] if school[:country].present?
@@ -160,8 +146,8 @@ class InstitutionsController < ApplicationController
   end
 
   # TODO: Move this logic into a view
-  def make_search_page_url(inputs, page, school=nil)
-    url = ["#{search_page_path}?",
+  def make_url(inputs, path, page_num, school=nil)
+    url = ["#{path}?",
       "military_status=#{inputs[:military_status]}",
       "&spouse_active_duty=#{inputs[:spouse_active_duty]}",
       "&gi_bill_chapter=#{inputs[:gi_bill_chapter]}",
@@ -172,7 +158,7 @@ class InstitutionsController < ApplicationController
       "&number_of_dependents=#{inputs[:number_of_dependents]}",
       "&online_classes=#{inputs[:online_classes]}",
       "&institution_search=#{inputs[:institution_search]}",
-      "&page=#{page}",
+      "&page=#{page_num}",
       "&num_schools=#{SCHOOLS_PER_PAGE}"].join
 
     if school
