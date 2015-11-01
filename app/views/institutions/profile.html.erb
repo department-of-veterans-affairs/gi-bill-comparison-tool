@@ -31,135 +31,132 @@
 <% end %>
 
 <div>
-<%= render partial: 'profile_overview' %>
+	<%= render partial: 'profile_overview' %>
 </div>
 
 <div class="usa-width-three-fourths new-row">
 	<div class="usa-accordion">
-	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-0">
-					<h3>Benefits Calculator</h3>
-	      </button>
-              <div id="collapsible-0" aria-hidden="false" class="usa-accordion-content">
-                        <%= render partial: 'profile_benefits_calculator' %>
-              </div>
-              <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-1">
-                        <h3>Outcomes</h3>
-              </button>
-`           <div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">            
-    <table>
-		<tr>
-		  <th>Graduation Rate</th>
-		  <th>Retention Rate</th>
-		  <th>Salaries After Directly After College</th>
-		  <th>Repayment Rate</th>
-		</tr>
-		<!-- Graduation Rates -->
-		<% #if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>
-			<div class="outcome usa-width-one-whole">
-			<tr>
-				<td><div id="graduation-<%= @school.facility_code %>"></div></td>
-				<%= render partial: 'profile_grad_rates', 
-					locals: { 
-						outcome: "graduation", 
-						vrate: 58.5,#number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
-						crate: 74.5,#number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
-						nrate: 59
-					} 
-				%>
-			</div>
-			<% #else %>
-				<!--<td><p>Graduation Rate Data Not Available</p></td>-->
-			<% #end %> 
+		<button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-0">
+			<h3>Benefits Calculator</h3>
+	  </button>
+    <div id="collapsible-0" aria-hidden="false" class="usa-accordion-content">
+    	<%= render partial: 'profile_calculator' %>
+    </div>
+  </div>
 
-			<!-- Transfer out Rates -->
-<!-- 			<#% if is_number?(@school.transfer_out_rate_veteran) && is_number?(@school.transfer_out_rate_all_students) %>
-				<div class="outcome">
-				<#%= render partial: 'profile_outcomes', 
-					locals: { 
-						outcome: "transfer-out", 
-						vrate: number_with_precision(@school.transfer_out_rate_veteran.to_f * 100, precision: 2),
-						crate: number_with_precision(@school.transfer_out_rate_all_students.to_f * 100, precision: 2),
-						nrate: 10.8
-					} 
-				%>
-				</div>
-			<#% else %>
-				<div class="usa-width-one-whole"><span>Transfer-out Rate Data Not Available</span></div>
-			<#% #end %> -->
-					
-		<!-- Retention Rates -->
- 		<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
-			<td><div id="retention-<%= @school.facility_code %>"></div></td>
-			<div class="outcome">
-			<%= render partial: 'profile_retention', 
-				locals: { 
-					outcome: "retention", 
-					vrate: number_with_precision(@veteran_retention_rate * 100, precision: 2),
-					crate: number_with_precision(@all_student_retention_rate * 100, precision: 2),
-					nrate: 10.8
-					} 
-			%>
-			</div>
-			<% else %>
-				<td><p>Retention Rate Data Not Available</p></td>
-			<% end %>
-		<% if @school.salary_all_students.present? %>
-                        <td><div id="salaries-<%= @school.facility_code %>"></div></td>
-                        <div class="outcome">
-                        <%= render partial: 'profile_salaries',
-                                locals: {
-                                        outcome: "salaries",
-                                        vrate: @school.salary_all_students,
-                                        nrate: 48127
-                                        }
-                        %>
-                        </div>
-                        <% else %>
-                                <td><p>Salary Data Not Available</p></td>
-                        <% end %>
+	<div class="usa-accordion">
+    <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-1">
+    	<h3>Outcomes</h3>
+    </button>
+		<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">            
+	    <table>
+				<tr>
+				  <th>Retention Rate</th>
+				  <th>Graduation Rate</th>
+				  <th>Salaries After Directly After College</th>
+				  <th>Repayment Rate</th>
+				</tr>
+				<tr>
+					<!-- Retention Rates -->
+					<td>
+	 					<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
+							<div class="outcome" id="retention-<%= @school.facility_code %>"></div>
+							<%= render partial: 'profile_retention', 
+								locals: { 
+									outcome: "retention", 
+									vrate: number_with_precision(@veteran_retention_rate * 100, precision: 2),
+									crate: number_with_precision(@all_student_retention_rate * 100, precision: 2),
+									nrate: 10.8
+								} 
+							%>
+						<% else %>
+							<p>Retention Rate Data Not Available</p>
+						<% end %>
+					</td>
 
-		<% if @school.repayment_rate_all_students.present? %>
-                        <td><div id="repayment-<%= @school.facility_code %>"></div></td>
-                        <div class="outcome">
-                        <%= render partial: 'profile_repayment',
-                                locals: {
-                                        outcome: "repayment",
-                                        vrate: number_with_precision(@school.repayment_rate_all_students * 100, precision: 2),
-                                        nrate: 86.3
-                                        }
-                        %>
-                        </div>
-                        <% else %>
-                                <td><p>Salary Data Not Available</p></td>
-                        <% end %>
-            </table>
+					<!-- Graduation Rates -->
+					<td>
+						<% 
+							if is_number?(@school.graduation_rate_veteran) && 
+								is_number?(@school.graduation_rate_all_students) 
+						%>
+							<div class="outcome" id="graduation-<% @school.facility_code %>"></div>
+							<%=
+								render partial: 'profile_grad_rates', 
+									locals: { 
+										outcome: "graduation", 
+										vrate: number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
+										crate: number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
+										nrate: 59
+									} 
+							%>
+						<% else %>
+							<p>Graduation Rate Data Not Available</p>
+						<% end %> 
+					</td>
 
-	      </div>
+					<!-- Salary Rates -->
+					<td>
+						<% if @school.salary_all_students.present? %>
+	          	<div class="outcome" id="salaries-<%= @school.facility_code %>"></div>
+							<%= render partial: 'profile_salaries',
+	              locals: {
+	                outcome: "salaries",
+	                 vrate: @school.salary_all_students,
+	                 nrate: 48127
+	              }
+	            %>
+	          <% else %>
+							<p>Salary Data Not Available</p>
+	          <% end %>
+					</td>
 
-	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-2">
-	        <h3>School Summary</h3>
-	      </button>
-	      <div id="collapsible-2" aria-hidden="false" class="usa-accordion-content">
-					<%= render partial: 'profile_summary' %>
-	      </div>
+					<!-- Repayment -->
+					<td>
+						<% if @school.repayment_rate_all_students.present? %>
+	        		<div class="outcome" id="repayment-<%= @school.facility_code %>"></div>
+          		<%= render partial: 'profile_repayment',
+            		locals: {
+              		outcome: "repayment",
+        	        vrate: number_with_precision(@school.repayment_rate_all_students * 100, precision: 2),
+          	      nrate: 86.3
+            	  }
+            	%>
+	        	<% else %>
+							<p>Salary Data Not Available</p></td>
+	        	<% end %>
+	        </td>
+	      </tr>
+	    </table>
+  	</div>
+	</div>
 
-	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-3">
-	        <h3>Caution Flags (<%= @school.complaints_main_campus_roll_up %> Student Complaints)</h3>
-	      </button>
-	      <div id="collapsible-3" aria-hidden="false" class="usa-accordion-content">
-					<%= render partial: 'profile_complaints' %>
-	      </div>
-	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-4">
-	        <h3>Historical School Information</h3>
-	      </button>
-	      <div id="collapsible-4" aria-hidden="false" class="usa-accordion-content">
-					<%= render partial: 'profile_history' %>
-	      </div>
+	<div class="usa-accordion">
+    <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-2">
+      <h3>School Summary</h3>
+    </button>
+    <div id="collapsible-2" aria-hidden="false" class="usa-accordion-content">
+			<%= render partial: 'profile_summary' %>
+    </div>
+  </div>
+
+	<div class="usa-accordion">
+    <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-3">
+      <h3>Caution Flags (<%= @school.complaints_main_campus_roll_up %> Student Complaints)</h3>
+    </button>
+    <div id="collapsible-3" aria-hidden="false" class="usa-accordion-content">
+			<%= render partial: 'profile_complaints' %>
+    </div>
+  </div>
+	<div class="usa-accordion">
+    <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-4">
+      <h3>Historical School Information</h3>
+    </button>
+    <div id="collapsible-4" aria-hidden="false" class="usa-accordion-content">
+			<%= render partial: 'profile_history' %>
+    </div>
 	</div>
 </div>
-
-<!-- Extra closing divs for some thing i haven't found yet -->
-
 
 <script>
 	$(document).ready(function() {
