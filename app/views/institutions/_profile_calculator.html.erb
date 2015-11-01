@@ -1,0 +1,375 @@
+<div id="calculator">
+  <div class="benefits">
+  	<div id="benefit-calculator">
+    	<h4>Calculate Your Detailed Benefits</h4>
+			
+			<!-- Contains Calcualtor Inputs  -->
+    	<div class="calc-questions usa-width-one-third">
+    		<div id="tuition-fees-section">
+      		<div id="in-state" class="form-group">
+        		<label class="question">In-state student? 
+							<!--         <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#in_state_residency" onclick="track('Tool Tips', 'Calculator / In-State Student');" target="_blank" class="info-link" aria-describedby="in-state-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information about in-state tuition</span></a>-->
+						</label>
+						<!--        	<span class="aria-tooltip" id="in-state-tooltip" role="tooltip">In-state residents are charged a discounted rate of tuition and fees.</span>-->
+        		<label class="radio" for="in-state-yes">Yes</label>
+        		<input id="in-state-yes" name="In-state" type="radio" value="yes" checked=""/>
+        		<label class="radio" for="in-state-no">No</label>
+        		<input id="in-state-no" name="In-state" type="radio" value="no"/>
+      		</div>
+
+      		<div id="tuition-fees-form" class="form-group top-aligned">
+        		<label for="tuition-fees-input">Tuition / Fees (/year): 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#tuition_fees_input" onclick="track('Tool Tips', 'Calculator / Tuition Fees');" target="_blank" class="info-link" aria-describedby="tuition-fees-input-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information about tuition fees</span></a>-->
+						</label>
+						<!--        	<span class="aria-tooltip" id="tuition-fees-input-tooltip" role="tooltip">Enter the total tuition/fees, you will be charged for the academic year.</span>-->
+        		<input id="tuition-fees-input" type="text" value="$0" name="Tuition Fees" alt="Tuition Fees"/>
+      		</div>
+
+	      	<div id="in-state-tuition-fees-form" class="form-group top-aligned">
+		        <label for="in-state-tuition-fees">In-state Tuition / Fees (/year): 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#in_state_residency" onclick="track('Tool Tips', 'Calculator / In-State Tuition Fees');" target="_blank" class="info-link" aria-describedby="in-state-tuition-fees-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on how in-state tuition costs</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="in-state-tuition-fees-tooltip" role="tooltip">In-state residents are charged a discounted rate of tuition and fees.</span>-->
+		        <input id="in-state-tuition-fees" type="text" value="$0" name="In-state Tuition Fees" alt="In-state Tuition Fees" />
+	      	</div>
+
+		      <div id="books-input-row">
+		        <label for="books-input">Books / Supplies (/year): 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#books_input" onclick="track('Tool Tips', 'Calculator / Books &amp; Supplies');" target="_blank" class="info-link" aria-describedby="books-input-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on how much books cost</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="books-input-tooltip" role="tooltip">How much will you spend on books and supplies next year?</span>-->
+		        <div><input id="books-input" type="text" value="$0" name="Books" alt="Books"/></div>
+		      </div>
+
+		      <div id="yellow-ribbon-recipient-form">
+		        <label class="question">Receiving Yellow Ribbon?
+							<!--	          <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#yellow_ribbon_from_school" onclick="track('Tool Tips', 'Calculator / Receiving Yellow Ribbon');" target="_blank" class="info-link" aria-describedby="yellow-ribbon-recipient-form-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on receiving yellow ribbon benefits</span></a>-->
+						</label>
+						<!--	          <span class="aria-tooltip" id="yellow-ribbon-recipient-form-tooltip" role="tooltip"> Only Veterans entitled to the maximum benefit rate (based on service requirements) or their designated transferees may receive this funding. Active duty Servicemembers and their spouses are not eligible.</span>-->
+		        <label class="radio" for="yellow-ribbon-recipient-yes">Yes</label>
+		        <input id="yellow-ribbon-recipient-yes" name="Receiving Yellow Ribbon" type="radio" value="yes">
+		        <label class="radio" for="yellow-ribbon-recipient-no">No</label>
+		        <input id="yellow-ribbon-recipient-no" name="Receiving Yellow Ribbon" type="radio" value="no" checked>
+		      </div>
+
+		      <div id="yellow-ribbon-amount-form" class="form-group top-aligned">
+		        <!-- Yellow Ribbon Amount -->
+		        <label for="yellow-ribbon-amount">Yellow Ribbon Amount From School (/year): 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#yellow_ribbon_from_school" onclick="track('Tool Tips', 'Calculator / Yellow Ribbon Amount');" target="_blank" class="info-link" aria-describedby="yellow-ribbon-amount-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on yellow ribbon benefits</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="yellow-ribbon-amount-tooltip" role="tooltip">VA matches each dollar of unmet charges the institution agrees to contribute up to the total cost of tuition and fees.</span>-->
+		        <input id="yellow-ribbon-amount" type="text" value="$0" name="Yellow Ribbon Amount From School" alt="Yellow Ribbon Amount From School" />
+		      </div>
+
+	      	<div id="yellow-ribbon-rates-link" class="form-group"></div>
+
+		      <div id="scholarship-amount-form" class="form-group top-aligned">
+		        <label for="scholar">Scholarships (not Pell): 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#scholarships" onclick="track('Tool Tips', 'Calculator / Scholarships');" target="_blank" class="info-link" aria-describedby="scholar-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on scholarships</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="scholar-tooltip" role="tooltip">Only include scholarships and grants that go directly to pay tuition/fees.</span>-->
+		        <input id="scholar" type="text" value="$0" name="Scholarships (not Pell)" alt="How much are you receiving in scholarships and not Pell grants"/>
+		      </div>
+    		</div>
+
+    		<div id="tuition-assist-form" class="form-group top-aligned">
+		      <label for="tuition-assist">Military Tuition Assistance: 
+						<!--              <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#military_tuition_assist" onclick="track('Tool Tips', 'Calculator / Military Tuition Assistance');" target="_blank" class="info-link" aria-describedby="tuition-assist-form-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on military tuition assistance</span></a>-->
+					</label>
+					<!--	      <span class="aria-tooltip" id="tuition-assist-form-tooltip" role="tooltip">The Post-9/11 GI Bill pays the net-cost of your education after scholarships or financial aid amounts are applied. This includes amounts already paid by military tuition assistance.</span>-->
+		      <input id="tuition-assist" type="text" value="$0" name="Military Tuition Assistance" alt="How much are you receiving in military tuition assistance" />
+    		</div>
+
+    		<div id="enrollment-section">
+      		<div id="enrolled-form">
+	      		<label for="enrolled">Enrolled: 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#rate_of_pursuit" onclick="track('Tool Tips', 'Calculator / Enrolled');" target="_blank" class="info-link" aria-describedby="enrolled-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on enrollment</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="enrolled-tooltip" role="tooltip">Students attending school less then full-time receive a pro-rated monthly housing allowance. Students attending school exactly ½ time or less do not receive a monthly housing allowance.</span>-->
+	        	<div>
+	          	<select id="enrolled" name="Enrolled" alt="Select your enrollment level">
+	            	<option value="1.0">Full Time</option>
+	            	<option value="0.8">¾ Time</option>
+	            	<option value="0.6">More than ½ time</option>
+	            	<option value="0">½ Time or less</option>
+	          	</select>
+	        	</div>
+      		</div>
+
+	      	<!-- Rate of Pursuit Old -->
+		      <div id="enrolled-form-old-gi-bill">
+		        <label for="enrolled-old">Enrolled: 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#rate_of_pursuit_old" onclick="track('Tool Tips', 'Calculator / Enrolled Old');" target="_blank" class="info-link" aria-describedby="enrolled-old-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on enrollment</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="enrolled-old-tooltip" role="tooltip">Students attending school less than full-time receive a pro-rated monthly benefit.</span>-->
+		        <div>
+		          <select id="enrolled-old" name="Enrolled" alt="Select your enrollment level">
+		            <option value="full">Full Time</option>
+		            <option value="three quarter">¾ Time</option>
+		            <option value="half">1/2 Time </option>
+		            <option value="less than half">Less than ½ time more than ¼ time</option>
+		            <option value="quarter">1/4 time or less</option>
+		          </select>
+		        </div>
+		      </div>
+
+		      <div id="calendar-form">
+		        <label for="calendar">School Calendar: 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#school_calendar" onclick="track('Tool Tips', 'Calculator / School Calendar');" target="_blank" class="info-link"aria-describedby="calendar-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on school calendars</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="calendar-tooltip" role="tooltip">Is your school on a semester, quarter or non-traditional calendar system?</span>-->
+		        <div>
+		          <select id="calendar" name="School Calendar" alt="Select type of school calendar">
+		            <option value="semesters">Semesters</option>
+		            <option value="quarters">Quarters</option>
+		            <option value="nontraditional">Non-Traditional</option>
+		          </select>
+		        </div>
+		      </div>
+
+		      <div id="working-form" class="form-group top-aligned">
+		        <label for="working">Will be working: 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#rate_of_pursuit_ojt" onclick="track('Tool Tips', 'Calculator / Will Be Working');" target="_blank" class="info-link" aria-describedby="working-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on working</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="working-tooltip" role="tooltip">How many hours per week will you be working?</span>-->
+		        <select id="working" name="Will be working" alt="Select how much you will be working">
+		          <option value="30">30+ hrs / week</option>
+		          <option value="28">28 hrs / week</option>
+		          <option value="26">26 hrs / week</option>
+		          <option value="24">24 hrs / week</option>
+		          <option value="22">22 hrs / week</option>
+		          <option value="20">20 hrs / week</option>
+		          <option value="18">18 hrs / week</option>
+		          <option value="16">16 hrs / week</option>
+		          <option value="14">14 hrs / week</option>
+		          <option value="12">12 hrs / week</option>
+		          <option value="10">10 hrs / week</option>
+		          <option value="8">8 hrs / week</option>
+		          <option value="6">6 hrs / week</option>
+		          <option value="4">4 hrs / week</option>
+		          <option value="2">2 hrs / week</option>
+		        </select>
+		      </div>
+
+		      <div id="number-non-traditional-terms-form" class="form-group top-aligned">
+		        <label for="number-non-traditional-terms">How many terms / year? 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#school_calendar" onclick="track('Tool Tips', 'How Many Terms');" target="_blank" class="info-link" aria-describedby="number-non-traditional-terms-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on non traditional terms</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="number-non-traditional-terms-tooltip" role="tooltip">How many academic terms are there in a school year?</span>-->
+		        <select id="number-non-traditional-terms" name="How many terms / year?" alt="Select how many terms / year?">
+		          <option value="3">Three</option>
+		          <option value="2" selected>Two</option>
+		          <option value="1">One</option>
+		        </select>
+		      </div>
+
+		      <div id="length-non-traditional-terms-form" class="form-group top-aligned">
+		        <label for="length-non-traditional-terms">How long is each term? 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#school_calendar" onclick="track('Tool Tips', 'Calculator / Non-Traditional Term Length');" target="_blank" class="info-link" aria-describedby="length-non-traditional-terms-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on length of academic term?</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="length-non-traditional-terms-tooltip" role="tooltip">How long is each academic year?</span>-->
+		        <select id="length-non-traditional-terms" name="How long is each term?" alt="Select how long is each term?">
+		          <option value="1">1 month</option>
+		          <option value="2">2 months</option>
+		          <option value="3" selected>3 months</option>
+		          <option value="4">4 months</option>
+		          <option value="5">5 months</option>
+		          <option value="6">6 months</option>
+		          <option value="7">7 months</option>
+		          <option value="8">8 months</option>
+		          <option value="9">9 months</option>
+		          <option value="10">10 months</option>
+		          <option value="11">11 months</option>
+		          <option value="12">12 months</option>
+		        </select>
+		      </div>
+
+		      <div id="kicker-elig-form">
+		        <label class="question">Eligible for Kicker: 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#kicker" onclick="track('Tool Tips', 'Calculator / Eligible for Kicker');" target="_blank" class="info-link" aria-describedby="kicker-elig-form-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on kickers</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="kicker-elig-form-tooltip" role="tooltip">A kicker bonus is an additional incentive, paid for by the Department of Defense, to extend a tour of duty or retain highly skilled military personnel.</span>-->
+		        <label class="radio" for="kicker-elig-yes">Yes</label>
+		        <input id="kicker-elig-yes" name="Kicker Eligible" type="radio" value="yes">
+		        <label class="radio" for="kicker-elig-no">No</label>
+		        <input id="kicker-elig-no" name="Kicker Eligible" type="radio" value="no" checked="">
+		      </div>
+
+		      <div id="kicker-form" class="form-group top-aligned">
+		        <label for="kicker">How much is your kicker? 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#kicker" onclick="track('Tool Tips', 'Calculator / How Much is Kicker');" target="_blank" class="info-link" aria-describedby="kicker-form-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on kickers</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="kicker-form-tooltip" role="tooltip">A kicker bonus is an additional incentive, paid for by the Department of Defense, to extend a tour of duty or retain highly skilled military personnel.</span>-->
+		        <input id="kicker" type ="text" value="$200" name="How much is your kicker?" alt="Tell us how much is your kicker was for?" />
+		      </div>
+
+		    	<!-- Eligible for Buy-up -->
+		      <div id="buy-up-form">
+		        <label class="question">Participate in buy-up program? 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#buy_up" onclick="track('Tool Tips', 'Calculator / Buy Up);" target="_blank" class="info-link" aria-describedby="buy-up-form-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on buy-up</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="buy-up-form-tooltip" role="tooltip">Some Servicemembers may have contributed an additional $600 to the GI Bill to receive increased monthly benefit payments. This increased monthly benefit is only applicable to the Montgomery GI Bill or REAP</span>-->
+		        <label class="radio" for="buy-up-yes">Yes</label>
+		        <input id="buy-up-yes" name="Buy-Up" type="radio" value="yes" />
+		        <label class="radio" for="buy-up-no">No</label>
+		        <input id="buy-up-no" name="Buy-up" type="radio" value="no" checked />
+		      </div>
+
+		      <div id="buy-up-rate-form" class="form-group top-aligned">
+		        <label for="buy-up-rate">How much did you pay toward buy-up? 
+							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#buy_up" onclick="track('Tool Tips', 'Calculator / Buy Up');" target="_blank" class="info-link" aria-describedby="buy-up-rate-form"><span aria-hidden="true">i</span><span class="sr-only">More information on buy-up</span></a>-->
+						</label>
+						<!--	        <span class="aria-tooltip" id="buy-up-rate-form" role="tooltip"> Some Servicemembers may have contributed an additional $600 to the GI Bill to receive increased monthly benefit payments. This increased monthly benefit is only applicable to the Montgomery GI Bill or REAP</span>-->
+		        <select id="buy-up-rate" name="How much did you pay?" alt="Select how much you paid">
+		          <option value="600">$600</option>
+		          <option value="580">$580</option>
+		          <option value="540">$540</option>
+		          <option value="520">$520</option>
+		          <option value="500">$500</option>
+		          <option value="480">$480</option>
+		          <option value="460">$460</option>
+		          <option value="440">$440</option>
+		          <option value="420">$420</option>
+		          <option value="400">$400</option>
+		          <option value="380">$380</option>
+		          <option value="340">$340</option>
+		          <option value="320">$320</option>
+		          <option value="300">$300</option>
+		          <option value="280">$280</option>
+		          <option value="260">$260</option>
+		          <option value="240">$240</option>
+		          <option value="220">$220</option>
+		          <option value="200">$200</option>
+		          <option value="180">$180</option>
+		          <option value="140">$140</option>
+		          <option value="120">$120</option>
+		          <option value="100">$100</option>
+		          <option value="80">$80</option>
+		          <option value="60">$60</option>
+		          <option value="40">$40</option>
+		          <option value="20">$20</option>
+		        </select>
+		      </div>
+    		</div>
+			</div>      
+  	</div>
+  	<!-- End Calucaltor Inputs -->
+      
+  	<div class="calc-outputs usa-width-two-thirds">
+  		<!-- Contains Calcualtor Outputs  -->
+			<div id="calculated-benefits">
+		  	<table>
+		    	<tbody>
+		      	<tr>
+		        	<th colspan="3" style="font-size: 1.3em;border-bottom: 2px solid #fff;">Calculator Results</th>
+		      	</tr>
+		      	<tr id="calc-housing-allow-rate-row">
+		        	<th colspan="2" id="housing-allow-rate" style="font-size: 1.2em;">$0</td>
+		        	<td style="">Housing Allowance</td>
+		      	</tr>
+		      	<tr></tr>
+		      	<tr id="calc-term-total-row">
+		        	<th colspan="2" style="border-bottom: 2px solid #fff;">Total GI Bill Benefits:</th>
+		        	<td id="total-year"style="font-weight: bold;border-bottom: 2px solid #fff;">$0 / yr</td>
+		      	</tr>
+			      <tr id="calc-paid-to-school-total-row">
+			        <td colspan="2" style="">Paid to school:</td>
+			        <td id="total-paid-to-school" style="font-weight: bold;">$0</td>
+			      </tr>
+			      <tr id="calc-paid-to-you-total-row">
+			        <td colspan="2" style="">Paid to You:</td>
+			        <td id="total-paid-to-you" style="font-weight: bold;">$0</td>
+			      </tr>
+		      	<tr></tr>
+			      <tr id="calc-out-of-pocket-row">
+			        <th colspan="2" style="border-bottom: 2px solid #fff;">Out of Pocket Tuition:</th>
+			        <td id="total-left-to-pay" style="border-bottom: 2px solid #fff; font-weight: bold;">$0</td>
+			      </tr>
+		   	   	<tr id="calc-tuition-fees-charged-row">
+		        	<td colspan="2" style="">Tuition &amp; Fees Charged:</td>
+		        	<td id="total-tuition-fees-charged" style="font-weight: bold;">$0</td>
+		      	</tr>
+		      	<tr id="calc-tuition-fees-scholarship-row">
+		        	<td colspan="2" style="">Your Scholarships:</td>
+		        	<td id="total-tuition-fees-scholarships" style="font-weight: bold;">$0</td>
+		      	</tr>
+			      <tr id="calc-school-received-row">
+			        <td colspan="2" style="">GI Bill Pays:</td>
+			        <td id="total-school-received" style="font-weight: bold;">$0</td>
+			      </tr>
+		      	<tr></tr>
+		      	<tr id="payments-to-you-terms" style=";">
+		        	<th aria-hidden="true"></th>
+		        	<td class="term1" style="border-bottom: 2px solid #fff;">Fall</td>
+		        	<td class="term2" style="border-bottom: 2px solid #fff;">Spring</td>
+		        	<td class="term3" style="border-bottom: 2px solid #fff;"></td>
+		        	<td class="term4" style="border-bottom: 2px solid #fff;">Total</td>
+		      	</tr>
+		      	<tr id="calc-tuition-fees-row">
+		        	<th>
+		        		<a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#tuitionfees" onclick="track('Tool Tips', 'Benefit Calculator / Tuition Fees');" target="_blank" alt="Click here for more information about the tuition/fees benefit.">
+		        			Tuition / Fees Benefit:
+		        		</a>
+		        	</th>
+		        	<td id="tuition-fees-term-1">$0 / term</td>
+		        	<td id="tuition-fees-term-2">$0 / term</td>
+		        	<td id="tuition-fees-term-3"></td>
+		        	<td id="tuition-fees-total" style="font-weight: bold;">$0 / yr</td>
+		      	</tr>
+		      	<tr id="calc-yellow-ribbon-row">
+			        <th>
+			        	<a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#yellowribbon" onclick="track('Tool Tips', 'Benefit Calculator / Yellow Ribbon (School)');" target="_blank" alt="Click here for more information.">
+			        		Yellow Ribbon (School):
+			        	</a>
+			        </th>
+			        <td id="yr-ben-term-1">$0 / term</td>
+			        <td id="yr-ben-term-2">$0 / term</td>
+			        <td id="yr-ben-term-3"></td>
+			        <td id="yr-ben-total" style="font-weight: bold;">$0 / yr</td>
+		      	</tr>
+			      <tr id="calc-yellow-ribbon-va-row">
+			        <th>
+			        	<a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#yellowribbon" onclick="track('Tool Tips', 'Benefit Calculator / Yellow Ribbon (VA)');" target="_blank" alt="Click here for more information.">
+			        		Yellow Ribbon (VA):
+			        	</a>
+			        </th>
+			        <td id="yr-ben-term-va-1">$0 / term</td>
+			        <td id="yr-ben-term-va-2">$0 / term</td>
+			        <td id="yr-ben-term-va-3"></td>
+			        <td id="yr-ben-va-total" style="font-weight: bold;">$0 / yr</td>
+			      </tr>
+			      <tr>
+			        <th>
+			        	<a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#housingallowance" onclick="track('Tool Tips', 'Benefit Calculator / Housing Allowance');" target="_blank" alt="Click here for more information about the housing allowance.">
+			        		Housing Allowance:
+			        	</a>
+			        </th>
+			        <td id="housing-allow-term-1">$0 / month</td>
+			        <td id="housing-allow-term-2">$0 / month</td>
+			        <td id="housing-allow-term-3"></td>
+			        <td id="housing-allow-total" style="font-weight: bold;">$0 / yr</td>
+			      </tr>
+		      	<tr>
+		        	<th>
+		        		<a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#bookstipend" onclick="track('Tool Tips', 'Benefit Calculator / Book Stipend');" target="_blank" alt="Click here for more information about the book stipend.">
+		        		Book Stipend:
+		        	</a>
+		        	</th>
+		        	<td id="book-stipend-term-1">$0 / term</td>
+		        	<td id="book-stipend-term-2">$0 / term</td>
+		        	<td id="book-stipend-term-3"></td>
+		        	<td id="book-stipend-total" style="font-weight: bold;">$0 / yr</td>
+		      	</tr>
+		    	</tbody>
+		  	</table>
+  			<div style="clear: both;">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+	
+});
+</script>
