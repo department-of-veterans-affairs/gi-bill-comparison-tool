@@ -58,10 +58,13 @@ svg.selectAll(".bar")
     .data(data)
   .enter().append("rect")
     .attr("class", "bar")
+    .attr("id", function(d) { return d.group; })
     .attr("x", function(d) { return x(d.group); })
-    .attr("width", x.rangeBand())
+    .attr("width", "5rem")
     .attr("y", function(d) { return y(d.percentage); })
-    .attr("height", function(d) { return height - y(d.percentage); });
+    .attr("height", function(d) { return height - y(d.percentage); })
+;
+
 
 /* this appends labels to the top of each bar */
 svg.selectAll(".label")
@@ -89,10 +92,10 @@ svg.selectAll(".label")
       .attr("d", line);
 
 svg.append("text")
-	.attr("font-size","16px")
+	.attr("font-size","10px")
 	.attr("dx","260")
 	.append("textPath")
     .attr("xlink:href", "#retention-curve")
-    .text("<"+ national_ave.percentage + "%");
+    .text("<"+ national_ave.percentage + "% Nat'l");
     
 </script>
