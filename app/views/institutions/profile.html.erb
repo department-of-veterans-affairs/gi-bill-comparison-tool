@@ -30,28 +30,23 @@
     </div>
 <% end %>
 
+<div>
 <%= render partial: 'profile_overview' %>
+</div>
 
 <div class="usa-width-three-fourths new-row">
 	<div class="usa-accordion">
-	  <ul class="usa-unstyled-list">
-	    <li>
 	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-0">
 					<h3>Benefits Calculator</h3>
 	      </button>
-	      <div id="collapsible-0" aria-hidden="false" class="usa-accordion-content">
-					<%= render partial: 'profile_benefits_calculator' %>
-	      </div>
-	    </li>
-	    <li>
-	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-1">
-					<h3>Outcomes</h3>
-	      </button>
-<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">
-            <!--  PLACEHOLDER FOR DEMO -->  
-            <!-- <img src="../assets/demo-temp/outcomes.png"> -->
-
-		<table>
+              <div id="collapsible-0" aria-hidden="false" class="usa-accordion-content">
+                        <%= render partial: 'profile_benefits_calculator' %>
+              </div>
+              <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-1">
+                        <h3>Outcomes</h3>
+              </button>
+`           <div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">            
+    <table>
 		<tr>
 		  <th>Graduation Rate</th>
 		  <th>Retention Rate</th>
@@ -137,7 +132,7 @@
                         <% else %>
                                 <td><p>Salary Data Not Available</p></td>
                         <% end %>
-</table>
+            </table>
 
 	      </div>
 
@@ -147,30 +142,24 @@
 	      <div id="collapsible-2" aria-hidden="false" class="usa-accordion-content">
 					<%= render partial: 'profile_summary' %>
 	      </div>
-	    <li>
+
 	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-3">
 	        <h3>Caution Flags (<%= @school.complaints_main_campus_roll_up %> Student Complaints)</h3>
 	      </button>
 	      <div id="collapsible-3" aria-hidden="false" class="usa-accordion-content">
 					<%= render partial: 'profile_complaints' %>
 	      </div>
-	    </li>
-	    <li>
 	      <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-4">
 	        <h3>Historical School Information</h3>
 	      </button>
 	      <div id="collapsible-4" aria-hidden="false" class="usa-accordion-content">
 					<%= render partial: 'profile_history' %>
 	      </div>
-	    </li>
-	  </ul>
 	</div>
 </div>
 
 <!-- Extra closing divs for some thing i haven't found yet -->
-</div>
-</div>
-</div>
+
 
 <script>
 	$(document).ready(function() {
