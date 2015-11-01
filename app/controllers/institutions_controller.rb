@@ -72,14 +72,71 @@ class InstitutionsController < ApplicationController
     @states = []
 
     @results = Institution.search(@inputs[:institution_search])
+
+    # Filters
     @total_results = @results.length
+    @schools = []
+    @employers = []
+    @states = {}
+    @countries = {}
+    @feature_student_veteran_group = []
+    @feature_yellow_ribbon_scholarship = []
+    @feature_principles_of_excellence = []
+    @features_8_keys_to_veteran_success = []
+    @type_counts = {}
+
+
+    # For counts
+    @results.each do |result|
+      # Institutions
+      if result[:institution_type_id] != "2"
+        @schools << result
+      else
+        @employers << result
+      end
+
+      # States
+      if result[:state].present?
+        state = result[:state]
+        if @states[state].present?
+          @states[state] << result
+        else
+          @states[state] = [result]
+        end
+      end
+
+      # Countries
+      if result[:country].present?
+        country = result[:country]
+        if @countries[country].present?
+          @countries[country] << result
+        else
+          @countries[country] = [result]
+        end
+      end
+
+      # Features
+      @feature_student_veteran_group << result if result[:student_veteran] == 't'
+      @feature_yellow_ribbon_scholarship << result if result[:yr] == 't'
+      @feature_principles_of_excellence << result if result[:poe] == 't'
+      @features_8_keys_to_veteran_success << result if result[:eight_keys] == 't'
+
+      # Types
+      type = result[:name].downcase
+      if @type_counts[type].present?
+        @type_counts[type] << result
+      else
+        @type_counts[type] = [result]
+      end
+    end
+
 
     # Pagination
     @page = 1
     @total_pages = 1
     @before_pages = []
     @after_pages = []
-    if has_a_valid_int(params, :page) && has_a_valid_int(params, :num_schools) && @total_results > 1
+    if has_a_valid_int(params, :page) && has_a_valid_int(params, :num_schools) && @results.length > 1
       page_param = params[:page].to_i
       num_schools_param = params[:num_schools].to_i
 
@@ -122,12 +179,6 @@ class InstitutionsController < ApplicationController
       @page_urls[:last] = make_url(@inputs, search_page_path, @total_pages)
     end
 
-    # Filters schools based on input criteria
-    @schools = @results.select{|s| s[:institution_type_id] != "2"}
-    @employers = @results.select{|s| s[:institution_type_id] == "2"}
-
-
-
     # Generate URLs for school profiles and construct a list of states and countries
     @results.each do |result|
       result[:student_veteran] = to_bool(result[:student_veteran])
@@ -136,13 +187,7 @@ class InstitutionsController < ApplicationController
       result[:eight_keys] = to_bool(result[:eight_keys])
       result[:caution_flag] = to_bool(result[:caution_flag])
       result[:profile_url] = make_url(@inputs, profile_path, @page, result)
-
-      @states << result[:state] if result[:state].present?
-      @countries << result[:country] if result[:country].present?
     end
-
-    @countries = @countries.uniq
-    @states = @states.uniq
 
     respond_to do |format|
       format.json { render json: @results }
@@ -179,5 +224,9 @@ class InstitutionsController < ApplicationController
 
   def has_a_valid_int(a_hash, key)
     a_hash.has_key?(key) && a_hash[key] =~ /^\d+$/ && a_hash[key].to_i > 0
+  end
+
+  def has_a_valid_instituion_type(a_hash, key)
+    a_hash.has_key?(key) && %w(school, employer).include?(a_hash[key].downcase)
   end
 end
