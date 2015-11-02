@@ -71,8 +71,8 @@ svg.selectAll(".bar")
     .enter().append("rect")
     .attr("class", "bar")
     .attr("x", function(d) { return x(d.group); })
-    .attr("width", x.rangeBand())
     .attr("y", function(d) { return y(d.average); })
+    .attr("width", x.rangeBand())
     .attr("height", function(d) { return height - y(d.average); });
 
 /* this appends labels to the top of each bar */
@@ -82,10 +82,8 @@ svg.selectAll(".label")
     .attr("text-anchor", "middle")
     .attr("class", "label")
     .attr("font-size","24px")
-    .attr("x", function(d) { return x(d.group) + (x.rangeBand() / 4); })
-    .attr("y", function(d) { return y(d.average) - 15; })
-    .attr("dx","20")
-    .attr("dy","40")
+    .attr("x", function(d) { return x(d.group) + (x.rangeBand() / 2); })
+    .attr("y", function(d) { return y(d.average) + 30; })
     .text(function(d){ return "$"+ commaSeparateNumber(d.average); });
 
   /* this appends the line to the chart */
@@ -94,7 +92,6 @@ svg.selectAll(".label")
       return d.x; }) 
     .y(function(d, i) { return y(national_ave.average); })
     .interpolate("linear"); //This is the height of the line
-
 
 svg.append("path")
       .datum(data)
