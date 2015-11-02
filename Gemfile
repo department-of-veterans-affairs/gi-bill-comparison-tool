@@ -57,6 +57,15 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.5.0'
 end
 
+#added per VEC deployment - SA
+group :development do
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-passenger'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-env-config'
+end
+
 # MPH Deployment stuff
 # group :development do
 #   gem 'capistrano', '~> 3.4.0'
