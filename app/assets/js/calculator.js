@@ -2,10 +2,9 @@
 // Calculator
 ///////////////////////////////////////////////////////////////////////////////
 function Calculator(institution_type) {
-	// Values from forms
+	// Estimator values
 	// this.military_status = null;
 	// this.spouse_active_duty = null;
-	// this.gi_bill_chap = null;
 	// this.number_of_depend = null;
   // this.post_911_elig = null;
   // this.cumulative_service = null;
@@ -26,19 +25,28 @@ function Calculator(institution_type) {
 
   this.institution_type = institution_type;
   this.setValues();
+  this.setChanges();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
+
+// Estimator Ids
+Calculator.prototype.GI_BILL_CHAPTER = "#gi-bill-chapter";
+Calculator.prototype.ELIG_FOR_POST_GI_BILL = "#elig-for-post-gi-bill";
+
+// Calculator ids
 Calculator.prototype.IN_STATE = "#in-state";
 Calculator.prototype.TUITION_FEES = "#tuition_fees_form";
 Calculator.prototype.IN_STATE_TUITION_FEES = "#in-state-tuition-fees-form";
 Calculator.prototype.BOOKS_INPUT = "#books-input-row";
 Calculator.prototype.YELLOW_RIBBON_RECIPIENT = "#yellow-ribbon-recipient-form";
 Calculator.prototype.YELLOW_RIBBON_AMOUNT = "#yellow-ribbon-amount-form";
+Calculator.prototype.YELLOW_RIBBON_RATES_LINK = "#yellow-ribbon-rates-link"
 Calculator.prototype.SCHOLARSHIP = "#scholarship-amount-form";
 Calculator.prototype.TUITION_ASSIST_FORM = "#tuition-assist-form";
+Calculator.prototype.ENROLLED = "#enrolled-form";
 Calculator.prototype.ENROLLED_OLD = "#enrolled-form-old-gi-bill";
 Calculator.prototype.CALENDAR = "#calendar-form";
 Calculator.prototype.WORKING = "#working-form";
@@ -60,12 +68,14 @@ Calculator.prototype.CALC_TUITION_FEES_ROW = "#calc-tuition-fees-row";
 Calculator.prototype.CALC_YELLOW_RIBBON_ROW = "#calc-yellow-ribbon-row";
 Calculator.prototype.CALC_YELLOW_RIBBON_VA_ROW = "#calc-yellow-ribbon-va-row";
 
-
 ///////////////////////////////////////////////////////////////////////////////
 // setValues
 // Sets all calculator values.
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setValues = function() {
+  // this.setGiBillChapter(this.GI_BILL_CHAPTER);
+  // this.setEligForPostGiBill(this.ELIG_FOR_POST_GI_BILL);
+
   this.setInState(this.IN_STATE);
   this.setTuitionFeesInput(this.IN_STATE);
   this.setInStateTuitionFees(this.IN_STATE_TUITION_FEES);
@@ -74,6 +84,7 @@ Calculator.prototype.setValues = function() {
   this.setYellowRibbonAmount(this.YELLOW_RIBBON_AMOUNT);
   this.setScholarship(this.SCHOLARSHIP);
   this.setTuitionAssist(this.TUITION_ASSIST_FORM);
+  this.setEnrolled(this.ENROLLED);
   this.setEnrolledOld(this.ENROLLED_OLD);
   this.setCalendar(this.CALENDAR);
   this.setWorking(this.WORKING);
@@ -98,8 +109,51 @@ Calculator.prototype.setValues = function() {
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setDependents = function() {
-}
+Calculator.prototype.setChanges = function() {
+  var othis = this;
+
+  $(this.GI_BILL_CHAPTER).change(function() {
+    othis.setGiBillChapter(othis.GI_BILL_CHAPTER);
+  }).change();
+
+  $(this.ELIG_FOR_POST_GI_BILL).change(function() {
+    othis.setEligForPostGiBill(othis.ELIG_FOR_POST_GI_BILL);
+  }).change();
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// setGiBillChapter
+// Sets gi bill chapter value from the element with the id argument. Also sets
+// the old_gi_bill boolean based on the value of the gi_bill_chap.
+//
+// Saves as number.
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.setGiBillChapter = function(id) {
+  this.gi_bill_chapter = Number($(id).val());
+  this.old_gi_bill = (this.gi_bill_chap == 30 || this.gi_bill_chap == 1607 
+    || this.gi_bill_chap == 1606 || this.gi_bill_chap == 35);
+
+  // These values depend on GiBillChapter
+  this.setVreOnly();
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// setEligForPostGiBill
+// Sets gi bill chapter value from the element with the id argument.
+//
+// Saves as bool.
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.setEligForPostGiBill = function(id) {
+  this.elig_for_post_gi_bill = $(id).val().toLowerCase() === 'yes';
+
+  // these.depend on EligForPostGiBill
+  this.setVreOnly();
+
+  return this;
+};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // setInState
@@ -121,7 +175,7 @@ Calculator.prototype.setInState = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setTuitionFeesInput = function(id) {
-  this.tuition_fees_input = $(id + " :input").val();
+  this.tuition_fees_input = Number($(id + " :input").val());
 
   return this;
 };
@@ -133,7 +187,7 @@ Calculator.prototype.setTuitionFeesInput = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setInStateTuitionFees = function(id) {
-  this.in_state_tuition_fees = $(id + " :input").val();
+  this.in_state_tuition_fees = Number($(id + " :input").val());
 
   return this;
 };
@@ -145,7 +199,7 @@ Calculator.prototype.setInStateTuitionFees = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setBooksInput = function(id) {
-  this.books_input = $(id + " :input").val();
+  this.books_input = Number($(id + " :input").val());
 
   return this;
 };
@@ -169,7 +223,7 @@ Calculator.prototype.setYellowRibbonRecipient = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setYellowRibbonAmount = function(id) {
-  this.yellow_ribbon_amount = $(id + " :input").val();
+  this.yellow_ribbon_amount = Number($(id + " :input").val());
 
   return this;
 };
@@ -181,7 +235,7 @@ Calculator.prototype.setYellowRibbonAmount = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setScholarship = function(id) {
-  this.scholarship = $(id + " :input").val();
+  this.scholarship = Number($(id + " :input").val());
 
   return this;
 };
@@ -194,6 +248,19 @@ Calculator.prototype.setScholarship = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setTuitionAssist = function(id) {
   this.tuition_assist = $(id + " :input").val();
+  this.institution_type.toLowerCase() !== "ojt" ? $(id).show(0) : $(id).hide(0);
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// setEnrolled
+// Sets the visibility for the element with the id argument.
+//
+// Saves as boolean
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.setEnrolled = function(id) {
+  this.enrolled_old = Number($(id + " :input").val());
   this.institution_type.toLowerCase() !== "ojt" ? $(id).show(0) : $(id).hide(0);
 
   return this;
@@ -430,4 +497,35 @@ Calculator.prototype.setCalcYellowRibbonVaRow = function(id) {
   return this;
 };
 
+///////////////////////////////////////////////////////////////////////////////
+// setVreOnly
+// Calculate if eligible for VR&E and Post-9/11 Benefits.
+//
+// Saves as boolean.
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.setVreOnly = function () {
+  this.vre_only = (this.gi_bill_chapter == 31 && !this.elig_for_post_gi_bill);
 
+  if (!this.vre_only) {
+    $(this.ENROLLED).show(100);
+    $(this.ENROLLED_OLD).hide(100);
+    $(this.YELLOW_RIBBON_RECIPIENT).hide(100);
+    $(this.YELLOW_RIBBON_AMOUNT).hide(100);
+    $(this.YELLOW_RIBBON_RATES_LINK).hide(100);
+    $(this.SCHOLARSHIP).hide(100);
+    $(this.TUITION_ASSIST_FORM).hide(100);
+    $(this.CALC_YELLOW_RIBBON_ROW).hide(100);    
+  }
+  else {
+    $(this.ENROLLED).hide(100);
+    $(this.ENROLLED_OLD).show(100);
+    $(this.YELLOW_RIBBON_RECIPIENT).show(100);
+    $(this.YELLOW_RIBBON_AMOUNT).show(100);
+    $(this.YELLOW_RIBBON_RATES_LINK).show(100);
+    $(this.SCHOLARSHIP).show(100);
+    $(this.TUITION_ASSIST_FORM).show(100);
+    $(this.CALC_YELLOW_RIBBON_ROW).show(100);    
+  }
+
+  return this;
+};
