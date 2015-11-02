@@ -8,7 +8,7 @@ module InstitutionsHelper
   end
 
   def is_number?(v)
-    v =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/
+    !(v.to_s =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
   end
 
   def format_number_or_null(v, what) 
