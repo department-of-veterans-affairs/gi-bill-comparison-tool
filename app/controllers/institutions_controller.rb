@@ -54,6 +54,7 @@ class InstitutionsController < ApplicationController
   end
 
   def search
+    # Required inputs
     @inputs = {
       military_status: params[:military_status],
       spouse_active_duty: params[:spouse_active_duty],
@@ -67,13 +68,25 @@ class InstitutionsController < ApplicationController
       institution_search: params[:institution_search]
     }
 
+    # Optional inputs
+    @inputs[:schools] = params[:schools].present?
+    @inputs[:employers] = params[:employers].present?
+    @inputs[:state] = params[:state].downcase if params[:state].present?
+    @inputs[:country] = params[:country].downcase if params[:country].present?
+    @inputs[:student_veteran_group] = params[:student_veteran_group].present?
+    @inputs[:yellow_ribbon_scholarship] = params[:yellow_ribbon_scholarship].present?
+    @inputs[:principles_of_excellence] = params[:principles_of_excellence].present?
+    @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success].present?
+    @inputs[:types] = params[:types] if params[:types].present?
+
+
     @types = InstitutionType.pluck(:name).uniq.map { |t| t.downcase }
     @countries = []
     @states = []
 
     @results = Institution.search(@inputs[:institution_search])
 
-    # Filters
+    # Filter collections
     @total_results = @results.length
     @schools = []
     @employers = []
@@ -82,14 +95,14 @@ class InstitutionsController < ApplicationController
     @feature_student_veteran_group = []
     @feature_yellow_ribbon_scholarship = []
     @feature_principles_of_excellence = []
-    @features_8_keys_to_veteran_success = []
+    @feature_8_keys_to_veteran_success = []
     @type_counts = {}
 
 
     # For counts
     @results.each do |result|
       # Institutions
-      if result[:institution_type_id] != "2"
+      if is_school?(result)
         @schools << result
       else
         @employers << result
@@ -97,7 +110,7 @@ class InstitutionsController < ApplicationController
 
       # States
       if result[:state].present?
-        state = result[:state]
+        state = result[:state].downcase
         if @states[state].present?
           @states[state] << result
         else
@@ -119,7 +132,7 @@ class InstitutionsController < ApplicationController
       @feature_student_veteran_group << result if result[:student_veteran] == 't'
       @feature_yellow_ribbon_scholarship << result if result[:yr] == 't'
       @feature_principles_of_excellence << result if result[:poe] == 't'
-      @features_8_keys_to_veteran_success << result if result[:eight_keys] == 't'
+      @feature_8_keys_to_veteran_success << result if result[:eight_keys] == 't'
 
       # Types
       type = result[:name].downcase
@@ -130,23 +143,72 @@ class InstitutionsController < ApplicationController
       end
     end
 
+    # Filter out the results based on criteria
+    # @inputs[:schools] = params[:schools].present?
+    if @inputs[:schools]
+      @results = @results & @schools
+    # @inputs[:employers] = params[:employers].present?
+    elsif @inputs[:employers]
+      @results = @results & @employers
+    end
+
+
+    # @inputs[:state] = params[:state].downcase if params[:state].present?
+    if @inputs[:state]
+      @results = @results & @states[@inputs[:state]]
+    end
+
+    # @inputs[:country] = params[:country].downcase if params[:country].present?
+    if @inputs[:country]
+      @results = @results & @countries[@inputs[:country]]
+    end
+
+    # @inputs[:student_veteran_group] = params[:student_veteran_group].present?
+    if @inputs[:student_veteran_group]
+      @results = @results & @feature_student_veteran_group
+    end
+
+    # @inputs[:yellow_ribbon_scholarship] = params[:yellow_ribbon_scholarship].present?
+    if @inputs[:yellow_ribbon_scholarship]
+      @results = @results & @feature_yellow_ribbon_scholarship
+    end
+
+    # @inputs[:principles_of_excellence] = params[:principles_of_excellence].present?
+    if @inputs[:principles_of_excellence]
+      @results = @results & @feature_principles_of_excellence
+    end
+
+    # @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success].present?
+    if @inputs[:f8_keys_to_veteran_success]
+      @results = @results & @feature_8_keys_to_veteran_success
+    end
+
+    # @input[:types] = params[:types] if params[:types].present?
+    if @inputs[:types]
+      types = @inputs[:types].split(',')
+      types.each do |type|
+        @results = @results & @type_counts[type]
+      end
+    end
+
+
 
     # Pagination
     @page = 1
     @total_pages = 1
     @before_pages = []
     @after_pages = []
-    if has_a_valid_int(params, :page) && has_a_valid_int(params, :num_schools) && @results.length > 1
+    if has_a_valid_int(params, :page) && has_a_valid_int(params, :num_results) && @results.length > 1
       page_param = params[:page].to_i
-      num_schools_param = params[:num_schools].to_i
+      num_results_param = params[:num_results].to_i
 
-      @total_pages = (@results.length.to_f / num_schools_param.to_f).ceil
+      @total_pages = (@results.length.to_f / num_results_param.to_f).ceil
       if @total_pages >= page_param.to_f
         @page = page_param
       end
 
-      start_index = (@page * num_schools_param) - num_schools_param
-      end_index = start_index + num_schools_param - 1
+      start_index = (@page * num_results_param) - num_results_param
+      end_index = start_index + num_results_param - 1
 
       @results = @results[start_index..end_index]
 
@@ -209,7 +271,7 @@ class InstitutionsController < ApplicationController
       "&online_classes=#{inputs[:online_classes]}",
       "&institution_search=#{inputs[:institution_search]}",
       "&page=#{page_num}",
-      "&num_schools=#{SCHOOLS_PER_PAGE}"].join
+      "&num_schools=#{RESULTS_PER_PAGE}"].join
 
     if school
       url += "facility_code=#{school[:facility_code]}"
@@ -228,5 +290,9 @@ class InstitutionsController < ApplicationController
 
   def has_a_valid_instituion_type(a_hash, key)
     a_hash.has_key?(key) && %w(school, employer).include?(a_hash[key].downcase)
+  end
+
+  def is_school?(result)
+    result[:institution_type_id] != "2"
   end
 end
