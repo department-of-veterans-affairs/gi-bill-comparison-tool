@@ -38,7 +38,7 @@
     color: #fff;
   }
 }
-.usa-footer-secondary_section.va.one .footer-crisis a { 
+.usa-footer-secondary_section.va.one .footer-crisis a {
   color: $va-body-content-color;
 }
 
@@ -69,6 +69,6 @@
 .usa-footer-logo{
     width:100px;
     height: 50px;
-    background-image: url(/app/assets/img/va_images/seal-footer.svg);
+    background-image: url(asset_path('va_images/seal-footer.svg'));
     background-color:bisque;
 }

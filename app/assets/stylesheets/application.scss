@@ -15,6 +15,9 @@
  *= require jquery-ui
  */
 
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 /*********************************************************
 ** Stying for outcomes
 *********************************************************/
@@ -27,17 +30,17 @@
   	fill: none;
   	stroke: #000;
   	shape-rendering: crispEdges;
-	}	
+	}
 
 	/* This needs to be changed so that there are two colors */
 	.bar {
 	  fill: #FAC922;
 
 	}
-    
+
     #Vets {
-        fill: #BEC292;  
- } 
+        fill: #BEC292;
+ }
 
 
 	.x.axis path {
