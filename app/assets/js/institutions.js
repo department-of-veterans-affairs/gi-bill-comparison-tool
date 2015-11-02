@@ -61,5 +61,5 @@ var runEstimator = function() {
 		$("#est-housing-allowance").html(estimator.getHousingAllowance());
 		$("#est-book-stipend").html(estimator.getBookStipend());
 	});
-}
+};
 

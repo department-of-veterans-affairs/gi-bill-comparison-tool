@@ -81,9 +81,10 @@ test:
 #
 production:
   <<: *default
-  database: gi-bill-comparison-tool_production
-  username: gi-bill-comparison-tool
-  password: <%= ENV['GI-BILL-COMPARISON-TOOL_DATABASE_PASSWORD'] %>
-
+  database: staging_gic_rds
+  username: staging_gic_rds
+  password: fill_in
+  host: staging-gic-rds.cefcdtol7xfi.us-east-1.rds.amazonaws.com
+  port: 5432
 
 
