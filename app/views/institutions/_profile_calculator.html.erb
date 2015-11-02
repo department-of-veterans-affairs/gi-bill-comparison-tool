@@ -46,10 +46,10 @@
 							<!--	          <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#yellow_ribbon_from_school" onclick="track('Tool Tips', 'Calculator / Receiving Yellow Ribbon');" target="_blank" class="info-link" aria-describedby="yellow-ribbon-recipient-form-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on receiving yellow ribbon benefits</span></a>-->
 						</label>
 						<!--	          <span class="aria-tooltip" id="yellow-ribbon-recipient-form-tooltip" role="tooltip"> Only Veterans entitled to the maximum benefit rate (based on service requirements) or their designated transferees may receive this funding. Active duty Servicemembers and their spouses are not eligible.</span>-->
-		        <label class="radio" for="yellow-ribbon-recipient-yes">Yes</label>
 		        <input id="yellow-ribbon-recipient-yes" name="Receiving Yellow Ribbon" type="radio" value="yes">
-		        <label class="radio" for="yellow-ribbon-recipient-no">No</label>
+		        <label class="radio" for="yellow-ribbon-recipient-yes">Yes</label>
 		        <input id="yellow-ribbon-recipient-no" name="Receiving Yellow Ribbon" type="radio" value="no" checked>
+		        <label class="radio" for="yellow-ribbon-recipient-no">No</label>
 		      </div>
 
 		      <div id="yellow-ribbon-amount-form" class="form-group top-aligned">
@@ -370,7 +370,8 @@
 
 <script>
 $(document).ready(function() {
-	var institution_type = <%= @school.institution_type.name.downcase %>;
+	// Based on School Type
+	var institution_type = "<%= @school.institution_type.name.downcase %>";
 
 	(institution_type === "public") ? $("#in-state").show(0) : $("#in-state").hide(0);
 	(institution_type !== 'ojt') ? $("#tuition-assist-form").show(0) : $("#tuition-assist-form").hide(0);
@@ -378,5 +379,16 @@ $(document).ready(function() {
 	(institution_type !== 'ojt') ? $("#enrolled-form-old-gi-bill").show(0) : $("#enrolled-form-old-gi-bill").hide(0);
 	(institution_type !== 'ojt') ? $("#calendar-form").show(0) : $("#calendar-form").hide(0);
 	(institution_type !== 'ojt') ? $("#working-form").show(0) : $("#working-form").hide(0);
+
+	(institution_type !== 'ojt') ? $("#calc-term-total-row").show(0) : $("#calc-term-total-row").hide(0);
+	(institution_type !== 'ojt') ? $("#calc-paid-to-school-total-row").show(0) : $("#calc-paid-to-school-total-row").hide(0);
+	(institution_type !== 'ojt') ? $("#calc-paid-to-you-total-row").show(0) : $("#calc-paid-to-you-total-row").hide(0);
+	(institution_type !== 'ojt') ? $("#calc-out-of-pocket-row").show(0) : $("#calc-out-of-pocket-row").hide(0);
+	(institution_type !== 'ojt') ? $("#calc-tuition-fees-charged-row").show(0) : $("#calc-tuition-fees-charged-row").hide(0);
+	(institution_type !== 'ojt') ? $("#calc-tuition-fees-scholarship-row").show(0) : $("#calc-tuition-fees-scholarship-row").hide(0);
+	(institution_type !== 'ojt') ? $("#calc-school-received-row").show(0) : $("#calc-school-received-row").hide(0);
+	(institution_type !== 'ojt') ? $("#calc-tuition-fees-row").show(0) : $("#calc-tuition-fees-row").hide(0);
+	(institution_type !== 'ojt') ? $("#calc-yellow-ribbon-row").show(0) : $("#calc-yellow-ribbon-row").hide(0);
+	(institution_type !== 'ojt') ? $("#calc-yellow-ribbon-va-row").show(0) : $("#calc-yellow-ribbon-va-row").hide(0);
 });
 </script>
