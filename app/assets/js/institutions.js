@@ -63,10 +63,3 @@ var runEstimator = function() {
 	});
 };
 
-var runCalculator = function() {
-	var calculator = new Calculator();
-
-	calculator.setInState("#in-state");
-
-};
-
