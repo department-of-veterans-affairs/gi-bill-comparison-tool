@@ -69,21 +69,18 @@ class InstitutionsController < ApplicationController
     }
 
     # Optional inputs
-    @inputs[:schools] = params[:schools].present?
-    @inputs[:employers] = params[:employers].present?
+    @inputs[:schools] = params[:schools] if params[:schools].present?
+    @inputs[:employers] = params[:employers] if params[:employers].present?
     @inputs[:state] = params[:state].downcase if params[:state].present?
     @inputs[:country] = params[:country].downcase if params[:country].present?
-    @inputs[:student_veteran_group] = params[:student_veteran_group].present?
-    @inputs[:yellow_ribbon_scholarship] = params[:yellow_ribbon_scholarship].present?
-    @inputs[:principles_of_excellence] = params[:principles_of_excellence].present?
-    @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success].present?
+    @inputs[:student_veteran_group] = params[:student_veteran_group] if params[:student_veteran_group].present?
+    @inputs[:yellow_ribbon_scholarship] = params[:yellow_ribbon_scholarship] if params[:yellow_ribbon_scholarship].present?
+    @inputs[:principles_of_excellence] = params[:principles_of_excellence] if params[:principles_of_excellence].present?
+    @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success] if params[:f8_keys_to_veteran_success].present?
     @inputs[:types] = params[:types] if params[:types].present?
 
-
+    # Perform query
     @types = InstitutionType.pluck(:name).uniq.map { |t| t.downcase }
-    @countries = []
-    @states = []
-
     @results = Institution.search(@inputs[:institution_search])
 
     # Filter collections
@@ -99,7 +96,7 @@ class InstitutionsController < ApplicationController
     @type_counts = {}
 
 
-    # For counts
+    # For filter counts
     @results.each do |result|
       # Institutions
       if is_school?(result)
@@ -120,7 +117,7 @@ class InstitutionsController < ApplicationController
 
       # Countries
       if result[:country].present?
-        country = result[:country]
+        country = result[:country].downcase
         if @countries[country].present?
           @countries[country] << result
         else
@@ -191,8 +188,6 @@ class InstitutionsController < ApplicationController
       end
     end
 
-
-
     # Pagination
     @page = 1
     @total_pages = 1
@@ -259,19 +254,7 @@ class InstitutionsController < ApplicationController
 
   # TODO: Move this logic into a view
   def make_url(inputs, path, page_num, school=nil)
-    url = ["#{path}?",
-      "military_status=#{inputs[:military_status]}",
-      "&spouse_active_duty=#{inputs[:spouse_active_duty]}",
-      "&gi_bill_chapter=#{inputs[:gi_bill_chapter]}",
-      "&cumulative_service=#{inputs[:cumulative_service]}",
-      "&enlistment_service=#{inputs[:enlistment_service]}",
-      "&consecutive_service=#{inputs[:consecutive_service]}",
-      "&elig_for_post_gi_bill=#{inputs[:elig_for_post_gi_bill]}",
-      "&number_of_dependents=#{inputs[:number_of_dependents]}",
-      "&online_classes=#{inputs[:online_classes]}",
-      "&institution_search=#{inputs[:institution_search]}",
-      "&page=#{page_num}",
-      "&num_schools=#{RESULTS_PER_PAGE}"].join
+    url = "#{path}?" + @inputs.map{|k,v| "#{k}=#{v}"}.join('&') + "&page=#{page_num}&num_results=#{RESULTS_PER_PAGE}"
 
     if school
       url += "facility_code=#{school[:facility_code]}"
