@@ -77,7 +77,7 @@
 				<h3>Graduation Rate</h3>
         <div class="usa-width-one-half outcome-measure">
         	<% if is_number?(@school.graduation_rate_veteran) || is_number?(@school.graduation_rate_all_students) %>    
-						<div class="outcome" id="graduation-<% @school.facility_code %>"></div>                            
+						<div class="outcome" id="graduation-<%= @school.facility_code %>"></div>                            
 						<%= render partial: 'profile_grad_rates', 
 							locals: { 
 								outcome: "graduation", 
