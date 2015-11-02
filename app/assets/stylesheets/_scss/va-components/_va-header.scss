@@ -17,7 +17,7 @@ margin-bottom: 1.7rem;
 }
 
 .logo h1 a {
-  background: url(../logo/logo.png) top left no-repeat;
+  background: url(asset_path('logo/logo.png')) top left no-repeat;
   height: 50px;
   background-size: contain;
   text-indent: 180%;
@@ -25,44 +25,44 @@ margin-bottom: 1.7rem;
   overflow: hidden;
   display: block;
   &:hover, &:active, &:focus {
-    background: url(../logo/logo-hover.png) top left no-repeat; background-size: contain;
+    background: url(asset_path('logo/logo-hover.png')) top left no-repeat; background-size: contain;
   }
 }
 
 // lower section
 .va-site-header .va-site-navbar.lower {
-  background: $va-primary-color url(../thread.png) top left no-repeat;
+  background: $va-primary-color url(asset_path('thread.png')) top left no-repeat;
   background-size: cover;
   color: #fff;
-  height: 23rem;  
+  height: 23rem;
   h1 {
     padding-top: 3rem;
-  } 
+  }
 }
 
 .va-site-header a {
-  border-bottom: none; 
+  border-bottom: none;
 }
 
 .va-site-header .va-site-navbar .logo {
   float: left;
   text-align: center;
   padding-top: 1.3rem;
-  width: 70%; 
+  width: 70%;
 }
 
 .va-site-header .va-site-navbar .logo, .va-site-header .va-site-navbar .logo-secondary  {
 //  padding-left: 3rem;
   text-align: left;
   padding-top: 0;
-  width: auto; 
-} 
+  width: auto;
+}
 
 .va-site-header .va-site-navbar h1 {
   margin: 0;
   display: block;
-  margin-top: .9rem; 
-} 
+  margin-top: .9rem;
+}
 
 .message {
     font-size: 1.5rem;
@@ -82,6 +82,6 @@ margin-bottom: 1.7rem;
       padding: 0;
     }
     a{
-     color: #fff;   
+     color: #fff;
     }
   }
