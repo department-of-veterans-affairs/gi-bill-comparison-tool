@@ -9,11 +9,11 @@
 		<label id="all-school-label" for="all-school">All (<%= @total_results %>)</label>
 
 		<input type="radio" id="school" name="institution-type" 
-			class="filter" value="school" />
+			class="filter" value="school" <%= 'checked' if @inputs[:schools].present? %>/>
 		<label id="school-label" for="school">School (<%= @schools.length %>)</label>
 
 		<input type="radio" id="employer" name="institution-type" 
-			class="filter" value="employer" />
+			class="filter" value="employer" <%= 'checked' if @inputs[:employers].present? %>/>
 		<label id="employer-label" for="employer">Employer (<%= @employers.length %>)</label>
 
 		<h4>Location</h4>
@@ -21,7 +21,7 @@
 		<select id="states" name="state" class="filter">
 			<option value="all" selected>All (<%= @total_results %>)</option>
 			<% @states.keys.each do |state| %>
-				<option value="<%= state %>">
+				<option value="<%= state %>" <%= 'selected' if @inputs[:state] == state %>>
           <%= state.upcase %> (<%= @states[state].length %>)
 				</option>
 			<% end %>
@@ -29,9 +29,9 @@
 
 		<label for="country">Country: </label>
 		<select id="countries" name="country" class="filter">
-			<option value="all" selected>All (<%= @total_results %></option>
+			<option value="all" selected>All (<%= @total_results %>)</option>
 			<% @countries.keys.each do |country| %>
-				<option value="<%= country %>">
+				<option value="<%= country %>" <%= 'selected' if @inputs[:country] == country %>>
           <%= to_caps(country) %> (<%= @countries[country].length %>)
 				</option>
 			<% end %>
@@ -39,27 +39,28 @@
 
 		<h4>School Features</h4>
 		<input type="checkbox" id="student-veteran" name="student_veteran" 
-			class="filter" value="true"/>
+			class="filter" value="true" <%= 'checked' if @inputs[:student_veteran_group].present? %>/>
 		<label id="student-veteran-label" for="student-veteran">Student Veteran Group (<%= @feature_student_veteran_group.length %>)</label>
 
 		<input type="checkbox" id="yr" name="yr" 
-			class="filter" value="true" />
+			class="filter" value="true" <%= 'checked' if @inputs[:yellow_ribbon_scholarship].present? %>/>
 		<label id="yr-label" for="yr">Yellow Ribbon Scholarship (<%= @feature_yellow_ribbon_scholarship.length %>)</label>
 
 		<input type="checkbox" id="poe" name="poe" 
-			class="filter" value="true"/>
+			class="filter" value="true" <%= 'checked' if @inputs[:principles_of_excellence].present? %>/>
 		<label id="poe-label" for="poe">Principles of Excellence (<%= @feature_principles_of_excellence.length %>)</label>
 
 		<input type="checkbox" id="eight-keys" name="eight_keys" 
-			class="filter" value="true" />
+			class="filter" value="true" <%= 'checked' if @inputs[:f8_keys_to_veteran_success].present? %>/>
 		<label id="eight-keys-label" for="eight-keys">8 Keys to Veteran Success (<%= @feature_8_keys_to_veteran_success.length %>)</label>
 
 		<h4>Types of Schools</h4>
 
+    <% selected_types = @inputs[:types].present? ? @inputs[:types].split(',') : []  %>
 		<% @types.each do |type| %>
 			<% id, name = type.gsub(' ', '-'), type.gsub(' ', '_') %>
 			<input type="checkbox" id="<%= id %>" name="type" 
-				class="filter" value="<%= type %>" />
+				class="filter" value="<%= type %>" <%= 'checked' if selected_types.include?(type) %>/>
 			<label id="<%= id %>-label" for="<%= id %>"><%= to_caps(type) %> (<%= @type_counts[type].present? ? @type_counts[type].length : 0 %>)</label>
 		<% end %>
 
