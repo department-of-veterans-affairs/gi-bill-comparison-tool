@@ -3,11 +3,13 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
+set :app_server, ENV['STAGING_APP_SERVER']
+
 # server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-
+server ENV['STAGING_APP_SERVER'], user: 'ec2-user', roles: %w{app}
 
 # role-based syntax
 # ==================
@@ -21,7 +23,8 @@
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-
+role :app, [ENV['STAGING_APP_SERVER']]
+role :db, [ENV['STAGING_APP_SERVER']]
 
 # Configuration
 # =============
@@ -46,6 +49,13 @@
 #    forward_agent: false,
 #    auth_methods: %w(password)
 #  }
+
+set :ssh_options, {
+  keys: ENV['STAGING_APP_SERVER_KEY_PATH'],
+  forward_agent: false,
+  auth_methods: %w(publickey)
+}
+
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
