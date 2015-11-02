@@ -73,7 +73,7 @@
   <!-- ================================================== -->
   <!--                School Selection Form               -->
   <!-- ================================================== -->
-  <%= form_tag(search_path, id: "input-section", style: "", method: :get) do %>
+  <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
     <input name="page" value="1" type="hidden"/>
     <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
     <div class="usa-card">

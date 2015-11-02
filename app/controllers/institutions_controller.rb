@@ -35,7 +35,7 @@ class InstitutionsController < ApplicationController
 
     @school = Institution.find_by(facility_code: params[:facility_code])
 
-
+    @back_url = make_url(params, search_page_path, params[:page] || 1)
     @veteran_retention_rate = @school.get_veteran_retention_rate
     @all_student_retention_rate = @school.get_all_student_retention_rate
     respond_to do |format|
@@ -254,10 +254,10 @@ class InstitutionsController < ApplicationController
 
   # TODO: Move this logic into a view
   def make_url(inputs, path, page_num, school=nil)
-    url = "#{path}?" + @inputs.map{|k,v| "#{k}=#{v}"}.join('&') + "&page=#{page_num}&num_results=#{RESULTS_PER_PAGE}"
+    url = "#{path}?" + inputs.map{|k,v| "#{k}=#{v}"}.join('&') + "&page=#{page_num}&num_results=#{RESULTS_PER_PAGE}"
 
     if school
-      url += "facility_code=#{school[:facility_code]}"
+      url += "&facility_code=#{school[:facility_code]}"
     end
 
     url
