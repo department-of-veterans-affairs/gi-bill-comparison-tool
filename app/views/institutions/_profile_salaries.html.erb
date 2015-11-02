@@ -1,5 +1,7 @@
 <script>
 
+(function(){
+
 //stolen from here - http://stackoverflow.com/questions/3883342/add-commas-to-a-number-in-jquery
 function commaSeparateNumber(val){
     while (/(\d+)(\d{3})/.test(val.toString())){
@@ -104,5 +106,7 @@ svg.append("text")
     .append("textPath")
       .attr("xlink:href", "#salary_curve")
       .text("< "+ "$"+ commaSeparateNumber(national_ave.average));
-    
+
+})();
+
 </script>
