@@ -31,7 +31,7 @@ function buildSearchUrl() {
     if (searchFilters.filter('#school:checked').val()) {
         queryStr += '&schools=true';
     } else if (searchFilters.filter('#employer:checked').val()) {
-        queryStr += '&employer=true';
+        queryStr += '&employers=true';
     }
 
     var stateVal = searchFilters.filter('#states').val();
