@@ -43,7 +43,9 @@
     	<%= render partial: 'profile_calculator' %>
     </div>
   </div>
+</div>  
 
+<div class="usa-width-three-fourths new-row">
 	<div class="usa-accordion">
     <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-1">
     	<h3>Outcomes</h3>
@@ -67,19 +69,19 @@
 							%>
 						<% else %>
 							<p>Retention Rate Data Not Available</p>
-                        </div>
 						<% end %>
+                        </div>
                     </div><!-- END RETENTION RATE -->
 
 					<!-- Graduation Rates -->
 					<div id="grad-rates">
 						<h3>Graduation Rate</h3>
                         <div class="usa-width-one-half outcome-measure">
-                        <% 
-							if is_number?(@school.graduation_rate_veteran) && 
-								is_number?(@school.graduation_rate_all_students) 
-                                %>    
-							<div class="outcome" id="graduation-<% @school.facility_code %>"></div>
+                        <% if is_number?(@school.graduation_rate_veteran) && 
+								is_number?(@school.graduation_rate_all_students) %>    
+							
+                            <div class="outcome" id="graduation-<% @school.facility_code %>"></div>
+                            
 							<%=
 								render partial: 'profile_grad_rates', 
 									locals: { 
@@ -90,7 +92,7 @@
 									} 
 							%>
             <% else %>
-							<p>Grad Data Not Available</p></td>
+							<p>Grad Data Not Available</p>
 						<% end %>
                     </div>
                     </div><!-- END GRAD RATE -->
@@ -110,7 +112,7 @@
 	              }
 	            %>
 	          <% else %>
-							<p>Salary Data Not Available</p>
+				<p>Salary Data Not Available</p>
 	          <% end %>
                         </div>
                 </div><!-- END SALARY RATE -->
@@ -128,15 +130,17 @@
         	        vrate: number_with_precision(@school.repayment_rate_all_students * 100, precision: 2),
           	      nrate: 86.3
             	  }
-            	%></div>
+            	%>
 	        	<% else %>
-							<p>Salary Data Not Available</p></td>
-	        	<% end %>
-    `           </div>
-                </div><!-- END REPAYMENT RATE -->
-  	</div>
-	
+							<p>Salary Data Not Available</p>
+	        	<% end %></div>
+    `           </div><!-- END REPAYMENT RATE -->
+            </div><!-- END Accordion ID Div -->
+  	</div><!-- END Accordion class Div -->
+</div><!-- END <div class="usa-width-three-fourths new-row"> -->
 
+	
+<div class="usa-width-three-fourths new-row">
 	<div class="usa-accordion">
     <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-2">
       <h3>School Summary</h3>
@@ -145,7 +149,9 @@
 			<%= render partial: 'profile_summary' %>
     </div>
   </div>
+</div>
 
+<div class="usa-width-three-fourths new-row">
 	<div class="usa-accordion">
     <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-3">
       <h3>Caution Flags (<%= @school.complaints_main_campus_roll_up %> Student Complaints)</h3>
@@ -154,7 +160,10 @@
 			<%= render partial: 'profile_complaints' %>
     </div>
   </div>
-	<div class="usa-accordion">
+</div>
+
+<div class="usa-width-three-fourths new-row">
+    <div class="usa-accordion">
     <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-4">
       <h3>Historical School Information</h3>
     </button>
@@ -163,7 +172,7 @@
     </div>
 	</div>
 </div>
-</div>
+
 
 <script>
 	$(document).ready(function() {
