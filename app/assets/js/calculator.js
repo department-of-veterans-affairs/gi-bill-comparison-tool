@@ -281,7 +281,7 @@ Calculator.prototype.resetVisibility = function() {
     $(this.CALC_YELLOW_RIBBON_ROW).hide();
   }
 
-  if (this.kicker_elig) {
+  if (this.kicker_eligible) {
     $(this.KICKER).show();
   }
 
@@ -557,7 +557,7 @@ Calculator.prototype.setLengthNonTraditionalTerms = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setKickerEligible = function(id) {
-  this.kicker_eligible = $(id + " :input").val().toLowerCase() === "yes";
+  this.kicker_eligible = $(id + " :input:checked").val().toLowerCase() === "yes";
   return this;
 };
 
@@ -568,7 +568,7 @@ Calculator.prototype.setKickerEligible = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setKicker = function(id) {
-  this.kicker_eligible = $(id + " :input").val();
+  this.kicker = $(id + " :input").val();
   return this;
 };
 
