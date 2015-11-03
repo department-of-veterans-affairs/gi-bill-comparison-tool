@@ -47,21 +47,19 @@
 		<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">            
 
 		      <!-- Retention Rates -->
-          <div id="retention-rates">
-
-	 					<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
+          <div id="retention-rates" class="graph"></div>
             <h3>Retention Rate</h3>
-            <div class="usa-width-one-half outcome-measure">
-							<div class="outcome" id="retention-<%= @school.facility_code %>"></div>
-                       
-							<%= render partial: 'profile_retention', 
-								locals: { 
-									outcome: "retention", 
-									vrate: number_with_precision(@veteran_retention_rate * 100, precision: 2),
-									crate: number_with_precision(@all_student_retention_rate * 100, precision: 2),
-									nrate: 10.8
-								} 
-							%>
+	 					<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
+              <script>
+                new Graph({
+                  target : '#retention-rates',
+                  bars : [
+                    { name : 'vet', value : <%= number_with_precision(@veteran_retention_rate * 100, precision: 2) %>, },
+                    { name : 'all', value : <%= number_with_precision(@all_student_retention_rate * 100, precision: 2) %>, }
+                  ],
+                  average : 10.8
+                });
+              </script>
 						  <% else %>
 							<p>Retention Rate Data Not Available</p>
 						  <% end %>
@@ -70,21 +68,19 @@
           <!-- END RETENTION RATE -->
 
           <!-- Graduation Rates -->
-					<div id="grad-rates">
+					<div id="grad-rates" class="graph">
 						<h3>Graduation Rate</h3>
-            <div class="usa-width-one-half outcome-measure">
               <% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>    
-              <div class="outcome" id="graduation-<% @school.facility_code %>"></div>
-                            
-							<%=
-								render partial: 'profile_grad_rates', 
-									locals: { 
-										outcome: "graduation", 
-										vrate: number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2),
-										crate: number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2),
-										nrate: 59
-									} 
-							%>
+                <script>
+                  new Graph({
+                    target : '#grad-rates',
+                    bars : [
+                      { name : 'vet', value : <%= number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2) %>, },
+                      { name : 'all', value : <%= number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2) %>, }
+                    ],
+                    average : 59
+                  });
+                </script>
               <% else %>
               <p>Grad Data Not Available</p>
               <% end %>
@@ -94,17 +90,14 @@
 					<!-- Salary Rates -->
 					<div id="salary-rates">
             <h3>Salaries After Directly After College</h3>
-            <div class="usa-width-one-half outcome-measure">
-              <% if @school.salary_all_students.present? %>
-                        
-	          	<div class="outcome" id="salaries-<%= @school.facility_code %>"></div>
-							<%= render partial: 'profile_salaries',
-	              locals: {
-	                outcome: "salaries",
-	                 vrate: @school.salary_all_students,
-	                 nrate: 48127
-	              }
-	            %>
+            <% if @school.salary_all_students.present? %>
+              <script>
+                new Graph({
+                  target:  '#salary-rates',
+                  bars:    [ { name : 'vet', value : <%= @school.salary_all_students %> } ],
+                  average: 48127
+                });
+              </script>
               <% else %>
               <p>Salary Data Not Available</p>
               <% end %>
@@ -115,22 +108,21 @@
 					<!-- Repayment -->
 					<div id="repayment-rates">
 						<h3>Repayment Rate</h3>
-            <div class="usa-width-one-half outcome-measure">
-              <% if @school.repayment_rate_all_students.present? %>
-	        		<div class="outcome" id="repayment-<%= @school.facility_code %>"></div>
-
-          		<%= render partial: 'profile_repayment',
-            		locals: {
-              		outcome: "repayment",
-        	        vrate: number_with_precision(@school.repayment_rate_all_students * 100, precision: 2),
-          	      nrate: 86.3
-            	  }
-            	%>
+            <% if @school.repayment_rate_all_students.present? %>
+              <script>
+                new Graph({
+                  target:  '#repayment-rates',
+                  bars:    [ { name : 'vet', value : <%= number_with_precision(@school.repayment_rate_all_students * 100, precision: 2) %> } ],
+                  average: 86.3 
+                });
+              </script>
               <% else %>
 							<p>Salary Data Not Available</p>
               <% end %>
             </div>
-          </div><!-- END REPAYMENT RATE -->
+          </div>
+          <!-- END REPAYMENT RATE -->
+
         </div><!-- END Accordion ID Div -->
   	</div><!-- END Accordion class Div -->
 </div><!-- END <div class="usa-width-three-fourths new-row"> -->
