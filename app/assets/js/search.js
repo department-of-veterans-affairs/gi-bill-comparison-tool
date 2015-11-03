@@ -68,7 +68,7 @@ function buildSearchUrl() {
         queryStr += '&types=' + typesToFilter.join(',');
     }
 
-    queryStr += '&page=1&num_results=10';
+    queryStr += '&page=1&num_results=9';
 
     return baseUrl + queryStr.replace(/^\?&/, '?');
 }
