@@ -36,6 +36,8 @@ function Calculator(institution_type) {
 // Estimator Ids
 Calculator.prototype.GI_BILL_CHAPTER = "#gi-bill-chapter";
 Calculator.prototype.ELIG_FOR_POST_GI_BILL = "#elig-for-post-gi-bill";
+Calculator.prototype.CUMMULATIVE_SERVICE = "#cumulative-service";
+Calculator.prototype.BSCAP = 1000;
 
 // Calculator Tuition
 Calculator.prototype.TUITION_FEES_SECTION = "#tuition-fees-section";
@@ -96,6 +98,7 @@ Calculator.prototype.BOOK_STIPEND_TERM_3 = "#book-stipend-term-3";
 Calculator.prototype.setValues = function() {
   this.setGiBillChapter(this.GI_BILL_CHAPTER);
   this.setEligForPostGiBill(this.ELIG_FOR_POST_GI_BILL);
+  this.setCumulativeService(this.CUMMULATIVE_SERVICE);
 
   this.setInState(this.IN_STATE);
   this.setTuitionFeesInput(this.IN_STATE);
@@ -132,6 +135,8 @@ Calculator.prototype.setValues = function() {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setDerivedValues = function() {
   this.setVreOnly();
+  this.setTier();
+  this.setBookStipend();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -203,6 +208,41 @@ Calculator.prototype.resetVisibility = function() {
     $(this.TUITION_ASSIST_FORM).hide(100);
     $(this.CALC_YELLOW_RIBBON_ROW).hide(100);    
   }
+
+  if (this.institution_type === 'ojt') {
+    $(this.TUITION_FEES_SECTION).hide();
+    $(this.ENROLLED).hide();
+    $(this.ENROLLED_OLD).hide();
+    $(this.WORKING).show();
+    $(this.CALENDAR).hide();
+    $(this.TUITION_ASSIST_FORM).hide();
+    $(this.CALC_TUITION_FEES_ROW).hide();
+    $(this.CALC_YELLOW_RIBBON_ROW).hide();
+    $(this.CALC_YELLOW_RIBBON_VA_ROW).hide();
+    $(this.CALC_SCHOOL_RECEIVED_ROW).hide();
+    $(this.CALC_PAID_TO_SCHOOL_TOTAL_ROW).hide();
+    $(this.CALC_TUITION_FEES_SCHOLARSHIP_ROW).hide();
+    $(this.CALC_TUITION_FEES_CHARGED_ROW).hide();
+    $(this.CALC_OUT_OF_POCKET_ROW).hide();
+    $(this.CALC_PAID_TO_YOU_TOTAL_ROW).hide();
+    $(this.CALC_TERM_TOTAL_ROW).hide();
+  }
+
+  if (this.gi_bill_chap == 35) {
+    $(this.KICKER_ELIGIBLE).hide();
+    $(this.KICKER).hide();
+  }  
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// formatCurrency
+// Formats currency in USD
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.formatCurrency = function (num) {
+  var str = Math.round(Number(num)).toString();
+    
+  // match a digit if it's followed by 3 other digits, appending a comma to each match
+  return '<span class="estimator-dollar-sign">$</span>' + str.replace(/\d(?=(\d{3})+$)/g, '$&,');
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -600,22 +640,17 @@ Calculator.prototype.setVreOnly = function () {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
+// getTier
+// 
 ///////////////////////////////////////////////////////////////////////////////
-var getTier = function () {
-  if (formData.gi_bill_chap == 31 && formData.post_911_elig == true) {
-  calculated.tier = 1;
-  } else if (formData.cumulative_service == 'service discharge') {
-    calculated.tier = 1;
-    calculated.service_discharge = true;
-  } else {
-    calculated.tier = parseFloat(formData.cumulative_service);
-  }
+Calculator.prototype.setTier = function () {
+  if (this.gi_bill_chap == 31 && this.post_911_elig == true)
+    this.tier = 1;
+  else
+    this.tier = parseFloat(this.cumulative_service);
+  
+  return this;
 };
-
-
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // setBookStipend
@@ -631,8 +666,7 @@ Calculator.prototype.setBookStipend = function () {
     else if (this.gi_bill_chapter == 31)
       this.est_book_stipend = 'Full Cost of Books/Supplies';
     else
-      this.est_book_stipend = formatCurrency(calculated.tier * BSCAP) + ' / year';
-    }
+      this.est_book_stipend = this.formatCurrency(this.tier * this.BSCAP) + ' / year';
 
   return this;
 };
