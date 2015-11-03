@@ -1,7 +1,34 @@
 <style>
 
+.graph {
+  max-height: 200px;
+}
+
 .graph .graph-bar {
   fill: $va-body-accent-color;
+  stroke: #eee;
+}
+
+.graph .graph-bar.vet{
+  fill: #FAC922;
+}
+
+.graph .graph-bar.all{
+  fill: #B1B680; 
+}
+
+.graph .graph-bar-label {
+  text-anchor: middle;
+  font-size: 10px;
+}
+
+.graph .graph-line {
+  stroke: #111;
+  stroke-width: 0.5;
+}
+
+.graph .graph-line-label {
+  font-size: 10px;
 }
 
 .graph .graph-background {
@@ -47,9 +74,10 @@
 		<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">            
 
 		      <!-- Retention Rates -->
-          <div id="retention-rates" class="graph"></div>
+          <div class="usa-width-one-half">
             <h3>Retention Rate</h3>
 	 					<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
+              <div id="retention-rates" class="graph"></div>
               <script>
                 new Graph({
                   target : '#retention-rates',
@@ -68,9 +96,10 @@
           <!-- END RETENTION RATE -->
 
           <!-- Graduation Rates -->
-					<div id="grad-rates" class="graph">
+          <div class="usa-width-one-half">
 						<h3>Graduation Rate</h3>
               <% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>    
+                <div id="grad-rates" class="graph"></div>
                 <script>
                   new Graph({
                     target : '#grad-rates',
@@ -88,9 +117,10 @@
           </div><!-- END GRAD RATE -->
                    
 					<!-- Salary Rates -->
-					<div id="salary-rates">
+          <div class="usa-width-one-half">
             <h3>Salaries After Directly After College</h3>
             <% if @school.salary_all_students.present? %>
+              <div id="salary-rates" class="graph"></div>
               <script>
                 new Graph({
                   target:  '#salary-rates',
@@ -106,9 +136,10 @@
           <!-- END SALARY RATE -->
 
 					<!-- Repayment -->
-					<div id="repayment-rates">
+          <div class="usa-width-one-half">
 						<h3>Repayment Rate</h3>
             <% if @school.repayment_rate_all_students.present? %>
+              <div id="repayment-rates" class="graph">
               <script>
                 new Graph({
                   target:  '#repayment-rates',

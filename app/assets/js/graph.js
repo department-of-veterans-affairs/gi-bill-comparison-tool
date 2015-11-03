@@ -17,6 +17,69 @@ new Graph({
 */
 
 var Graph = function(options){
+  
+  var width = 200,
+      height = 100;
+
+  // Append SVG
+  var svg = d3.select(options.target)
+    .append('svg')
+      .attr('class', 'graph')
+      .attr('width', '100%')
+      .attr('height', '100%')
+      .attr('viewBox', '0 0 ' + width + ' ' + height);
+
+  // Draw background area
+  svg
+    .append('rect')
+    .attr('class', 'graph-background')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('height', height)
+    .attr('width', width / 2);
+
+  // Draw bars
+  var barWidth = (width / 2) / options.bars.length;
+  svg
+    .selectAll('.graph-bar')
+    .data(options.bars)
+    .enter()
+      .append('rect')
+        .attr('class', function(d){ return d.name + ' graph-bar'; })
+        .attr('x', function(d, i){ return i * barWidth; })
+        .attr('y', function(d, i){ return height - d.value; })
+        .attr('height', 0)
+        .attr('width', barWidth)
+        .transition()
+          .attr('height', function(d,i){ return d.value; }); // Assumes percentage
+
+  // Draw bar labels
+  svg
+    .selectAll('.graph-bar-label')
+    .data(options.bars)
+    .enter()
+      .append('text')
+        .attr('class', 'graph-bar-label') 
+        .attr('x', function(d, i){ return (i * barWidth) + (barWidth / 2); })
+        .attr('y', function(d, i){ return height - d.value + 10; })
+        .text(function(d){ return d.value + '%'; });
+
+  // Draw average line
+  svg
+    .append('line')
+      .attr('class', 'graph-line')
+      .attr('x1', 0)
+      .attr('x2', width / 2)
+      .attr('y1', height - options.average)
+      .attr('y2', height - options.average);
+
+  // Add average line label
+  svg
+    .append('text')
+      .attr('class', 'graph-line-label')
+      .attr('x', width / 2)
+      .attr('y', height - options.average)
+      .text('< ' + options.average + ' Nat\'l');
 
   // via http://stackoverflow.com/questions/3883342
   function format(val){
@@ -25,34 +88,5 @@ var Graph = function(options){
       }
       return val;
     }
-
-  // Append SVG
-  var svg = d3.select(options.target)
-    .append('svg')
-      .attr('class', 'graph')
-      .attr('width', '100%')
-      .attr('height', '100%')
-      .attr('viewBox', '0 0 100 100');
-
-  // Draw background area
-  svg
-    .append('rect')
-    .attr('class', 'graph-background')
-    .attr('x', 0)
-    .attr('y', 0)
-    .attr('height', 100)
-    .attr('width', 40);
-
-  // Draw bars
-  var barWidth = 30;
-  svg
-    .data(options.bars)
-    .enter()
-      .append('rect')
-        .attr('class', 'graph-bars')
-        .attr('x', function(d, i){ return i * barWidth; })
-        .attr('y', function(d, i){ return d.value; })
-        .attr('height', function(d,i){ return d.value; }) // Assumes percentage
-        .attr('width', barWidth);
 
 };
