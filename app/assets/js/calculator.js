@@ -25,7 +25,8 @@ function Calculator(institution_type) {
 
   this.institution_type = institution_type;
   this.setValues();
-  this.reset();
+  this.setDerivedValues();
+  this.resetVisibility();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,6 +36,8 @@ function Calculator(institution_type) {
 // Estimator Ids
 Calculator.prototype.GI_BILL_CHAPTER = "#gi-bill-chapter";
 Calculator.prototype.ELIG_FOR_POST_GI_BILL = "#elig-for-post-gi-bill";
+Calculator.prototype.CUMMULATIVE_SERVICE = "#cumulative-service";
+Calculator.prototype.BSCAP = 1000;
 
 // Calculator Tuition
 Calculator.prototype.TUITION_FEES_SECTION = "#tuition-fees-section";
@@ -95,6 +98,7 @@ Calculator.prototype.BOOK_STIPEND_TERM_3 = "#book-stipend-term-3";
 Calculator.prototype.setValues = function() {
   this.setGiBillChapter(this.GI_BILL_CHAPTER);
   this.setEligForPostGiBill(this.ELIG_FOR_POST_GI_BILL);
+  this.setCumulativeService(this.CUMMULATIVE_SERVICE);
 
   this.setInState(this.IN_STATE);
   this.setTuitionFeesInput(this.IN_STATE);
@@ -130,65 +134,115 @@ Calculator.prototype.setValues = function() {
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setDerivedValues = function() {
+  this.setVreOnly();
+  this.setTier();
+  this.setBookStipend();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.reset = function() {
-    // Tuition/Fees Input Results
-    $(this.TUITION_FEES_SECTION).show();
-    $(this.IN_STATE).hide();
-    $(this.IN_STATE_TUITION_FEES).hide();
-    $(this.BOOKS_INPUT).hide();
-    $(this.YELLOW_RIBBON_RECIPIENT).hide();
-    $(this.YELLOW_RIBBON_AMOUNT).hide();
-    $(this.YELLOW_RIBBON_RATES_LINK).hide();
-    $(this.SCHOLARSHIP).show();
-    $(this.TUITION_ASSIST_FORM).hide();
+Calculator.prototype.resetVisibility = function() {
+  // Tuition/Fees Input Results
+  $(this.TUITION_FEES_SECTION).show();
+  $(this.IN_STATE).hide();
+  $(this.IN_STATE_TUITION_FEES).hide();
+  $(this.BOOKS_INPUT).hide();
+  $(this.YELLOW_RIBBON_RECIPIENT).hide();
+  $(this.YELLOW_RIBBON_AMOUNT).hide();
+  $(this.YELLOW_RIBBON_RATES_LINK).hide();
+  $(this.SCHOLARSHIP).show();
+  $(this.TUITION_ASSIST_FORM).hide();
 
-    // Enrollment Inputs
-    $(this.ENROLLMENT_SECTION).show();
-    $(this.ENROLLED).show();
+  // Enrollment Inputs
+  $(this.ENROLLMENT_SECTION).show();
+  $(this.ENROLLED).show();
+  $(this.ENROLLED_OLD).hide();
+  $(this.WORKING).hide();
+  $(this.CALENDAR).show();
+  $(this.NUMBER_NON_TRADITIONAL_TERMS).hide();
+  $(this.LENGTH_NON_TRADITIONAL_TERMS).hide();
+  $(this.KICKER_ELIGIBLE).show();
+  $(this.KICKER).hide();
+  $(this.BUY_UP).hide();
+  $(this.BUY_UP_RATE).hide();
+
+  // Calculator Results
+  $(this.CALC_HOUSING_ALLOW_RATE_ROW).show();
+  $(this.CALC_TERM_TOTAL_ROW).show();
+  $(this.CALC_PAID_TO_YOU_TOTAL_ROW).show();
+  $(this.CALC_PAID_TO_SCHOOL_TOTAL_ROW).show();
+
+  $(this.CALC_OUT_OF_POCKET_ROW).show();
+  $(this.CALC_TUITION_FEES_CHARGED_ROW).show();
+  $(this.CALC_SCHOOL_RECEIVED_ROW).show();
+  $(this.CALC_TUITION_FEES_SCHOLARSHIP_ROW).show();
+
+
+  $(this.CALC_TUITION_FEES_ROW).show();
+  $(this.CALC_YELLOW_RIBBON_ROW).show();
+  $(this.CALC_YELLOW_RIBBON_VA_ROW).show();
+
+  // Calculator Results - Particular classes and ids
+  $(this.TERM2).show();
+  $(this.TERM3).show();
+
+  $(this.TUITION_FEES_TERM_2).show();
+  $(this.TUITION_FEES_TERM_3).show();
+  $(this.YR_BEN_TERM_2).show();
+  $(this.YR_BEN_TERM_3).show();
+  $(this.YR_BEN_TERM_VA_2).show();
+  $(this.YR_BEN_TERM_VA_3).show();
+  $(this.HOUSING_ALLOW_TERM_2).show();
+  $(this.HOUSING_ALLOW_TERM_3).show();
+  $(this.BOOK_STIPEND_TERM_2).show();
+  $(this.BOOK_STIPEND_TERM_3).show();
+
+  // Dependent Visibilities
+  if (!this.vre_only) {
+    $(this.ENROLLED).show(100);
+    $(this.ENROLLED_OLD).hide(100);
+    $(this.YELLOW_RIBBON_RECIPIENT).hide(100);
+    $(this.YELLOW_RIBBON_AMOUNT).hide(100);
+    $(this.YELLOW_RIBBON_RATES_LINK).hide(100);
+    $(this.SCHOLARSHIP).hide(100);
+    $(this.TUITION_ASSIST_FORM).hide(100);
+    $(this.CALC_YELLOW_RIBBON_ROW).hide(100);    
+  }
+
+  if (this.institution_type === 'ojt') {
+    $(this.TUITION_FEES_SECTION).hide();
+    $(this.ENROLLED).hide();
     $(this.ENROLLED_OLD).hide();
-    $(this.WORKING).hide();
-    $(this.CALENDAR).show();
-    $(this.NUMBER_NON_TRADITIONAL_TERMS).hide();
-    $(this.LENGTH_NON_TRADITIONAL_TERMS).hide();
-    $(this.KICKER_ELIGIBLE).show();
+    $(this.WORKING).show();
+    $(this.CALENDAR).hide();
+    $(this.TUITION_ASSIST_FORM).hide();
+    $(this.CALC_TUITION_FEES_ROW).hide();
+    $(this.CALC_YELLOW_RIBBON_ROW).hide();
+    $(this.CALC_YELLOW_RIBBON_VA_ROW).hide();
+    $(this.CALC_SCHOOL_RECEIVED_ROW).hide();
+    $(this.CALC_PAID_TO_SCHOOL_TOTAL_ROW).hide();
+    $(this.CALC_TUITION_FEES_SCHOLARSHIP_ROW).hide();
+    $(this.CALC_TUITION_FEES_CHARGED_ROW).hide();
+    $(this.CALC_OUT_OF_POCKET_ROW).hide();
+    $(this.CALC_PAID_TO_YOU_TOTAL_ROW).hide();
+    $(this.CALC_TERM_TOTAL_ROW).hide();
+  }
+
+  if (this.gi_bill_chap == 35) {
+    $(this.KICKER_ELIGIBLE).hide();
     $(this.KICKER).hide();
-    $(this.BUY_UP).hide();
-    $(this.BUY_UP_RATE).hide();
+  }  
+};
 
-    // Calculator Results
-    $(this.CALC_HOUSING_ALLOW_RATE_ROW).show();
-    $(this.CALC_TERM_TOTAL_ROW).show();
-    $(this.CALC_PAID_TO_YOU_TOTAL_ROW).show();
-    $(this.CALC_PAID_TO_SCHOOL_TOTAL_ROW).show();
-
-    $(this.CALC_OUT_OF_POCKET_ROW).show();
-    $(this.CALC_TUITION_FEES_CHARGED_ROW).show();
-    $(this.CALC_SCHOOL_RECEIVED_ROW).show();
-    $(this.CALC_TUITION_FEES_SCHOLARSHIP_ROW).show();
-
-
-    $(this.CALC_TUITION_FEES_ROW).show();
-    $(this.CALC_YELLOW_RIBBON_ROW).show();
-    $(this.CALC_YELLOW_RIBBON_VA_ROW).show();
-
-    // Calculator Results - Particular classes and ids
-    $(this.TERM2).show();
-    $(this.TERM3).show();
-
-    $(this.TUITION_FEES_TERM_2).show();
-    $(this.TUITION_FEES_TERM_3).show();
-    $(this.YR_BEN_TERM_2).show();
-    $(this.YR_BEN_TERM_3).show();
-    $(this.YR_BEN_TERM_VA_2).show();
-    $(this.YR_BEN_TERM_VA_3).show();
-    $(this.HOUSING_ALLOW_TERM_2).show();
-    $(this.HOUSING_ALLOW_TERM_3).show();
-    $(this.BOOK_STIPEND_TERM_2).show();
-    $(this.BOOK_STIPEND_TERM_3).show();
+///////////////////////////////////////////////////////////////////////////////
+// formatCurrency
+// Formats currency in USD
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.formatCurrency = function (num) {
+  var str = Math.round(Number(num)).toString();
+    
+  // match a digit if it's followed by 3 other digits, appending a comma to each match
+  return '<span class="estimator-dollar-sign">$</span>' + str.replace(/\d(?=(\d{3})+$)/g, '$&,');
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -217,6 +271,20 @@ Calculator.prototype.setEligForPostGiBill = function(id) {
   return this;
 };
 
+///////////////////////////////////////////////////////////////////////////////
+// setCumulativeService
+// Sets the cumulative service value from the element with the id argument.
+//
+// Saves as float.
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.setCumulativeService = function(id) {
+  var val = $(id).val();
+
+  this.service_discharge = val === "service discharge";
+  this.cumulative_service = this.service_discharge ? 1.0 : parseFloat(val);
+
+  return this;
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 // setInState
@@ -568,27 +636,37 @@ Calculator.prototype.setCalcYellowRibbonVaRow = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setVreOnly = function () {
   this.vre_only = (this.gi_bill_chapter == 31 && !this.elig_for_post_gi_bill);
+  return this;
+};
 
-  if (!this.vre_only) {
-    $(this.ENROLLED).show(100);
-    $(this.ENROLLED_OLD).hide(100);
-    $(this.YELLOW_RIBBON_RECIPIENT).hide(100);
-    $(this.YELLOW_RIBBON_AMOUNT).hide(100);
-    $(this.YELLOW_RIBBON_RATES_LINK).hide(100);
-    $(this.SCHOLARSHIP).hide(100);
-    $(this.TUITION_ASSIST_FORM).hide(100);
-    $(this.CALC_YELLOW_RIBBON_ROW).hide(100);    
-  }
-  else {
-    $(this.ENROLLED).hide(100);
-    $(this.ENROLLED_OLD).show(100);
-    $(this.YELLOW_RIBBON_RECIPIENT).show(100);
-    $(this.YELLOW_RIBBON_AMOUNT).show(100);
-    $(this.YELLOW_RIBBON_RATES_LINK).show(100);
-    $(this.SCHOLARSHIP).show(100);
-    $(this.TUITION_ASSIST_FORM).show(100);
-    $(this.CALC_YELLOW_RIBBON_ROW).show(100);    
-  }
+///////////////////////////////////////////////////////////////////////////////
+// getTier
+// 
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.setTier = function () {
+  if (this.gi_bill_chap == 31 && this.post_911_elig == true)
+    this.tier = 1;
+  else
+    this.tier = parseFloat(this.cumulative_service);
+  
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// setBookStipend
+// Calculate if eligible for VR&E and Post-9/11 Benefits.
+//
+// Saves as boolean.
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.setBookStipend = function () {
+    if (this.old_gi_bill) 
+      this.est_book_stipend = '$0 / year';
+    else if (this.institution_type === "flight" || this.institution_type === "correspondence")
+      this.est_book_stipend = '$0 / year';
+    else if (this.gi_bill_chapter == 31)
+      this.est_book_stipend = 'Full Cost of Books/Supplies';
+    else
+      this.est_book_stipend = this.formatCurrency(this.tier * this.BSCAP) + ' / year';
 
   return this;
 };
