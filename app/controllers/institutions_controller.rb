@@ -187,6 +187,7 @@ class InstitutionsController < ApplicationController
         @results = @results & @type_counts[type]
       end
     end
+    @total_filtered_results = @results.length
 
     # Pagination
     @page = 1
@@ -236,7 +237,7 @@ class InstitutionsController < ApplicationController
       @page_urls[:last] = make_url(@inputs, search_page_path, @total_pages)
     end
 
-    # Generate URLs for school profiles and construct a list of states and countries
+    # Generate URLs for school profiles
     @results.each do |result|
       result[:student_veteran] = to_bool(result[:student_veteran])
       result[:poe] = to_bool(result[:poe])

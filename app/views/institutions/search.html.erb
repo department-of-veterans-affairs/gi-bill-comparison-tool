@@ -14,14 +14,14 @@
     <div class="usa-width-three-fourths">
 
 
-      <p class="search-count-headline">
+      <div class="search-count-headline">
         <% if @total_pages > 1 %>
           <% if @page != 1 %>
             <a href="<%= @page_urls[@page-1] %>">&larr;Previous</a>
           <% end %>
 
           <% if @start_page > 1 %>
-            <a href="<%= @page_urls[:first] %>">First</a>
+            <a href="<%= @page_urls[:first] %>">1..</a>
           <% end %>
 
           <% @page_range.each do |page_num| %>
@@ -33,7 +33,7 @@
           <% end %>
 
           <% if @end_page < @total_pages %>
-            <a href="<%= @page_urls[:last] %>">Last</a>
+            <a href="<%= @page_urls[:last] %>">..<%= @total_pages %></a>
           <% end %>
 
           <% if @page != @total_pages %>
@@ -42,7 +42,9 @@
         <% else %>
           <br/>
         <% end %>
-      </p>
+      </div>
+
+      <div>Showing <strong><%= @results.length %></strong> of <%= @total_filtered_results %> results for the term '<%= @inputs[:institution_search] %>' </div>
 
 
       <%= render partial: 'school_summary', collection: @results %>
