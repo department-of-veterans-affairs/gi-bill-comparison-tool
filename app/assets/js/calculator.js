@@ -231,7 +231,15 @@ Calculator.prototype.resetVisibility = function() {
   if (this.gi_bill_chap == 35) {
     $(this.KICKER_ELIGIBLE).hide();
     $(this.KICKER).hide();
-  }  
+  }
+
+  if (calculated.institution_type ==- 'flight' || calculated.institution_type === 'correspondence') {
+      $('#online-classes').hide();
+      $('#enrolled-form').hide();
+      $('#enrolled-form-old-gi-bill').hide();
+      $('#kicker-elig-form').hide();
+      $('#buy-up-form').hide();
+    }
 };
 
 ///////////////////////////////////////////////////////////////////////////////
