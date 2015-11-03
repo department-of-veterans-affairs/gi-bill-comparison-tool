@@ -25,7 +25,7 @@ function Calculator(institution_type) {
 
   this.institution_type = institution_type;
   this.setValues();
-  this.setChanges();
+  this.reset();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,8 @@ function Calculator(institution_type) {
 Calculator.prototype.GI_BILL_CHAPTER = "#gi-bill-chapter";
 Calculator.prototype.ELIG_FOR_POST_GI_BILL = "#elig-for-post-gi-bill";
 
-// Calculator ids
+// Calculator Tuition
+Calculator.prototype.TUITION_FEES_SECTION = "#tuition-fees-section";
 Calculator.prototype.IN_STATE = "#in-state";
 Calculator.prototype.TUITION_FEES = "#tuition_fees_form";
 Calculator.prototype.IN_STATE_TUITION_FEES = "#in-state-tuition-fees-form";
@@ -46,6 +47,9 @@ Calculator.prototype.YELLOW_RIBBON_AMOUNT = "#yellow-ribbon-amount-form";
 Calculator.prototype.YELLOW_RIBBON_RATES_LINK = "#yellow-ribbon-rates-link"
 Calculator.prototype.SCHOLARSHIP = "#scholarship-amount-form";
 Calculator.prototype.TUITION_ASSIST_FORM = "#tuition-assist-form";
+
+// Calculator Enrollment
+Calculator.prototype.ENROLLMENT_SECTION = "#enrollment-section";
 Calculator.prototype.ENROLLED = "#enrolled-form";
 Calculator.prototype.ENROLLED_OLD = "#enrolled-form-old-gi-bill";
 Calculator.prototype.CALENDAR = "#calendar-form";
@@ -57,6 +61,8 @@ Calculator.prototype.KICKER = "#kicker-form";
 Calculator.prototype.BUY_UP = "#buy-up-form";
 Calculator.prototype.BUY_UP_RATE = "#buy-up-rate-form";
 
+// Calculator Outputs
+Calculator.prototype.CALC_HOUSING_ALLOW_RATE_ROW = "#calc-housing-allow-rate-row";
 Calculator.prototype.CALC_TERM_TOTAL_ROW = "#calc-term-total-row";
 Calculator.prototype.CALC_PAID_TO_SCHOOL_TOTAL_ROW = "#calc-paid-to-school-total-row";
 Calculator.prototype.CALC_PAID_TO_YOU_TOTAL_ROW = "#calc-paid-to-you-total-row";
@@ -68,13 +74,27 @@ Calculator.prototype.CALC_TUITION_FEES_ROW = "#calc-tuition-fees-row";
 Calculator.prototype.CALC_YELLOW_RIBBON_ROW = "#calc-yellow-ribbon-row";
 Calculator.prototype.CALC_YELLOW_RIBBON_VA_ROW = "#calc-yellow-ribbon-va-row";
 
+// Class and control selectors
+Calculator.prototype.TERM2 = ".term2";
+Calculator.prototype.TERM3 = ".term3";
+Calculator.prototype.TUITION_FEES_TERM_2 = "#tuition-fees-term-2";
+Calculator.prototype.TUITION_FEES_TERM_3 = "#tuition-fees-term-3";
+Calculator.prototype.YR_BEN_TERM_2 = "#yr-ben-term-2";
+Calculator.prototype.YR_BEN_TERM_3 = "#yr-ben-term-3";
+Calculator.prototype.YR_BEN_TERM_VA_2 = "#yr-ben-term-va-2";
+Calculator.prototype.YR_BEN_TERM_VA_3 = "#yr-ben-term-va-3";
+Calculator.prototype.HOUSING_ALLOW_TERM_2 = "#housing-allow-term-2";
+Calculator.prototype.HOUSING_ALLOW_TERM_3 = "#housing-allow-term-3";
+Calculator.prototype.BOOK_STIPEND_TERM_2 = "#book-stipend-term-2";
+Calculator.prototype.BOOK_STIPEND_TERM_3 = "#book-stipend-term-3";
+
 ///////////////////////////////////////////////////////////////////////////////
 // setValues
 // Sets all calculator values.
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setValues = function() {
-  // this.setGiBillChapter(this.GI_BILL_CHAPTER);
-  // this.setEligForPostGiBill(this.ELIG_FOR_POST_GI_BILL);
+  this.setGiBillChapter(this.GI_BILL_CHAPTER);
+  this.setEligForPostGiBill(this.ELIG_FOR_POST_GI_BILL);
 
   this.setInState(this.IN_STATE);
   this.setTuitionFeesInput(this.IN_STATE);
@@ -109,16 +129,66 @@ Calculator.prototype.setValues = function() {
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setChanges = function() {
-  var othis = this;
+Calculator.prototype.setDerivedValues = function() {
+};
 
-  $(this.GI_BILL_CHAPTER).change(function() {
-    othis.setGiBillChapter(othis.GI_BILL_CHAPTER);
-  }).change();
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.reset = function() {
+    // Tuition/Fees Input Results
+    $(this.TUITION_FEES_SECTION).show();
+    $(this.IN_STATE).hide();
+    $(this.IN_STATE_TUITION_FEES).hide();
+    $(this.BOOKS_INPUT).hide();
+    $(this.YELLOW_RIBBON_RECIPIENT).hide();
+    $(this.YELLOW_RIBBON_AMOUNT).hide();
+    $(this.YELLOW_RIBBON_RATES_LINK).hide();
+    $(this.SCHOLARSHIP).show();
+    $(this.TUITION_ASSIST_FORM).hide();
 
-  $(this.ELIG_FOR_POST_GI_BILL).change(function() {
-    othis.setEligForPostGiBill(othis.ELIG_FOR_POST_GI_BILL);
-  }).change();
+    // Enrollment Inputs
+    $(this.ENROLLMENT_SECTION).show();
+    $(this.ENROLLED).show();
+    $(this.ENROLLED_OLD).hide();
+    $(this.WORKING).hide();
+    $(this.CALENDAR).show();
+    $(this.NUMBER_NON_TRADITIONAL_TERMS).hide();
+    $(this.LENGTH_NON_TRADITIONAL_TERMS).hide();
+    $(this.KICKER_ELIGIBLE).show();
+    $(this.KICKER).hide();
+    $(this.BUY_UP).hide();
+    $(this.BUY_UP_RATE).hide();
+
+    // Calculator Results
+    $(this.CALC_HOUSING_ALLOW_RATE_ROW).show();
+    $(this.CALC_TERM_TOTAL_ROW).show();
+    $(this.CALC_PAID_TO_YOU_TOTAL_ROW).show();
+    $(this.CALC_PAID_TO_SCHOOL_TOTAL_ROW).show();
+
+    $(this.CALC_OUT_OF_POCKET_ROW).show();
+    $(this.CALC_TUITION_FEES_CHARGED_ROW).show();
+    $(this.CALC_SCHOOL_RECEIVED_ROW).show();
+    $(this.CALC_TUITION_FEES_SCHOLARSHIP_ROW).show();
+
+
+    $(this.CALC_TUITION_FEES_ROW).show();
+    $(this.CALC_YELLOW_RIBBON_ROW).show();
+    $(this.CALC_YELLOW_RIBBON_VA_ROW).show();
+
+    // Calculator Results - Particular classes and ids
+    $(this.TERM2).show();
+    $(this.TERM3).show();
+
+    $(this.TUITION_FEES_TERM_2).show();
+    $(this.TUITION_FEES_TERM_3).show();
+    $(this.YR_BEN_TERM_2).show();
+    $(this.YR_BEN_TERM_3).show();
+    $(this.YR_BEN_TERM_VA_2).show();
+    $(this.YR_BEN_TERM_VA_3).show();
+    $(this.HOUSING_ALLOW_TERM_2).show();
+    $(this.HOUSING_ALLOW_TERM_3).show();
+    $(this.BOOK_STIPEND_TERM_2).show();
+    $(this.BOOK_STIPEND_TERM_3).show();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -133,9 +203,6 @@ Calculator.prototype.setGiBillChapter = function(id) {
   this.old_gi_bill = (this.gi_bill_chap == 30 || this.gi_bill_chap == 1607 
     || this.gi_bill_chap == 1606 || this.gi_bill_chap == 35);
 
-  // These values depend on GiBillChapter
-  this.setVreOnly();
-
   return this;
 };
 
@@ -147,10 +214,6 @@ Calculator.prototype.setGiBillChapter = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setEligForPostGiBill = function(id) {
   this.elig_for_post_gi_bill = $(id).val().toLowerCase() === 'yes';
-
-  // these.depend on EligForPostGiBill
-  this.setVreOnly();
-
   return this;
 };
 

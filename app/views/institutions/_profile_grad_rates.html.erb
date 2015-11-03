@@ -1,15 +1,15 @@
 <script>
 
-  var grad_rate_vet = JSON.parse('{"group":"Vets","percentage":<%= vrate %>}');
-  var grad_rate_all = JSON.parse('{"group":"All","percentage":<%= crate %>}');
-  var national_ave = JSON.parse('{"group":"national_ave","percentage":<%= nrate %>}');
+var grad_rate_vet = JSON.parse('{"group":"Vets","percentage":<%= vrate %>}');
+var grad_rate_all = JSON.parse('{"group":"All","percentage":<%= crate %>}');
+var national_ave = JSON.parse('{"group":"national_ave","percentage":<%= nrate %>}');
 
 var SCALE_FACTOR = 3;
 
-var data = [
-  grad_rate_vet,
-  grad_rate_all
-];
+var data = [];
+
+if (grad_rate_vet["percentage"] > 0) data.push(grad_rate_vet)
+if (grad_rate_all["percentage"] > 0) data.push(grad_rate_all)
 
 var national_average_data = [national_ave]; //making this iterable, not sure if I need to, but just guessing I'll have to.
 
