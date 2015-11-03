@@ -1,27 +1,11 @@
 <style>
 
-.bar {
+.graph .graph-bar {
   fill: $va-body-accent-color;
 }
 
-.x.axis path {
-  display: none;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.line.line-average{
-  stroke: grey;
-  stroke-width: 1;
-}
-
-.text.text-average{
-  font-size: 12px;
+.graph .graph-background {
+  fill: #eee;
 }
 
 </style>
@@ -59,15 +43,17 @@
     <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-1">
     	<h3>Outcomes</h3>
     </button>
+
 		<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">            
 
-					<!-- Retention Rates -->
-					<div id="retention-rates">
+		      <!-- Retention Rates -->
+          <div id="retention-rates">
+
 	 					<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
-                            <h3>Retention Rate</h3>
+            <h3>Retention Rate</h3>
             <div class="usa-width-one-half outcome-measure">
 							<div class="outcome" id="retention-<%= @school.facility_code %>"></div>
-                        
+                       
 							<%= render partial: 'profile_retention', 
 								locals: { 
 									outcome: "retention", 
@@ -76,20 +62,19 @@
 									nrate: 10.8
 								} 
 							%>
-						<% else %>
+						  <% else %>
 							<p>Retention Rate Data Not Available</p>
-						<% end %>
-                        </div>
-                    </div><!-- END RETENTION RATE -->
+						  <% end %>
+            </div>
+          </div>
+          <!-- END RETENTION RATE -->
 
-					<!-- Graduation Rates -->
+          <!-- Graduation Rates -->
 					<div id="grad-rates">
 						<h3>Graduation Rate</h3>
-                        <div class="usa-width-one-half outcome-measure">
-                        <% if is_number?(@school.graduation_rate_veteran) && 
-								is_number?(@school.graduation_rate_all_students) %>    
-							
-                            <div class="outcome" id="graduation-<% @school.facility_code %>"></div>
+            <div class="usa-width-one-half outcome-measure">
+              <% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>    
+              <div class="outcome" id="graduation-<% @school.facility_code %>"></div>
                             
 							<%=
 								render partial: 'profile_grad_rates', 
@@ -100,17 +85,17 @@
 										nrate: 59
 									} 
 							%>
-            <% else %>
-							<p>Grad Data Not Available</p>
-						<% end %>
-                    </div>
-                    </div><!-- END GRAD RATE -->
-                    
+              <% else %>
+              <p>Grad Data Not Available</p>
+              <% end %>
+            </div>
+          </div><!-- END GRAD RATE -->
+                   
 					<!-- Salary Rates -->
 					<div id="salary-rates">
-						<h3>Salaries After Directly After College</h3>
-                        <div class="usa-width-one-half outcome-measure">
-                        <% if @school.salary_all_students.present? %>
+            <h3>Salaries After Directly After College</h3>
+            <div class="usa-width-one-half outcome-measure">
+              <% if @school.salary_all_students.present? %>
                         
 	          	<div class="outcome" id="salaries-<%= @school.facility_code %>"></div>
 							<%= render partial: 'profile_salaries',
@@ -120,19 +105,20 @@
 	                 nrate: 48127
 	              }
 	            %>
-	          <% else %>
-				<p>Salary Data Not Available</p>
-	          <% end %>
-                        </div>
-                </div><!-- END SALARY RATE -->
+              <% else %>
+              <p>Salary Data Not Available</p>
+              <% end %>
+            </div>
+          </div>
+          <!-- END SALARY RATE -->
+
 					<!-- Repayment -->
 					<div id="repayment-rates">
 						<h3>Repayment Rate</h3>
-                        <div class="usa-width-one-half outcome-measure">
-                        <% if @school.repayment_rate_all_students.present? %>
-
-                        
+            <div class="usa-width-one-half outcome-measure">
+              <% if @school.repayment_rate_all_students.present? %>
 	        		<div class="outcome" id="repayment-<%= @school.facility_code %>"></div>
+
           		<%= render partial: 'profile_repayment',
             		locals: {
               		outcome: "repayment",
@@ -140,11 +126,12 @@
           	      nrate: 86.3
             	  }
             	%>
-	        	<% else %>
+              <% else %>
 							<p>Salary Data Not Available</p>
-	        	<% end %></div>
-    `           </div><!-- END REPAYMENT RATE -->
-            </div><!-- END Accordion ID Div -->
+              <% end %>
+            </div>
+          </div><!-- END REPAYMENT RATE -->
+        </div><!-- END Accordion ID Div -->
   	</div><!-- END Accordion class Div -->
 </div><!-- END <div class="usa-width-three-fourths new-row"> -->
 
