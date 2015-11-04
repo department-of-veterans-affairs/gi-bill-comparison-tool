@@ -26,14 +26,14 @@ function Calculator(institution_type, institution) {
   this.institution_type = institution_type.toLowerCase();
   this.institution = institution;
 
-  this.setValues();
-  this.setDerivedValues();
+  this.getValues();
+  this.getDerivedValues();
   this.resetVisibility();
 
   var othis = this;
   $(".filter-item").change(function() {
-    othis.setValues();
-    othis.setDerivedValues();
+    othis.getValues();
+    othis.getDerivedValues();
     othis.resetVisibility();
   });
 }
@@ -105,29 +105,29 @@ Calculator.prototype.BOOK_STIPEND_TERM_3 = "#book-stipend-term-3";
 // setValues
 // Sets all calculator values.
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setValues = function() {
-  this.setGiBillChapter(this.GI_BILL_CHAPTER);
-  this.setEligForPostGiBill(this.ELIG_FOR_POST_GI_BILL);
-  this.setCumulativeService(this.CUMMULATIVE_SERVICE);
+Calculator.prototype.getValues = function() {
+  this.getGiBillChapter(this.GI_BILL_CHAPTER);
+  this.getEligForPostGiBill(this.ELIG_FOR_POST_GI_BILL);
+  this.getCumulativeService(this.CUMMULATIVE_SERVICE);
 
-  this.setInState(this.IN_STATE);
-  this.setTuitionFees(this.TUITION_FEES_FORM);
-  this.setInStateTuitionFees(this.IN_STATE_TUITION_FEES_FORM);
-  this.setBooks(this.BOOKS_INPUT_ROW);
-  this.setYellowRibbon(this.YELLOW_RIBBON_RECIPIENT_FORM);
-  this.setYellowBen(this.YELLOW_RIBBON_AMOUNT_FORM);
-  this.setScholar(this.SCHOLARSHIP_AMOUNT_FORM);
-  this.setTuitionAssist(this.TUITION_ASSIST_FORM);
-  this.setRop(this.ENROLLED_FORM);
-  this.setRopOld(this.ENROLLED_FORM_OLD_GI_BILL);
-  this.setCalendar(this.CALENDAR_FORM);
-  this.setOjtWorking(this.WORKING_FORM);
-  this.setNumberNontradTerms(this.NUMBER_NON_TRADITIONAL_TERMS_FORM);
-  this.setLengthNontradTerms(this.LENGTH_NON_TRADITIONAL_TERMS_FORM);
-  this.setKickerElig(this.KICKER_ELIG_FORM);
-  this.setKicker(this.KICKER_FORM);
-  this.setBuyUpElig(this.BUY_UP_FORM);
-  this.setBuyUp(this.BUY_UP_RATE_FORM);
+  this.getInState(this.IN_STATE);
+  this.getTuitionFees(this.TUITION_FEES_FORM);
+  this.getInStateTuitionFees(this.IN_STATE_TUITION_FEES_FORM);
+  this.getBooks(this.BOOKS_INPUT_ROW);
+  this.getYellowRibbon(this.YELLOW_RIBBON_RECIPIENT_FORM);
+  this.getYellowBen(this.YELLOW_RIBBON_AMOUNT_FORM);
+  this.getScholar(this.SCHOLARSHIP_AMOUNT_FORM);
+  this.getTuitionAssist(this.TUITION_ASSIST_FORM);
+  this.getRop(this.ENROLLED_FORM);
+  this.getRopOld(this.ENROLLED_FORM_OLD_GI_BILL);
+  this.getCalendar(this.CALENDAR_FORM);
+  this.getOjtWorking(this.WORKING_FORM);
+  this.getNumberNontradTerms(this.NUMBER_NON_TRADITIONAL_TERMS_FORM);
+  this.getLengthNontradTerms(this.LENGTH_NON_TRADITIONAL_TERMS_FORM);
+  this.getKickerElig(this.KICKER_ELIG_FORM);
+  this.getKicker(this.KICKER_FORM);
+  this.getBuyUpElig(this.BUY_UP_FORM);
+  this.getBuyUp(this.BUY_UP_RATE_FORM);
 
   // this.setCalcTermTotalRow(this.CALC_TERM_TOTAL_ROW);
   // this.setCalcPaidToSchoolTotalRow(this.CALC_PAID_TO_SCHOOL_TOTAL_ROW);
@@ -143,12 +143,14 @@ Calculator.prototype.setValues = function() {
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setDerivedValues = function() {
-  this.setVreOnly();
-  this.setTier();
-  this.setBookStipend();
-  this.setYellowRibbonEligibility();
-  this.setNumberOfTerms();
+Calculator.prototype.getDerivedValues = function() {
+  this.getVreOnly();
+  this.getOnlyTuitionFees();
+  this.getTier();
+  this.getYellowRibbonEligibility();
+  this.getTuitionOutOfState();
+  this.getNumberOfTerms();
+  this.getTuitionNetPrice();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -311,7 +313,7 @@ Calculator.prototype.resetVisibility = function() {
     $(this.TUITION_ASSIST_FORM).hide();
   }
 
-  if (!this.yellow_ribbon_eligible) {
+  if (!this.yellow_ribbon_elig) {
     $(this.CALC_YELLOW_RIBBON_ROW).hide();
     $(this.CALC_YELLOW_RIBBON_VA_ROW).hide();
   }
@@ -365,20 +367,20 @@ Calculator.prototype.getCurrency = function (currency) {
 //
 // Saves as number.
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setMilitaryStatus = function(id) {
+Calculator.prototype.getMilitaryStatus = function(id) {
   this.military_status = $(id).val();
 
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setGiBillChapter
+// getGiBillChapter
 // Sets gi bill chapter value from the element with the id argument. Also sets
 // the old_gi_bill boolean based on the value of the gi_bill_chap.
 //
 // Saves as number.
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setGiBillChapter = function(id) {
+Calculator.prototype.getGiBillChapter = function(id) {
   this.gi_bill_chapter = Number($(id).val());
   this.old_gi_bill = (this.gi_bill_chap == 30 || this.gi_bill_chap == 1607 
     || this.gi_bill_chap == 1606 || this.gi_bill_chap == 35);
@@ -387,23 +389,23 @@ Calculator.prototype.setGiBillChapter = function(id) {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setEligForPostGiBill
+// getEligForPostGiBill
 // Sets gi bill chapter value from the element with the id argument.
 //
 // Saves as bool.
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setEligForPostGiBill = function(id) {
+Calculator.prototype.getEligForPostGiBill = function(id) {
   this.elig_for_post_gi_bill = $(id).val().toLowerCase() === 'yes';
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setCumulativeService
+// getCumulativeService
 // Sets the cumulative service value from the element with the id argument.
 //
 // Saves as float.
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCumulativeService = function(id) {
+Calculator.prototype.getCumulativeService = function(id) {
   var val = $(id).val();
 
   this.service_discharge = val === "service discharge";
@@ -413,203 +415,203 @@ Calculator.prototype.setCumulativeService = function(id) {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setInState
+// getInState
 // Sets the value and visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setInState = function(id) {
+Calculator.prototype.getInState = function(id) {
   this.in_state = $(id + " :input:checked").val().toLowerCase() === "yes";
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setTuitionFees
+// getTuitionFees
 // Sets the value and visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setTuitionFees = function(id) {
+Calculator.prototype.getTuitionFees = function(id) {
   this.tuition_fees = this.getCurrency($(id + " :input").val());
 
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setInStateTuitionFees
+// getInStateTuitionFees
 // Sets the value and visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setInStateTuitionFees = function(id) {
+Calculator.prototype.getInStateTuitionFees = function(id) {
   this.in_state_tuition_fees = this.getCurrency($(id + " :input").val());
 
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setBooks
+// getBooks
 // Sets the value and visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setBooks = function(id) {
+Calculator.prototype.getBooks = function(id) {
   this.books = this.getCurrency($(id + " :input").val());
 
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setYellowRibbon
+// getYellowRibbon
 // Sets the value and visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setYellowRibbon = function(id) {
+Calculator.prototype.getYellowRibbon = function(id) {
   this.yellow_ribbon = $(id + " :input:checked").val().toLowerCase() === "yes";
 
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setYellowBen
+// getYellowBen
 // Sets the value and visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setYellowBen = function(id) {
+Calculator.prototype.getYellowBen = function(id) {
   this.yellow_ben = this.getCurrency($(id + " :input").val());
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setScholar
+// getScholar
 // Sets the value and visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setScholar = function(id) {
+Calculator.prototype.getScholar = function(id) {
   this.scholar = Number($(id + " :input").val());
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setTuitionAssist
+// getTuitionAssist
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setTuitionAssist = function(id) {
+Calculator.prototype.getTuitionAssist = function(id) {
   this.tuition_assist = $(id + " :input").val();
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setRop
+// getRop
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setRop = function(id) {
+Calculator.prototype.getRop = function(id) {
   this.rop = Number($(id + " :input").val());
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setRopOld
+// getRopOld
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setRopOld = function(id) {
+Calculator.prototype.getRopOld = function(id) {
   this.rop_old = $(id + " :input").val();
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setCalendar
+// getCalendar
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalendar = function(id) {
+Calculator.prototype.getCalendar = function(id) {
   this.calendar = $(id + " :input").val();
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setOjtWorking
+// getOjtWorking
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setOjtWorking = function(id) {
+Calculator.prototype.getOjtWorking = function(id) {
   this.ojt_working = $(id + " :input").val();
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setNumberNontradTerms
+// getNumberNontradTerms
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setNumberNontradTerms = function(id) {
+Calculator.prototype.getNumberNontradTerms = function(id) {
   this.number_nontrad_terms = Number($(id + " :input").val());
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setLengthNontradTerms
+// getLengthNontradTerms
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setLengthNontradTerms = function(id) {
+Calculator.prototype.getLengthNontradTerms = function(id) {
   this.number_nontrad_terms = $(id + " :input").val();
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setKickerElig
+// getKickerElig
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setKickerElig = function(id) {
+Calculator.prototype.getKickerElig = function(id) {
   this.kicker_elig = $(id + " :input:checked").val().toLowerCase() === "yes";
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setKicker
+// getKicker
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setKicker = function(id) {
+Calculator.prototype.getKicker = function(id) {
   this.kicker = this.getCurrency($(id + " :input").val());
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setBuyUpElig
+// getBuyUpElig
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setBuyUpElig = function(id) {
+Calculator.prototype.getBuyUpElig = function(id) {
   this.buy_up_elig = $(id + " :input:checked").val().toLowerCase() === "yes";
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setBuyUp
+// getBuyUp
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setBuyUp = function(id) {
+Calculator.prototype.getBuyUp = function(id) {
   this.buy_up = Number($(id + " :input").val());
 
   return this;
@@ -722,16 +724,35 @@ Calculator.prototype.setCalcYellowRibbonVaRow = function(id) {
 //
 // Saves as boolean.
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setVreOnly = function () {
+Calculator.prototype.getVreOnly = function () {
   this.vre_only = (this.gi_bill_chapter == 31 && !this.elig_for_post_gi_bill);
   return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getOnlyTuitionFees
+// Calculate if monthly benefit can only be spent on tuition/fees
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getOnlyTuitionFees = function () {
+  if (this.military_status == 'active duty' && 
+      (this.gi_bill_chapter == 30 || this.gi_bill_chapter == 1607)) {
+    this.only_tuition_fees = true;
+  } else if ((this.institution_type == 'correspond' || 
+      this.institution_type == 'flight') && this.old_gi_bill == true) {
+    this.only_tuition_fees = true;    
+  } else if ((this.rop_old == "less than half" || this.rop_old == "quarter") && 
+      (this.gi_bill_chap == 30 || this.gi_bill_chap == 1607 || this.gi_bill_chap == 35)) {
+    this.only_tuition_fees = true;
+  } else {
+      this.only_tuition_fees = false;
+  }
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 // getTier
 // 
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setTier = function () {
+Calculator.prototype.getTier = function () {
   if (this.gi_bill_chap == 31 && this.post_911_elig == true)
     this.tier = 1;
   else
@@ -741,47 +762,40 @@ Calculator.prototype.setTier = function () {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setBookStipend
-// Calculate if eligible for VR&E and Post-9/11 Benefits.
-//
-// Saves as boolean.
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setBookStipend = function () {
-    if (this.old_gi_bill) 
-      this.est_book_stipend = '$0 / year';
-    else if (this.institution_type === "flight" || this.institution_type === "correspondence")
-      this.est_book_stipend = '$0 / year';
-    else if (this.gi_bill_chapter == 31)
-      this.est_book_stipend = 'Full Cost of Books/Supplies';
-    else
-      this.est_book_stipend = this.formatCurrency(this.tier * this.BSCAP) + ' / year';
-
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
 // setYellowRibbonEligibility
 // Determine yellow ribbon eligibility
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setYellowRibbonEligibility = function () {
-  if (this.tier < 1 || !this.yr || !this.yellow_ribbon 
+Calculator.prototype.getYellowRibbonEligibility = function () {
+  if (this.tier < 1 || !this.institution.yr || !this.yellow_ribbon 
       || this.military_status == 'active duty') {
-    this.yellow_ribbon_eligible = false;
+    this.yellow_ribbon_elig = false;
   }
-  else if (this.institution_type == 'ojt' || this.institution_type == 'flight' || this.institution_type == 'correspondence') {
-    this.yellow_ribbon_eligible = false;
+  else if (this.institution_type == 'ojt' || this.institution_type == 'flight' || 
+      this.institution_type == 'correspondence') {
+    this.yellow_ribbon_elig = false;
   } else {
-    this.yellow_ribbon_eligible = true;
+    this.yellow_ribbon_elig = true;
   }
 
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setNumberOfTerms
+// getTuitionOutOfState
+// Calculate the prepopulated value out-of-state tuiton rates
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTuitionOutOfState = function () {
+  this.tuition_out_of_state = this.institution.tuition_out_of_state;
+
+  return this;
+};
+
+
+///////////////////////////////////////////////////////////////////////////////
+// getNumberOfTerms
 // Calculate the total number of academic terms
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setNumberOfTerms = function () {
+Calculator.prototype.getNumberOfTerms = function () {
   if (this.institution_type === 'ojt')
     this.number_of_terms = 3;
   else if (this.calendar === 'semesters')
@@ -789,6 +803,19 @@ Calculator.prototype.setNumberOfTerms = function () {
   else if (this.calendar == 'quarters')
     this.number_of_terms = 3;
   else if (this.calendar == 'nontraditional') {
-    this.number_of_terms = this.number_non_traditional_terms;
+    this.number_of_terms = this.number_nontrad_terms;
   }
+
+  return this;
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// getTuitionNetPrice
+// Set the net price (Payer of Last Resort)
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTuitionNetPrice = function () {
+  this.tuition_net_price = Math.max(0, Math.min(
+    this.tuition_fees - this.scholar - this.tuition_assist
+  ));
+};
+

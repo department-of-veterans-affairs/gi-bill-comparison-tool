@@ -374,7 +374,7 @@ $(document).ready(function() {
 	// Based on school type does not change
 	/////////////////////////////////////////////////////////////////////////////
 	var institution_type = "<%= @school.institution_type.name.downcase %>";
-	var institution = '$.parseJSON(<%= @school.to_json %>)';
+	var institution = <%= @school.to_json.to_s.html_safe %>;
 
 	var calculator = new Calculator(institution_type, institution);
 });
