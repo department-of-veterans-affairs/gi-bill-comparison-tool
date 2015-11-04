@@ -1,9 +1,8 @@
-
 <div class="usa-width-one-whole filter-horizontal">
-  <%= render partial: 'yourself', locals: { use_label: false } %>
-    <div class="usa-button-primary search-button-new">
-      <a href="<%= root_path %>">New Search</a>
-    </div>
+  <%= render partial: 'yourself', locals: {use_label: false} %>
+  <div class="usa-button-primary search-button-new">
+    <a href="<%= root_path %>">New Search</a>
+  </div>
 </div>
 
 <div class="usa-grid-full">
@@ -12,10 +11,43 @@
   </div>
 
   <div>
-		<p id="totals"></p>
-		<div class="usa-width-three-fourths">
-            <p class="search-count-headline"><span class="light-type">Showing</span> <b><%= @schools.length %></b> <span class="light-type">results matching the term <i><b></span>"<%= @inputs[:institution_search] %>"</i></b><p>
-  		<%= render partial: 'school_summary', collection: @schools %>
-		</div>
-	</div>
+    <div class="usa-width-three-fourths">
+
+
+      <div class="search-count-headline">
+        <% if @total_pages > 1 %>
+          <% if @page != 1 %>
+            <a href="<%= @page_urls[@page-1] %>">&larr;Previous</a>
+          <% end %>
+
+          <% if @start_page > 1 %>
+            <a href="<%= @page_urls[:first] %>">1..</a>
+          <% end %>
+
+          <% @page_range.each do |page_num| %>
+            <% if page_num != @page %>
+              <a href="<%= @page_urls[page_num] %>"><%= page_num %></a>
+            <% else %>
+              <%= page_num %>
+            <% end %>
+          <% end %>
+
+          <% if @end_page < @total_pages %>
+            <a href="<%= @page_urls[:last] %>">..<%= @total_pages %></a>
+          <% end %>
+
+          <% if @page != @total_pages %>
+            <a href="<%= @page_urls[@page+1] %>">Next&rarr;</a>
+          <% end %>
+        <% else %>
+          <br/>
+        <% end %>
+      </div>
+
+      <div>Showing <strong><%= @results.length %></strong> of <%= @total_filtered_results %> results for the term '<%= @inputs[:institution_search] %>' </div>
+
+
+      <%= render partial: 'school_summary', collection: @results %>
+    </div>
+  </div>
 </div>

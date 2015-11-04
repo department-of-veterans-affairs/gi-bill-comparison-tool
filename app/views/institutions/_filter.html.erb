@@ -1,94 +1,68 @@
-<div class="usa-card usa-card-fill left-rail">
+<div id="search-filters" class="usa-card usa-card-fill left-rail">
 	<div class="usa-card-header">
 		Refine My Search
 	</div>
 	<div class="usa-card-content">
 		<h4>Institution</h4>
 		<input type="radio" id="all-school" name="institution-type" 
-			class="filter" value="all" data-text="All" 
-			data-count="0" checked />
-		<label id="all-school-label" for="all-school"></label>
+			class="filter" value="all" checked />
+		<label id="all-school-label" for="all-school">All (<%= @total_results %>)</label>
 
 		<input type="radio" id="school" name="institution-type" 
-			class="filter" value="school" data-text="School" 
-			data-count="0" />
-		<label id="school-label" for="school"></label>
+			class="filter" value="school" <%= 'checked' if @inputs[:schools].present? %>/>
+		<label id="school-label" for="school">School (<%= @schools.length %>)</label>
 
 		<input type="radio" id="employer" name="institution-type" 
-			class="filter" value="employer" data-text="Employer" 
-			data-count="0"/>
-		<label id="employer-label" for="employer"></label>
+			class="filter" value="employer" <%= 'checked' if @inputs[:employers].present? %>/>
+		<label id="employer-label" for="employer">Employer (<%= @employers.length %>)</label>
 
 		<h4>Location</h4>
 		<label for="state">State: </label>
 		<select id="states" name="state" class="filter">
-			<option value="all" data-text="All" data-count="0" selected>&nbsp;</option>
-			<% @states.each do |state| %>
-				<option value="<%= state %>" data-text="<%= state.upcase %>" data-count="0">
-					&nbsp;
+			<option value="all" selected>All (<%= @total_results %>)</option>
+			<% @states.keys.each do |state| %>
+				<option value="<%= state %>" <%= 'selected' if @inputs[:state] == state %>>
+          <%= state.upcase %> (<%= @states[state].length %>)
 				</option>
 			<% end %>
 		</select>
 
 		<label for="country">Country: </label>
 		<select id="countries" name="country" class="filter">
-			<option value="all" data-text="All" data-count="0" selected>&nbsp;</option>
-			<% @countries.each do |country| %>
-				<option value="<%= country %>" data-text="<%= to_caps(country) %>" data-count="0">
-					&nbsp;
+			<option value="all" selected>All (<%= @total_results %>)</option>
+			<% @countries.keys.each do |country| %>
+				<option value="<%= country %>" <%= 'selected' if @inputs[:country] == country %>>
+          <%= to_caps(country) %> (<%= @countries[country].length %>)
 				</option>
 			<% end %>
 		</select>
 
 		<h4>School Features</h4>
 		<input type="checkbox" id="student-veteran" name="student_veteran" 
-			class="filter" value="true" data-text="Student Veteran Group" 
-			data-count="0" />
-		<label id="student-veteran-label" for="student-veteran"></label>
+			class="filter" value="true" <%= 'checked' if @inputs[:student_veteran_group].present? %>/>
+		<label id="student-veteran-label" for="student-veteran">Student Veteran Group (<%= @feature_student_veteran_group.length %>)</label>
 
 		<input type="checkbox" id="yr" name="yr" 
-			class="filter" value="true" data-text="Yellow Ribbon Scholarship" 
-			data-count="0" />
-		<label id="yr-label" for="yr"></label>
+			class="filter" value="true" <%= 'checked' if @inputs[:yellow_ribbon_scholarship].present? %>/>
+		<label id="yr-label" for="yr">Yellow Ribbon Scholarship (<%= @feature_yellow_ribbon_scholarship.length %>)</label>
 
 		<input type="checkbox" id="poe" name="poe" 
-			class="filter" value="true" data-text="Principles of Excellence" 
-			data-count="0" />
-		<label id="poe-label" for="poe"></label>
+			class="filter" value="true" <%= 'checked' if @inputs[:principles_of_excellence].present? %>/>
+		<label id="poe-label" for="poe">Principles of Excellence (<%= @feature_principles_of_excellence.length %>)</label>
 
 		<input type="checkbox" id="eight-keys" name="eight_keys" 
-			class="filter" value="true" data-text="8 Keys to Veteran Success" 
-			data-count="0" />
-		<label id="eight-keys-label" for="eight-keys"></label>
+			class="filter" value="true" <%= 'checked' if @inputs[:f8_keys_to_veteran_success].present? %>/>
+		<label id="eight-keys-label" for="eight-keys">8 Keys to Veteran Success (<%= @feature_8_keys_to_veteran_success.length %>)</label>
 
 		<h4>Types of Schools</h4>
 
+    <% selected_types = @inputs[:types].present? ? @inputs[:types].split(',') : []  %>
 		<% @types.each do |type| %>
 			<% id, name = type.gsub(' ', '-'), type.gsub(' ', '_') %>
 			<input type="checkbox" id="<%= id %>" name="type" 
-				class="filter" value="<%= type %>" data-text="<%= to_caps(type) %>" 
-				data-count="0" />
-			<label id="<%= id %>-label" for="<%= id %>"></label>
+				class="filter" value="<%= type %>" <%= 'checked' if selected_types.include?(type) %>/>
+			<label id="<%= id %>-label" for="<%= id %>"><%= to_caps(type) %> (<%= @type_counts[type].present? ? @type_counts[type].length : 0 %>)</label>
 		<% end %>
 
 	</div>
 </div>
-
-<script>
-$(document).ready(function() {
-	var filter = new Filter(".filter", ".school_summary");
-	var searchTerm = "<%= @inputs[:institution_search] %>";
-
-	/////////////////////////////////////////////////////////////////////////////
-	// Disable state filter when the country is not US or all on country change.
-	/////////////////////////////////////////////////////////////////////////////
-	// $("#countries").change(function() {
-	// 	var value = $(this).val().toLowerCase();
-
-	// 	if ($.inArray(value, ["all", "usa"]) == -1)
-	// 		$("#states").prop("disabled", true).val("all");
-	// 	else
-	// 		$("#states").prop("disabled", false);
-	// });
-});
-</script>
