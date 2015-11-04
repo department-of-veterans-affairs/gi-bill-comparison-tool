@@ -83,8 +83,14 @@ production:
   <<: *default
   database: staging_gic_rds
   username: staging_gic_rds
-  password: fill_in
+  password: <%= ENV['DB_PASS_STAGING'] %>
   host: staging-gic-rds.cefcdtol7xfi.us-east-1.rds.amazonaws.com
   port: 5432
 
-
+staging:
+  <<: *default
+  database: staging_gic_rds
+  username: staging_gic_rds
+  password: <%= ENV['DB_PASS_STAGING'] %>
+  host: staging-gic-rds.cefcdtol7xfi.us-east-1.rds.amazonaws.com
+  port: 5432
