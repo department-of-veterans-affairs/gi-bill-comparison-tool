@@ -30,13 +30,25 @@ function Calculator(institution_type, institution) {
   this.getValues();
   this.getDerivedValues();
   this.resetVisibility();
+  this.writeOutputs();
 
   var othis = this;
   $(".filter-item").change(function() {
     othis.getValues();
     othis.getDerivedValues();
     othis.resetVisibility();
+    othis.writeOutputs();
   });
+
+  $(".filter-in-state").change(function() {
+    othis.updateInState();
+    othis.getValues();
+    othis.getDerivedValues();
+    othis.resetVisibility();
+    othis.writeOutputs();
+  });
+
+//  this.updateTextInputs();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -67,7 +79,7 @@ Calculator.prototype.VRE2DEPRATEOJT = 735.20;
 Calculator.prototype.VREINCRATEOJT = 47.82;
 
 // Estimator Ids
-Calculator.prototype.MILITARY_STATUS = "#military-staus"
+Calculator.prototype.MILITARY_STATUS = "#military-status"
 Calculator.prototype.SPOUSE_ACTIVE_DUTY = "#spouse-active-duty";
 Calculator.prototype.GI_BILL_CHAPTER = "#gi-bill-chapter";
 Calculator.prototype.ELIG_FOR_POST_GI_BILL = "#elig-for-post-gi-bill";
@@ -101,7 +113,7 @@ Calculator.prototype.KICKER_FORM = "#kicker-form";
 Calculator.prototype.BUY_UP_FORM = "#buy-up-form";
 Calculator.prototype.BUY_UP_RATE_FORM = "#buy-up-rate-form";
 
-// Calculator Outputs
+// Calculator Output Forms
 Calculator.prototype.CALC_HOUSING_ALLOW_RATE_ROW = "#calc-housing-allow-rate-row";
 Calculator.prototype.CALC_TERM_TOTAL_ROW = "#calc-term-total-row";
 Calculator.prototype.CALC_PAID_TO_SCHOOL_TOTAL_ROW = "#calc-paid-to-school-total-row";
@@ -114,9 +126,41 @@ Calculator.prototype.CALC_TUITION_FEES_ROW = "#calc-tuition-fees-row";
 Calculator.prototype.CALC_YELLOW_RIBBON_ROW = "#calc-yellow-ribbon-row";
 Calculator.prototype.CALC_YELLOW_RIBBON_VA_ROW = "#calc-yellow-ribbon-va-row";
 
+// Calculator Output elements
+Calculator.prototype.HOUSING_ALLOW_RATE = "#housing-allow-rate";
+Calculator.prototype.TOTAL_YEAR = "#total-year";
+Calculator.prototype.TOTAL_PAID_TO_SCHOOL = "#total-paid-to-school";
+Calculator.prototype.TOTAL_PAID_TO_YOU = "#total-paid-to-you";
+Calculator.prototype.TOTAL_LEFT_TO_PAY = "#total-left-to-pay";
+Calculator.prototype.TOTAL_TUITION_FEES_CHARGED = "#total-tuition-fees-charged";
+Calculator.prototype.TOTAL_TUITION_FEES_SCHOLARSHIPS = "#total-tuition-fees-scholarships";
+Calculator.prototype.TOTAL_SCHOOL_RECEIVED = "#total-school-received";
+Calculator.prototype.TUITION_FEES_TERM_1 = "#tuition-fees-term-1";
+Calculator.prototype.TUITION_FEES_TERM_2 = "#tuition-fees-term-2";
+Calculator.prototype.TUITION_FEES_TERM_3 = "#tuition-fees-term-3";
+Calculator.prototype.TUITION_FEES_TOTAL = "#tuition-fees-total";
+Calculator.prototype.YR_BEN_TERM_1 = "#yr-ben-term-1";
+Calculator.prototype.YR_BEN_TERM_2 = "#yr-ben-term-2";
+Calculator.prototype.YR_BEN_TERM_3 = "#yr-ben-term-3";
+Calculator.prototype.YR_BEN_TOTAL = "#yr-ben-total";
+Calculator.prototype.YR_BEN_TERM_VA_1 = "#yr-ben-term-va-1";
+Calculator.prototype.YR_BEN_TERM_VA_2 = "#yr-ben-term-va-2";
+Calculator.prototype.YR_BEN_TERM_VA_3 = "#yr-ben-term-va-3";
+Calculator.prototype.YR_BEN_VA_TOTAL = "#yr-ben-va-total";
+Calculator.prototype.HOUSING_ALLOW_TERM_1 = "#housing-allow-term-1";
+Calculator.prototype.HOUSING_ALLOW_TERM_2 = "#housing-allow-term-2";
+Calculator.prototype.HOUSING_ALLOW_TERM_3 = "#housing-allow-term-3";
+Calculator.prototype.HOUSING_ALLOW_TOTAL = "#housing-allow-total";
+Calculator.prototype.BOOK_STIPEND_TERM_1 = "#book-stipend-term-1";
+Calculator.prototype.BOOK_STIPEND_TERM_2 = "#book-stipend-term-2";
+Calculator.prototype.BOOK_STIPEND_TERM_3 = "#book-stipend-term-3";
+Calculator.prototype.BOOK_STIPEND_TOTAL = "#book-stipend-total";
+
 // Class and control selectors
+Calculator.prototype.TERM1 = ".term1";
 Calculator.prototype.TERM2 = ".term2";
 Calculator.prototype.TERM3 = ".term3";
+Calculator.prototype.TERM4 = ".term4";
 Calculator.prototype.TUITION_FEES_TERM_2 = "#tuition-fees-term-2";
 Calculator.prototype.TUITION_FEES_TERM_3 = "#tuition-fees-term-3";
 Calculator.prototype.YR_BEN_TERM_2 = "#yr-ben-term-2";
@@ -134,6 +178,27 @@ Calculator.prototype.BOOKS_INPUT = '#books-input';
 Calculator.prototype.CALENDAR = "#calendar";
 
 ///////////////////////////////////////////////////////////////////////////////
+// updateInState
+// Update the in/out of state values
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.updateInState = function() {
+  if (!this.in_state)
+    $(this.TUITION_FEES_INPUT).val(this.formatCurrency(this.institution.tuition_out_of_state));
+  else
+    $(this.TUITION_FEES_INPUT).val(this.formatCurrency(this.institution.tuition_in_state));
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// updateTextInputs
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.updateTextInputs = function() {
+  $('#tuition-fees-input, #in-state-tuition-fees, #books-input,' + 
+    '#yellow-ribbon-amount, #scholar, #kicker').on('keyup', 
+    function(e) { $(this).change(); });
+};
+
+
+///////////////////////////////////////////////////////////////////////////////
 // populateInputs
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.populateInputs = function() {
@@ -144,9 +209,71 @@ Calculator.prototype.populateInputs = function() {
   $(this.BOOKS_INPUT).val(this.formatCurrency(this.institution.books));
 
   if (this.institution.calendar) {
-    $(this.CALENDAR).val(this.institution.calendar);
+    $(this.CALENDAR).val(this.institution.calendar.toLowerCase());
   } else {
     $(this.CALENDAR).val('semesters');
+  }
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// populateInputs
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.writeOutputs = function() {
+  $(this.CALC_HOUSING_ALLOW_RATE_ROW).html(this.formatCurrency(this.calc_monthly_rate_display)+ ' / month');
+  $(this.TOTAL_LEFT_TO_PAY).html(this.formatCurrency(this.calc_total_left_to_pay));
+    
+  if (this.calc_total_left_to_pay > 0)
+    $(this.TOTAL_LEFT_TO_PAY).addClass('red');
+  else
+    $(this.TOTAL_LEFT_TO_PAY).removeClass('red');
+
+  $(this.TOTAL_PAID_TO_SCHOOL).html(this.formatCurrency(this.calc_total_to_school));
+  $(this.TOTAL_PAID_TO_YOU).html(this.formatCurrency(this.calc_total_to_you));
+  $(this.TOTAL_YEAR).html(this.formatCurrency(this.calc_total_year));
+
+  $(this.TOTAL_TUITION_FEES_CHARGED).html(this.formatCurrency(this.tuition_fees));
+  $(this.TOTAL_SCHOOL_RECEIVED).html(this.formatCurrency(this.calc_total_to_school));
+  $(this.TOTAL_TUITION_FEES_SCHOLARSHIPS).html(this.formatCurrency(this.calc_total_scholarship_ta));
+  
+  $(this.TERM1).html(this.calc_term1);
+  $(this.TERM2).html(this.calc_term2);
+  $(this.TERM3).html(this.calc_term3);
+  $(this.TERM4).html(this.calc_term4);
+
+  $(this.TUITION_FEES_TERM_1).html(this.formatCurrency(this.calc_tuition_fees_term_1));
+  $(this.TUITION_FEES_TERM_2).html(this.formatCurrency(this.calc_tuition_fees_term_2));
+  $(this.TUITION_FEES_TERM_3).html(this.formatCurrency(this.calc_tuition_fees_term_3));
+  $(this.TUITION_FEES_TOTAL).html(this.formatCurrency(this.calc_tuition_fees_total));
+
+  $(this.YR_BEN_TERM_1).html(this.formatCurrency(this.calc_yr_ben_school_term_1));
+  $(this.YR_BEN_TERM_2).html(this.formatCurrency(this.calc_yr_ben_school_term_2));
+  $(this.YR_BEN_TERM_3).html(this.formatCurrency(this.calc_yr_ben_school_term_3));
+  $(this.YR_BEN_TOTAL).html(this.formatCurrency(this.calc_yr_ben_school_total));
+
+  $(this.YR_BEN_TERM_VA_1).html(this.formatCurrency(this.calc_yr_ben_va_term_1));
+  $(this.YR_BEN_TERM_VA_2).html(this.formatCurrency(this.calc_yr_ben_va_term_2));
+  $(this.YR_BEN_TERM_VA_3).html(this.formatCurrency(this.calc_yr_ben_va_term_3));
+  $(this.YR_BEN_VA_TOTAL).html(this.formatCurrency(this.calc_yr_ben_va_total));
+
+  $(this.HOUSING_ALLOW_TERM_1).html(this.formatCurrency(this.calc_housing_allow_term_1));
+  $(this.HOUSING_ALLOW_TERM_2).html(this.formatCurrency(this.calc_housing_allow_term_2));
+  $(this.HOUSING_ALLOW_TERM_3).html(this.formatCurrency(this.calc_housing_allow_term_3));
+  $(this.HOUSING_ALLOW_TOTAL).html(this.formatCurrency(this.calc_housing_allow_total));
+
+  $(this.BOOK_STIPEND_TERM_1).html(this.formatCurrency(this.calc_book_stipend_term_1));
+  $(this.BOOK_STIPEND_TERM_2).html(this.formatCurrency(this.calc_book_stipend_term_2));
+  $(this.BOOK_STIPEND_TERM_3).html(this.formatCurrency(this.calc_book_stipend_term_3));
+  $(this.BOOK_STIPEND_TOTAL).html(this.formatCurrency(this.calc_book_stipend_total));
+
+  if (this.institution_type == 'ojt') {
+    $(this.HOUSING_ALLOW_TERM_1).append(' /month');
+    $(this.HOUSING_ALLOW_TERM_2).append(' /month');
+    $(this.HOUSING_ALLOW_TERM_3).append(' /month');
+    $(this.HOUSING_ALLOW_TOTAL).append(' /month');
+    $(this.BOOK_STIPEND_TERM_1).append(' /month');
+    $(this.BOOK_STIPEND_TERM_2).append(' /month');
+    $(this.BOOK_STIPEND_TERM_3).append(' /month');
+    $(this.BOOK_STIPEND_TOTAL).append(' /month');
   }
 };
 
@@ -155,6 +282,7 @@ Calculator.prototype.populateInputs = function() {
 // Sets all calculator values.
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getValues = function() {
+  this.getMilitaryStatus(this.MILITARY_STATUS);
   this.getGiBillChapter(this.GI_BILL_CHAPTER);
   this.getSpouseActiveDuty(this.SPOUSE_ACTIVE_DUTY);
   this.getEligForPostGiBill(this.ELIG_FOR_POST_GI_BILL);
@@ -181,17 +309,6 @@ Calculator.prototype.getValues = function() {
   this.getKicker(this.KICKER_FORM);
   this.getBuyUpElig(this.BUY_UP_FORM);
   this.getBuyUp(this.BUY_UP_RATE_FORM);
-
-  // this.setCalcTermTotalRow(this.CALC_TERM_TOTAL_ROW);
-  // this.setCalcPaidToSchoolTotalRow(this.CALC_PAID_TO_SCHOOL_TOTAL_ROW);
-  // this.setCalcPaidToYouTotalRow(this.CALC_PAID_TO_YOU_TOTAL_ROW);
-  // this.setCalcOutOfPocketRow(this.CALC_OUT_OF_POCKET_ROW);
-  // this.setCalcTuitionFeesChargedRow(this.CALC_TUITION_FEES_CHARGED_ROW);
-  // this.setCalcTuitionFeesScholarshipRow(this.CALC_TUITION_FEES_SCHOLARSHIP_ROW);
-  // this.setCalcSchoolReceivedRow(this.CALC_SCHOOL_RECEIVED_ROW);
-  // this.setCalcTuitionFeesRow(this.CALC_TUITION_FEES_ROW);
-  // this.setCalcYellowRibbonRow(this.CALC_YELLOW_RIBBON_ROW);
-  // this.setCalcYellowRibbonVaRow(this.CALC_YELLOW_RIBBON_VA_ROW);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -208,8 +325,8 @@ Calculator.prototype.getDerivedValues = function() {
   this.getTuitionFeesPerTerm();
   this.getTermLength();
   this.getAcadYearLength();
-  this.getRopOld();
   this.getRopBook();
+  this.getCalcRopOld();
   this.getRopOjt();
   this.getYellowRibbonEligibility();
   this.getKickerBenefit();
@@ -235,7 +352,6 @@ Calculator.prototype.getDerivedValues = function() {
   this.getHousingAllowTerm2();
   this.getHousingAllowTerm3();
   this.getHousingAllowTotal();
-  this.getMonthlyRateDisplay();
   this.getBookStipendTerm1();
   this.getBookStipendTerm2();
   this.getBookStipendTerm3();
@@ -248,6 +364,8 @@ Calculator.prototype.getDerivedValues = function() {
   this.getTotalTerm3();
   this.getTotalText();
   this.getTotalYear();
+  this.getMonthlyRateDisplay();
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -351,7 +469,7 @@ Calculator.prototype.resetVisibility = function() {
     $(this.BUY_UP_FORM).hide();
   }
 
-  if (this.institution_type == 'public') {
+  if (this.institution_type === 'public') {
     $(this.IN_STATE).show();
     if (!this.in_state) {
       $(this.IN_STATE_TUITION_FEES_FORM).show();
@@ -402,8 +520,8 @@ Calculator.prototype.resetVisibility = function() {
     $(this.BUY_UP_RATE_FORM).hide();      
   }
 
-  if ((this.military_status == 'active duty' ||
-      this.military_status == 'national guard / reserves') &&
+  if ((this.military_status === 'active duty' ||
+      this.military_status === 'national guard / reserves') &&
       this.gi_bill_chapter == 33) {
     $(this.TUITION_ASSIST_FORM).show();
   } else {
@@ -448,7 +566,7 @@ Calculator.prototype.formatCurrency = function (num) {
   var str = Math.round(Number(num)).toString();
     
   // match a digit if it's followed by 3 other digits, appending a comma to each match
-  return '<span class="estimator-dollar-sign">$</span>' + str.replace(/\d(?=(\d{3})+$)/g, '$&,');
+  return '$' + str.replace(/\d(?=(\d{3})+$)/g, '$&,');
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -477,7 +595,7 @@ Calculator.prototype.getMilitaryStatus = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getSpouseActiveDuty = function(id) {
-  this.spouse_active_duty = $(id).prop('checked');
+  this.spouse_active_duty = $(id).val().toLowerCase() === "yes";
 
   return this;
 };
@@ -491,6 +609,7 @@ Calculator.prototype.getSpouseActiveDuty = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getGiBillChapter = function(id) {
   this.gi_bill_chapter = Number($(id).val());
+
   this.calc_old_gi_bill = (this.gi_bill_chapter == 30 || this.gi_bill_chapter == 1607 
     || this.gi_bill_chapter == 1606 || this.gi_bill_chapter == 35);
 
@@ -544,6 +663,7 @@ Calculator.prototype.getConsecutiveService = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getEnlistmentService = function(id) {
   this.enlistment_service = Number($(id).val());
+
   return this;
 };
 
@@ -554,7 +674,7 @@ Calculator.prototype.getEnlistmentService = function(id) {
 // Saves as boolean.
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getOnline = function(id) {
-  this.online = $(id).val() === 'yes';
+  this.online = $(id).val().toLowerCase() === 'yes';
 
   return this;
 };
@@ -567,6 +687,7 @@ Calculator.prototype.getOnline = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getInState = function(id) {
   this.in_state = $(id + " :input:checked").val().toLowerCase() === "yes";
+
   return this;
 };
 
@@ -614,7 +735,7 @@ Calculator.prototype.getBooks = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getYellowRibbon = function(id) {
   this.yellow_ribbon = $(id + " :input:checked").val().toLowerCase() === "yes";
-
+  
   return this;
 };
 
@@ -626,6 +747,7 @@ Calculator.prototype.getYellowRibbon = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getYellowBen = function(id) {
   this.yellow_ben = this.getCurrency($(id + " :input").val());
+
   return this;
 };
 
@@ -636,7 +758,8 @@ Calculator.prototype.getYellowBen = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getScholar = function(id) {
-  this.scholar = Number($(id + " :input").val());
+  this.scholar = this.getCurrency($(id + " :input").val());
+
   return this;
 };
 
@@ -647,7 +770,8 @@ Calculator.prototype.getScholar = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTuitionAssist = function(id) {
-  this.tuition_assist = $(id + " :input").val();
+  this.tuition_assist = this.getCurrency($(id + " :input").val());
+
   return this;
 };
 
@@ -659,6 +783,7 @@ Calculator.prototype.getTuitionAssist = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getRop = function(id) {
   this.rop = Number($(id + " :input").val());
+
   return this;
 };
 
@@ -670,6 +795,7 @@ Calculator.prototype.getRop = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getRopOld = function(id) {
   this.rop_old = $(id + " :input").val();
+
   return this;
 };
 
@@ -681,6 +807,7 @@ Calculator.prototype.getRopOld = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getCalendar = function(id) {
   this.calendar = $(id).val();
+
   return this;
 };
 
@@ -692,6 +819,7 @@ Calculator.prototype.getCalendar = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getOjtWorking = function(id) {
   this.ojt_working = $(id + " :input").val();
+
   return this;
 };
 
@@ -703,6 +831,7 @@ Calculator.prototype.getOjtWorking = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getNumberNontradTerms = function(id) {
   this.number_nontrad_terms = Number($(id + " :input").val());
+
   return this;
 };
 
@@ -713,7 +842,8 @@ Calculator.prototype.getNumberNontradTerms = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getLengthNontradTerms = function(id) {
-  this.number_nontrad_terms = $(id + " :input").val();
+  this.length_nontrad_terms = $(id + " :input").val();
+
   return this;
 };
 
@@ -725,6 +855,7 @@ Calculator.prototype.getLengthNontradTerms = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getKickerElig = function(id) {
   this.kicker_elig = $(id + " :input:checked").val().toLowerCase() === "yes";
+
   return this;
 };
 
@@ -736,6 +867,7 @@ Calculator.prototype.getKickerElig = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getKicker = function(id) {
   this.kicker = this.getCurrency($(id + " :input").val());
+
   return this;
 };
 
@@ -747,6 +879,7 @@ Calculator.prototype.getKicker = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getBuyUpElig = function(id) {
   this.buy_up_elig = $(id + " :input:checked").val().toLowerCase() === "yes";
+
   return this;
 };
 
@@ -759,107 +892,6 @@ Calculator.prototype.getBuyUpElig = function(id) {
 Calculator.prototype.getBuyUp = function(id) {
   this.buy_up = Number($(id + " :input").val());
 
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcTermTotalRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcTermTotalRow = function(id) {
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcPaidToSchoolTotalRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcPaidToSchoolTotalRow = function(id) {
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcPaidToYouTotalRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcPaidToYouTotalRow = function(id) {
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcOutOfPocketRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcOutOfPocketRow = function(id) {
-
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcTuitionFeesChargedRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcTuitionFeesChargedRow = function(id) {
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcTuitionFeesScholarshipRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcTuitionFeesScholarshipRow = function(id) {
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcSchoolReceivedRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcSchoolReceivedRow = function(id) {
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcTuitionFeesRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcTuitionFeesRow = function(id) {
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcYellowRibbonRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcYellowRibbonRow = function(id) {
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// setCalcYellowRibbonVaRow
-// Sets the visibility for the element with the id argument.
-//
-// Saves as boolean
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setCalcYellowRibbonVaRow = function(id) {
   return this;
 };
 
@@ -1061,7 +1093,7 @@ Calculator.prototype.getAcadYearLength = function () {
 // getRopOld
 // Calculate the rate of pursuit for Old GI Bill
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.getRopOld = function () {
+Calculator.prototype.getCalcRopOld = function () {
   if (this.institution_type === 'ojt') {
     this.calc_rop_old = this.ojt_working / 30;
   } else if (this.rop_old === "full") {
@@ -1397,7 +1429,7 @@ Calculator.prototype.getYrBenTerm3 = function () {
     this.calc_yr_ben_term_3 = Math.max(0, Math.min(
       this.calc_tuition_fees_per_term - this.calc_tuition_fees_term_3,
       this.calc_tuition_net_price - this.calc_tuition_fees_term_1 - 
-      his.calc_tuition_fees_term_2 - this.calc_tuition_fees_term_3 - 
+      this.calc_tuition_fees_term_2 - this.calc_tuition_fees_term_3 - 
       this.calc_yr_ben_term_1 - this.calc_yr_ben_term_2,
       this.yellow_ben * 2 - this.calc_yr_ben_term_1 - this.calc_yr_ben_term_2
     ));
@@ -1711,20 +1743,6 @@ Calculator.prototype.getHousingAllowTotal = function () {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// getMonthlyRateDisplay
-// Calculate Monthly Rate for Display
-///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.getMonthlyRateDisplay = function () {
-  if (this.institution_type === 'ojt') {
-    this.calc_monthly_rate_display = this.calc_housing_allow_term_1;
-  } else {
-    this.calc_monthly_rate_display = this.calc_housing_allow_term_1 / this.calc_term_length;
-  }
-
-  return this;
-};
-
-///////////////////////////////////////////////////////////////////////////////
 // getBookStipendTerm1
 // Calculate Book Stipend for Term #1
 ///////////////////////////////////////////////////////////////////////////////
@@ -1909,5 +1927,19 @@ Calculator.prototype.getTotalYear = function () {
   return this;
 };
 
+
+///////////////////////////////////////////////////////////////////////////////
+// getMonthlyRateDisplay
+// Calculate Monthly Rate for Display
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getMonthlyRateDisplay = function () {
+  if (this.institution_type === 'ojt') {
+    this.calc_monthly_rate_display = this.calc_housing_allow_term_1;
+  } else {
+    this.calc_monthly_rate_display = this.calc_housing_allow_term_1 / this.calc_term_length;
+  }
+
+  return this;
+};
 
 
