@@ -62,7 +62,7 @@ var Graph = function(options){
       .append('text')
         .attr('class', 'graph-bar-label') 
         .attr('x', function(d, i){ return (i * barWidth) + (barWidth / 2); })
-        .attr('y', function(d, i){ return height - d.value + 10; })
+        .attr('y', function(d, i){ return Math.min(height - d.value + 10, height - 5); })
         .text(function(d){ return d.value + '%'; });
 
   // Draw axis
@@ -80,7 +80,7 @@ var Graph = function(options){
     .data(options.bars)
     .enter()
       .append('text')
-        .attr('class', 'graph-bar-label') 
+        .attr('class', 'graph-axis-label') 
         .attr('x', function(d, i){ return (i * barWidth) + (barWidth / 2); })
         .attr('y', height + 10) 
         .text(function(d){ return d.name; });
@@ -100,7 +100,7 @@ var Graph = function(options){
       .attr('class', 'graph-line-label')
       .attr('x', width / 2)
       .attr('y', height - options.average)
-      .text('< ' + options.average + ' Nat\'l');
+      .text('< ' + options.average + '% Nat\'l');
 
   // via http://stackoverflow.com/questions/3883342
   function format(val){
