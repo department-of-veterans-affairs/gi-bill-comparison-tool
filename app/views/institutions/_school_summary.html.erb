@@ -1,29 +1,8 @@
-<div id="<%= school_summary[:facility_code] %>"  
-	class="school_summary"
-
-	data-id="<%= school_summary[:id] %>" 
-	data-facility-code="<%= school_summary[:facility_code] %>"
-	data-institution="<%= school_summary[:institution] %>"
-	data-city="<%= school_summary[:city] %>"
-	data-state="<%= school_summary[:state] %>" 
-	data-country="<%= school_summary[:country] %>" 
-	data-type="<%= school_summary[:name].try(:downcase) %>"
-
-	<% if school_summary[:name].try(:downcase) == Institution::EMPLOYER %>
-		data-institution-type="employer"
-	<% else %>
-		data-institution-type ="school"
-	<% end %>	
-
-	data-poe="<%= school_summary[:poe] %>"
-	data-student-veteran="<%= school_summary[:student_veteran] %>"
-	data-eight-keys="<%= school_summary[:eight_keys] %>"
-	data-yr="<%= school_summary[:yr] %>"
-	data-bah="<%= school_summary[:bah] %>">
+<div id="<%= school_summary[:facility_code] %>" class="school_summary">
 
 	<% if school_summary[:caution_flag] %>
 		<div class="caution">
-			<a class="a-<%= school_summary[:id] %> searchresults-caution" href="#"><i class="fa fa-exclamation-triangle"></i> Caution Flag</a>
+			<a class="searchresults-caution" href="<%= school_summary[:profile_url] %>"><i class="fa fa-exclamation-triangle"></i> Caution Flag</a>
         </div>
 	<% end %>
     
@@ -31,7 +10,7 @@
    <!-- Divs added to preserve consistent heights regardless of # of lines -->
     
     <div class="search-insitution-name"><!-- Institution name -->
-        <h4><a class="a-<%= school_summary[:id] %>" href="#">
+        <h4><a href="<%=school_summary[:profile_url] %>">
             <%= school_summary[:institution] %>
         </a></h4>
     </div><!-- END Institution name -->
@@ -74,27 +53,7 @@
     </div><!-- Contains the benefit values divs -->
 
     <div class="search-learnmore-div"><!-- Contains the learn more div for consistent position -->
-        <a class="a-<%= school_summary[:id] %> usa-button-primary va-search-learnmore" href="#">Learn More</a>
+        <a class="usa-button-primary va-search-learnmore" href="<%= school_summary[:profile_url] %>">Learn More</a>
     </div>
      </div> <!-- END learn more div -->
 </div>
-
-<script>
-	$(document).ready(function() {
-		$(".a-<%= school_summary[:id] %>").click(function() {
-			href = "<%= profile_path %>?facility_code=<%= school_summary[:facility_code] %>";
-			href += "&military_status=" + $("#military-status").val();
-			href += "&spouse_active_duty=" + $("#spouse-active-duty").val();
-			href += "&gi_bill_chapter=" + $("#gi-bill-chapter").val();
-			href += "&cumulative_service=" + $("#cumulative-service").val();
-			href += "&enlistment_service=" + $("#enlistment-service").val();
-			href += "&consecutive_service=" + $("#consecutive-service").val();
-			href += "&elig_for_post_gi_bill=" + $("#elig-for-post-gi-bill").val();
-			href += "&number_of_dependents=" + $("#number-of-dependents").val();
-			href += "&online_classes=" + $("#online-classes").val();
-			href += "&institution_search=<%= @inputs[:institution_search] %>";
-
-			$(this).attr("href", href);
-		});
-	});
-</script>
