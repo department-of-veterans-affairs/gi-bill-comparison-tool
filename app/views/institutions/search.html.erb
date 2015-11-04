@@ -10,14 +10,18 @@
     <%= render partial: 'filter' %>
   </div>
 
-  <div>
     <div class="usa-width-three-fourths">
 
+      <div class="search-count">Showing <strong><%= @total_filtered_results %></strong> results for the term <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. </div>
 
-      <div class="search-count-headline">
+
+      <%= render partial: 'school_summary', collection: @results %>
+     
+        <div class="usa-width-one-whole">  
+    <div class="search-count-headline pagination-bottom">
         <% if @total_pages > 1 %>
           <% if @page != 1 %>
-            <a href="<%= @page_urls[@page-1] %>">&larr;Previous</a>
+            <a href="<%= @page_urls[@page-1] %>"><i class="fa fa-angle-left"></i>&nbsp;Previous&nbsp;</a>
           <% end %>
 
           <% if @start_page > 1 %>
@@ -33,21 +37,18 @@
           <% end %>
 
           <% if @end_page < @total_pages %>
-            <a href="<%= @page_urls[:last] %>">..<%= @total_pages %></a>
+            <a href="<%= @page_urls[:last] %>">...&nbsp;<%= @total_pages %></a>
           <% end %>
 
           <% if @page != @total_pages %>
-            <a href="<%= @page_urls[@page+1] %>">Next&rarr;</a>
+            <a href="<%= @page_urls[@page+1] %>">&nbsp;Next&nbsp;<i class="fa fa-angle-right"></i></a>
           <% end %>
         <% else %>
           <br/>
         <% end %>
       </div>
-
-      <div>Showing <strong><%= @results.length %></strong> of <%= @total_filtered_results %> results for the term '<%= @inputs[:institution_search] %>' </div>
-
-
-      <%= render partial: 'school_summary', collection: @results %>
+        </div>  
+        
     </div>
-  </div>
+
 </div>
