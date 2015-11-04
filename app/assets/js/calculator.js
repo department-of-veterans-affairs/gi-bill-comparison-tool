@@ -157,6 +157,10 @@ Calculator.prototype.getDerivedValues = function() {
   this.getTuitionNetPrice();
   this.getTuitionFeesCap();
   this.getTuitionFeesPerTerm();
+  this.getTermLength();
+  this.getAcadYearLength();
+  this.getRopOld();
+  this.getRopBook();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -740,13 +744,13 @@ Calculator.prototype.getVreOnly = function () {
 // Calculate if monthly benefit can only be spent on tuition/fees
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getOnlyTuitionFees = function () {
-  if (this.military_status == 'active duty' && 
+  if (this.military_status === 'active duty' && 
       (this.gi_bill_chapter == 30 || this.gi_bill_chapter == 1607)) {
     this.only_tuition_fees = true;
-  } else if ((this.institution_type == 'correspond' || 
-      this.institution_type == 'flight') && this.calc_old_gi_bill == true) {
+  } else if ((this.institution_type === 'correspond' || 
+      this.institution_type === 'flight') && this.calc_old_gi_bill == true) {
     this.only_tuition_fees = true;    
-  } else if ((this.rop_old == "less than half" || this.rop_old == "quarter") && 
+  } else if ((this.rop_old === "less than half" || this.rop_old === "quarter") && 
       (this.gi_bill_chap == 30 || this.gi_bill_chap == 1607 || this.gi_bill_chap == 35)) {
     this.only_tuition_fees = true;
   } else {
@@ -773,11 +777,11 @@ Calculator.prototype.getTier = function () {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getYellowRibbonEligibility = function () {
   if (this.calc_tier < 1 || !this.institution.yr || !this.yellow_ribbon 
-      || this.military_status == 'active duty') {
+      || this.military_status === 'active duty') {
     this.calc_yellow_ribbon_elig = false;
   }
-  else if (this.institution_type == 'ojt' || this.institution_type == 'flight' || 
-      this.institution_type == 'correspondence') {
+  else if (this.institution_type === 'ojt' || this.institution_type === 'flight' || 
+      this.institution_type === 'correspondence') {
     this.calc_yellow_ribbon_elig = false;
   } else {
     this.calc_yellow_ribbon_elig = true;
@@ -832,17 +836,17 @@ Calculator.prototype.getTuitionNetPrice = function () {
 // Set the proper tuition/fees cap
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTuitionFeesCap = function () {
-  if (this.institution_type == 'flight') {
+  if (this.institution_type === 'flight') {
     this.calc_tuition_fees_cap = this.FLTTFCAP;
-  } else if (this.institution_type == 'correspondence') {
+  } else if (this.institution_type === 'correspondence') {
     this.calc_tuition_fees_cap = this.CORRESPONDTFCAP;
-  } else if (this.institution_type == 'public' && 
+  } else if (this.institution_type === 'public' && 
         this.institution.country.toLowerCase() === 'usa' && this.in_state) {
     this.calc_tuition_fees_cap = this.tuition_fees;
-  } else if (this.institution_type == 'public' && 
-        this.institution.country.toLowerCase() == 'usa' && !this.in_state) {
+  } else if (this.institution_type === 'public' && 
+        this.institution.country.toLowerCase() === 'usa' && !this.in_state) {
     this.calc_tuition_fees_cap = this.in_state_tuition_fees;
-  } else if (this.institution_type == 'private' || this.institution_type == 'foreign') {
+  } else if (this.institution_type === 'private' || this.institution_type === 'foreign') {
     this.calc_tuition_fees_cap = this.TFCAP;
   }
 
@@ -858,3 +862,75 @@ Calculator.prototype.getTuitionFeesPerTerm = function () {
 
   return this;
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// getTermLength
+// Calculate the length of each term
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTermLength = function () {
+  if (this.calendar == 'semesters') {
+    this.calc_term_length = 4.5;
+  } else if (this.calendar === 'quarters')  {
+    this.calc_term_length = 3;
+  } else if (this.calendar === 'nontraditional') {
+    this.calc_term_length = this.length_nontrad_terms;
+  } else if (this.institution_type === 'ojt') {
+    this.calc_term_length = 6;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getAcadYearLength
+// Calculate the length of the academic year
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getAcadYearLength = function () {
+  if (this.calendar === 'nontraditional') {
+    this.calc_acad_year_length = this.number_nontrad_terms * this.length_nontrad_terms;
+  } else {
+    this.calc_acad_year_length = 9;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getRopOld
+// Calculate the rate of pursuit for Old GI Bill
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getRopOld = function () {
+  if (this.institution_type === 'ojt') {
+    this.calc_rop_old = this.ojt_working / 30;
+  } else if (this.rop_old === "full") {
+    this.rop_old = 1;
+  } else if (this.rop_old === "three quarter") {
+    this.calc_rop_old = 0.75;
+  } else if (this.rop_old === "half") {
+    this.calc_rop_old = 0.50;
+  } else if (this.rop_old === "less than half") {
+    this.calc_rop_old = 0.50;
+  } else if (this.rop_old === "quarter") {
+    this.calc_rop_old = 0.25;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getRopBook
+// Calculate the rate of pursuit for Book Stipend
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getRopBook = function () {
+    if (this.rop == 1) {
+      this.calc_rop_book = 1;
+    } else if (this.rop == 0.8) {
+      this.calc_rop_book = 0.75;
+    } else if (this.rop == 0.6) {
+      this.calc_rop_book = 0.50;
+    } else if (this.rop == 0) {
+      this.calc_rop_book = 0.25;
+    }
+
+    return this;
+  };
