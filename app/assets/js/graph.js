@@ -20,7 +20,8 @@ var Graph = function(options){
   
   var width = 200,
       height = 100,
-      padding = 10;
+      padding = 10,
+      split = 1.8;
 
   // Append SVG
   var svg = d3.select(options.target)
@@ -37,10 +38,10 @@ var Graph = function(options){
     .attr('x', 0)
     .attr('y', 0)
     .attr('height', height)
-    .attr('width', width / 2);
+    .attr('width', width / split);
 
   // Draw bars
-  var barWidth = (width / 2) / options.bars.length;
+  var barWidth = (width / split) / options.bars.length;
   svg
     .selectAll('.graph-bar')
     .data(options.bars)
@@ -62,7 +63,7 @@ var Graph = function(options){
       .append('text')
         .attr('class', 'graph-bar-label') 
         .attr('x', function(d, i){ return (i * barWidth) + (barWidth / 2); })
-        .attr('y', function(d, i){ return Math.min(height - d.value + 10, height - 5); })
+        .attr('y', function(d, i){ return Math.min(height - d.value + 12, height - 5); })
         .text(function(d){ return d.value + '%'; });
 
   // Draw axis
@@ -70,7 +71,7 @@ var Graph = function(options){
     .append('line')
       .attr('class', 'graph-axis')
       .attr('x1', 0)
-      .attr('x2', width / 2)
+      .attr('x2', width / split)
       .attr('y1', height)
       .attr('y2', height);
 
@@ -90,7 +91,7 @@ var Graph = function(options){
     .append('line')
       .attr('class', 'graph-line')
       .attr('x1', 0)
-      .attr('x2', width / 2)
+      .attr('x2', width / split)
       .attr('y1', height - options.average)
       .attr('y2', height - options.average);
 
@@ -98,7 +99,7 @@ var Graph = function(options){
   svg
     .append('text')
       .attr('class', 'graph-line-label')
-      .attr('x', width / 2)
+      .attr('x', width / split)
       .attr('y', height - options.average)
       .text('< ' + options.average + '% Nat\'l');
 
