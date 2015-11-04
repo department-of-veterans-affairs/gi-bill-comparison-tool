@@ -50,6 +50,7 @@ namespace :deploy do
   before :finished, :set_permissions do
     on roles(:app) do
       execute "chmod -R 755 #{release_path}"
+      execute "chmod -R 755 #{release_path}/public/assets/*"
     end
   end
 
