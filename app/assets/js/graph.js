@@ -64,7 +64,7 @@ var Graph = function(options){
         .attr('class', 'graph-bar-label') 
         .attr('x', function(d, i){ return (i * barWidth) + (barWidth / 2); })
         .attr('y', function(d, i){ return Math.min(height - d.value + 12, height - 5); })
-        .text(function(d){ return d.value + '%'; });
+        .text(function(d){ return d.value === null ? 'No Data' : d.value + '%'; });
 
   // Draw axis
   svg
