@@ -10,7 +10,7 @@
 			<% if @school.caution_flag %>
 				<div class="caution-profile">
 					<a href="#jumpflag"><i class="fa fa-exclamation-triangle"></i> Caution Flag</a>
-                </div>
+        </div>
 			<% end %>
 
 			<h2 class="profile-head"><%= @school.institution %></h2>
@@ -18,7 +18,7 @@
 		</div>
 		<!-- Holds student attendance and link -->
 		<p>
-            <%= format_number_or_null(@school.undergrad_enrollment, "Undergraduate Students") %>
+			<%= format_number_or_null(@school.undergrad_enrollment, "Undergraduate Students") %>
 		</p>
 
 		<% if @school.insturl.present? %>
