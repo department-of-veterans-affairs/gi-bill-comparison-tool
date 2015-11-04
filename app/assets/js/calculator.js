@@ -42,8 +42,9 @@ function Calculator(institution_type, institution) {
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
 
-Calculator.prototype.BSCAP = 1000;
 Calculator.prototype.TFCAP = 21084.89;
+Calculator.prototype.AVGBAH = 1566;
+Calculator.prototype.BSCAP = 1000;
 Calculator.prototype.FLTTFCAP = 12048.50;
 Calculator.prototype.CORRESPONDTFCAP = 10241.22;
 
@@ -65,11 +66,13 @@ Calculator.prototype.VREINCRATEOJT = 47.82;
 
 // Estimator Ids
 Calculator.prototype.MILITARY_STATUS = "#military-staus"
+Calculator.prototype.SPOUSE_ACTIVE_DUTY = "#spouse-active-duty";
 Calculator.prototype.GI_BILL_CHAPTER = "#gi-bill-chapter";
 Calculator.prototype.ELIG_FOR_POST_GI_BILL = "#elig-for-post-gi-bill";
 Calculator.prototype.CUMMULATIVE_SERVICE = "#cumulative-service";
-Calculator.prototype.ENLISTMENT_SERVICE ="enlistment-service";
-Calculator.prototype.CONSECUTIVE_SERVICE ="consecutive-service";
+Calculator.prototype.ENLISTMENT_SERVICE ="#enlistment-service";
+Calculator.prototype.CONSECUTIVE_SERVICE ="#consecutive-service";
+Calculator.prototype.ONLINE_CLASSES = "#online-classes";
 
 // Calculator Tuition
 Calculator.prototype.TUITION_FEES_SECTION = "#tuition-fees-section";
@@ -129,10 +132,12 @@ Calculator.prototype.BOOK_STIPEND_TERM_3 = "#book-stipend-term-3";
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getValues = function() {
   this.getGiBillChapter(this.GI_BILL_CHAPTER);
+  this.getSpouseActiveDuty(this.SPOUSE_ACTIVE_DUTY);
   this.getEligForPostGiBill(this.ELIG_FOR_POST_GI_BILL);
   this.getCumulativeService(this.CUMMULATIVE_SERVICE);
   this.getEnlistmentService(this.ENLISTMENT_SERVICE);
   this.getConsecutiveService(this.CONSECUTIVE_SERVICE);
+  this.getOnline(this.ONLINE_CLASSES);
 
   this.getInState(this.IN_STATE);
   this.getTuitionFees(this.TUITION_FEES_FORM);
@@ -198,6 +203,14 @@ Calculator.prototype.getDerivedValues = function() {
   this.getYrBenTerm2();
   this.getYrBenTerm3();
   this.getYrBenTotal();
+  this.getYrBreakdown();
+  this.getTotalPaidToSchool();
+  this.getTotalScholarships();
+  this.getTotalLeftToPay();
+  this.getHousingAllowTerm1();
+  this.getHousingAllowTerm2();
+  this.getHousingAllowTerm3();
+  this.getHousingAllowTotal();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -421,6 +434,18 @@ Calculator.prototype.getMilitaryStatus = function(id) {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
+// getSpouseActiveDuty
+// Sets the spouse active duty from the element with the id argument.
+//
+// Saves as boolean
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getSpouseActiveDuty = function(id) {
+  this.spouse_active_duty = $(id).prop('checked');
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
 // getGiBillChapter
 // Sets gi bill chapter value from the element with the id argument. Also sets
 // the old_gi_bill boolean based on the value of the gi_bill_chapter.
@@ -482,6 +507,18 @@ Calculator.prototype.getConsecutiveService = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getEnlistmentService = function(id) {
   this.enlistment_service = Number($(id).val());
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getOnline
+// Sets online value from the element with the id argument.
+//
+// Saves as boolean.
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getOnline = function(id) {
+  this.online = $(id).val() === 'yes';
+
   return this;
 };
 
@@ -808,7 +845,7 @@ Calculator.prototype.getOnlyTuitionFees = function () {
   if (this.military_status === 'active duty' && 
       (this.gi_bill_chapter == 30 || this.gi_bill_chapter == 1607)) {
     this.calc_only_tuition_fees = true;
-  } else if ((this.institution_type === 'correspond' || 
+  } else if ((this.institution_type === 'correspondence' || 
       this.institution_type === 'flight') && this.calc_old_gi_bill == true) {
     this.calc_only_tuition_fees = true;    
   } else if ((this.rop_old === "less than half" || this.rop_old === "quarter") && 
@@ -1347,4 +1384,291 @@ Calculator.prototype.getYrBenTotal = function () {
   return this;
 };
 
+///////////////////////////////////////////////////////////////////////////////
+// getYrBreakdown
+// Calculate Yellow Ribbon by school / VA contributions
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getYrBreakdown = function () {
+  this.calc_yr_ben_school_term_1   =       this.calc_yr_ben_term_1 / 2;
+  this.calc_yr_ben_va_term_1       =       this.calc_yr_ben_term_1 / 2;
+  this.calc_yr_ben_school_term_2   =       this.calc_yr_ben_term_2 / 2;
+  this.calc_yr_ben_va_term_2       =       this.calc_yr_ben_term_2 / 2;
+  this.calc_yr_ben_school_term_3   =       this.calc_yr_ben_term_3 / 2;
+  this.calc_yr_ben_va_term_3       =       this.calc_yr_ben_term_3 / 2;
+  this.calc_yr_ben_school_total    =       this.calc_yr_ben_total / 2;
+  this.calc_yr_ben_va_total        =       this.calc_yr_ben_total / 2;
 
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTotalPaidToSchool
+// Calculate Total Paid to School
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTotalPaidToSchool = function () {
+  this.calc_total_to_school = this.calc_tuition_fees_total + this.calc_yr_ben_total;
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Calculate Total Scholarships and Tuition Assistance
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTotalScholarships = function () {
+  this.calc_total_scholarship_ta = this.scholar + this.tuition_assist;
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Calculate Total Left to Pay
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTotalLeftToPay = function () {
+  this.calc_total_left_to_pay = Math.max(0, this.tuition_fees - 
+    this.calc_total_to_school - this.scholar - this.tuition_assist);
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getHousingAllowTerm1
+// Calculate Housing Allowance for Term #1
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getHousingAllowTerm1 = function () {
+  if (this.military_status === 'active duty' && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_1 = 0;
+  } else if (this.gi_bill_chapter == 33 & this.military_status == 'spouse' && 
+      this.spouse_active_duty && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_1 = 0;
+  } else if (this.gi_bill_chapter == 35 && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_1 = this.calc_monthly_rate_final;
+  } else if (this.calc_old_gi_bill == true && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_1 =  this.calc_monthly_rate_final;
+  } else if (this.calc_vre_only == true  && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_1 = this.calc_monthly_rate_final;
+  } else if (this.gi_bill_chapter == 31  && (this.institution_type == 'flight' || 
+      this.institution_type === 'correspondence')) {
+    this.calc_tuition_allow_term_1 = 0;
+  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'flight') {
+    this.calc_housing_allow_term_1 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * (this.consecutive_service * .55)
+      ));
+  } else if (this.gi_bill_chapter == 1606 && this.institution_type === 'flight') {
+    this.calc_housing_allow_term_1 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * .55 
+      ));
+  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'correspondence') {
+    this.calc_housing_allow_term_1 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
+      ));
+  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'correspondence') {
+    this.calc_housing_allow_term_1 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
+      ));
+  } else if (this.calc_only_tuition_fees) {
+    this.calc_housing_allow_term_1 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term
+      ));
+  } else if (this.calc_old_gi_bill == true || this.calc_vre_only == true) {
+    this.calc_housing_allow_term_1 = this.calc_monthly_rate_final * this.calc_term_length;
+  } else if (this.military_status === 'active duty') {
+    this.calc_housing_allow_term_1 = (0 + this.calc_kicker_benefit) * this.calc_term_length;
+  } else if (this.military_status === 'spouse' && this.spouse_active_duty) {
+    this.calc_housing_allow_term_1 = (0 + this.calc_kicker_benefit) * this.calc_term_length;
+  } else if (this.institution_type === 'flight' || this.institution_type === 'correspondence') {
+    this.calc_housing_allow_term_1 = 0;
+  } else if (this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_1 = this.calc_rop_ojt * 
+      (this.calc_tier * this.institution.bah + this.calc_kicker_benefit);
+  } else if (this.online) {
+    this.calc_housing_allow_term_1 = this.calc_term_length * this.rop * 
+      (this.calc_tier * this.AVGBAH / 2 + this.calc_kicker_benefit);
+  } else if (this.institution.country.toLowerCase() != 'usa') {
+    this.calc_housing_allow_term_1 = this.calc_term_length * this.rop * 
+      ((this.calc_tier * this.AVGBAH) + this.calc_kicker_benefit);
+  } else {
+    this.calc_housing_allow_term_1 = this.calc_term_length * this.rop * 
+      ((this.calc_tier * this.institution.bah) + this.calc_kicker_benefit);
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getHousingAllowTerm2
+// Calculate Housing Allowance for Term #2
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getHousingAllowTerm2 = function () {
+  if (this.military_status === 'active duty' && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_2 = 0;
+  } else if (this.gi_bill_chapter == 33 && 
+      this.military_status === 'spouse' && this.spouse_active_duty && 
+      this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_2 = 0;
+  } else if (this.gi_bill_chapter == 35 && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_2 =  0.75 * this.calc_monthly_rate_final;
+  } else if (this.calc_old_gi_bill == true && this.institution_type == 'ojt') {
+    this.calc_housing_allow_term_2 =  (6.6/9) * this.calc_monthly_rate_final;
+  } else if (this.calc_vre_only == true  && this.institution_type == 'ojt') {
+    this.calc_housing_allow_term_2 = this.calc_monthly_rate_final;
+  } else if (this.institution_type == 'ojt') {
+    this.calc_housing_allow_term_2 = 0.8 * this.calc_rop_ojt * 
+      (this.calc_tier * this.institution.bah + this.calc_kicker_benefit);
+  } else if (this.calendar === 'nontraditional' && this.calc_number_of_terms == 1) {
+    this.calc_housing_allow_term_2 = 0;
+  } else if (this.gi_bill_chapter == 31 && 
+      (this.institution_type === 'flight' || this.institution_type === 'correspondence')) {
+    this.calc_tuition_allow_term_2 = 0;
+  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'flight') {
+    this.calc_housing_allow_term_2 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * (this.consecutive_service * .55) 
+      ));
+  } else if (this.gi_bill_chapter == 1606 && this.institution_type === 'flight') {
+    this.calc_housing_allow_term_2 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * .55 
+      ));
+  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'correspondence') {
+    this.calc_housing_allow_term_2 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
+      ));
+  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'correspondence') {
+    this.calc_housing_allow_term_2 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
+      ));
+  } else if (this.calc_only_tuition_fees) {
+    this.calc_housing_allow_term_2 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term
+      ));
+  } else if (this.calc_old_gi_bill == true || this.calc_vre_only == true) {
+    this.calc_housing_allow_term_2 = this.calc_monthly_rate_final * this.calc_term_length;
+  } else if (this.military_status === 'active duty') {
+    this.calc_housing_allow_term_2 = (0 + this.calc_kicker_benefit) * this.calc_term_length;
+  } else if (this.military_status === 'spouse' && this.spouse_active_duty) {
+    this.calc_housing_allow_term_2 = (0 + this.calc_kicker_benefit) * this.calc_term_length;
+  } else if (this.institution_type === 'flight' || this.institution_type === 'correspondence') {
+    this.calc_housing_allow_term_2 = 0;
+  } else if (this.online) {
+    this.calc_housing_allow_term_2 = this.calc_term_length * this.rop * 
+      (this.calc_tier * this.AVGBAH / 2 + this.calc_kicker_benefit);
+  } else if (this.institution.country != 'USA') {
+    this.calc_housing_allow_term_2 = this.calc_term_length * this.rop * 
+      (this.calc_tier * this.AVGBAH + this.calc_kicker_benefit);
+  } else {
+    this.calc_housing_allow_term_2 = this.calc_term_length * this.rop * 
+      (this.calc_tier * institution.bah + this.calc_kicker_benefit);
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getHousingAllowTerm3
+// Calculate Housing Allowance for Term #3
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getHousingAllowTerm3 = function () {
+  if (this.military_status === 'active duty' && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_3 = 0;
+  } else if (this.gi_bill_chapter == 33 && this.military_status === 'spouse' && 
+      this.spouse_active_duty && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_3 = 0;
+  } else if (this.gi_bill_chapter == 35 && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_3 =  0.494 * this.calc_monthly_rate_final;
+  } else if (this.calc_old_gi_bill == true && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_3 =  (7/15) * this.calc_monthly_rate_final;
+  } else if (this.calc_vre_only == true  && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_3 = this.calc_monthly_rate_final;
+  } else if (this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_3 = 0.6 * this.calc_rop_ojt * 
+      (this.calc_tier * institution.bah + this.calc_kicker_benefit);
+  } else if (this.calendar === 'semesters') {
+    this.calc_housing_allow_term_3 = 0;
+  } else if (this.calendar === 'nontraditional' && this.calc_number_of_terms < 3) {
+    this.calc_housing_allow_term_3 = 0;
+  } else if (this.gi_bill_chapter == 31 && 
+      (this.institution_type === 'flight' || this.institution_type === 'correspondence')) {
+    this.calc_tuition_allow_term_3 = 0;
+  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'flight') {
+    this.calc_housing_allow_term_3 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * (this.consecutive_service * .55) 
+      ));
+  } else if (this.gi_bill_chapter == 1606 && this.institution_type == 'flight') {
+    this.calc_housing_allow_term_3 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * .55 
+      ));
+  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'correspondence') {
+    this.calc_housing_allow_term_3 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
+      ));
+  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'correspondence') {
+    this.calc_housing_allow_term_3 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
+      ));
+  } else if (this.calc_only_tuition_fees) {
+    this.calc_housing_allow_term_3 = Math.max(0, 
+      Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
+        this.calc_tuition_fees_per_term
+      ));
+  } else if (this.calc_old_gi_bill == true || this.calc_vre_only == true) {
+    this.calc_housing_allow_term_3 = this.calc_monthly_rate_final * this.calc_term_length;
+  } else if (this.military_status === 'spouse' && this.spouse_active_duty) {
+    this.calc_housing_allow_term_3 = (0 + this.calc_kicker_benefit) * this.calc_term_length;
+  } else if (this.institution_type === 'flight' || this.institution_type === 'correspondence') {
+    this.calc_housing_allow_term_3 = 0;
+  } else if (this.military_status === 'active duty') {
+    this.calc_housing_allow_term_3 = (0 + this.calc_kicker_benefit) * this.calc_term_length;
+  } else if (this.online) {
+    this.calc_housing_allow_term_3 = this.calc_term_length * this.rop * 
+      (this.calc_tier * this.AVGBAH / 2 + this.calc_kicker_benefit);
+  } else if (this.institution.country.toLowerCase() != 'usa') {
+    this.calc_housing_allow_term_3 = this.calc_term_length * this.rop * 
+      (this.calc_tier * this.AVGBAH + this.calc_kicker_benefit);
+  } else {
+    this.calc_housing_allow_term_3 = this.calc_term_length * this.rop * 
+      (this.calc_tier * this.institution.bah + this.calc_kicker_benefit);
+  }
+
+  return this;
+};
+
+
+///////////////////////////////////////////////////////////////////////////////
+// getHousingAllowTotal
+// Calculate Housing Allowance Total for year
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getHousingAllowTotal = function () {
+  if (this.military_status === 'active duty' && this.institution_type === 'ojt') {
+    this.calc_housing_allow_term_3 = 0;
+  } else if (this.gi_bill_chapter == 35 && this.institution_type === 'ojt') {
+    this.calc_housing_allow_total =  0.25 * this.calc_monthly_rate_final;
+  } else if (this.calc_old_gi_bill == true && this.institution_type === 'ojt') {
+    this.calc_housing_allow_total =  (7/15) * this.calc_monthly_rate_final;
+  } else if (this.calc_vre_only == true  && this.institution_type === 'ojt') {
+    this.calc_housing_allow_total = this.calc_monthly_rate_final;
+  } else if (this.institution_type === 'ojt') {
+    this.calc_housing_allow_total = 0.4 * this.calc_rop_ojt * 
+      (this.calc_tier * this.institution.bah + this.calc_kicker_benefit);
+  } else if (this.calc_only_tuition_fees) {
+    this.calc_housing_allow_total = Math.max(0, 
+        Math.min(this.calc_monthly_rate_final * this.calc_acad_year_length, this.tuition_fees)
+      );
+  } else {
+    this.calc_housing_allow_total = this.calc_housing_allow_term_1 + 
+      this.calc_housing_allow_term_2 + this.calc_housing_allow_term_3;
+  }
+
+  return this;
+};
