@@ -1634,7 +1634,7 @@ Calculator.prototype.getHousingAllowTerm2 = function () {
       (this.calc_tier * this.AVGBAH + this.calc_kicker_benefit);
   } else {
     this.calc_housing_allow_term_2 = this.calc_term_length * this.rop * 
-      (this.calc_tier * institution.bah + this.calc_kicker_benefit);
+      (this.calc_tier * this.institution.bah + this.calc_kicker_benefit);
   }
 
   return this;
@@ -1658,7 +1658,7 @@ Calculator.prototype.getHousingAllowTerm3 = function () {
     this.calc_housing_allow_term_3 = this.calc_monthly_rate_final;
   } else if (this.institution_type === 'ojt') {
     this.calc_housing_allow_term_3 = 0.6 * this.calc_rop_ojt * 
-      (this.calc_tier * institution.bah + this.calc_kicker_benefit);
+      (this.calc_tier * this.institution.bah + this.calc_kicker_benefit);
   } else if (this.calendar === 'semesters') {
     this.calc_housing_allow_term_3 = 0;
   } else if (this.calendar === 'nontraditional' && this.calc_number_of_terms < 3) {
