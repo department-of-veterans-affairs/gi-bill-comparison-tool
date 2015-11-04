@@ -24,6 +24,11 @@ function Calculator(institution_type, institution) {
   // this.only_tuition_fees = null;
 
   this.institution_type = institution_type.toLowerCase();
+
+  // For Profit is the same as private (fac code starts with 2)
+  if (this.institution_type === "for profit")
+    this.institution_type = "private";
+  
   this.institution = institution;
 
   this.populateInputs();
@@ -161,16 +166,6 @@ Calculator.prototype.TERM1 = ".term1";
 Calculator.prototype.TERM2 = ".term2";
 Calculator.prototype.TERM3 = ".term3";
 Calculator.prototype.TERM4 = ".term4";
-Calculator.prototype.TUITION_FEES_TERM_2 = "#tuition-fees-term-2";
-Calculator.prototype.TUITION_FEES_TERM_3 = "#tuition-fees-term-3";
-Calculator.prototype.YR_BEN_TERM_2 = "#yr-ben-term-2";
-Calculator.prototype.YR_BEN_TERM_3 = "#yr-ben-term-3";
-Calculator.prototype.YR_BEN_TERM_VA_2 = "#yr-ben-term-va-2";
-Calculator.prototype.YR_BEN_TERM_VA_3 = "#yr-ben-term-va-3";
-Calculator.prototype.HOUSING_ALLOW_TERM_2 = "#housing-allow-term-2";
-Calculator.prototype.HOUSING_ALLOW_TERM_3 = "#housing-allow-term-3";
-Calculator.prototype.BOOK_STIPEND_TERM_2 = "#book-stipend-term-2";
-Calculator.prototype.BOOK_STIPEND_TERM_3 = "#book-stipend-term-3";
 
 Calculator.prototype.TUITION_FEES_INPUT = '#tuition-fees-input';
 Calculator.prototype.IN_STATE_TUITION_FEES = '#in-state-tuition-fees';
@@ -219,7 +214,7 @@ Calculator.prototype.populateInputs = function() {
 // populateInputs
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.writeOutputs = function() {
-  $(this.CALC_HOUSING_ALLOW_RATE_ROW).html(this.formatCurrency(this.calc_monthly_rate_display)+ ' / month');
+  $(this.HOUSING_ALLOW_RATE).html(this.formatCurrency(this.calc_monthly_rate_display)+ ' / month');
   $(this.TOTAL_LEFT_TO_PAY).html(this.formatCurrency(this.calc_total_left_to_pay));
     
   if (this.calc_total_left_to_pay > 0)
@@ -795,7 +790,6 @@ Calculator.prototype.getRop = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getRopOld = function(id) {
   this.rop_old = $(id + " :input").val();
-
   return this;
 };
 
@@ -903,6 +897,7 @@ Calculator.prototype.getBuyUp = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getVreOnly = function () {
   this.calc_vre_only = (this.gi_bill_chapter == 31 && !this.elig_for_post_gi_bill);
+
   return this;
 };
 
@@ -930,6 +925,8 @@ Calculator.prototype.getOnlyTuitionFees = function () {
 // Calculate the monthly benefit rate for non-chapter 33 benefits
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getMonthlyRate = function ( ) {
+  this.calc_monthlyrate = 0;
+  
   if (this.gi_bill_chapter == 30 && this.enlistment_service == 3 && this.institution_type === 'ojt' ) {
       this.calc_monthlyrate = this.MGIB3YRRATE * 0.75;  
   } else if (this.gi_bill_chapter == 30 && this.enlistment_service == 3 ) {
@@ -969,6 +966,8 @@ Calculator.prototype.getMonthlyRate = function ( ) {
   } else if (this.gi_bill_chapter == 31 && this.number_of_depend > 2) {
       this.calc_monthlyrate = this.VRE2DEPRATE + ((this.number_of_depend-2) * this.VREINCRATE) ;
   }
+
+  return this;
 };
 
 
@@ -1097,7 +1096,7 @@ Calculator.prototype.getCalcRopOld = function () {
   if (this.institution_type === 'ojt') {
     this.calc_rop_old = this.ojt_working / 30;
   } else if (this.rop_old === "full") {
-    this.rop_old = 1;
+    this.calc_rop_old = 1;
   } else if (this.rop_old === "three quarter") {
     this.calc_rop_old = 0.75;
   } else if (this.rop_old === "half") {
@@ -1183,7 +1182,7 @@ Calculator.prototype.getKickerBenefit = function () {
 Calculator.prototype.getBuyUpRate = function () {
   if (!this.buy_up_elig) {
     this.calc_buy_up_rate = 0;
-  } else if (this.gi_bill_chapter !== 30) {
+  } else if (this.gi_bill_chapter != 30) {
     this.calc_buy_up_rate = 0;
   } else {
     this.calc_buy_up_rate = (this.buy_up / 4);
@@ -1275,7 +1274,7 @@ Calculator.prototype.getTerm4 = function () {
 // Calculate Tuition Fees for Term #1
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTuitionFeesTerm1 = function () {
-  if (this.institution_type == 'ojt') {
+  if (this.institution_type === 'ojt') {
     this.calc_tuition_fees_term_1 = 0;
   } else if (this.calc_old_gi_bill == true) {
     this.calc_tuition_fees_term_1 = 0;
@@ -1533,7 +1532,7 @@ Calculator.prototype.getHousingAllowTerm1 = function () {
       Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
         this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
       ));
-  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'correspondence') {
+ } else if (this.gi_bill_chapter == 1606 && this.institution_type === 'correspondence') {
     this.calc_housing_allow_term_1 = Math.max(0, 
       Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
         this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
