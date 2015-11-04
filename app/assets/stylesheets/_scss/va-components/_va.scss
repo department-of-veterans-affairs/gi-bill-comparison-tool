@@ -52,6 +52,10 @@ a{
     }
 }
 
+.clearfix{
+    clear:both;
+}
+
 // Home Teaser Block - Lots of styles, I know....rl
 
 .home-teaser{
@@ -197,3 +201,4 @@ ul li {
     list-style-type: disc;
     }
 }
+
