@@ -22,7 +22,7 @@
 							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#tuition_fees_input" onclick="track('Tool Tips', 'Calculator / Tuition Fees');" target="_blank" class="info-link" aria-describedby="tuition-fees-input-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information about tuition fees</span></a>-->
 						</label>
 						<!--        	<span class="aria-tooltip" id="tuition-fees-input-tooltip" role="tooltip">Enter the total tuition/fees, you will be charged for the academic year.</span>-->
-        		<input id="tuition-fees-input" type="text" value="0" name="Tuition Fees" alt="Tuition Fees" class="filter-item"/>
+        		<input id="tuition-fees-input" type="text" value="$0" name="Tuition Fees" alt="Tuition Fees" class="filter-item"/>
       		</div>
 
 	      	<div id="in-state-tuition-fees-form" class="form-group top-aligned">
@@ -30,7 +30,7 @@
 							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#in_state_residency" onclick="track('Tool Tips', 'Calculator / In-State Tuition Fees');" target="_blank" class="info-link" aria-describedby="in-state-tuition-fees-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on how in-state tuition costs</span></a>-->
 						</label>
 						<!--	        <span class="aria-tooltip" id="in-state-tuition-fees-tooltip" role="tooltip">In-state residents are charged a discounted rate of tuition and fees.</span>-->
-		        <input id="in-state-tuition-fees" type="text" value="0" name="In-state Tuition Fees" alt="In-state Tuition Fees" class="filter-item"/>
+		        <input id="in-state-tuition-fees" type="text" value="$0" name="In-state Tuition Fees" alt="In-state Tuition Fees" class="filter-item"/>
 	      	</div>
 
 		      <div id="books-input-row">
@@ -38,7 +38,7 @@
 							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#books_input" onclick="track('Tool Tips', 'Calculator / Books &amp; Supplies');" target="_blank" class="info-link" aria-describedby="books-input-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on how much books cost</span></a>-->
 						</label>
 						<!--	        <span class="aria-tooltip" id="books-input-tooltip" role="tooltip">How much will you spend on books and supplies next year?</span>-->
-		        <input id="books-input" type="text" value="0" name="Books" alt="Books" class="filter-item"/>
+		        <input id="books-input" type="text" value="$0" name="Books" alt="Books" class="filter-item"/>
 		      </div>
 
 		      <div id="yellow-ribbon-recipient-form">
@@ -58,7 +58,7 @@
 							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#yellow_ribbon_from_school" onclick="track('Tool Tips', 'Calculator / Yellow Ribbon Amount');" target="_blank" class="info-link" aria-describedby="yellow-ribbon-amount-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on yellow ribbon benefits</span></a>-->
 						</label>
 						<!--	        <span class="aria-tooltip" id="yellow-ribbon-amount-tooltip" role="tooltip">VA matches each dollar of unmet charges the institution agrees to contribute up to the total cost of tuition and fees.</span>-->
-		        <input id="yellow-ribbon-amount" type="text" value="0" name="Yellow Ribbon Amount From School" alt="Yellow Ribbon Amount From School" class="filter-item" />
+		        <input id="yellow-ribbon-amount" type="text" value="$0" name="Yellow Ribbon Amount From School" alt="Yellow Ribbon Amount From School" class="filter-item" />
 		      </div>
 
 	      	<div id="yellow-ribbon-rates-link" class="form-group"></div>
@@ -68,7 +68,7 @@
 							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#scholarships" onclick="track('Tool Tips', 'Calculator / Scholarships');" target="_blank" class="info-link" aria-describedby="scholar-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on scholarships</span></a>-->
 						</label>
 						<!--	        <span class="aria-tooltip" id="scholar-tooltip" role="tooltip">Only include scholarships and grants that go directly to pay tuition/fees.</span>-->
-		        <input id="scholar" type="text" value="0" name="Scholarships (not Pell)" alt="How much are you receiving in scholarships and not Pell grants" class="filter-item" />
+		        <input id="scholar" type="text" value="$0" name="Scholarships (not Pell)" alt="How much are you receiving in scholarships and not Pell grants" class="filter-item" />
 		      </div>
     		</div>
 
@@ -200,7 +200,7 @@
 							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#kicker" onclick="track('Tool Tips', 'Calculator / How Much is Kicker');" target="_blank" class="info-link" aria-describedby="kicker-form-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on kickers</span></a>-->
 						</label>
 						<!--	        <span class="aria-tooltip" id="kicker-form-tooltip" role="tooltip">A kicker bonus is an additional incentive, paid for by the Department of Defense, to extend a tour of duty or retain highly skilled military personnel.</span>-->
-		        <input id="kicker" type ="text" value="200" name="How much is your kicker?" alt="Tell us how much is your kicker was for?" class="filter-item" />
+		        <input id="kicker" type ="text" value="$200" name="How much is your kicker?" alt="Tell us how much is your kicker was for?" class="filter-item" />
 		      </div>
 
 		    	<!-- Eligible for Buy-up -->
@@ -374,8 +374,8 @@ $(document).ready(function() {
 	// Based on school type does not change
 	/////////////////////////////////////////////////////////////////////////////
 	var institution_type = "<%= @school.institution_type.name.downcase %>";
-	var yr = <%= @school.yr %>;
+	var institution = '$.parseJSON(<%= @school.to_json %>)';
 
-	var calculator = new Calculator(institution_type, yr);
+	var calculator = new Calculator(institution_type, institution);
 });
 </script>
