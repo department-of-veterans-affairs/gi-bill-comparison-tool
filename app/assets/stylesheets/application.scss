@@ -15,9 +15,6 @@
  *= require jquery-ui
  */
 
-@import "font-awesome-sprockets";
-@import "font-awesome";
-
 /*********************************************************
 ** Stying for outcomes
 *********************************************************/
@@ -59,4 +56,9 @@
   overflow-y: auto;
   /* prevent horizontal scrollbar */
   overflow-x: hidden;
+}
+
+#search-term {
+  text-align: right;
+  display: inline;
 }

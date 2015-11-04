@@ -29,11 +29,16 @@ set :pty, true
 # Default value for :linked_files is []
 set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 
+
 # Default value for linked_dirs is []
 #set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+set :default_env, {
+  "RAILS_RELATIVE_URL_ROOT" => '/gibill'
+}
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
@@ -45,6 +50,7 @@ namespace :deploy do
   before :finished, :set_permissions do
     on roles(:app) do
       execute "chmod -R 755 #{release_path}"
+      execute "chmod -R 755 #{release_path}/public/assets/*"
     end
   end
 
