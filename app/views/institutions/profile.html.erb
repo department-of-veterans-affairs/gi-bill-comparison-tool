@@ -44,11 +44,11 @@
   </div>
 </div>
 
-<%= form_tag(search_path, id: "back-form") do %>
+
     <div id="backtosearch-noprint">
-	<a id="back-link" href=""><i class="fa fa-chevron-left back-chevron"></i> Back to Search Results</a>
+	    <a id="back-link" href="<%= @back_url %>"><i class="fa fa-chevron-left back-chevron"></i> Back to Search Results</a>
     </div>
-<% end %>
+
 
 <div>
 	<%= render partial: 'profile_overview' %>
@@ -59,7 +59,7 @@
 		<button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-0">
 			<h3>Benefits Calculator</h3>
 	  </button>
-    <div id="collapsible-0" aria-hidden="true" class="usa-accordion-content">
+    <div id="collapsible-0" aria-hidden="false" class="usa-accordion-content">
     	<%= render partial: 'profile_calculator' %>
     </div>
   </div>
@@ -72,93 +72,99 @@
     </button>
 
 		<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">            
+		  <!-- Retention Rates -->
+      <div class="usa-width-one-half">
+        <h3>Retention Rate</h3>
+	 			<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
+          <div id="retention-rates" class="graph"></div>
+          <script>
+            new Graph({
+              target : '#retention-rates',
+              bars : [
+                { name : 'vet', value : <%= number_with_precision(@veteran_retention_rate * 100, precision: 2) %>, },
+                { name : 'all', value : <%= number_with_precision(@all_student_retention_rate * 100, precision: 2) %>, }
+              ],
+              average : 10.8
+            });
+          </script>
+				<% else %>
+					<p>Retention Rate Data Not Available</p>
+				<% end %>
+      </div>     
+      <!-- END RETENTION RATE -->
 
-		      <!-- Retention Rates -->
-          <div class="usa-width-one-half">
-            <h3>Retention Rate</h3>
-	 					<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
-              <div id="retention-rates" class="graph"></div>
-              <script>
-                new Graph({
-                  target : '#retention-rates',
-                  bars : [
-                    { name : 'vet', value : <%= number_with_precision(@veteran_retention_rate * 100, precision: 2) %>, },
-                    { name : 'all', value : <%= number_with_precision(@all_student_retention_rate * 100, precision: 2) %>, }
-                  ],
-                  average : 10.8
-                });
-              </script>
-						  <% else %>
-							<p>Retention Rate Data Not Available</p>
-						  <% end %>
-            </div>
-          </div>
-          <!-- END RETENTION RATE -->
+      <!-- Graduation Rates -->
+      <div class="usa-width-one-half">
+		  <h3>Graduation Rate</h3>
+      <% 
+        isa_v = is_number?(@school.graduation_rate_veteran)
+        isa_c = is_number?(@school.graduation_rate_all_students)
 
-          <!-- Graduation Rates -->
-          <div class="usa-width-one-half">
-						<h3>Graduation Rate</h3>
-              <% if is_number?(@school.graduation_rate_veteran) && is_number?(@school.graduation_rate_all_students) %>    
-                <div id="grad-rates" class="graph"></div>
-                <script>
-                  new Graph({
-                    target : '#grad-rates',
-                    bars : [
-                      { name : 'vet', value : <%= number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2) %>, },
-                      { name : 'all', value : <%= number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2) %>, }
-                    ],
-                    average : 59
-                  });
-                </script>
-              <% else %>
-              <p>Grad Data Not Available</p>
-              <% end %>
-            </div>
-          </div><!-- END GRAD RATE -->
+        lab_v = isa_v ?  "Vet" : "Vet - No Data";
+        lab_c = isa_c ?  "All" : "All - No Data"
+
+        if isa_v || isa_c
+      %>    
+        <div id="grad-rates" class="graph"></div>
+        <script>
+          new Graph({
+            target : '#grad-rates',
+            bars : [
+              { name : '<%= lab_v %>', value : <%= number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2) %>, },
+              { name : '<%= lab_c %>', value : <%= number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2) %>, }
+            ],
+            average : 59
+          });
+        </script>
+      <% else %>
+        <p>Grad Data Not Available</p>
+      <% end %>
+      </div>
+      <!-- END GRAD RATE -->
                    
-					<!-- Salary Rates -->
-          <div class="usa-width-one-half">
-            <h3>Salaries After Directly After College</h3>
-            <% if @school.salary_all_students.present? %>
-              <div id="salary-rates" class="graph"></div>
-              <script>
-                new Graph({
-                  target:  '#salary-rates',
-                  bars:    [ { name : 'vet', value : <%= @school.salary_all_students %> } ],
-                  average: 48127
-                });
-              </script>
-              <% else %>
-              <p>Salary Data Not Available</p>
-              <% end %>
-            </div>
-          </div>
-          <!-- END SALARY RATE -->
+			<!-- Salary Rates -->
+      <div class="usa-width-one-half">
+        <h3>Salaries After Directly After College</h3>
+        <% if @school.salary_all_students.present? %>
+          <div id="salary-rates" class="graph"></div>
+          <script>
+            new Graph({
+              target:  '#salary-rates',
+              bars:    [ { name : 'vet', value : <%= @school.salary_all_students %> } ],
+              average: 48127
+            });
+          </script>
+        <% else %>
+          <p>Salary Data Not Available</p>
+        <% end %>
+      </div>
+      <!-- END SALARY RATE -->
 
-					<!-- Repayment -->
-          <div class="usa-width-one-half">
-						<h3>Repayment Rate</h3>
-            <% if @school.repayment_rate_all_students.present? %>
-              <div id="repayment-rates" class="graph">
-              <script>
-                new Graph({
-                  target:  '#repayment-rates',
-                  bars:    [ { name : 'vet', value : <%= number_with_precision(@school.repayment_rate_all_students * 100, precision: 2) %> } ],
-                  average: 86.3 
-                });
-              </script>
-              <% else %>
-							<p>Salary Data Not Available</p>
-              <% end %>
-            </div>
-          </div>
-          <!-- END REPAYMENT RATE -->
+			<!-- Repayment -->
+      <div class="usa-width-one-half">
+  			<h3>Repayment Rate</h3>
+        <% if @school.repayment_rate_all_students.present? %>
+          <div id="repayment-rates" class="graph"></div>å
+          <script>
+            new Graph({
+              target:  '#repayment-rates',
+              bars:    [ 
+                { name : 'vet', 
+                  value : <%= number_with_precision(@school.repayment_rate_all_students * 100,precision: 2) %> } 
+              ],
+              average: 86.3 
+            });
+          </script>
+        <% else %>
+  			 <p>Salary Data Not Available</p>
+        <% end %>
+      </div>
+      <!-- END REPAYMENT RATE -->
 
-        </div><!-- END Accordion ID Div -->
-  	</div><!-- END Accordion class Div -->
+    </div><!-- END Accordion ID Div -->
+  </div><!-- END Accordion class Div -->
 </div><!-- END <div class="usa-width-three-fourths new-row"> -->
 
-	
 <div class="usa-width-three-fourths new-row">
 	<div class="usa-accordion">
     <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-2">
@@ -191,28 +197,3 @@
     </div>
 	</div>
 </div>
-
-
-<script>
-	$(document).ready(function() {
-
-		$("#back-link").click(function(e) {
-			e.preventDefault();
-
-			href = "<%= search_path %>?facility_code=<%= @school.facility_code %>";
-			href += "&military_status=" + $("#military-status").val();
-			href += "&spouse_active_duty=" + $("#spouse-active-duty").val();
-			href += "&gi_bill_chapter=" + $("#gi-bill-chapter").val();
-			href += "&cumulative_service=" + $("#cumulative-service").val();
-			href += "&enlistment_service=" + $("#enlistment-service").val();
-			href += "&consecutive_service=" + $("#consecutive-service").val();
-			href += "&elig_for_post_gi_bill=" + $("#elig-for-post-gi-bill").val();
-			href += "&number_of_dependents=" + $("#number-of-dependents").val();
-			href += "&online_classes=" + $("#online-classes").val();
-			href += "&institution_search=<%= @inputs[:institution_search] %>";
-
-			$("#back-form").attr("action", href);
-			$("#back-form").submit();
-		});
-	});
-</script>

@@ -52,6 +52,10 @@ a{
     }
 }
 
+.clearfix{
+    clear:both;
+}
+
 // Home Teaser Block - Lots of styles, I know....rl
 
 .home-teaser{
@@ -189,4 +193,29 @@ ul li {
     margin-top: 1rem;
     font-size: 1.25rem;
   }
+}
+.modal-bullets{
+    font-size: 1.3rem;
+    text-indent: 3rem;
+    li{
+    list-style-type: disc;
+    }
+}
+
+.pagination-bottom{
+    text-align: center;
+    padding: 1.7rem;
+    a{
+    font-family: $open-sans;
+    color: $va-primary-color;
+    
+    &:visited{
+    color: $va-secondary-color;
+    }
+    }
+}
+
+.search-count{
+    margin-left: 1.7rem;
+    margin-bottom: 1.7rem;
 }

@@ -25,18 +25,6 @@
       <input type="radio" id="online-classes-both" name="online_classes" 
         value="both" <%= 'checked' if "both" == @inputs[:online_classes] %> />
       <label class="radio" for="online-classes-both" style="display:inline-block">Both</label>
-
-<!--       <label for="online-classes">Will you be taking classes online? </label>
-
-      <select id="online-classes" name="online_classes" alt="Online? Yes/No" class="filter-item">
-        <% { 
-          'yes' => 'All', 'no' => 'None', 'both' => 'Both online and on-campus'
-        }.each_pair do |value, label| %>
-          <option value="<%= value %>" 
-            <%= 'selected' if value == @inputs[:online_classes] %>
-          ><%= label %></option>
-        <% end %>
-      </select> -->
     </div>
   <% end %>
 
@@ -56,13 +44,6 @@
       <%= submit_tag 'Search Schools', id: "search-button", :class => "usa-search-submit-text" %>
     </div>
   </div>
-<!-- Commenting out for now -->
-<!--   <% if advanced %>    -->   	    
-<!--    <div>               -->          
-<!--      <a href="#advancedsearch">Advanced search</a> -->        
-<!--    </div>              -->      
-<!--   <% end %>           -->    
-
 </div>
 
 
