@@ -100,8 +100,8 @@
         isa_v = is_number?(@school.graduation_rate_veteran)
         isa_c = is_number?(@school.graduation_rate_all_students)
 
-        lab_v = isa_v ?  "Vet" : "Vet - No Data";
-        lab_c = isa_c ?  "All" : "All - No Data"
+        vrate = isa_v ? number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2) : "null";
+        crate = isa_c ? number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2) : "null";
 
         if isa_v || isa_c
       %>    
@@ -110,8 +110,8 @@
           new Graph({
             target : '#grad-rates',
             bars : [
-              { name : '<%= lab_v %>', value : <%= number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2) %>, },
-              { name : '<%= lab_c %>', value : <%= number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2) %>, }
+              { name : 'vet', value : <%= vrate %> },
+              { name : 'all', value : <%= crate %> }
             ],
             average : 59
           });
