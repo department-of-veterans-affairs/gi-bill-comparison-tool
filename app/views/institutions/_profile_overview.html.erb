@@ -22,7 +22,7 @@
 		</p>
 
 		<% if @school.insturl.present? %>
-			<p><a href="http://<%= @school.insturl.downcase %>">
+			<p><a href="http://<%= @school.insturl.downcase %>"target="_blank">
 				<%= @school.insturl.downcase %>
 			</a></p>
 		<% end %>
