@@ -19,7 +19,8 @@ new Graph({
 var Graph = function(options){
   
   var width = 200,
-      height = 100;
+      height = 100,
+      padding = 10;
 
   // Append SVG
   var svg = d3.select(options.target)
@@ -27,7 +28,7 @@ var Graph = function(options){
       .attr('class', 'graph')
       .attr('width', '100%')
       .attr('height', '100%')
-      .attr('viewBox', '0 0 ' + width + ' ' + height);
+      .attr('viewBox', '0 0 ' + width + ' ' + (height + padding));
 
   // Draw background area
   svg
@@ -63,6 +64,26 @@ var Graph = function(options){
         .attr('x', function(d, i){ return (i * barWidth) + (barWidth / 2); })
         .attr('y', function(d, i){ return height - d.value + 10; })
         .text(function(d){ return d.value + '%'; });
+
+  // Draw axis
+  svg
+    .append('line')
+      .attr('class', 'graph-axis')
+      .attr('x1', 0)
+      .attr('x2', width / 2)
+      .attr('y1', height)
+      .attr('y2', height);
+
+  // Draw axis labels
+  svg
+    .selectAll('.graph-axis-label')
+    .data(options.bars)
+    .enter()
+      .append('text')
+        .attr('class', 'graph-bar-label') 
+        .attr('x', function(d, i){ return (i * barWidth) + (barWidth / 2); })
+        .attr('y', height + 10) 
+        .text(function(d){ return d.name; });
 
   // Draw average line
   svg
