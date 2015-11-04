@@ -2,6 +2,7 @@
   <div class="benefits">
   	<div id="benefit-calculator">
     	<h4>Calculate Your Detailed Benefits</h4>
+    </div>
 			
 			<!-- Contains Calcualtor Inputs  -->
     	<div class="calc-questions usa-width-one-third">
@@ -252,51 +253,53 @@
 		      </div>
     		</div>
 			</div>      
-  	</div>
+  	
   	<!-- End Calucaltor Inputs -->
       
-  	<div class="calc-outputs usa-width-two-thirds">
+  	<div class="calc-outputs usa-width-one-half">
   		<!-- Contains Calcualtor Outputs  -->
-			<div id="calculated-benefits">
+			<div id="calculated-benefits" class="align-center">
+                <h3>Calculator Results</h3>
 		  	<table>
 		    	<tbody>
-		      	<tr>
-		        	<th colspan="3" style="font-size: 1.3em;border-bottom: 2px solid #fff;">Calculator Results</th>
-		      	</tr>
 		      	<tr id="calc-housing-allow-rate-row">
-		        	<th style="">Housing Allowance</td>
-		        	<td colspan="2" id="housing-allow-rate" style="font-size: 1.2em;">$0</td>
+              <td>Housing Allowance</td>
+              <th colspan="2" id="housing-allow-rate">$0</th>
 		      	</tr>
 		      	<tr></tr>
 		      	<tr id="calc-term-total-row">
-		        	<th colspan="2" style="border-bottom: 2px solid #fff;">Total GI Bill Benefits:</th>
-		        	<td id="total-year"style="font-weight: bold;border-bottom: 2px solid #fff;">$0 / yr</td>
+		        	<th colspan="2" class="noborder align-right data-row border-bottom">Total GI Bill Benefits:</th>
+		        	<td id="total-year" class="noborder align-left data-row"><b>$0 / yr</b></td>
 		      	</tr>
 			      <tr id="calc-paid-to-school-total-row">
-			        <td colspan="2" style="">Paid to school:</td>
-			        <td id="total-paid-to-school" style="font-weight: bold;">$0</td>
+			        <td colspan="2" class="noborder align-right data-row">Paid to school:</td>
+			        <td id="total-paid-to-school" class="noborder align-left data-row">$0</td>
 			      </tr>
 			      <tr id="calc-paid-to-you-total-row">
-			        <td colspan="2" style="">Paid to You:</td>
-			        <td id="total-paid-to-you" style="font-weight: bold;">$0</td>
+			        <td colspan="2" class="noborder align-right data-row">Paid to You:</td>
+			        <td id="total-paid-to-you" class="noborder align-left data-row">$0</td>
 			      </tr>
 		      	<tr></tr>
 			      <tr id="calc-out-of-pocket-row">
-			        <th colspan="2" style="border-bottom: 2px solid #fff;">Out of Pocket Tuition:</th>
-			        <td id="total-left-to-pay" style="border-bottom: 2px solid #fff; font-weight: bold;">$0</td>
+			        <th colspan="2" class="noborder align-right data-row">Out of Pocket Tuition:</th>
+			        <td id="total-left-to-pay" class="noborder align-left data-row">$0</td>
 			      </tr>
 		   	   	<tr id="calc-tuition-fees-charged-row">
-		        	<td colspan="2" style="">Tuition &amp; Fees Charged:</td>
-		        	<td id="total-tuition-fees-charged" style="font-weight: bold;">$0</td>
+		        	<td colspan="2" class="noborder align-right data-row">Tuition &amp; Fees Charged:</td>
+		        	<td id="total-tuition-fees-charged"  class="noborder align-left data-row">$0</td>
 		      	</tr>
 		      	<tr id="calc-tuition-fees-scholarship-row">
-		        	<td colspan="2" style="">Your Scholarships:</td>
-		        	<td id="total-tuition-fees-scholarships" style="font-weight: bold;">$0</td>
+		        	<td colspan="2" class="noborder align-right data-row">Your Scholarships:</td>
+		        	<td id="total-tuition-fees-scholarships"  class="noborder align-left data-row">$0</td>
 		      	</tr>
 			      <tr id="calc-school-received-row">
-			        <td colspan="2" style="">GI Bill Pays:</td>
-			        <td id="total-school-received" style="font-weight: bold;">$0</td>
+			        <td colspan="2" class="noborder align-right data-row">GI Bill Pays:</td>
+			        <td id="total-school-received" class="noborder align-left data-row">$0</td>
 			      </tr>
+                </table>
+      </div></div>
+      <div class="usa-width-one-whole newrow">
+                <table>
 		      	<tr></tr>
 		      	<tr id="payments-to-you-terms" style=";">
 		        	<th aria-hidden="true"></th>
@@ -362,11 +365,10 @@
 		      	</tr>
 		    	</tbody>
 		  	</table>
-  			<div style="clear: both;">&nbsp;</div>
-			</div>
+    </div>
+
 		</div>
 	</div>
-</div>
 
 <script>
 $(document).ready(function() {

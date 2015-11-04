@@ -790,7 +790,6 @@ Calculator.prototype.getRop = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getRopOld = function(id) {
   this.rop_old = $(id + " :input").val();
-
   return this;
 };
 
@@ -926,6 +925,8 @@ Calculator.prototype.getOnlyTuitionFees = function () {
 // Calculate the monthly benefit rate for non-chapter 33 benefits
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getMonthlyRate = function ( ) {
+  this.calc_monthlyrate = 0;
+  
   if (this.gi_bill_chapter == 30 && this.enlistment_service == 3 && this.institution_type === 'ojt' ) {
       this.calc_monthlyrate = this.MGIB3YRRATE * 0.75;  
   } else if (this.gi_bill_chapter == 30 && this.enlistment_service == 3 ) {
@@ -1095,7 +1096,7 @@ Calculator.prototype.getCalcRopOld = function () {
   if (this.institution_type === 'ojt') {
     this.calc_rop_old = this.ojt_working / 30;
   } else if (this.rop_old === "full") {
-    this.rop_old = 1;
+    this.calc_rop_old = 1;
   } else if (this.rop_old === "three quarter") {
     this.calc_rop_old = 0.75;
   } else if (this.rop_old === "half") {
@@ -1181,7 +1182,7 @@ Calculator.prototype.getKickerBenefit = function () {
 Calculator.prototype.getBuyUpRate = function () {
   if (!this.buy_up_elig) {
     this.calc_buy_up_rate = 0;
-  } else if (this.gi_bill_chapter !== 30) {
+  } else if (this.gi_bill_chapter != 30) {
     this.calc_buy_up_rate = 0;
   } else {
     this.calc_buy_up_rate = (this.buy_up / 4);
@@ -1531,7 +1532,7 @@ Calculator.prototype.getHousingAllowTerm1 = function () {
       Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
         this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
       ));
-  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'correspondence') {
+ } else if (this.gi_bill_chapter == 1606 && this.institution_type === 'correspondence') {
     this.calc_housing_allow_term_1 = Math.max(0, 
       Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
         this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
