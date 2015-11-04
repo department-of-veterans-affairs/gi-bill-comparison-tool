@@ -63,11 +63,13 @@ var Graph = function(options){
       .append('rect')
         .attr('class', function(d){ return d.name + ' graph-bar'; })
         .attr('x', function(d, i){ return i * barWidth; })
-        .attr('y', function(d, i){ return height - (d.percent || d.value); })
+        .attr('y', function(d, i){ return height; })
         .attr('height', 0)
         .attr('width', barWidth)
         .transition()
-          .attr('height', function(d,i){ return (d.percent || d.value); }); // Assumes percentage
+          .duration(1000)
+            .attr('y', function(d, i){ return height - (d.percent || d.value); })
+            .attr('height', function(d,i){ return (d.percent || d.value); }); // Assumes percentage
 
   // Draw bar labels
   svg
