@@ -202,3 +202,20 @@ ul li {
     }
 }
 
+.pagination-bottom{
+    text-align: center;
+    padding: 1.7rem;
+    a{
+    font-family: $open-sans;
+    color: $va-primary-color;
+    
+    &:visited{
+    color: $va-secondary-color;
+    }
+    }
+}
+
+.search-count{
+    margin-left: 1.7rem;
+    margin-bottom: 1.7rem;
+}
