@@ -26,6 +26,7 @@ function Calculator(institution_type, institution) {
   this.institution_type = institution_type.toLowerCase();
   this.institution = institution;
 
+  this.populateInputs();
   this.getValues();
   this.getDerivedValues();
   this.resetVisibility();
@@ -45,6 +46,7 @@ function Calculator(institution_type, institution) {
 Calculator.prototype.TFCAP = 21084.89;
 Calculator.prototype.AVGBAH = 1566;
 Calculator.prototype.BSCAP = 1000;
+Calculator.prototype.BSOJTMONTH = 83;
 Calculator.prototype.FLTTFCAP = 12048.50;
 Calculator.prototype.CORRESPONDTFCAP = 10241.22;
 
@@ -126,6 +128,28 @@ Calculator.prototype.HOUSING_ALLOW_TERM_3 = "#housing-allow-term-3";
 Calculator.prototype.BOOK_STIPEND_TERM_2 = "#book-stipend-term-2";
 Calculator.prototype.BOOK_STIPEND_TERM_3 = "#book-stipend-term-3";
 
+Calculator.prototype.TUITION_FEES_INPUT = '#tuition-fees-input';
+Calculator.prototype.IN_STATE_TUITION_FEES = '#in-state-tuition-fees';
+Calculator.prototype.BOOKS_INPUT = '#books-input';
+Calculator.prototype.CALENDAR = "#calendar";
+
+///////////////////////////////////////////////////////////////////////////////
+// populateInputs
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.populateInputs = function() {
+  var tis = this.formatCurrency(this.institution.tuition_in_state);
+
+  $(this.TUITION_FEES_INPUT).val(tis);
+  $(this.IN_STATE_TUITION_FEES).val(tis);
+  $(this.BOOKS_INPUT).val(this.formatCurrency(this.institution.books));
+
+  if (this.institution.calendar) {
+    $(this.CALENDAR).val(this.institution.calendar);
+  } else {
+    $(this.CALENDAR).val('semesters');
+  }
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 // setValues
 // Sets all calculator values.
@@ -140,16 +164,16 @@ Calculator.prototype.getValues = function() {
   this.getOnline(this.ONLINE_CLASSES);
 
   this.getInState(this.IN_STATE);
-  this.getTuitionFees(this.TUITION_FEES_FORM);
-  this.getInStateTuitionFees(this.IN_STATE_TUITION_FEES_FORM);
-  this.getBooks(this.BOOKS_INPUT_ROW);
+  this.getTuitionFees(this.TUITION_FEES_INPUT);
+  this.getInStateTuitionFees(this.IN_STATE_TUITION_FEES);
+  this.getBooks(this.BOOKS_INPUT);
   this.getYellowRibbon(this.YELLOW_RIBBON_RECIPIENT_FORM);
   this.getYellowBen(this.YELLOW_RIBBON_AMOUNT_FORM);
   this.getScholar(this.SCHOLARSHIP_AMOUNT_FORM);
   this.getTuitionAssist(this.TUITION_ASSIST_FORM);
   this.getRop(this.ENROLLED_FORM);
   this.getRopOld(this.ENROLLED_FORM_OLD_GI_BILL);
-  this.getCalendar(this.CALENDAR_FORM);
+  this.getCalendar(this.CALENDAR);
   this.getOjtWorking(this.WORKING_FORM);
   this.getNumberNontradTerms(this.NUMBER_NON_TRADITIONAL_TERMS_FORM);
   this.getLengthNontradTerms(this.LENGTH_NON_TRADITIONAL_TERMS_FORM);
@@ -211,6 +235,19 @@ Calculator.prototype.getDerivedValues = function() {
   this.getHousingAllowTerm2();
   this.getHousingAllowTerm3();
   this.getHousingAllowTotal();
+  this.getMonthlyRateDisplay();
+  this.getBookStipendTerm1();
+  this.getBookStipendTerm2();
+  this.getBookStipendTerm3();
+  this.getBookStipendYear();
+  this.getTotalPaidToYou();
+  this.getTotalTerm1();
+  this.getTotalTerm2();
+  this.getTotalTerm3();
+  this.getTotalTerm2();
+  this.getTotalTerm3();
+  this.getTotalText();
+  this.getTotalYear();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -540,7 +577,7 @@ Calculator.prototype.getInState = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTuitionFees = function(id) {
-  this.tuition_fees = this.getCurrency($(id + " :input").val());
+  this.tuition_fees = this.getCurrency($(id).val());
 
   return this;
 };
@@ -552,7 +589,7 @@ Calculator.prototype.getTuitionFees = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getInStateTuitionFees = function(id) {
-  this.in_state_tuition_fees = this.getCurrency($(id + " :input").val());
+  this.in_state_tuition_fees = this.getCurrency($(id).val());
 
   return this;
 };
@@ -564,7 +601,7 @@ Calculator.prototype.getInStateTuitionFees = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getBooks = function(id) {
-  this.books = this.getCurrency($(id + " :input").val());
+  this.books = this.getCurrency($(id).val());
 
   return this;
 };
@@ -643,7 +680,7 @@ Calculator.prototype.getRopOld = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getCalendar = function(id) {
-  this.calendar = $(id + " :input").val();
+  this.calendar = $(id).val();
   return this;
 };
 
@@ -1672,3 +1709,205 @@ Calculator.prototype.getHousingAllowTotal = function () {
 
   return this;
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// getMonthlyRateDisplay
+// Calculate Monthly Rate for Display
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getMonthlyRateDisplay = function () {
+  if (this.institution_type === 'ojt') {
+    this.calc_monthly_rate_display = this.calc_housing_allow_term_1;
+  } else {
+    this.calc_monthly_rate_display = this.calc_housing_allow_term_1 / this.calc_term_length;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getBookStipendTerm1
+// Calculate Book Stipend for Term #1
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getBookStipendTerm1 = function () {
+  if (this.institution_type === 'flight' || this.institution_type === 'correspondence') {
+    this.calc_book_stipend_term_1 = 0;
+  } else if (this.calc_old_gi_bill == true) {
+    this.calc_book_stipend_term_1 = 0;
+  } else if (this.calc_gi_bill_chapter == 31) {
+    this.calc_book_stipend_term_1 = this.books / this.calc_number_of_terms;
+  } else if (this.institution_type === 'ojt' && this.gi_bill_chapter == 33) {
+    this.calc_book_stipend_term_1 = this.BSOJTMONTH;
+  } else {
+    this.calc_book_stipend_term_1 = this.calc_rop_book * 
+      this.BSCAP / this.calc_number_of_terms * this.calc_tier;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getBookStipendTerm2
+// Calculate Book Stipend for Term #2
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getBookStipendTerm2 = function () {
+  if (this.institution_type === 'flight' || this.institution_type === 'correspondence') {
+    this.calc_book_stipend_term_2 = 0;
+  } else if (this.institution_type === 'ojt' && this.gi_bill_chapter == 33) {
+    this.calc_book_stipend_term_2 = this.BSOJTMONTH;
+  } else if (this.calendar === 'nontraditional' && this.calc_number_of_terms == 1) {
+    this.calc_book_stipend_term_2 = 0;
+  } else if (this.calc_old_gi_bill == true) {
+    this.calc_book_stipend_term_2 = 0;
+  } else if (this.gi_bill_chapter == 31) {
+    this.calc_book_stipend_term_2 = this.books / this.calc_number_of_terms;
+  } else {
+    this.calc_book_stipend_term_2 = this.calc_rop_book * 
+      this.BSCAP / this.calc_number_of_terms * this.calc_tier;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getBookStipendTerm3
+// Calculate Book Stipend for Term #3
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getBookStipendTerm3 = function () {
+  if (this.institution_type === 'flight' || this.institution_type === 'correspondence') {
+    this.calc_book_stipend_term_3 = 0;
+  } else if  (this.institution_type === 'ojt' && this.gi_bill_chapter == 33) {
+    this.calc_book_stipend_term_3 = this.BSOJTMONTH;
+  } else if (this.calendar === 'semesters') {
+    this.calc_book_stipend_term_3 = 0;
+  } else if (this.calendar === 'nontraditional' && this.calc_number_of_terms < 3) {
+    this.calc_book_stipend_term_3 = 0;
+  } else if (this.calc_old_gi_bill == true) {
+    this.calc_book_stipend_term_3 = 0;
+  } else if (this.gi_bill_chapter == 31) {
+    this.calc_book_stipend_term_3 = this.books / this.calc_number_of_terms;
+  } else {
+    this.calc_book_stipend_term_3 = this.calc_rop_book * 
+      this.BSCAP / this.calc_number_of_terms * this.calc_tier;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getBookStipendYear
+// Calculate Book Stipend for Year
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getBookStipendYear = function () {
+  if (this.institution_type === 'ojt' && this.gi_bill_chapter == 33) {
+    this.calc_book_stipend_total = this.BSOJTMONTH;
+  } else {
+    this.calc_book_stipend_total = this.calc_book_stipend_term_1 +
+      this.calc_book_stipend_term_2 + this.calc_book_stipend_term_3;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTotalPaidToYou
+// Calculate Total Payments to You
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTotalPaidToYou = function () {
+  this.calc_total_to_you = this.calc_housing_allow_total + this.calc_book_stipend_total;
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTotalTerm1
+// Calculate Total Benefits for Term 1
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTotalTerm1 = function () {
+  if (this.institution_type === 'ojt') {
+    this.calc_total_term_1 = 0;
+  } else {
+    this.calc_total_term_1 = this.calc_tuition_fees_term_1 +
+      this.calc_yr_ben_term_1 + this.calc_housing_allow_term_1 +
+        this.calc_book_stipend_term_1;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTotalTerm2
+// Calculate Total Benefits for Term 2
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTotalTerm2 = function () {
+  if (this.calendar === 'nontraditional' && this.calc_number_of_terms == 1) {
+    this.calc_book_stipend_term_2 = 0;
+  } else if (this.institution_type === 'ojt') {
+    this.calc_total_term_2 = 0;
+  } else {
+    this.calc_total_term_2 = this.calc_tuition_fees_term_2 +
+      this.calc_yr_ben_term_2 + this.calc_housing_allow_term_2  +
+        this.calc_book_stipend_term_2;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTotalTerm3
+// Calculate Total Benefits for Term 3
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTotalTerm3 = function () {
+  if (this.calendar == 'semesters') {
+    this.calc_total_term_3 = 0;
+  } else if (this.calendar === 'nontraditional' && this.calc_number_of_terms < 3) {
+    this.calc_total_term_3 = 0;
+  } else if (this.institution_type === 'ojt') {
+    this.calc_total_term_3 = 0;
+  } else {
+    this.calc_total_term_3 = this.calc_tuition_fees_term_3 +
+      this.calc_yr_ben_term_3 + this.calc_housing_allow_term_3 +
+        this.calc_book_stipend_term_3;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Calculate Text for Total Benefits Row
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTotalText = function () { 
+  if (this.gi_bill_chapter == 33) {
+    this.calc_gi_bill_total_text = 'Total Post-9/11 GI Bill Benefits';
+  } else if (this.gi_bill_chapter == 30) {
+    this.calc_gi_bill_total_text = 'Total Montgomery GI Bill Benefits';
+  } else if (this.gi_bill_chapter == 1606) {
+    this.calc_gi_bill_total_text = 'Total Select Reserve GI Bill Benefits';
+  } else if (this.gi_bill_chapter == 1607) {
+    this.calc_gi_bill_total_text = 'Total REAP GI Bill Benefits';
+  } else if (this.gi_bill_chapter == 35) {
+    this.calc_gi_bill_total_text = 'Total DEA GI Bill Benefits';
+  } else if (this.gi_bill_chapter == 31) {
+    this.calc_gi_bill_total_text = 'Total Voc Rehab Benefits';
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTotalYear
+// Calculate Total Benefits for Year
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTotalYear = function () {
+  if (this.institution_type === 'ojt') {
+    this.calc_total_year = 0;
+  } else {
+    this.calc_total_year = this.calc_tuition_fees_total +
+      this.calc_yr_ben_total + this.calc_housing_allow_total +
+        this.calc_book_stipend_total;
+  }
+
+  return this;
+};
+
+
+
