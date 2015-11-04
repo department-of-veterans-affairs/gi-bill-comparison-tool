@@ -16,10 +16,10 @@ function Calculator(institution_type, institution) {
   // this.bah = null;
 
   // Dependent Values
-  // this.old_gi_bill = null;
+  // this.calc_old_gi_bill = null;
   // this.service_discharge = null;
-  // this.tier = null;
-  // this.vre_only = null;
+  // this.calc_tier = null;
+  // this.calc_vre_only = null;
   // this.monthly_rate = null;
   // this.only_tuition_fees = null;
 
@@ -42,12 +42,16 @@ function Calculator(institution_type, institution) {
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
 
+Calculator.prototype.BSCAP = 1000;
+Calculator.prototype.TFCAP = 21084.89;
+Calculator.prototype.FLTTFCAP = 12048.50;
+Calculator.prototype.CORRESPONDTFCAP = 10241.22;
+
 // Estimator Ids
 Calculator.prototype.MILITARY_STATUS = "#military-staus"
 Calculator.prototype.GI_BILL_CHAPTER = "#gi-bill-chapter";
 Calculator.prototype.ELIG_FOR_POST_GI_BILL = "#elig-for-post-gi-bill";
 Calculator.prototype.CUMMULATIVE_SERVICE = "#cumulative-service";
-Calculator.prototype.BSCAP = 1000;
 
 // Calculator Tuition
 Calculator.prototype.TUITION_FEES_SECTION = "#tuition-fees-section";
@@ -151,6 +155,8 @@ Calculator.prototype.getDerivedValues = function() {
   this.getTuitionOutOfState();
   this.getNumberOfTerms();
   this.getTuitionNetPrice();
+  this.getTuitionFeesCap();
+  this.getTuitionFeesPerTerm();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -212,7 +218,7 @@ Calculator.prototype.resetVisibility = function() {
   $(this.BOOK_STIPEND_TERM_3).show();
 
   // Dependent Visibilities
-  if (!this.vre_only) {
+  if (!this.calc_vre_only) {
     $(this.ENROLLED_FORM).show();
     $(this.ENROLLED_FORM_OLD_GI_BILL).hide();
     $(this.YELLOW_RIBBON_RECIPIENT_FORM).hide();
@@ -261,7 +267,7 @@ Calculator.prototype.resetVisibility = function() {
     }
   }
 
-  if (this.institution.yr && this.tier == 1.0) {
+  if (this.institution.yr && this.calc_tier == 1.0) {
     $(this.YELLOW_RIBBON_RECIPIENT_FORM).show();
     
     if (this.yellow_ribbon) {
@@ -275,7 +281,7 @@ Calculator.prototype.resetVisibility = function() {
     $(this.LENGTH_NON_TRADITIONAL_TERMS_FORM).show();
   }
     
-  if (this.old_gi_bill == true || this.vre_only == true) {
+  if (this.calc_old_gi_bill == true || this.calc_vre_only == true) {
     $(this.ENROLLED_FORM).hide();
     $(this.ENROLLED_FORM_OLD_GI_BILL).show();
     $(this.YELLOW_RIBBON_RECIPIENT_FORM).hide();
@@ -313,12 +319,12 @@ Calculator.prototype.resetVisibility = function() {
     $(this.TUITION_ASSIST_FORM).hide();
   }
 
-  if (!this.yellow_ribbon_elig) {
+  if (!this.calc_yellow_ribbon_elig) {
     $(this.CALC_YELLOW_RIBBON_ROW).hide();
     $(this.CALC_YELLOW_RIBBON_VA_ROW).hide();
   }
 
-  if (this.number_of_terms == 1) {
+  if (this.calc_number_of_terms == 1) {
     $(this.TERM2).hide();
     $(this.TERM3).hide();
     $(this.TUITION_FEES_TERM_2).hide();
@@ -333,7 +339,7 @@ Calculator.prototype.resetVisibility = function() {
     $(this.BOOK_STIPEND_TERM_3).hide();
   }
 
-  if (this.number_of_terms < 3 && this.institution_type !== 'ojt') {
+  if (this.calc_number_of_terms < 3 && this.institution_type !== 'ojt') {
     $(this.TERM3).hide();
     $(this.TUITION_FEES_TERM_3).hide();
     $(this.YR_BEN_TERM_3).hide();
@@ -382,7 +388,7 @@ Calculator.prototype.getMilitaryStatus = function(id) {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getGiBillChapter = function(id) {
   this.gi_bill_chapter = Number($(id).val());
-  this.old_gi_bill = (this.gi_bill_chap == 30 || this.gi_bill_chap == 1607 
+  this.calc_old_gi_bill = (this.gi_bill_chap == 30 || this.gi_bill_chap == 1607 
     || this.gi_bill_chap == 1606 || this.gi_bill_chap == 35);
 
   return this;
@@ -725,7 +731,7 @@ Calculator.prototype.setCalcYellowRibbonVaRow = function(id) {
 // Saves as boolean.
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getVreOnly = function () {
-  this.vre_only = (this.gi_bill_chapter == 31 && !this.elig_for_post_gi_bill);
+  this.calc_vre_only = (this.gi_bill_chapter == 31 && !this.elig_for_post_gi_bill);
   return this;
 };
 
@@ -738,7 +744,7 @@ Calculator.prototype.getOnlyTuitionFees = function () {
       (this.gi_bill_chapter == 30 || this.gi_bill_chapter == 1607)) {
     this.only_tuition_fees = true;
   } else if ((this.institution_type == 'correspond' || 
-      this.institution_type == 'flight') && this.old_gi_bill == true) {
+      this.institution_type == 'flight') && this.calc_old_gi_bill == true) {
     this.only_tuition_fees = true;    
   } else if ((this.rop_old == "less than half" || this.rop_old == "quarter") && 
       (this.gi_bill_chap == 30 || this.gi_bill_chap == 1607 || this.gi_bill_chap == 35)) {
@@ -754,9 +760,9 @@ Calculator.prototype.getOnlyTuitionFees = function () {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTier = function () {
   if (this.gi_bill_chap == 31 && this.post_911_elig == true)
-    this.tier = 1;
+    this.calc_tier = 1;
   else
-    this.tier = parseFloat(this.cumulative_service);
+    this.calc_tier = parseFloat(this.cumulative_service);
   
   return this;
 };
@@ -766,15 +772,15 @@ Calculator.prototype.getTier = function () {
 // Determine yellow ribbon eligibility
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getYellowRibbonEligibility = function () {
-  if (this.tier < 1 || !this.institution.yr || !this.yellow_ribbon 
+  if (this.calc_tier < 1 || !this.institution.yr || !this.yellow_ribbon 
       || this.military_status == 'active duty') {
-    this.yellow_ribbon_elig = false;
+    this.calc_yellow_ribbon_elig = false;
   }
   else if (this.institution_type == 'ojt' || this.institution_type == 'flight' || 
       this.institution_type == 'correspondence') {
-    this.yellow_ribbon_elig = false;
+    this.calc_yellow_ribbon_elig = false;
   } else {
-    this.yellow_ribbon_elig = true;
+    this.calc_yellow_ribbon_elig = true;
   }
 
   return this;
@@ -785,7 +791,7 @@ Calculator.prototype.getYellowRibbonEligibility = function () {
 // Calculate the prepopulated value out-of-state tuiton rates
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTuitionOutOfState = function () {
-  this.tuition_out_of_state = this.institution.tuition_out_of_state;
+  this.calc_tuition_out_of_state = this.institution.tuition_out_of_state;
 
   return this;
 };
@@ -797,13 +803,13 @@ Calculator.prototype.getTuitionOutOfState = function () {
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getNumberOfTerms = function () {
   if (this.institution_type === 'ojt')
-    this.number_of_terms = 3;
+    this.calc_number_of_terms = 3;
   else if (this.calendar === 'semesters')
-    this.number_of_terms = 2;
+    this.calc_number_of_terms = 2;
   else if (this.calendar == 'quarters')
-    this.number_of_terms = 3;
+    this.calc_number_of_terms = 3;
   else if (this.calendar == 'nontraditional') {
-    this.number_of_terms = this.number_nontrad_terms;
+    this.calc_number_of_terms = this.number_nontrad_terms;
   }
 
   return this;
@@ -814,8 +820,41 @@ Calculator.prototype.getNumberOfTerms = function () {
 // Set the net price (Payer of Last Resort)
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTuitionNetPrice = function () {
-  this.tuition_net_price = Math.max(0, Math.min(
+  this.calc_tuition_net_price = Math.max(0, Math.min(
     this.tuition_fees - this.scholar - this.tuition_assist
   ));
+
+  return this;
 };
 
+///////////////////////////////////////////////////////////////////////////////
+// getTuitionFeesCap
+// Set the proper tuition/fees cap
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTuitionFeesCap = function () {
+  if (this.institution_type == 'flight') {
+    this.calc_tuition_fees_cap = this.FLTTFCAP;
+  } else if (this.institution_type == 'correspondence') {
+    this.calc_tuition_fees_cap = this.CORRESPONDTFCAP;
+  } else if (this.institution_type == 'public' && 
+        this.institution.country.toLowerCase() === 'usa' && this.in_state) {
+    this.calc_tuition_fees_cap = this.tuition_fees;
+  } else if (this.institution_type == 'public' && 
+        this.institution.country.toLowerCase() == 'usa' && !this.in_state) {
+    this.calc_tuition_fees_cap = this.in_state_tuition_fees;
+  } else if (this.institution_type == 'private' || this.institution_type == 'foreign') {
+    this.calc_tuition_fees_cap = this.TFCAP;
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTuitionFeesPerTerm
+// Calculate the tuition/fees per term
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTuitionFeesPerTerm = function () {
+  this.calc_tuition_fees_per_term = this.tuition_fees / this.calc_number_of_terms;
+
+  return this;
+};
