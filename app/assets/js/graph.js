@@ -30,7 +30,12 @@ var Graph = function(options){
     for (var i in options.bars){
       options.bars[i].percent = (options.bars[i].value / options.max) * 100; 
     }
+
+    // Handle non-percentage average line
+    options.percent = (options.average / options.max) * 100;
   }
+  
+  options.value = options.average;
 
   // Append SVG
   var svg = d3.select(options.target)
@@ -58,11 +63,13 @@ var Graph = function(options){
       .append('rect')
         .attr('class', function(d){ return d.name + ' graph-bar'; })
         .attr('x', function(d, i){ return i * barWidth; })
-        .attr('y', function(d, i){ return height - (d.percent || d.value); })
+        .attr('y', function(d, i){ return height; })
         .attr('height', 0)
         .attr('width', barWidth)
         .transition()
-          .attr('height', function(d,i){ return (d.percent || d.value); }); // Assumes percentage
+          .duration(1000)
+            .attr('y', function(d, i){ return height - (d.percent || d.value); })
+            .attr('height', function(d,i){ return (d.percent || d.value); }); // Assumes percentage
 
   // Draw bar labels
   svg
@@ -101,22 +108,22 @@ var Graph = function(options){
       .attr('class', 'graph-line')
       .attr('x1', 0)
       .attr('x2', width / split)
-      .attr('y1', height - options.average)
-      .attr('y2', height - options.average);
+      .attr('y1', height - (options.percent || options.average))
+      .attr('y2', height - (options.percent || options.average));
 
   // Add average line label
   svg
     .append('text')
       .attr('class', 'graph-line-label')
       .attr('x', width / split)
-      .attr('y', height - options.average)
-      .text('< ' + options.average + '% Nat\'l');
+      .attr('y', height - (options.percent || options.average))
+      .text('< ' + format(options) + ' Nat\'l');
 
   // via http://stackoverflow.com/questions/3883342
   function format(d){
 
       var val = d.value;
-      if (val === null){
+      if (val === null || val === undefined){
         return 'No Data';
       } else {
         while (/(\d+)(\d{3})/.test(val.toString())){
