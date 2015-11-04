@@ -2,12 +2,19 @@
 
 .graph {
   font-size: 10px;
-  max-height: 200px;
+  min-height: 200px;
+}
+
+.graph .graph-background {
+  fill: #eee;
+  stroke: #eee;
+  stroke-width: 3;
 }
 
 .graph .graph-bar {
   fill: $va-body-accent-color;
   stroke: #eee;
+  stroke-width: 3;
 }
 
 .graph .graph-bar.vet{
@@ -38,10 +45,6 @@
 .graph .graph-line-label {
   font-size: 8px;
   dominant-baseline: middle;
-}
-
-.graph .graph-background {
-  fill: #eee;
 }
 
 </style>
@@ -82,7 +85,7 @@
 
 		<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">            
 		  <!-- Retention Rates -->
-      <div class="usa-width-one-half">
+      <div class="usa-width-one-third">
         <h3>Retention Rate</h3>
 	 			<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
           <div id="retention-rates" class="graph"></div>
@@ -103,7 +106,7 @@
       <!-- END RETENTION RATE -->
 
       <!-- Graduation Rates -->
-      <div class="usa-width-one-half">
+      <div class="usa-width-one-third">
 		  <h3>Graduation Rate</h3>
       <% 
         isa_v = is_number?(@school.graduation_rate_veteran)
@@ -132,7 +135,7 @@
       <!-- END GRAD RATE -->
                    
 			<!-- Salary Rates -->
-      <div class="usa-width-one-half">
+      <div class="usa-width-one-third">
         <h3>Salaries After Directly After College</h3>
         <% if @school.salary_all_students.present? %>
           <div id="salary-rates" class="graph"></div>
@@ -150,7 +153,7 @@
       <!-- END SALARY RATE -->
 
 			<!-- Repayment -->
-      <div class="usa-width-one-half">
+      <div class="usa-width-one-third">
   			<h3>Repayment Rate</h3>
         <% if @school.repayment_rate_all_students.present? %>
           <div id="repayment-rates" class="graph"></div>
