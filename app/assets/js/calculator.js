@@ -190,6 +190,14 @@ Calculator.prototype.getDerivedValues = function() {
   this.getTerm2();
   this.getTerm3();
   this.getTerm4();
+  this.getTuitionFeesTerm1();
+  this.getTuitionFeesTerm2();
+  this.getTuitionFeesTerm3();
+  this.getTuitionFeesTotal();
+  this.getYrBenTerm1();
+  this.getYrBenTerm2();
+  this.getYrBenTerm3();
+  this.getYrBenTotal();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1089,57 +1097,254 @@ Calculator.prototype.getMonthlyRateFinal = function () {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
+// getTerm1
 // Calculate the name of Term #1
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTerm1 = function () {
-    if (this.institution_type == 'ojt') {
-      this.calc_term1 = 'Months 1-6';
-    } else if (this.calendar == 'semesters') {
-      this.calc_term1 = 'Fall';
-    } else if (this.calendar == 'quarters') {
-      this.calc_term1 = 'Fall';
-    } else if (this.calendar == 'nontraditional') {
-      this.calc_term1 = 'Term 1';
-    }
-  };
+  if (this.institution_type == 'ojt') {
+    this.calc_term1 = 'Months 1-6';
+  } else if (this.calendar == 'semesters') {
+    this.calc_term1 = 'Fall';
+  } else if (this.calendar == 'quarters') {
+    this.calc_term1 = 'Fall';
+  } else if (this.calendar == 'nontraditional') {
+    this.calc_term1 = 'Term 1';
+  }
+
+  return this;
+};
 
 ///////////////////////////////////////////////////////////////////////////////
+// getTerm2
 // Calculate the name of Term #2
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTerm2 = function () {
-    if (this.institution_type == 'ojt') {
-      this.calc_term2 = 'Months 7-12';
-    } else if (this.calendar == 'semesters') {
-      this.calc_term2 = 'Spring';
-    } else if (this.calendar == 'quarters')  {
-      this.calc_term2 = 'Winter';
-    } else if (this.calendar == 'nontraditional') {
-      this.calc_termterm2 = 'Term 2';
-    }
-  };
+  if (this.institution_type == 'ojt') {
+    this.calc_term2 = 'Months 7-12';
+  } else if (this.calendar == 'semesters') {
+    this.calc_term2 = 'Spring';
+  } else if (this.calendar == 'quarters')  {
+    this.calc_term2 = 'Winter';
+  } else if (this.calendar == 'nontraditional') {
+    this.calc_termterm2 = 'Term 2';
+  }
+
+  return this;
+};
 
 ///////////////////////////////////////////////////////////////////////////////
+// getTerm3
 // Calculate the name of Term #3
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTerm3 = function () {
-    if (this.institution_type == 'ojt') {
-      this.calc_term3 = 'Months 13-18';
-    } else if (this.calendar == 'semesters') {
-      this.calc_term3 = '';
-    } else if (this.calendar == 'quarters')  {
-      this.calc_term3 = 'Spring';
-    } else if (this.calendar == 'nontraditional') {
-      this.calc_term3 = 'Term 3';
-    }
-  };
+  if (this.institution_type == 'ojt') {
+    this.calc_term3 = 'Months 13-18';
+  } else if (this.calendar == 'semesters') {
+    this.calc_term3 = '';
+  } else if (this.calendar == 'quarters')  {
+    this.calc_term3 = 'Spring';
+  } else if (this.calendar == 'nontraditional') {
+    this.calc_term3 = 'Term 3';
+  }
+
+  return this;
+};
 
 ///////////////////////////////////////////////////////////////////////////////
+// getTerm4
 // Calculate the name of Term #4
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.getTerm4 = function () {
-    if (this.institution_type == 'ojt') {
-      this.calc_term4 = 'Months 19-24';
-    } else {
-      this.calc_term4 = 'Total (/Yr)';
-    }
-  };
+  if (this.institution_type == 'ojt') {
+    this.calc_term4 = 'Months 19-24';
+  } else {
+    this.calc_term4 = 'Total (/Yr)';
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTuitionFeesTerm1
+// Calculate Tuition Fees for Term #1
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTuitionFeesTerm1 = function () {
+  if (this.institution_type == 'ojt') {
+    this.calc_tuition_fees_term_1 = 0;
+  } else if (this.calc_old_gi_bill == true) {
+    this.calc_tuition_fees_term_1 = 0;
+  } else if (this.gi_bill_chapter == 31 && 
+      (this.institution_type === 'flight' || this.institution_type === 'correspondence')) {
+    this.calc_tuition_fees_term_1 = 0;
+  } else if (this.gi_bill_chapter == 31) {
+    this.calc_tuition_fees_term_1 = this.calc_tuition_fees_per_term;
+  } else {
+    this.calc_tuition_fees_term_1 =
+    Math.max(0, Math.min(
+      this.calc_tier * this.calc_tuition_fees_per_term,
+      this.calc_tier * this.calc_tuition_fees_cap,
+      this.calc_tier * this.calc_tuition_net_price
+    ));
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTuitionFeesTerm2
+// Calculate Tuition Fees for Term #2
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTuitionFeesTerm2 = function () {
+  if (this.institution_type == 'ojt') {
+    this.calc_tuition_fees_term_2 = 0;
+  } else if (this.calendar === 'nontraditional' && this.calc_number_of_terms == 1) {
+    this.calc_tuition_fees_term_2 = 0;
+  } else if (this.calc_old_gi_bill == true) {
+    this.calc_tuition_fees_term_2 = 0;
+  } else if (this.gi_bill_chapter == 31 && 
+      (this.institution_type === 'flight' || this.institution_type === 'correspondence')) {
+    this.calc_tuition_fees_term_2 = 0;
+  } else if (this.gi_bill_chapter == 31) {
+    this.calc_tuition_fees_term_2 = this.calc_tuition_fees_per_term;
+  } else {
+    this.calc_tuition_fees_term_2 =
+    Math.max(0, Math.min(
+      this.calc_tier * this.calc_tuition_fees_per_term,
+      this.calc_tier * this.calc_tuition_fees_cap - this.calc_tuition_fees_term_1,
+      this.calc_tier * this.calc_tuition_net_price - this.calc_tuition_fees_term_1
+    ));
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTuitionFeesTerm3
+// Calculate Tuition Fees for Term #3
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTuitionFeesTerm3 = function () {
+  if (this.institution_type === 'ojt') {
+    this.calc_tuition_fees_term_3 = 0;
+  } else if (this.calendar === 'semesters' || 
+      (this.calendar === 'nontraditional' && this.calc_number_of_terms < 3)) {
+    this.calc_tuition_fees_term_3 = 0;
+  } else if (this.calc_old_gi_bill == true) {
+    this.calc_tuition_fees_term_3 = 0;
+  } else if (this.gi_bill_chapter == 31 && 
+      (this.institution_type === 'flight' || this.institution_type == 'correspondence')) {
+    this.calc_tuition_fees_term_3 = 0;
+  } else if (this.gi_bill_chapter == 31) {
+    this.calc_tuition_fees_term_3 = this.calc_tuition_fees_per_term;
+  } else {
+    this.calc_tuition_fees_term_3 =
+    Math.max(0, Math.min(
+      this.calc_tier * this.calc_tuition_fees_per_term,
+      this.calc_tier * this.calc_tuition_fees_cap - this.calc_tuition_fees_term_1 - this.calc_tuition_fees_term_2,
+      this.calc_tier * this.calc_tuition_net_price - this.calc_tuition_fees_term_1 - this.calc_tuition_fees_term_2
+    ));
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getTuitionFeesTotal
+// Calculate the name of Tuition Fees Total
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getTuitionFeesTotal = function () {
+  this.calc_tuition_fees_total = this.calc_tuition_fees_term_1 +
+      this.calc_tuition_fees_term_2 + this.calc_tuition_fees_term_3;
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getYrBenTerm1
+// Calculate Yellow Ribbon for Term #1
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getYrBenTerm1 = function () {
+  if (!this.calc_yellow_ribbon_elig || this.yellow_ben == 0) {
+    this.calc_yr_ben_term_1 = 0;
+  } else if (this.calc_old_gi_bill == true || this.gi_bill_chapter == 31) {
+    this.calc_yr_ben_term_1 = 0;
+  } else if (this.calc_tuition_fees_per_term === this.calc_tuition_fees_term_1) {
+    this.calc_yr_ben_term_1 = 0;
+  } else {
+    this.calc_yr_ben_term_1 = Math.max(0, Math.min(
+      this.calc_tuition_fees_per_term - this.calc_tuition_fees_term_1,
+      this.calc_tuition_net_price - this.calc_tuition_fees_term_1,
+      this.yellow_ben * 2
+    ));
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getYrBenTerm2
+// Calculate Yellow Ribbon for Term #2
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getYrBenTerm2 = function () {
+  if (!this.calc_yellow_ribbon_elig || this.yellow_ben == 0) {
+    this.calc_yr_ben_term_2 = 0;
+  } else if (this.calendar === 'nontraditional' && this.calc_number_of_terms == 1) {
+    this.calc_yr_ben_term_2 = 0;
+  } else if (this.calc_old_gi_bill == true || this.gi_bill_chapter == 31) {
+    this.calc_yr_ben_term_2 = 0;
+  } else if (this.calc_tuition_fees_per_term == this.calc_tuition_fees_term_2) {
+    this.calc_yr_ben_term_2 = 0;
+  } else {
+    this.calc_yr_ben_term_2 = Math.max(0, Math.min(
+      this.calc_tuition_fees_per_term - this.calc_tuition_fees_term_2,
+      this.calc_tuition_net_price - this.calc_tuition_fees_term_1 - 
+      this.calc_tuition_fees_term_2 - this.calc_yr_ben_term_1,
+      this.yellow_ben * 2 - this.calc_yr_ben_term_1
+    ));
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getYrBenTerm3
+// Calculate Yellow Ribbon for Term #3
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getYrBenTerm3 = function () {
+  if (!this.calc_yellow_ribbon_elig || this.yellow_ben == 0) {
+    this.calc_yr_ben_term_3 = 0;
+  } else if (this.calendar === 'semesters' || 
+      (this.calendar === 'nontraditional' && this.calc_number_of_terms < 3)) {
+    this.calc_yr_ben_term_3 = 0;
+  } else if (this.calc_old_gi_bill == true || this.gi_bill_chapter == 31) {
+    this.calc_yr_ben_term_3 = 0;
+  } else if (this.calc_tuition_fees_per_term === this.calc_tuition_fees_term_3) {
+    this.calc_yr_ben_term_3 = 0;
+  } else {
+    this.calc_yr_ben_term_3 = Math.max(0, Math.min(
+      this.calc_tuition_fees_per_term - this.calc_tuition_fees_term_3,
+      this.calc_tuition_net_price - this.calc_tuition_fees_term_1 - 
+      his.calc_tuition_fees_term_2 - this.calc_tuition_fees_term_3 - 
+      this.calc_yr_ben_term_1 - this.calc_yr_ben_term_2,
+      this.yellow_ben * 2 - this.calc_yr_ben_term_1 - this.calc_yr_ben_term_2
+    ));
+  }
+
+  return this;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// getYrBenTotal
+// Calculate Yellow Ribbon for the Year
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getYrBenTotal = function () {
+  if (!this.calc_yellow_ribbon_elig || this.yellow_ben == 0) {
+    this.calc_yr_ben_total = 0;
+  } else {
+    this.calc_yr_ben_total = this.calc_yr_ben_term_1 + this.calc_yr_ben_term_2 +
+      this.calc_yr_ben_term_3;
+  }
+
+  return this;
+};
+
+
