@@ -143,6 +143,7 @@
             new Graph({
               target:  '#salary-rates',
               bars:    [ { name : 'vet', value : <%= @school.salary_all_students %> } ],
+              max: 120000,
               average: 48127
             });
           </script>

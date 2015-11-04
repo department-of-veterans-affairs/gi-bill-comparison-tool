@@ -11,6 +11,7 @@ new Graph({
     { name : 'vet', value : 4.5 },
     { name : 'all', value : 22.8 }
   ],
+  max : 100,
   average : 43.9
 });
 
@@ -21,7 +22,15 @@ var Graph = function(options){
   var width = 200,
       height = 100,
       padding = 10,
-      split = 1.8;
+      split = 1.8,
+      max = options.max || 100;
+
+  // HACK: Handle non-percentage data
+  if (options.max && options.max !== 100){
+    for (var i in options.bars){
+      options.bars[i].percent = (options.bars[i].value / options.max) * 100; 
+    }
+  }
 
   // Append SVG
   var svg = d3.select(options.target)
@@ -49,11 +58,11 @@ var Graph = function(options){
       .append('rect')
         .attr('class', function(d){ return d.name + ' graph-bar'; })
         .attr('x', function(d, i){ return i * barWidth; })
-        .attr('y', function(d, i){ return height - d.value; })
+        .attr('y', function(d, i){ return height - (d.percent || d.value); })
         .attr('height', 0)
         .attr('width', barWidth)
         .transition()
-          .attr('height', function(d,i){ return d.value; }); // Assumes percentage
+          .attr('height', function(d,i){ return (d.percent || d.value); }); // Assumes percentage
 
   // Draw bar labels
   svg
@@ -63,8 +72,8 @@ var Graph = function(options){
       .append('text')
         .attr('class', 'graph-bar-label') 
         .attr('x', function(d, i){ return (i * barWidth) + (barWidth / 2); })
-        .attr('y', function(d, i){ return Math.min(height - d.value + 12, height - 5); })
-        .text(function(d){ return d.value === null ? 'No Data' : d.value + '%'; });
+        .attr('y', function(d, i){ return Math.min(height - (d.percent || d.value) + 12, height - 5); })
+        .text(format);
 
   // Draw axis
   svg
@@ -104,11 +113,20 @@ var Graph = function(options){
       .text('< ' + options.average + '% Nat\'l');
 
   // via http://stackoverflow.com/questions/3883342
-  function format(val){
-      while (/(\d+)(\d{3})/.test(val.toString())){
-        val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+  function format(d){
+
+      var val = d.value;
+      if (val === null){
+        return 'No Data';
+      } else {
+        while (/(\d+)(\d{3})/.test(val.toString())){
+           val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+        }
+        // HACK: figure out which unit to put here
+        val = typeof d.percent !== 'undefined' ? '$' + val : val + '%';
+
+        return val;
       }
-      return val;
     }
 
 };
