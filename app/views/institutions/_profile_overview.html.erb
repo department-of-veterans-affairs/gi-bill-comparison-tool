@@ -54,7 +54,7 @@
 			<h4>Veteran Summary</h4>
 	  </div>
 	  <div class="usa-card-content va-summary-card">
-          <p><span class="search-value-each"><%= @school.gibill %></span> <a id="go" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</a></span></p>
+          <p><span class="search-value-each"><%= @school.gibill %></span> <a id="go" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a></p>
 			<ul>
 				 <% v_str = '<span class="programs-' + (@school.student_veteran ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
                 <li><%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a></li>
