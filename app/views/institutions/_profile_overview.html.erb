@@ -1,6 +1,6 @@
-<div class="usa-width-three-fourths">
+<div class="usa-width-one-whole">
 
-	<div class="usa-width-two-thirds">
+	<div class="usa-width-one-half redback">
 		<div id="<%= @school.facility_code %>"
 			class="profile_overview"
 			data-type="<%= @school.institution_type.name %>"
@@ -28,8 +28,9 @@
 		<% end %>
 
 		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
-		<div class="usa-width-four-sixths">
+		<div class="usa-width-one-whole">
 			<% hdo = @school.va_highest_degree_offered.present? ? @school.va_highest_degree_offered : 'N/A' %>
+            
       <div class="profile-institute-descriptors usa-width-one-sixth"> <!--PLACE DATA BEFORE "YEARS" TEXT -->
           <span class="profile-years-programs"><%= hdo %></span>
 <!--          <p class="estimate-qualifier">YEARS</p>-->
@@ -48,7 +49,7 @@
 		</div>
 	</div>
 
-	<div class="usa-width-one-third nested usa-card usa-card-fill">
+	<div class="usa-width-one-fourth nested usa-card usa-card-fill">
 	  <div class="usa-card-header">
 			<h4>Veteran Summary</h4>
 	  </div>
@@ -73,8 +74,19 @@
 			</ul>
 	  </div>
 	</div>
+<div class="usa-width-one-fourth usa-card usa-card-fill">
+  <div class="usa-card-header">
+		<h4>Additional Resources</h4>
+  </div>
+  <div class="usa-card-content">	
+  	<%= render partial: 'profile_additional_resources' %>
+  </div>
+</div>
 
-	<div class="usa-width-one-whole usa-card usa-card-fill">
+</div>
+
+<div class="usa-width-three-fourths">
+	<div class="usa-width-one-whole newrow usa-card usa-card-fill">
 	  <div class="usa-card-header">
 			<h3>Benefits Estimator</h3>
 		</div>
@@ -102,17 +114,9 @@
 	</div>
 </div>
 
-<div id="additional-resources" class="usa-width-one-fourth usa-card usa-card-fill">
-  <div class="usa-card-header">
-		<h4>Additional Resources</h4>
-  </div>
-  <div class="usa-card-content">	
-  	<%= render partial: 'profile_additional_resources' %>
-  </div>
-</div>
 
 <!-- GI Bill Students -->
-<div id="vetgroups" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+<div id="vetgroups" class="modal-style clearfix" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
     <div>
     <h3>Student Veterans Group</h3>
     
