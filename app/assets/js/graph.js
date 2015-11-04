@@ -80,7 +80,7 @@ var Graph = function(options){
     .data(options.bars)
     .enter()
       .append('text')
-        .attr('class', 'graph-bar-label') 
+        .attr('class', 'graph-axis-label') 
         .attr('x', function(d, i){ return (i * barWidth) + (barWidth / 2); })
         .attr('y', height + 10) 
         .text(function(d){ return d.name; });
