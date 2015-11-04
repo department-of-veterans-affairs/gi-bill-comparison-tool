@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Calculator
 ///////////////////////////////////////////////////////////////////////////////
-function Calculator(institution_type, yr) {
+function Calculator(institution_type, institution) {
 	// Estimator values
 	// this.military_status = null;
 	// this.spouse_active_duty = null;
@@ -24,7 +24,7 @@ function Calculator(institution_type, yr) {
   // this.only_tuition_fees = null;
 
   this.institution_type = institution_type.toLowerCase();
-  this.yr = yr;
+  this.institution = institution;
 
   this.setValues();
   this.setDerivedValues();
@@ -52,7 +52,7 @@ Calculator.prototype.BSCAP = 1000;
 // Calculator Tuition
 Calculator.prototype.TUITION_FEES_SECTION = "#tuition-fees-section";
 Calculator.prototype.IN_STATE = "#in-state";
-Calculator.prototype.TUITION_FEES_FORM = "#tuition_fees_form";
+Calculator.prototype.TUITION_FEES_FORM = "#tuition-fees-form";
 Calculator.prototype.IN_STATE_TUITION_FEES_FORM = "#in-state-tuition-fees-form";
 Calculator.prototype.BOOKS_INPUT_ROW = "#books-input-row";
 Calculator.prototype.YELLOW_RIBBON_RECIPIENT_FORM = "#yellow-ribbon-recipient-form";
@@ -65,14 +65,14 @@ Calculator.prototype.TUITION_ASSIST_FORM = "#tuition-assist-form";
 Calculator.prototype.ENROLLMENT_SECTION = "#enrollment-section";
 Calculator.prototype.ENROLLED_FORM = "#enrolled-form";
 Calculator.prototype.ENROLLED_FORM_OLD_GI_BILL = "#enrolled-form-old-gi-bill";
-Calculator.prototype.CALENDAR = "#calendar-form";
-Calculator.prototype.WORKING = "#working-form";
-Calculator.prototype.NUMBER_NON_TRADITIONAL_TERMS = "#number-non-traditional-terms-form";
-Calculator.prototype.LENGTH_NON_TRADITIONAL_TERMS = "#length-non-traditional-terms-form";
-Calculator.prototype.KICKER_ELIGIBLE = "#kicker-elig-form";
-Calculator.prototype.KICKER = "#kicker-form";
+Calculator.prototype.CALENDAR_FORM = "#calendar-form";
+Calculator.prototype.WORKING_FORM = "#working-form";
+Calculator.prototype.NUMBER_NON_TRADITIONAL_TERMS_FORM = "#number-non-traditional-terms-form";
+Calculator.prototype.LENGTH_NON_TRADITIONAL_TERMS_FORM = "#length-non-traditional-terms-form";
+Calculator.prototype.KICKER_ELIG_FORM = "#kicker-elig-form";
+Calculator.prototype.KICKER_FORM = "#kicker-form";
 Calculator.prototype.BUY_UP_FORM = "#buy-up-form";
-Calculator.prototype.BUY_UP_RATE = "#buy-up-rate-form";
+Calculator.prototype.BUY_UP_RATE_FORM = "#buy-up-rate-form";
 
 // Calculator Outputs
 Calculator.prototype.CALC_HOUSING_ALLOW_RATE_ROW = "#calc-housing-allow-rate-row";
@@ -115,19 +115,19 @@ Calculator.prototype.setValues = function() {
   this.setInStateTuitionFees(this.IN_STATE_TUITION_FEES_FORM);
   this.setBooks(this.BOOKS_INPUT_ROW);
   this.setYellowRibbon(this.YELLOW_RIBBON_RECIPIENT_FORM);
-  this.setYellowRibbonAmount(this.YELLOW_RIBBON_AMOUNT_FORM);
+  this.setYellowBen(this.YELLOW_RIBBON_AMOUNT_FORM);
   this.setScholar(this.SCHOLARSHIP_AMOUNT_FORM);
   this.setTuitionAssist(this.TUITION_ASSIST_FORM);
   this.setRop(this.ENROLLED_FORM);
   this.setRopOld(this.ENROLLED_FORM_OLD_GI_BILL);
-  this.setCalendar(this.CALENDAR);
-  this.setWorking(this.WORKING);
-  this.setNumberNonTraditionalTerms(this.NUMBER_NON_TRADITIONAL_TERMS);
-  this.setLengthNonTraditionalTerms(this.LENGTH_NON_TRADITIONAL_TERMS);
-  this.setKickerEligible(this.KICKER_ELIGIBLE);
-  this.setKicker(this.KICKER);
-  this.setBuyUpEligible(this.BUY_UP_FORM);
-  this.setBuyUpRate(this.BUY_UP_RATE);
+  this.setCalendar(this.CALENDAR_FORM);
+  this.setOjtWorking(this.WORKING_FORM);
+  this.setNumberNontradTerms(this.NUMBER_NON_TRADITIONAL_TERMS_FORM);
+  this.setLengthNontradTerms(this.LENGTH_NON_TRADITIONAL_TERMS_FORM);
+  this.setKickerElig(this.KICKER_ELIG_FORM);
+  this.setKicker(this.KICKER_FORM);
+  this.setBuyUpElig(this.BUY_UP_FORM);
+  this.setBuyUp(this.BUY_UP_RATE_FORM);
 
   // this.setCalcTermTotalRow(this.CALC_TERM_TOTAL_ROW);
   // this.setCalcPaidToSchoolTotalRow(this.CALC_PAID_TO_SCHOOL_TOTAL_ROW);
@@ -169,14 +169,14 @@ Calculator.prototype.resetVisibility = function() {
   $(this.ENROLLMENT_SECTION).show();
   $(this.ENROLLED_FORM).show();
   $(this.ENROLLED_FORM_OLD_GI_BILL).hide();
-  $(this.WORKING).hide();
-  $(this.CALENDAR).show();
-  $(this.NUMBER_NON_TRADITIONAL_TERMS).hide();
-  $(this.LENGTH_NON_TRADITIONAL_TERMS).hide();
-  $(this.KICKER_ELIGIBLE).show();
-  $(this.KICKER).hide();
+  $(this.WORKING_FORM).hide();
+  $(this.CALENDAR_FORM).show();
+  $(this.NUMBER_NON_TRADITIONAL_TERMS_FORM).hide();
+  $(this.LENGTH_NON_TRADITIONAL_TERMS_FORM).hide();
+  $(this.KICKER_ELIG_FORM).show();
+  $(this.KICKER_FORM).hide();
   $(this.BUY_UP_FORM).hide();
-  $(this.BUY_UP_RATE).hide();
+  $(this.BUY_UP_RATE_FORM).hide();
 
   // Calculator Results
   $(this.CALC_HOUSING_ALLOW_RATE_ROW).show();
@@ -225,8 +225,8 @@ Calculator.prototype.resetVisibility = function() {
     $(this.TUITION_FEES_SECTION).hide();
     $(this.ENROLLED_FORM).hide();
     $(this.ENROLLED_FORM_OLD_GI_BILL).hide();
-    $(this.WORKING).show();
-    $(this.CALENDAR).hide();
+    $(this.WORKING_FORM).show();
+    $(this.CALENDAR_FORM).hide();
     $(this.TUITION_ASSIST_FORM).hide();
     $(this.CALC_TUITION_FEES_ROW).hide();
     $(this.CALC_YELLOW_RIBBON_ROW).hide();
@@ -241,14 +241,14 @@ Calculator.prototype.resetVisibility = function() {
   }
 
   if (this.gi_bill_chapter == 35) {
-    $(this.KICKER_ELIGIBLE).hide();
-    $(this.KICKER).hide();
+    $(this.KICKER_ELIG_FORM).hide();
+    $(this.KICKER_FORM).hide();
   }
 
   if (this.institution_type ==- 'flight' || this.institution_type === 'correspondence') {
     $(this.ENROLLED_FORM).hide();
     $(this.ENROLLED_FORM_OLD_GI_BILL).hide();
-    $(this.KICKER_ELIGIBLE).hide();
+    $(this.KICKER_ELIG_FORM).hide();
     $(this.BUY_UP_FORM).hide();
   }
 
@@ -259,7 +259,7 @@ Calculator.prototype.resetVisibility = function() {
     }
   }
 
-  if (this.yr && this.tier == 1.0) {
+  if (this.institution.yr && this.tier == 1.0) {
     $(this.YELLOW_RIBBON_RECIPIENT_FORM).show();
     
     if (this.yellow_ribbon) {
@@ -269,8 +269,8 @@ Calculator.prototype.resetVisibility = function() {
   }
 
   if (this.institution_type !== 'ojt' && this.calendar === 'nontraditional') {
-    $(this.NUMBER_NON_TRADITIONAL_TERMS).show();
-    $(this.LENGTH_NON_TRADITIONAL_TERMS).show();
+    $(this.NUMBER_NON_TRADITIONAL_TERMS_FORM).show();
+    $(this.LENGTH_NON_TRADITIONAL_TERMS_FORM).show();
   }
     
   if (this.old_gi_bill == true || this.vre_only == true) {
@@ -282,12 +282,12 @@ Calculator.prototype.resetVisibility = function() {
     $(this.CALC_YELLOW_RIBBON_ROW).hide();
   }
 
-  if (this.kicker_eligible) {
-    $(this.KICKER).show();
+  if (this.kicker_elig) {
+    $(this.KICKER_FORM).show();
   }
 
-  if (this.buy_up_eligible) {
-    $(this.BUY_UP_RATE).show();
+  if (this.buy_up_elig) {
+    $(this.BUY_UP_RATE_FORM).show();
   }
 
   if (this.gi_bill_chapter == 31) {
@@ -300,7 +300,7 @@ Calculator.prototype.resetVisibility = function() {
     $(this.BUY_UP_FORM).show();
   } else {
     $(this.BUY_UP_FORM).hide();
-    $(this.BUY_UP_RATE).hide();      
+    $(this.BUY_UP_RATE_FORM).hide();      
   }
 
   if ((this.military_status == 'active duty' ||
@@ -351,6 +351,14 @@ Calculator.prototype.formatCurrency = function (num) {
   // match a digit if it's followed by 3 other digits, appending a comma to each match
   return '<span class="estimator-dollar-sign">$</span>' + str.replace(/\d(?=(\d{3})+$)/g, '$&,');
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// getCurrency
+// Converts a currency string to a number.
+///////////////////////////////////////////////////////////////////////////////
+Calculator.prototype.getCurrency = function (currency) {
+  return Number(currency.replace(/[^0-9\.]+/g,''));
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // setMilitaryStatus
@@ -422,7 +430,7 @@ Calculator.prototype.setInState = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setTuitionFees = function(id) {
-  this.tuition_fees = Number($(id + " :input").val());
+  this.tuition_fees = this.getCurrency($(id + " :input").val());
 
   return this;
 };
@@ -434,7 +442,7 @@ Calculator.prototype.setTuitionFees = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setInStateTuitionFees = function(id) {
-  this.in_state_tuition_fees = Number($(id + " :input").val());
+  this.in_state_tuition_fees = this.getCurrency($(id + " :input").val());
 
   return this;
 };
@@ -446,7 +454,7 @@ Calculator.prototype.setInStateTuitionFees = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setBooks = function(id) {
-  this.books = Number($(id + " :input").val());
+  this.books = this.getCurrency($(id + " :input").val());
 
   return this;
 };
@@ -464,13 +472,13 @@ Calculator.prototype.setYellowRibbon = function(id) {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setYellowRibbonAmount
+// setYellowBen
 // Sets the value and visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setYellowRibbonAmount = function(id) {
-  this.yellow_ben = Number($(id + " :input").val());
+Calculator.prototype.setYellowBen = function(id) {
+  this.yellow_ben = this.getCurrency($(id + " :input").val());
   return this;
 };
 
@@ -530,46 +538,46 @@ Calculator.prototype.setCalendar = function(id) {
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setWorking
+// setOjtWorking
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setWorking = function(id) {
-  this.working = $(id + " :input").val();
+Calculator.prototype.setOjtWorking = function(id) {
+  this.ojt_working = $(id + " :input").val();
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setNumberNonTraditionalTerms
+// setNumberNontradTerms
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setNumberNonTraditionalTerms = function(id) {
-  this.number_non_traditional_terms = $(id + " :input").val();
+Calculator.prototype.setNumberNontradTerms = function(id) {
+  this.number_nontrad_terms = Number($(id + " :input").val());
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setLengthNonTraditionalTerms
+// setLengthNontradTerms
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setLengthNonTraditionalTerms = function(id) {
-  this.number_non_traditional_terms = $(id + " :input").val();
+Calculator.prototype.setLengthNontradTerms = function(id) {
+  this.number_nontrad_terms = $(id + " :input").val();
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setKickerEligible
+// setKickerElig
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setKickerEligible = function(id) {
-  this.kicker_eligible = $(id + " :input:checked").val().toLowerCase() === "yes";
+Calculator.prototype.setKickerElig = function(id) {
+  this.kicker_elig = $(id + " :input:checked").val().toLowerCase() === "yes";
   return this;
 };
 
@@ -580,36 +588,30 @@ Calculator.prototype.setKickerEligible = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Calculator.prototype.setKicker = function(id) {
-  this.kicker = $(id + " :input").val();
+  this.kicker = this.getCurrency($(id + " :input").val());
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setBuyUpEligible
+// setBuyUpElig
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setBuyUpEligible = function(id) {
-  this.buy_up_eligible = $(id + " :input:checked").val().toLowerCase() === "yes";
+Calculator.prototype.setBuyUpElig = function(id) {
+  this.buy_up_elig = $(id + " :input:checked").val().toLowerCase() === "yes";
   return this;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// setBuyUpRate
+// setBuyUp
 // Sets the visibility for the element with the id argument.
 //
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.setBuyUpRate = function(id) {
-  this.form_data_buy_up = Number($(id + " :input").val());
+Calculator.prototype.setBuyUp = function(id) {
+  this.buy_up = Number($(id + " :input").val());
 
-  if (!this.buy_up_eligible) 
-    this.buy_up_rate = 0;
-  else if (this.gi_bill_chap !== 30)
-    this.buy_up_rate = 0;
-  else
-    this.buy_up_rate = (this.form_data_buy_up / 4);
   return this;
 };
 
