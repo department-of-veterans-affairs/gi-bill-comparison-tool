@@ -32,14 +32,14 @@
     
     <div class="search-insitution-name"><!-- Institution name -->
         <h4><a class="a-<%= school_summary[:id] %>" href="#">
-            <%= school_summary[:institution] %>
+            <%= school_summary[:institution].upcase %>
         </a></h4>
     </div><!-- END Institution name -->
     
     <div class="search-locality"><!-- locality data -->
 	<% if school_summary[:country].downcase == 'usa' %>
 		
-			<%= "#{school_summary[:city]}, #{school_summary[:state]} #{school_summary[:zip]}" %>
+        <%= "#{school_summary[:city]}, #{school_summary[:state].upcase}"  %>
 		
 	<% else %>
 		<%= "#{school_summary[:city]}, #{school_summary[:country]}" %>
