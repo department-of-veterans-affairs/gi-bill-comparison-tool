@@ -1556,11 +1556,11 @@ Calculator.prototype.getHousingAllowTerm2 = function () {
     this.calc_housing_allow_term_2 = 0;
   } else if (this.gi_bill_chapter == 35 && this.institution_type === 'ojt') {
     this.calc_housing_allow_term_2 =  0.75 * this.calc_monthly_rate_final;
-  } else if (this.calc_old_gi_bill == true && this.institution_type == 'ojt') {
+  } else if (this.calc_old_gi_bill == true && this.institution_type === 'ojt') {
     this.calc_housing_allow_term_2 =  (6.6/9) * this.calc_monthly_rate_final;
-  } else if (this.calc_vre_only == true  && this.institution_type == 'ojt') {
+  } else if (this.calc_vre_only == true && this.institution_type === 'ojt') {
     this.calc_housing_allow_term_2 = this.calc_monthly_rate_final;
-  } else if (this.institution_type == 'ojt') {
+  } else if (this.institution_type === 'ojt') {
     this.calc_housing_allow_term_2 = 0.8 * this.calc_rop_ojt * 
       (this.calc_tier * this.institution.bah + this.calc_kicker_benefit);
   } else if (this.calendar === 'nontraditional' && this.calc_number_of_terms == 1) {
@@ -1583,7 +1583,7 @@ Calculator.prototype.getHousingAllowTerm2 = function () {
       Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
         this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
       ));
-  } else if (this.gi_bill_chapter == 1607 && this.institution_type === 'correspondence') {
+  } else if (this.gi_bill_chapter == 1606 && this.institution_type === 'correspondence') {
     this.calc_housing_allow_term_2 = Math.max(0, 
       Math.min(this.calc_monthly_rate_final * this.calc_term_length, 
         this.calc_tuition_fees_per_term * (this.consecutive_service * .6)
@@ -1604,10 +1604,10 @@ Calculator.prototype.getHousingAllowTerm2 = function () {
   } else if (this.online) {
     this.calc_housing_allow_term_2 = this.calc_term_length * this.rop * 
       (this.calc_tier * this.AVGBAH / 2 + this.calc_kicker_benefit);
-  } else if (this.institution.country != 'USA') {
+  } else if (this.institution.country.toLowerCase() !== 'usa') {
     this.calc_housing_allow_term_2 = this.calc_term_length * this.rop * 
       (this.calc_tier * this.AVGBAH + this.calc_kicker_benefit);
-  } else {
+ } else {
     this.calc_housing_allow_term_2 = this.calc_term_length * this.rop * 
       (this.calc_tier * this.institution.bah + this.calc_kicker_benefit);
   }
