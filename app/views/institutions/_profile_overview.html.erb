@@ -15,7 +15,7 @@
 
 			<h2 class="profile-head"><%= @school.institution %></h2>
 			<% if @school.country.downcase == 'usa' %>
-				<p><%= @school.city %>, <%= @school.state %></p>
+				<p><%= @school.city %>, <%= @school.state.try(:upcase) %></p>
 			<% else %>
 				<p><%= @school.city %>, <%= @school.country %></p>
 			<% end %>
