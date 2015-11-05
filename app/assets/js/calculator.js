@@ -195,11 +195,6 @@ Calculator.prototype.populateInputs = function() {
 Calculator.prototype.writeOutputs = function() {
   $(this.HOUSING_ALLOW_RATE).html(this.formatCurrency(this.calc_monthly_rate_display)+ ' / month');
   $(this.TOTAL_LEFT_TO_PAY).html(this.formatCurrency(this.calc_total_left_to_pay));
-    
-  if (this.calc_total_left_to_pay > 0)
-    $(this.TOTAL_LEFT_TO_PAY).addClass('red');
-  else
-    $(this.TOTAL_LEFT_TO_PAY).removeClass('red');
 
   $(this.TOTAL_PAID_TO_SCHOOL).html(this.formatCurrency(this.calc_total_to_school));
   $(this.TOTAL_PAID_TO_YOU).html(this.formatCurrency(this.calc_total_to_you));
@@ -386,8 +381,10 @@ Calculator.prototype.resetVisibility = function() {
   $(this.CALC_YELLOW_RIBBON_VA_ROW).show();
 
   // Calculator Results - Particular classes and ids
+  $(this.TERM1).show();
   $(this.TERM2).show();
   $(this.TERM3).show();
+  $(this.TERM4).show();
 
   $(this.TUITION_FEES_TERM_2).show();
   $(this.TUITION_FEES_TERM_3).show();
