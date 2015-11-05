@@ -14,8 +14,13 @@
 			<% end %>
 
 			<h2 class="profile-head"><%= @school.institution %></h2>
-			<p><%= @school.city %>, <%= @school.state %></p>
+			<% if @school.country.downcase == 'usa' %>
+				<p><%= @school.city %>, <%= @school.state %></p>
+			<% else %>
+				<p><%= @school.city %>, <%= @school.country %></p>
+			<% end %>
 		</div>
+
 		<!-- Holds student attendance and link -->
 		<p>
 			<%= format_number_or_null(@school.undergrad_enrollment, "Undergraduate Students") %>
