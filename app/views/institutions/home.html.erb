@@ -1,7 +1,13 @@
-<div class="usa-width-three-fourths">
+
+
+<div class="usa-width-three-fourths"><%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
+    <input name="page" value="1" type="hidden"/>
+    <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
+</div>
+
   
   <!--  Timeline -->  
-  <div class="timeline usa-width-four-fourths">
+  <div class="timeline usa-width-three-fourths">
     <div class="timeline-bar">
     </div>
       
@@ -65,30 +71,29 @@
       </a>
     </div>
   </div><!-- End Timeline-->
+
+
+
+
+
+<div class="usa-width-three-fourths nested">
     
-    
-  <p>&nbsp;</p>
-</div>
-<div class="usa-width-three-fourths">
-  <!-- ================================================== -->
-  <!--                School Selection Form               -->
-  <!-- ================================================== -->
-  <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
-    <input name="page" value="1" type="hidden"/>
-    <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
-    <div class="usa-card">
-      <div class="usa-card-header">
+    <div class="usa-card nested">
+      <div class="usa-card-header nested">
         Step 1: Tell Us About Yourself
       </div>
-      <div class="usa-card-content">
+      <div class="usa-card-content nested">
+ 
+
+
           <!-- About Yourself Section -->
-          <div class="usa-width-one-half">
+          <div class="usa-width-one-half nested">
             <%= render partial: 'yourself', locals: { use_label: true } %>
           </div>
           
           <!-- Home Page Teaser -->
           
-          <div class="usa-width-one-half teaser-container">
+          <div class="usa-width-one-half nested teaser-container">
               <h3 class="home-teaser">Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit.</h3>
               
               <p>Whether you want to apply your GI Bill to college or an on-the-job training program, this tool will help you make the most of your hard earned benefits.</p>
@@ -124,37 +129,8 @@
           </div>
       </div>
     </div>
-    <div class="usa-card">
-      <div class="usa-card-header">
-        Step 2: About Your School
-      </div>
-      <div class="usa-card-content">
-          <!-- About Your School Section -->
-          <a name="about_your_school"></a>
-          <div class="heading solid navy table"><h3>About your school:<a id="go" rel="leanModal" name="status" href="#aboutSchool"><i class="fa fa-info-circle info-icons"></i></a></h3></div>
-          <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
-      </div>
-    </div>
-  <% end %>
 </div>
-
-<!-- About School Modal -->
-<div id="aboutSchool" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-    <div>
-    <h3>Post 9/11 GI Bill Approved Programs</h3>
-    
-    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
-        
-   <p>You can use the <a title="Post-9/11 GI Bill" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_380" target="_blank">Post-9/11 GI Bill</a> at colleges, universities, trade schools, and for on-the-job training, apprenticeship, and flight schools. To see what programs are currently approved for VA benefits, go to our <a title="website" href="http://www.benefits.va.gov/gibill/index.asp" id="anch_381" target="_blank">website</a>. You can use the Post 9/11 GI Bill for tutorial assistance, licensing/certification tests (attorney license, cosmetology license, etc.) and national exams (SAT, LSAT, etc.).</p>
-    
-    <p>The Post 9/11 GI Bill Comparison Tool uses a list of schools offering approved programs from VA’s database. The GI Bill Comparison Tool will update its list of approved programs quarterly. However, new information is added to the VA database every day. <a title="Click here" href="http://inquiry.vba.va.gov/weamspub/buildSearchInstitutionCriteria.do" id="anch_382" target="_blank">Click here</a> to access a list of approved schools by state.</p>
-</div>
-</div> 
-
-<!--END About School Modal -->
-
-
-<div class="usa-width-one-fourth">
+<div class="pull-right usa-width-one-fourth nested">
   <div class="usa-card usa-card-fill">
     <div class="usa-card-header">
       Did You Know?
@@ -173,8 +149,40 @@
     </div>
   </div>
 </div>
+<div class="usa-width-three-fourths nested">
+    <div class="usa-card">
+      <div class="usa-card-header">
+        Step 2: About Your School
+      </div>
+      <div class="usa-card-content">
+          <!-- About Your School Section -->
+          <a name="about_your_school"></a>
+          <div class="heading solid navy table"><h3>About your school:<a id="go" rel="leanModal" name="status" href="#aboutSchool"><i class="fa fa-info-circle info-icons"></i></a></h3></div>
+          <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 
+
+
+<!-- About School Modal -->
+<div id="aboutSchool" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>Post 9/11 GI Bill Approved Programs</h3>
+    
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+        
+   <p>You can use the <a title="Post-9/11 GI Bill" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_380" target="_blank">Post-9/11 GI Bill</a> at colleges, universities, trade schools, and for on-the-job training, apprenticeship, and flight schools. To see what programs are currently approved for VA benefits, go to our <a title="website" href="http://www.benefits.va.gov/gibill/index.asp" id="anch_381" target="_blank">website</a>. You can use the Post 9/11 GI Bill for tutorial assistance, licensing/certification tests (attorney license, cosmetology license, etc.) and national exams (SAT, LSAT, etc.).</p>
+    
+    <p>The Post 9/11 GI Bill Comparison Tool uses a list of schools offering approved programs from VA’s database. The GI Bill Comparison Tool will update its list of approved programs quarterly. However, new information is added to the VA database every day. <a title="Click here" href="http://inquiry.vba.va.gov/weamspub/buildSearchInstitutionCriteria.do" id="anch_382" target="_blank">Click here</a> to access a list of approved schools by state.</p>
+</div>
+</div> 
+
+<!--END About School Modal -->
+
+</div>
 <script>    
 // Makes the modals work!
 $("a[rel*=leanModal]").leanModal();

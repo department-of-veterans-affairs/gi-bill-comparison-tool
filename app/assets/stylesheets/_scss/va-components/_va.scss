@@ -67,7 +67,7 @@ a{
 }
 
 .teaser-container{
-    padding: 1.5rem;
+    padding-left: 3.4rem;
 }
 
 .fa-teaser{
@@ -114,10 +114,16 @@ ul li {
 
 .pull-right {
   float: right;
+    margin-right: 0;
 }
 
-.usa-grid-full .usa-width-three-fourths .nested {
+.usa-grid-full .usa-card .usa-width-three-fourths .usa-width-one-fourth .nested {
   margin-right: 0;
+    margin-top: 0;
+}
+
+.usa-card + .usa-card {
+    margin-top: 0;
 }
 
 .new-row {
@@ -219,3 +225,5 @@ ul li {
     margin-left: 1.7rem;
     margin-bottom: 1.7rem;
 }
+
+.red{background-color: bisque}
