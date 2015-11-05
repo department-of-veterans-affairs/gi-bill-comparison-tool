@@ -89,18 +89,14 @@ class Institution < ActiveRecord::Base
   ## Calculates veteran retention rate adapted from Patrick's JS functions
   #############################################################################
   def get_veteran_retention_rate
-    rate = nil
+    # If upper class use ba, otherwise use otb
+    upper_class = [3, 4].include?(pred_degree_awarded)  || 
+      va_highest_degree_offered.try(:downcase) == "4-year"
 
-    if retention_rate_veteran_ba.nil?
-      rate = retention_rate_veteran_otb.nil? ? nil : retention_rate_veteran_otb
-    elsif retention_rate_veteran_otb.nil?
-      rate = retention_rate_veteran_ba.nil? ? nil : retention_rate_veteran_ba
-    end
-
-    if pred_degree_awarded > 0
-      rate = [3, 4].include?(pred_degree_awarded) ? retention_rate_veteran_ba : retention_rate_veteran_otb
-    elsif va_highest_degree_offered.present?
-      rate = (va_highest_degree_offered == "4-year") ? retention_rate_veteran_ba : retention_rate_veteran_otb
+    if upper_class
+      rate = retention_rate_veteran_ba.present? ? retention_rate_veteran_ba : retention_rate_veteran_otb
+    else
+      rate = retention_rate_veteran_otb.present? ? retention_rate_veteran_otb : retention_rate_veteran_ba
     end
 
     rate
@@ -111,20 +107,16 @@ class Institution < ActiveRecord::Base
   ## Calculates all students retention rate adapted from Patrick's JS functions
   #############################################################################
   def get_all_student_retention_rate
-    rate = nil
+    # If upper class use ba, otherwise use otb
+    upper_class = [3, 4].include?(pred_degree_awarded)  || 
+      va_highest_degree_offered.try(:downcase) == "4-year"
 
-    if retention_all_students_ba.nil?
-      rate = retention_all_students_otb.nil? ? nil : retention_all_students_otb
-    elsif retention_all_students_otb.nil?
-      rate = retention_all_students_ba.nil? ? nil : retention_all_students_ba
+    if upper_class
+      rate = retention_all_students_ba.present? ? retention_all_students_ba : retention_all_students_otb
+    else
+      rate = retention_all_students_otb.present? ? retention_all_students_otb : retention_all_students_ba
     end
-
-    if pred_degree_awarded > 0
-      rate = [3, 4].include?(pred_degree_awarded) ? retention_all_students_ba : retention_all_students_otb
-    elsif va_highest_degree_offered.present?
-      rate = (va_highest_degree_offered == "4-year") ? retention_all_students_ba : retention_all_students_otb
-    end
-
+  
     rate
   end
 end
