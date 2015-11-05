@@ -225,7 +225,7 @@
   <div id="online-classes-form" class="form-group">
     <select id="online-classes" name="online_classes" alt="Online? Yes/No" class="filter-item">
       <% { 
-        'yes' => 'All', 'no' => 'None', 'both' => 'Both online and on-campus'
+        'yes' => 'All Online', 'no' => 'None Online', 'both' => 'Both online and on-campus'
       }.each_pair do |value, label| %>
         <option value="<%= value %>" 
           <%= 'selected' if value == @inputs[:online_classes] %>
