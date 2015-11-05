@@ -83,10 +83,12 @@
     	<h3>Outcomes</h3>
     </button>
 
-		<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">            
+		<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">   
+            
+ <div class="usa-width-one-whole">
 		  <!-- Retention Rates -->
-      <div class="usa-width-one-third">
-        <h3>Retention Rate</h3>
+      <div class="outcome-measure">
+        <h3>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
 	 			<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
           <div id="retention-rates" class="graph"></div>
           <script>
@@ -106,8 +108,8 @@
       <!-- END RETENTION RATE -->
 
       <!-- Graduation Rates -->
-      <div class="usa-width-one-third">
-		  <h3>Graduation Rate</h3>
+      <div class="outcome-measure">
+		  <h3>Graduation Rate<a id="go" rel="leanModal" name="status" href="#gradrates"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
       <% 
         isa_v = is_number?(@school.graduation_rate_veteran)
         isa_c = is_number?(@school.graduation_rate_all_students)
@@ -135,14 +137,14 @@
       <!-- END GRAD RATE -->
                    
 			<!-- Salary Rates -->
-      <div class="usa-width-one-third">
-        <h3>Salaries After Directly After College</h3>
+      <div class="outcome-measure">
+        <h3>Average Salaries<a id="go" rel="leanModal" name="status" href="#salaries"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% if @school.salary_all_students.present? %>
           <div id="salary-rates" class="graph"></div>
           <script>
             new Graph({
               target:  '#salary-rates',
-              bars:    [ { name : 'vet', value : <%= @school.salary_all_students %> } ],
+              bars:    [ { name : 'all', value : <%= @school.salary_all_students %> } ],
               max: 120000,
               average: 48127
             });
@@ -154,15 +156,15 @@
       <!-- END SALARY RATE -->
 
 			<!-- Repayment -->
-      <div class="usa-width-one-third">
-  			<h3>Repayment Rate</h3>
+      <div class="outcome-measure">
+  			<h3>Repayment Rate<a id="go" rel="leanModal" name="status" href="#repayment"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% if @school.repayment_rate_all_students.present? %>
           <div id="repayment-rates" class="graph"></div>
           <script>
             new Graph({
               target:  '#repayment-rates',
               bars:    [ 
-                { name : 'vet', 
+                { name : 'all', 
                   value : <%= number_with_precision(@school.repayment_rate_all_students * 100,precision: 2) %> } 
               ],
               average: 86.3 
@@ -172,8 +174,8 @@
   			 <p>Salary Data Not Available</p>
         <% end %>
       </div>
-      <!-- END REPAYMENT RATE -->
-
+      </div><!-- END REPAYMENT RATE -->
+      <p>Access a comprehensive spreadsheet of <a title="Veteran Outcome Measures" href="http://www.benefits.va.gov/gibill/docs/OutcomeMeasuresDashboard.xlsx" id="anch_373" target="_blank">Veteran Outcome Measures</a> (<i class="fa fa-file-excel-o info-icons"></i> | 14.4 MB)</p>      
     </div><!-- END Accordion ID Div -->
   </div><!-- END Accordion class Div -->
 </div><!-- END <div class="usa-width-three-fourths new-row"> -->
@@ -210,3 +212,52 @@
     </div>
 	</div>
 </div>
+
+<!-- modals -->
+
+<!-- Retention Rates -->
+<div id="retention" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+  <div>
+    <h3>Retention Rates</h3>
+    <a class="modal_close" href="#"><i class="fa fa-close"></i></a>
+      <p>Measures full-time and part-time Post-9/11 GI Bill student's attendance at the same institution over time. </p>
+
+  </div>
+</div><!-- END Retention Rates -->
+
+<!-- Graduation Rates -->
+<div id="gradrates" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+  <div>
+    <h3>Graduation Rates</h3>
+    <a class="modal_close" href="#"><i class="fa fa-close"></i></a>
+      <p>Measures full-time and part-time Post-9/11 GI Bill student's graduation reported within the VA system while the student is using benefits.</p>
+
+  </div>
+</div><!-- END Graduation Rates -->
+
+<!-- Average Salaries -->
+<div id="salaries" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+  <div>
+    <h3>Average Salaries</h3>
+    <a class="modal_close" href="#"><i class="fa fa-close"></i></a>
+      <p>The median earnings of former students who received federal financial aid, at 10 years after entering school.</p>
+
+  </div>
+</div><!-- END Average Salarie -->
+
+
+<!-- Repayment rates -->
+<div id="repayment" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+  <div>
+    <h3>Repayment Rate</h3>
+    <a class="modal_close" href="#"><i class="fa fa-close"></i></a>
+      <p>The share of students who have repaid at least $1 of the principal balance on their federal loads within 3 years of leaving school. </p>
+
+  </div>
+</div><!-- END Repayment rates -->
+
+
+<script>    
+// Makes the modals work!
+$("a[rel*=leanModal]").leanModal();
+</script>
