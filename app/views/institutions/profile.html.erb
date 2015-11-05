@@ -89,14 +89,22 @@
 		  <!-- Retention Rates -->
       <div class="outcome-measure">
         <h3>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
-	 			<% if @veteran_retention_rate.present? && @all_student_retention_rate.present? %>
+        <% 
+          isa_v = is_number?(@veteran_retention_rate)
+          isa_c = is_number?(@all_student_retention_rate.present?)
+
+          vrate = isa_v ? number_with_precision(@veteran_retention_rate.to_f * 100, precision: 2) : "null";
+          crate = isa_c ? number_with_precision(@all_student_retention_rate.to_f * 100, precision: 2) : "null";
+
+          if isa_v || isa_c
+        %> 
           <div id="retention-rates" class="graph"></div>
           <script>
             new Graph({
               target : '#retention-rates',
               bars : [
-                { name : 'vet', value : <%= number_with_precision(@veteran_retention_rate * 100, precision: 2) %>, },
-                { name : 'all', value : <%= number_with_precision(@all_student_retention_rate * 100, precision: 2) %>, }
+                { name : 'vet', value : <%= vrate %> },
+                { name : 'all', value : <%= crate %> }
               ],
               average : 67.0
             });
