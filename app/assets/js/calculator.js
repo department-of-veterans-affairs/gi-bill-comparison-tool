@@ -398,7 +398,7 @@ Calculator.prototype.resetVisibility = function() {
   $(this.BOOK_STIPEND_TERM_3).show();
 
   // Dependent Visibilities
-  if (!this.calc_vre_only) {
+  if (this.gi_bill_chapter == 31 && !this.calc_vre_only) {
     $(this.ENROLLED_FORM).show();
     $(this.ENROLLED_FORM_OLD_GI_BILL).hide();
     $(this.YELLOW_RIBBON_RECIPIENT_FORM).hide();
@@ -433,7 +433,7 @@ Calculator.prototype.resetVisibility = function() {
     $(this.KICKER_FORM).hide();
   }
 
-  if (this.institution_type ==- 'flight' || this.institution_type === 'correspondence') {
+  if (this.institution_type === 'flight' || this.institution_type === 'correspondence') {
     $(this.ENROLLED_FORM).hide();
     $(this.ENROLLED_FORM_OLD_GI_BILL).hide();
     $(this.KICKER_ELIG_FORM).hide();
@@ -503,6 +503,10 @@ Calculator.prototype.resetVisibility = function() {
     $(this.CALC_YELLOW_RIBBON_ROW).hide();
     $(this.CALC_YELLOW_RIBBON_VA_ROW).hide();
   }
+
+   if (this.calc_total_scholarship_ta == 0) {
+      $(this.CALC_TUITION_FEES_SCHOLARSHIP_ROW).hide();
+    }
 
   if (this.calc_number_of_terms == 1) {
     $(this.TERM2).hide();
