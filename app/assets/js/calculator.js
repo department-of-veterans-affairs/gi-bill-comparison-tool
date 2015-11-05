@@ -2,27 +2,6 @@
 // Calculator
 ///////////////////////////////////////////////////////////////////////////////
 function Calculator(institution_type, institution) {
-	// Estimator values
-	// this.military_status = null;
-	// this.spouse_active_duty = null;
-	// this.number_of_depend = null;
-  // this.post_911_elig = null;
-  // this.cumulative_service = null;
-  // this.enlistment_service = null;
-  // this.consecutive_service = null;
-  // this.institution_type = null;
-  // this.country = null;
-  // this.online = null;
-  // this.bah = null;
-
-  // Dependent Values
-  // this.calc_old_gi_bill = null;
-  // this.service_discharge = null;
-  // this.calc_tier = null;
-  // this.calc_vre_only = null;
-  // this.monthly_rate = null;
-  // this.only_tuition_fees = null;
-
   this.institution_type = institution_type.toLowerCase();
 
   // For Profit is the same as private (fac code starts with 2)
