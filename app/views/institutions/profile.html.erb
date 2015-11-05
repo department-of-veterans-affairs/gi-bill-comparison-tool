@@ -98,7 +98,7 @@
                 { name : 'vet', value : <%= number_with_precision(@veteran_retention_rate * 100, precision: 2) %>, },
                 { name : 'all', value : <%= number_with_precision(@all_student_retention_rate * 100, precision: 2) %>, }
               ],
-              average : 10.8
+              average : 67.0
             });
           </script>
 				<% else %>
@@ -127,7 +127,7 @@
               { name : 'vet', value : <%= vrate %> },
               { name : 'all', value : <%= crate %> }
             ],
-            average : 59
+            average : 44.0
           });
         </script>
       <% else %>
@@ -146,7 +146,7 @@
               target:  '#salary-rates',
               bars:    [ { name : 'all', value : <%= @school.salary_all_students %> } ],
               max: 120000,
-              average: 48127
+              average: 34343
             });
           </script>
         <% else %>
@@ -167,7 +167,7 @@
                 { name : 'all', 
                   value : <%= number_with_precision(@school.repayment_rate_all_students * 100,precision: 2) %> } 
               ],
-              average: 86.3 
+              average: 67.0 
             });
           </script>
         <% else %>
