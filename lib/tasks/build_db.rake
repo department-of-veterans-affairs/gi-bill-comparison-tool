@@ -10,7 +10,12 @@ task :load_csv, [:csv_file] => [:environment, :build_db] do |t, args|
   		count += 1
     
       row = LoadCsvHelper.convert(row.to_hash) 		
-  		Institution.create(row)
+  		if !(i = Institution.create(row)).persisted?
+        reason = i.errors.to_a.join(', ')
+
+        puts "\nRecord: #{count}: #{i.institution} not created! - #{reason}\n"
+        Rails.logger.error "Record: #{count}, #{i.institution} not created! - #{reason}"
+      end
 
   		print "\r Records: #{count}" 
     end
@@ -25,14 +30,24 @@ task build_db: :environment do
 	puts "Clearing logs ..."
 	Rake::Task['log:clear'].invoke
 
-	puts "Dropping database ..."
-	Rake::Task['db:drop'].invoke
-
 	puts "Creating database ..."
 	Rake::Task['db:create'].invoke
 
-	puts "Running migrations ..."
-	Rake::Task['db:migrate'].invoke
+  if ActiveRecord::Base.connection.table_exists? :institutions
+    puts "Dropping Institution ..."
+    ActiveRecord::Migration.drop_table :institutions
+  end
+
+  if ActiveRecord::Base.connection.table_exists? :institution_types
+    puts "Dropping InstitutionType ..."
+    ActiveRecord::Migration.drop_table :institution_types
+  end
+
+  puts "Dropping SchemaMigration ..."
+  ActiveRecord::Migration.drop_table :schema_migrations
+
+  puts "Running migrations ..."
+  Rake::Task['db:migrate'].invoke
 
 	puts "Seeding database ..."
 	Rake::Task['db:seed'].invoke
@@ -99,7 +114,7 @@ class LoadCsvHelper
   ## removes fields in the CSV that have become redundant.
   #############################################################################
   def self.to_institution_type(row)
-    id = InstitutionType.find_or_create_by(name: row[:type]).try(:id)
+    id = InstitutionType.find_or_create_by(name: row[:type].downcase).try(:id)
     [:type, :correspondence, :flight].each { |key| row.delete(key) }
 
     id
@@ -128,6 +143,7 @@ class LoadCsvHelper
   #############################################################################
   def self.to_int(value)
     value.try(:gsub, /[\$,]|null/i, '')
+    value.present? ? value : nil
   end
 
   #############################################################################
@@ -137,6 +153,7 @@ class LoadCsvHelper
   #############################################################################
   def self.to_float(value)
     value.try(:gsub, /[\$,]|null/i, '')
+    value.present? ? value : nil
   end
 
   #############################################################################
@@ -145,11 +162,6 @@ class LoadCsvHelper
   #############################################################################
   def self.to_str(value)
     value = value.to_s.gsub(/["']/, '').truncate(255)
-
-    if value.present?
-      value = value.split.map(&:capitalize).join(' ') 
-    end
-
-    value
+    value.present? ? value : nil
   end
 end
