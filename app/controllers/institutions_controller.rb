@@ -126,10 +126,10 @@ class InstitutionsController < ApplicationController
       end
 
       # Features
-      @feature_student_veteran_group << result if result[:student_veteran] == 't'
-      @feature_yellow_ribbon_scholarship << result if result[:yr] == 't'
-      @feature_principles_of_excellence << result if result[:poe] == 't'
-      @feature_8_keys_to_veteran_success << result if result[:eight_keys] == 't'
+      @feature_student_veteran_group << result if result[:student_veteran]
+      @feature_yellow_ribbon_scholarship << result if result[:yr]
+      @feature_principles_of_excellence << result if result[:poe]
+      @feature_8_keys_to_veteran_success << result if result[:eight_keys]
 
       # Types
       type = result[:name].downcase
@@ -148,7 +148,6 @@ class InstitutionsController < ApplicationController
     elsif @inputs[:employers]
       @results = @results & @employers
     end
-
 
     # @inputs[:state] = params[:state].downcase if params[:state].present?
     if @inputs[:state]
@@ -277,6 +276,6 @@ class InstitutionsController < ApplicationController
   end
 
   def is_school?(result)
-    result[:institution_type_id] != "2"
+    result[:institution_type_id] != 2
   end
 end

@@ -1,25 +1,26 @@
 <div id="<%= school_summary[:facility_code] %>"  
-    class="school_summary"
+  class="school_summary"
 
-    data-id="<%= school_summary[:id] %>" 
-    data-facility-code="<%= school_summary[:facility_code] %>"
-    data-institution="<%= school_summary[:institution] %>"
-    data-city="<%= school_summary[:city] %>"
-    data-state="<%= school_summary[:state] %>" 
-    data-country="<%= school_summary[:country] %>" 
-    data-type="<%= school_summary[:name].try(:downcase) %>"
+  data-id="<%= school_summary[:id] %>" 
+  data-facility-code="<%= school_summary[:facility_code] %>"
+  data-institution="<%= school_summary[:institution] %>"
+  data-city="<%= school_summary[:city] %>"
+  data-state="<%= school_summary[:state] %>" 
+  data-country="<%= school_summary[:country] %>" 
+  data-type="<%= school_summary[:name].try(:downcase) %>"
 
-    <% if school_summary[:name].try(:downcase) == Institution::EMPLOYER %>
-        data-institution-type="employer"
-    <% else %>
-        data-institution-type ="school"
-    <% end %>    
+  <% if school_summary[:name].try(:downcase) == Institution::EMPLOYER %>
+      data-institution-type="employer"
+  <% else %>
+      data-institution-type ="school"
+  <% end %>    
 
-    data-poe="<%= school_summary[:poe] %>"
-    data-student-veteran="<%= school_summary[:student_veteran] %>"
-    data-eight-keys="<%= school_summary[:eight_keys] %>"
-    data-yr="<%= school_summary[:yr] %>"
-    data-bah="<%= school_summary[:bah] %>">   
+  data-poe="<%= school_summary[:poe] %>"
+  data-student-veteran="<%= school_summary[:student_veteran] %>"
+  data-eight-keys="<%= school_summary[:eight_keys] %>"
+  data-yr="<%= school_summary[:yr] %>"
+  data-bah="<%= school_summary[:bah] %>"
+>   
 
 
 	<% if school_summary[:caution_flag] %>

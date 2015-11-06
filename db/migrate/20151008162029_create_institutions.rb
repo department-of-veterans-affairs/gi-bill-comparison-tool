@@ -21,19 +21,19 @@ class CreateInstitutions < ActiveRecord::Migration
       t.integer :locale, default: nil # Integer with "null" string values
       t.integer :gibill, default: 0
       t.integer :undergrad_enrollment, default: nil # Integer with "null" string values
-      t.boolean :yr, null: false
-      t.boolean :student_veteran, null: false 
+      t.string :yr, default: nil # Boolean with null string values
+      t.string :student_veteran, default: nil # Boolean with null string values
       t.string :student_veteran_link  
-      t.boolean :poe, null: false
-      t.boolean :eight_keys, null: false  
-      t.boolean :dodmou, null: false  
-      t.boolean :sec_702, null: false
+      t.string :poe, default: nil # Boolean with null string values
+      t.string :eight_keys, default: nil # Boolean with null string values
+      t.string :dodmou, default: nil # Boolean with null string values
+      t.string :sec_702, default: nil # Boolean with null string values
       t.string :vetsuccess_name 
       t.string :vetsuccess_email  
-      t.boolean :credit_for_mil_training
-      t.boolean :vet_poc
-      t.boolean :student_vet_grp_ipeds 
-      t.boolean :soc_member
+      t.string :credit_for_mil_training, default: nil # Boolean with null string values
+      t.string :vet_poc, default: nil # Boolean with null string value
+      t.string :student_vet_grp_ipeds, default: nil # Boolean with null string values
+      t.string :soc_member, default: nil # Boolean with null string values
       t.string :va_highest_degree_offered
       t.float :retention_rate_veteran_ba, default: 0.0      
       t.float :retention_all_students_ba, default: 0.0       
@@ -52,15 +52,15 @@ class CreateInstitutions < ActiveRecord::Migration
       t.float :tuition_in_state, default: nil #Float with "null" and other terms
       t.float :tuition_out_of_state, default: nil #Float with "null" and other terms
       t.float :books, default: nil #Float with "null" and other terms
-      t.boolean :online_all, null: false
+      t.string :online_all, default: nil # Boolean with null string values
       t.float :p911_tuition_fees, default: 0.0 
       t.integer :p911_recipients, default: 0 
       t.float :p911_yellow_ribbon, default: 0.0  
       t.integer :p911_yr_recipients, default: 0   
-      t.boolean :accredited, null: false 
+      t.string :accredited, default: nil # Boolean with null string values
       t.string :accreditation_type  
       t.string :accreditation_status  
-      t.boolean :caution_flag, null: false
+      t.string :caution_flag, default: nil # Boolean with null string values
       t.string :caution_flag_reason
 
       # Complaint Data
@@ -99,22 +99,6 @@ class CreateInstitutions < ActiveRecord::Migration
       t.index :institution
       t.index :city
       t.index :state
-      
-      # Past Columns
-      # t.float :grad_rate 
-      # t.integer :grad_rate_rank  
-      # t.float :default_rate  
-      # t.float :avg_stu_loan_debt 
-      # t.integer :avg_stu_loan_debt_rank  
-      # t.integer :indicator_group 
-      # t.float :salary  
-      # t.boolean :hcm_status, null: false  
-      # t.string :hcm_type  
-      # t.string :hcm_reason
-      # t.string :retention_rate_veteran #Float with "null" strings.
-      # t.string :retention_all_students #Float with "null" strings.
-      # t.string :persistance_rate_veteran #Float with "null" strings.
-
     end
   end
 end

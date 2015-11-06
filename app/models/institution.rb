@@ -9,12 +9,117 @@ class Institution < ActiveRecord::Base
 
   validates_uniqueness_of :facility_code
 
-  validates_inclusion_of :poe, :yr, :student_veteran, :eight_keys, :dodmou, :online_all, 
-      :sec_702, :accredited, :caution_flag, in: [true, false]
+  attr_reader :yr, :student_veteran, :poe, :eight_keys, :dodmou, 
+    :sec_702, :credit_for_mil_training, :vet_poc, :student_vet_grp_ipeds, 
+    :soc_member, :online_all, :accredited, :caution_flag
 
   scope :with_type, -> { 
     select('institutions.*, institution_types.name').joins(:institution_type) 
   }
+
+  #############################################################################
+  ## yr
+  #############################################################################
+  def yr
+    raw = read_attribute(:yr).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## student_veteran
+  #############################################################################
+  def student_veteran
+    raw = read_attribute(:student_veteran).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## poe
+  #############################################################################
+  def poe
+    raw = read_attribute(:poe).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## eight_keys
+  #############################################################################
+  def eight_keys
+    raw = read_attribute(:eight_keys).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## dodmou
+  #############################################################################
+  def dodmou
+    raw = read_attribute(:dodmou).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## sec_702
+  #############################################################################
+  def sec_702
+    raw = read_attribute(:sec_702).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## credit_for_mil_training
+  #############################################################################
+  def credit_for_mil_training
+    raw = read_attribute(:credit_for_mil_training).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## student_vet_grp_ipeds
+  #############################################################################
+  def student_vet_grp_ipeds
+    raw = read_attribute(:student_vet_grp_ipeds).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## vet_poc
+  #############################################################################
+  def vet_poc
+    raw = read_attribute(:vet_poc).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## soc_member
+  #############################################################################
+  def soc_member
+    raw = read_attribute(:soc_member).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## online_all
+  #############################################################################
+  def online_all
+    raw = read_attribute(:online_all).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## accredited
+  #############################################################################
+  def accredited
+    raw = read_attribute(:accredited).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## caution_flag
+  #############################################################################
+  def caution_flag
+    raw = read_attribute(:caution_flag).try(:sub, /null/, '').try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
 
   #############################################################################
   ## correspondence?
@@ -69,9 +174,13 @@ class Institution < ActiveRecord::Base
   ## different facility codes.
   #############################################################################
   def self.search(search_term)
-    fac = Institution.with_type.where(facility_code: search_term).to_sql
-    inst = Institution.with_type.where("institution ~* ?", "#{search_term}").to_sql
-    city = Institution.with_type.where("city ~* ?", "#{search_term}").to_sql
+    # fac = Institution.with_type.where(facility_code: search_term).to_sql
+    # inst = Institution.with_type.where("institution ~* ?", "#{search_term}").to_sql
+    # city = Institution.with_type.where("city ~* ?", "#{search_term}").to_sql
+
+    fac = Institution.where(facility_code: search_term).to_sql
+    inst = Institution.where("institution ~* ?", "#{search_term}").to_sql
+    city = Institution.where("city ~* ?", "#{search_term}").to_sql
 
     if search_term.present?
       schools = ActiveRecord::Base.connection.execute("#{fac} UNION #{inst} UNION #{city} ORDER BY institution")
@@ -79,8 +188,22 @@ class Institution < ActiveRecord::Base
       schools = ActiveRecord::Base.connection.execute(Institution.with_type.to_sql)
     end
 
+    # schools = schools.map do |school| 
+    #   school.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
+    # end.uniq { |school| school[:facility_code] }
+
+    types = InstitutionType.all.inject({}) do |m,r| 
+      m[r.id] = r.name; m
+    end
+
     schools = schools.map do |school| 
-      school.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
+      # Need to use read accessors to get true/false/nil or value/nil
+      s = Institution.new(school).as_json
+      s.inject({}) do |m,r| 
+        m[r[0].to_sym] = r[1]; 
+        m[:name] = types[m[:institution_type_id]]
+        m
+      end
     end.uniq { |school| school[:facility_code] }
   end
 
@@ -118,5 +241,13 @@ class Institution < ActiveRecord::Base
     end
   
     rate
+  end
+
+  #############################################################################
+  ## get_highest_degree_offered
+  ## Returns the highest degree offered as a hash { degree: qualifier: }
+  #############################################################################
+  def get_highest_degree_offered
+    
   end
 end

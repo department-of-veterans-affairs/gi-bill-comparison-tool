@@ -41,19 +41,19 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.integer  "locale"
     t.integer  "gibill",                                              default: 0
     t.integer  "undergrad_enrollment"
-    t.boolean  "yr",                                                                null: false
-    t.boolean  "student_veteran",                                                   null: false
+    t.string   "yr"
+    t.string   "student_veteran"
     t.string   "student_veteran_link"
-    t.boolean  "poe",                                                               null: false
-    t.boolean  "eight_keys",                                                        null: false
-    t.boolean  "dodmou",                                                            null: false
-    t.boolean  "sec_702",                                                           null: false
+    t.string   "poe"
+    t.string   "eight_keys"
+    t.string   "dodmou"
+    t.string   "sec_702"
     t.string   "vetsuccess_name"
     t.string   "vetsuccess_email"
-    t.boolean  "credit_for_mil_training"
-    t.boolean  "vet_poc"
-    t.boolean  "student_vet_grp_ipeds"
-    t.boolean  "soc_member"
+    t.string   "credit_for_mil_training"
+    t.string   "vet_poc"
+    t.string   "student_vet_grp_ipeds"
+    t.string   "soc_member"
     t.string   "va_highest_degree_offered"
     t.float    "retention_rate_veteran_ba",                           default: 0.0
     t.float    "retention_all_students_ba",                           default: 0.0
@@ -72,15 +72,15 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.float    "tuition_in_state"
     t.float    "tuition_out_of_state"
     t.float    "books"
-    t.boolean  "online_all",                                                        null: false
+    t.string   "online_all"
     t.float    "p911_tuition_fees",                                   default: 0.0
     t.integer  "p911_recipients",                                     default: 0
     t.float    "p911_yellow_ribbon",                                  default: 0.0
     t.integer  "p911_yr_recipients",                                  default: 0
-    t.boolean  "accredited",                                                        null: false
+    t.string   "accredited"
     t.string   "accreditation_type"
     t.string   "accreditation_status"
-    t.boolean  "caution_flag",                                                      null: false
+    t.string   "caution_flag"
     t.string   "caution_flag_reason"
     t.integer  "complaints_facility_code",                            default: 0
     t.integer  "complaints_financial_by_fac_code",                    default: 0
