@@ -35,10 +35,10 @@ class CreateInstitutions < ActiveRecord::Migration
       t.string :student_vet_grp_ipeds, default: nil # Boolean with null string values
       t.string :soc_member, default: nil # Boolean with null string values
       t.string :va_highest_degree_offered
-      t.float :retention_rate_veteran_ba, default: 0.0      
-      t.float :retention_all_students_ba, default: 0.0       
-      t.float :retention_rate_veteran_otb, default: 0.0        
-      t.float :retention_all_students_otb, default: 0.0      
+      t.float :retention_rate_veteran_ba, default: nil #Float with "null" strings.    
+      t.float :retention_all_students_ba, default: nil #Float with "null" strings.     
+      t.float :retention_rate_veteran_otb, default: nil #Float with "null" strings.       
+      t.float :retention_all_students_otb, default: nil #Float with "null" strings.     
       t.float :persistance_rate_veteran_ba, default: 0.0   
       t.float :persistance_rate_veteran_otb, default: 0.0
       t.float :graduation_rate_veteran, default: nil #Float with "null" strings.

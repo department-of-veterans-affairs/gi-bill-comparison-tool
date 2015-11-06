@@ -55,10 +55,10 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.string   "student_vet_grp_ipeds"
     t.string   "soc_member"
     t.string   "va_highest_degree_offered"
-    t.float    "retention_rate_veteran_ba",                           default: 0.0
-    t.float    "retention_all_students_ba",                           default: 0.0
-    t.float    "retention_rate_veteran_otb",                          default: 0.0
-    t.float    "retention_all_students_otb",                          default: 0.0
+    t.float    "retention_rate_veteran_ba"
+    t.float    "retention_all_students_ba"
+    t.float    "retention_rate_veteran_otb"
+    t.float    "retention_all_students_otb"
     t.float    "persistance_rate_veteran_ba",                         default: 0.0
     t.float    "persistance_rate_veteran_otb",                        default: 0.0
     t.float    "graduation_rate_veteran"
