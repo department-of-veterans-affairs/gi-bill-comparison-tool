@@ -17,6 +17,11 @@ class Institution < ActiveRecord::Base
     select('institutions.*, institution_types.name').joins(:institution_type) 
   }
 
+  # USE WITH CAUTION, NO USER INPUT!!!
+  scope :tri, ->(v) { 
+    where("LOWER(\"#{v.keys[0].to_s}\") = ?", v.values[0] ? "yes" : "no")
+  }
+
   #############################################################################
   ## yr
   #############################################################################
