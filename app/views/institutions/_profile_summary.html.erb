@@ -7,7 +7,7 @@
               <% if @school.accredited %>
                 Yes
                 <% if (pc = @school.cross).present? %>
-                  &nbsp;<a href="http://nces.ed.gov/collegenavigator/?id=<%= pc%>#accred">See Accreditors >></a>
+                  &nbsp;<a href="http://nces.ed.gov/collegenavigator/?id=<%= pc%>#accred" target="_blank">See Accreditors >></a>
                 <% end %>
               <% else %>
                 No
