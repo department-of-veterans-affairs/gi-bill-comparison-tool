@@ -9,7 +9,11 @@
 
 			<% if @school.caution_flag %>
 				<div class="caution-profile">
-					<a href="#jumpflag"><i class="fa fa-exclamation-triangle"></i> Caution Flag</a>
+					<%
+						caution = '<i class="fa fa-exclamation-triangle"></i>'.html_safe
+						caution += "Caution Flag - #{@school.caution_flag_reason.try(:chomp, ',')}"
+					%>
+					<a id="jump-to-complaints" href="#caution_jump_flag"><%= caution %></a>
         </div>
 			<% end %>
 
@@ -217,8 +221,6 @@
 </div></div>  
 
 <!-- END 8 keys -->
-    
-    
     
 <script>    
 // Makes the modals work!
