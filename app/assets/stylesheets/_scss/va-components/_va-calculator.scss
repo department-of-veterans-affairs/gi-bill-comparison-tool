@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 
+
 #calculated-benefits{
     
 
@@ -15,8 +16,7 @@
 }
 
 table{
-
-//    background-color: red;
+    margin-top: 0;
 }
 
 .noborder{
@@ -42,4 +42,21 @@ table{
 
 .data-row{
     line-height: .5rem;
+}
+
+.term-calc-results{
+    tr, th{
+    border-width: 0 0 1px 0;
+    }
+    th{
+        text-align: left;
+    }
+    td{
+        border-right: 1px;
+    }
+}
+
+.borderless{
+    border: none;
+    font-weight: 600;
 }
