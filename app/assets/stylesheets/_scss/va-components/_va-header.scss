@@ -92,6 +92,73 @@ a.site-title{
 }
 
 .trademark{
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     vertical-align: super;
+}
+.yellow-box{
+//    width: 100%;
+}
+
+.va-site-navbar ul.breadcrumbs {
+  background: none;
+  border: none;
+  h2 {font-size: 1em;}
+  display: block;
+  padding: 0;
+  @include media ($small) {margin: 0 0 1em 0;}
+  border-radius: 0;
+  border-radius: none;
+  -webkit-border-radius: 0;
+    
+
+
+
+  li {
+    text-transform: none;
+    display: block;
+    margin: 0 0 1rem 0;
+    padding: .65rem .25rem .5rem .25rem; 
+    display: inline-block; 
+    margin: 0;
+    line-height: 1.75rem;
+    vertical-align: middle;
+    height: auto;
+    font-size: .85rem;
+    @include media ($small) {font-size: 1.35rem; line-height: 1.5rem;}
+    &:hover  {border-bottom: none; text-decoration: none;}
+    &.parent {
+      a {background: none;}
+      display: block;
+      @include media ($small) {display: inline-block;}
+
+      &:before {content: none; vertical-align: middle;}
+      &:after {content:" › "; display: inline-block; color: #fff; padding: 0 .5rem;}
+
+    }
+
+    &.active {
+      line-height: 3.2rem;
+      background: $color-gold;
+      color: #000;
+      font-family: $roboto-slab;
+      font-weight: 400;
+      font-size: 3.2rem;
+      overflow: visible;
+      display: block;
+      padding: .3rem;
+      margin-bottom: 0;
+      vertical-align: bottom;
+      @include media ($small) {font-size: 1.5em; margin: 0; display: inline-block;}
+      &:before {content: ""; padding: 0; margin: 0;}
+    }
+
+
+  }
+  a {
+    border-bottom: 3px solid #fff;
+    background: none;
+    text-decoration: none !important;
+    color: #fff;
+    &:hover {text-decoration: none; background: rgba(0,0,0,.1); border-bottom: 3px solid $color-gold;}
+  }
 }
