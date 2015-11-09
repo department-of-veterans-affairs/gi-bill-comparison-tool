@@ -45,4 +45,19 @@ module InstitutionsHelper
     l = InstitutionsHelper::LOCALE[key]
     l || 'Locale Unknown'
   end
+
+  def to_school_size(size)
+    return "Unknown" if size.blank?
+
+    display = "Unknown"
+    if size <= 2000
+      display = "Small"
+    elsif size <= 15000
+      display = "Medium"
+    else
+      display = "Large"
+    end
+
+    display
+  end
 end
