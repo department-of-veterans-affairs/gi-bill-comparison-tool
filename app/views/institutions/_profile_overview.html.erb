@@ -9,7 +9,11 @@
 
 			<% if @school.caution_flag %>
 				<div class="caution-profile">
-					<a href="#jumpflag"><i class="fa fa-exclamation-triangle"></i> Caution Flag</a>
+					<%
+						caution = '<i class="fa fa-exclamation-triangle"></i>'.html_safe
+						caution += "Caution Flag - #{@school.caution_flag_reason.try(:chomp, ',')}"
+					%>
+					<a id="jump-to-complaints" href="#caution_jump_flag"><%= caution %></a>
         </div>
 			<% end %>
 
@@ -34,16 +38,20 @@
 
 		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
 		<div class="usa-width-one-whole">
-			<% hdo = @school.va_highest_degree_offered.present? ? @school.va_highest_degree_offered : 'N/A' %>
+			<% if !@school.ojt? %>
+				<% hdo = @school.va_highest_degree_offered.present? ? @school.va_highest_degree_offered : 'N/A' %>
             
-      <div class="profile-institute-descriptors">
-          <p class="profile-institute-qualifier">&nbsp;<i class="fa fa-calendar fa-profile-descriptors"></i>&nbsp;Program</p>
+      	<div class="profile-institute-descriptors">
+          <p class="profile-institute-qualifier">&nbsp;
+          	<i class="fa fa-calendar fa-profile-descriptors"></i>&nbsp;Program
+          </p>
           <p class="profile-institute-value"><%= hdo %></p>
-      </div>
+      	</div>
+      <% end %>
       
 			<div class="profile-institute-descriptors"><!--HAS DATA. ADD OTHERS LIKE THIS ONE -->
-          <p class="profile-institute-qualifier"><i class="fa fa-university fa-profile-descriptors"></i>&nbsp;Type</p>
-          <p class="profile-institute-value"><%= @school.institution_type.name %></p>
+         <p class="profile-institute-qualifier"><i class="fa fa-university fa-profile-descriptors"></i>&nbsp;Type</p>
+          <p class="profile-institute-value"><%= @school.institution_type.display %></p>
       </div>
       
       <div class="profile-institute-descriptors"><!--NEEDS DATA  -->
@@ -54,31 +62,43 @@
 		</div>
 	</div>
 
-	<div class="usa-width-one-fourth nested usa-card usa-card-fill">
-	  <div class="usa-card-header">
-			<h4>Veteran Summary</h4>
-	  </div>
-	  <div class="usa-card-content va-summary-card">
-          <p><span class="search-value-each"><%= @school.gibill %></span> <a id="go" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a></p>
-			<ul>
-				 <% v_str = '<span class="programs-' + (@school.student_veteran ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
-                <li><%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a></li>
-                
-                <% v_str = '<span class="programs-' + (@school.yr ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
-                <li><%= v_str.html_safe %><a id="go" rel="leanModal" name="status" href="#yribbon"><span class="programs-text">Yellow Ribbon Scholarships</span></a></li>
-                
-                <% v_str = '<span class="programs-' + (@school.poe ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
-                <li><%= v_str.html_safe %><a id="go" rel="leanModal" name="status" href="#poe"> <span class="programs-text">Principles of Excellence</span></a></li>
-                
-                <% v_str = '<span class="programs-' + (@school.dodmou ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
-                <li><%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#ta"><span class="programs-text">Military Tuition Assistance (TA)</span></a></li>
+	<% if !@school.ojt? %>
+		<!-- Veteran Summary -->
+		<div class="usa-width-one-fourth nested usa-card usa-card-fill">
+		  <div class="usa-card-header"><h4>Veteran Summary</h4></div>
+		  <div class="usa-card-content va-summary-card">
+	      <p>
+	      	<span class="search-value-each"><%= @school.gibill %></span> <a id="go" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a>
+	      </p>
+				<ul>
+					<% v_str = '<span class="programs-' + (@school.student_veteran ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+	        <li>
+	        	<%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a>
+	        </li>
+	                
+	        <% v_str = '<span class="programs-' + (@school.yr ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+	        <li>
+	        	<%= v_str.html_safe %><a id="go" rel="leanModal" name="status" href="#yribbon"><span class="programs-text">Yellow Ribbon Scholarships</span></a>
+	        </li>
+	                
+	        <% v_str = '<span class="programs-' + (@school.poe ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+	        <li>
+	        	<%= v_str.html_safe %><a id="go" rel="leanModal" name="status" href="#poe"> <span class="programs-text">Principles of Excellence</span></a>
+	        </li>
+	                
+	        <% v_str = '<span class="programs-' + (@school.dodmou ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+	        <li>
+	        	<%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#ta"><span class="programs-text">Military Tuition Assistance (TA)</span></a>
+	        </li>
 
-                <% v_str = '<span class="programs-' + (@school.eight_keys ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
-                <li><%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#8keys"><span class="programs-text">8 Keys to Veteran Success</span></a></li>
-                
-			</ul>
-	  </div>
-	</div>
+	        <% v_str = '<span class="programs-' + (@school.eight_keys ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+	        <li>
+	        	<%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#8keys"><span class="programs-text">8 Keys to Veteran Success</span></a>
+	        </li>        
+				</ul>
+		  </div>
+		</div>
+	<% end %>
 <div class="usa-width-one-fourth usa-card usa-card-fill">
   <div class="usa-card-header">
 		<h4>Additional Resources</h4>
@@ -222,8 +242,6 @@
 </div></div>  
 
 <!-- END 8 keys -->
-    
-    
     
 <script>    
 // Makes the modals work!

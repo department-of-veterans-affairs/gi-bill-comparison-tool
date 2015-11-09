@@ -3,15 +3,25 @@
     <table class="usa-table-borderless">
         <tr>
             <td>Accredited<a id="go" rel="leanModal" name="status" href="#accredited"><i class="fa fa-info-circle info-icons"></i></a></td>
-            <td><%= @school.accredited ? 'Yes' : 'No' %></td>
+            <td>
+              <% if @school.accredited %>
+                Yes
+                <% if (pc = @school.cross).present? %>
+                  &nbsp;<a href="http://nces.ed.gov/collegenavigator/?id=<%= pc%>#accred" target="_blank">See Accreditors >></a>
+                <% end %>
+              <% else %>
+                No
+              <% end %>
+            </td>
         </tr>
         
         <% if @school.accredited %>
-        <tr>
+          <tr>
             <td> Type of Accrediation:<a id="go" rel="leanModal" name="status" href="#typeaccredited"><i class="fa fa-info-circle info-icons"></i></a></td>
             <td><%= @school.accreditation_type %></td>
-        </tr>
+          </tr>
         <% end %>
+
         <% if @school.vet_tuition_policy_url.present? %>
         <tr>
             <td>Link to Veterans Tuition Policy:</td>
