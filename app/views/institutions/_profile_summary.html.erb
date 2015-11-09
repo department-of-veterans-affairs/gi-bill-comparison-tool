@@ -7,8 +7,8 @@
               <% if @school.accredited %>
                 Yes
                 <% if (pc = @school.cross).present? %>
-                  &nbsp;<a href="http://nces.ed.gov/collegenavigator/?id=<%= pc%>#accred" target="_blank">See Accreditors >></a>
-                <% end %>
+                  <td><a href="http://nces.ed.gov/collegenavigator/?id=<%= pc%>#accred" target="_blank">See Accreditors</a>
+                <% end %></td>
               <% else %>
                 No
               <% end %>
@@ -19,6 +19,7 @@
           <tr>
             <td> Type of Accrediation:<a id="go" rel="leanModal" name="status" href="#typeaccredited"><i class="fa fa-info-circle info-icons"></i></a></td>
             <td><%= @school.accreditation_type %></td>
+            <td></td>
           </tr>
         <% end %>
 
@@ -26,31 +27,38 @@
         <tr>
             <td>Link to Veterans Tuition Policy:</td>
             <td><a href="http://<%= @school.vet_tuition_policy_url %>">View Policy</a></td>
+            <td></td>
         </tr>
         <% end %>
         <tr>
             <td>Single Point of Contact For Veterans:</td>
             <td><%= @school.vet_poc.present? ? @school.vet_poc : 'No Data' %></td>
+            <td></td>
         </tr>
         <tr>
             <td>Credit for Military Training:</td>
             <td><%= @school.credit_for_mil_training.present? ? @school.credit_for_mil_training : 'No Data' %></td>
+            <td></td>
         </tr>
         <tr>
             <td>Servicemember Opportunity College Member:</td>
             <td><%= @school.soc_member.present? ? @school.soc_member : 'No Data' %></td>
+            <td></td>
         </tr>        
         <tr>
             <td>VA Facility Code:</td>
             <td><%= @school.facility_code.present? ? @school.facility_code : 'No Data' %></td>
+            <td></td>
         </tr>
         <tr>
             <td>ED IPEDS Code:</td>
             <td><%= @school.cross.present? ? @school.cross : 'No Data' %></td>
+            <td></td>
         </tr>
         <tr>
             <td>ED OPE Code:</td>
             <td><%= @school.ope.present? ? @school.ope : 'No Data' %></td>
+            <td></td>
         </tr>
     </table>
 </div>

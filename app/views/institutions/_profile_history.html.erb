@@ -9,12 +9,12 @@
         </tr>
         </thead>
         <tr>
-            <th scope="row">Post-9/11 GI Bill:</th>
+            <th scope="row" class="text-left">Post-9/11 GI Bill:</th>
             <td><%=  number_with_delimiter(@school.p911_recipients) %></td>
             <td><%= number_to_currency(@school.p911_tuition_fees) %></td>
         </tr>
         <tr>
-            <th scope="row">Yellow Ribbon:</th>
+            <th scope="row" class="text-left">Yellow Ribbon:</th>
             <td><%=  number_with_delimiter(@school.p911_yr_recipients) %></td>
             <td><%= number_to_currency(@school.p911_yellow_ribbon) %></td>
         </tr>

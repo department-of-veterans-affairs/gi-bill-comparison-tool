@@ -41,21 +41,58 @@
     color: #444;
     line-height: .5rem;
     text-transform: uppercase;
+    background-color: #f1f1f1;
+    padding: .5rem;
 }
 
 .profile-institute-descriptors{
     text-align: left;
     margin-top: 1.7rem;
+    margin-right: 1rem;
+    padding-bottom: 0;
+    margin-bottom: 0;
     float: left;
     width: 25%;
+    
+    p{
+        margin-bottom: .5rem;
+    }
 }
 
 
 .profile-institute-value{
-    font-size: 2.2rem;
-    font-weight: 800;
+    font-size: 1.7rem;
+    font-weight: 600;
     color: $va-primary-color;
-    line-height: 1rem;
+    line-height: 2.2rem;
+    margin-top: 0;
+    margin-left: .5rem;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.fa-profile-benefits{
+    font-size: 5rem;
+    color: $va-primary-color;
+}
+
+.profile-benefits-values{
+    font-family: $roboto-slab;
+    font-size: 2.6rem;
+    color: $va-secondary-color;
+    line-height: 1.1rem;
+    text-align: center;
+}
+
+.benefits-cards{
+    margin-top: .85rem;
+    min-height: 21rem;
 }
 
 .fa-additional-resources{
@@ -82,6 +119,10 @@
         font-size: 1.5rem;
     
     }
+}
+
+.gi-bill-students{
+    text-align: center;
 }
 
 .programs-text{
