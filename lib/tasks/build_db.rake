@@ -148,7 +148,7 @@ class LoadCsvHelper
   ## characters.
   #############################################################################
   def self.to_int(value)
-    value.try(:gsub, /[\$,]|null/i, '')
+    value = value.try(:gsub, /[\$,]|null/i, '')
     value.present? ? value : nil
   end
 
@@ -158,7 +158,7 @@ class LoadCsvHelper
   ## characters.
   #############################################################################
   def self.to_float(value)
-    value.try(:gsub, /[\$,]|null/i, '')
+    value = value.try(:gsub, /[\$,]|null/i, '')
     value.present? ? value : nil
   end
 
