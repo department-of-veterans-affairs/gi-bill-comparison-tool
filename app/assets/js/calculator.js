@@ -2,14 +2,28 @@
 // Calculator
 ///////////////////////////////////////////////////////////////////////////////
 function Calculator(institution_type, institution) {
+  this.institution = institution;
   this.institution_type = institution_type.toLowerCase();
 
   // For Profit is the same as private (fac code starts with 2)
   if (this.institution_type === "for profit")
     this.institution_type = "private";
-  
-  this.institution = institution;
 
+  if (!this.institution.bah)
+    this.institution.bah = 0.0;
+
+  if (!this.institution.tuition_in_state)
+    this.institution.tuition_in_state = 0.0;
+
+  if (!this.institution.tuition_out_of_state)
+    this.institution.tuition_out_of_state = 0.0;
+
+  if (!this.institution.books)
+    this.institution.books = 0.0;
+
+  if (!this.institution.country)
+    this.institution.country = "";
+   
   this.populateInputs();
   this.getValues();
   this.getDerivedValues();

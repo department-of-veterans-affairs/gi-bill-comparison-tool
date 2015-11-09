@@ -20,27 +20,27 @@
         <% end %>
         <tr>
             <td>Single Point of Contact For Veterans:</td>
-            <td><%= @school.vet_poc ? 'Yes' : 'No' %></td>
+            <td><%= @school.vet_poc.present? ? @school.vet_poc : 'No Data' %></td>
         </tr>
         <tr>
             <td>Credit for Military Training:</td>
-            <td><%= @school.credit_for_mil_training ? 'Yes' : 'No' %></td>
+            <td><%= @school.credit_for_mil_training.present? ? @school.credit_for_mil_training : 'No Data' %></td>
         </tr>
         <tr>
             <td>Servicemember Opportunity College Member:</td>
-            <td><%= @school.soc_member ? 'Yes' : 'No' %></td>
+            <td><%= @school.soc_member.present? ? @school.soc_member : 'No Data' %></td>
         </tr>        
         <tr>
             <td>VA Facility Code:</td>
-            <td><%= @school.facility_code %></td>
+            <td><%= @school.facility_code.present? ? @school.facility_code : 'No Data' %></td>
         </tr>
         <tr>
             <td>ED IPEDS Code:</td>
-            <td><%= @school.cross %></td>
+            <td><%= @school.cross.present? ? @school.cross : 'No Data' %></td>
         </tr>
         <tr>
             <td>ED OPE Code:</td>
-            <td><%= @school.ope %></td>
+            <td><%= @school.ope.present? ? @school.ope : 'No Data' %></td>
         </tr>
     </table>
 </div>

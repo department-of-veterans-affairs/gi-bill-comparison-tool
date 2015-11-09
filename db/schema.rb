@@ -26,28 +26,28 @@ ActiveRecord::Schema.define(version: 20151008162029) do
 
   create_table "institutions", force: :cascade do |t|
     t.integer  "institution_type_id"
-    t.string   "facility_code",                                                     null: false
-    t.string   "institution",                                                       null: false
+    t.string   "facility_code"
+    t.string   "institution"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.string   "country",                                                           null: false
-    t.float    "bah",                                                 default: 0.0
-    t.integer  "cross",                                               default: 0
+    t.string   "country"
+    t.float    "bah"
+    t.string   "cross"
     t.string   "ope"
     t.string   "insturl"
     t.string   "vet_tuition_policy_url"
-    t.integer  "pred_degree_awarded",                                 default: 0
+    t.integer  "pred_degree_awarded"
     t.integer  "locale"
     t.integer  "gibill",                                              default: 0
     t.integer  "undergrad_enrollment"
-    t.string   "yr"
-    t.string   "student_veteran"
+    t.boolean  "yr",                                                  default: false
+    t.boolean  "student_veteran",                                     default: false
     t.string   "student_veteran_link"
-    t.string   "poe"
-    t.string   "eight_keys"
-    t.string   "dodmou"
-    t.string   "sec_702"
+    t.boolean  "poe",                                                 default: false
+    t.boolean  "eight_keys",                                          default: false
+    t.boolean  "dodmou",                                              default: false
+    t.boolean  "sec_702",                                             default: false
     t.string   "vetsuccess_name"
     t.string   "vetsuccess_email"
     t.string   "credit_for_mil_training"
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.float    "retention_all_students_ba"
     t.float    "retention_rate_veteran_otb"
     t.float    "retention_all_students_otb"
-    t.float    "persistance_rate_veteran_ba",                         default: 0.0
-    t.float    "persistance_rate_veteran_otb",                        default: 0.0
+    t.float    "persistance_rate_veteran_ba"
+    t.float    "persistance_rate_veteran_otb"
     t.float    "graduation_rate_veteran"
     t.float    "graduation_rate_all_students"
     t.float    "transfer_out_rate_veteran"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.integer  "p911_recipients",                                     default: 0
     t.float    "p911_yellow_ribbon",                                  default: 0.0
     t.integer  "p911_yr_recipients",                                  default: 0
-    t.string   "accredited"
+    t.boolean  "accredited",                                          default: false
     t.string   "accreditation_type"
     t.string   "accreditation_status"
     t.string   "caution_flag"
@@ -109,12 +109,12 @@ ActiveRecord::Schema.define(version: 20151008162029) do
     t.integer  "complaints_jobs_by_ope_id_do_not_sum",                default: 0
     t.integer  "complaints_transcript_by_ope_id_do_not_sum",          default: 0
     t.integer  "complaints_other_by_ope_id_do_not_sum",               default: 0
-    t.datetime "created_at",                                                        null: false
-    t.datetime "updated_at",                                                        null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
   end
 
   add_index "institutions", ["city"], name: "index_institutions_on_city", using: :btree
-  add_index "institutions", ["facility_code"], name: "index_institutions_on_facility_code", unique: true, using: :btree
+  add_index "institutions", ["facility_code"], name: "index_institutions_on_facility_code", using: :btree
   add_index "institutions", ["institution"], name: "index_institutions_on_institution", using: :btree
   add_index "institutions", ["institution_type_id"], name: "index_institutions_on_institution_type_id", using: :btree
   add_index "institutions", ["state"], name: "index_institutions_on_state", using: :btree

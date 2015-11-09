@@ -5,7 +5,7 @@
 			class="profile_overview"
 			data-type="<%= @school.institution_type.name %>"
 			data-country="<%= @school.country %>"
-			data-bah="<%= @school.bah %>">
+			data-bah="<%= @school.bah.present? ? @school.bah : 0 %>">
 
 			<% if @school.caution_flag %>
 				<div class="caution-profile">

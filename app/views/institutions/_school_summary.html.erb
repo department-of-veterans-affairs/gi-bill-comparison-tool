@@ -19,7 +19,7 @@
   data-student-veteran="<%= school_summary[:student_veteran] %>"
   data-eight-keys="<%= school_summary[:eight_keys] %>"
   data-yr="<%= school_summary[:yr] %>"
-  data-bah="<%= school_summary[:bah] %>"
+  data-bah="<%= school_summary[:bah].present? ? school_summary[:bah].present : 0 %>"
 >   
 
 
