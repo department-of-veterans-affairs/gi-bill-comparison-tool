@@ -33,18 +33,24 @@ task build_db: :environment do
 	puts "Creating database ..."
 	Rake::Task['db:create'].invoke
 
-  if ActiveRecord::Base.connection.table_exists? :institutions
-    puts "Dropping Institution ..."
-    ActiveRecord::Migration.drop_table :institutions
-  end
+  # if ActiveRecord::Base.connection.table_exists? :institutions
+  #   puts "Dropping Institution ..."
+  #   ActiveRecord::Migration.drop_table :institutions
+  # end
 
-  if ActiveRecord::Base.connection.table_exists? :institution_types
-    puts "Dropping InstitutionType ..."
-    ActiveRecord::Migration.drop_table :institution_types
-  end
+  # if ActiveRecord::Base.connection.table_exists? :institution_types
+  #   puts "Dropping InstitutionType ..."
+  #   ActiveRecord::Migration.drop_table :institution_types
+  # end
 
-  puts "Dropping SchemaMigration ..."
-  ActiveRecord::Migration.drop_table :schema_migrations
+  # puts "Dropping SchemaMigration ..."
+  # ActiveRecord::Migration.drop_table :schema_migrations
+
+  puts "Delete records in Institution in preparation for loading ..."
+  Institution.delete_all
+
+  puts "Delete records in InstitutionType in preparation for loading ..."
+  InstitutionType.delete_all
 
   puts "Running migrations ..."
   Rake::Task['db:migrate'].invoke
