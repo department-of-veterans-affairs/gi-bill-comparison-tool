@@ -42,7 +42,7 @@
 				<% hdo = @school.va_highest_degree_offered.present? ? @school.va_highest_degree_offered : 'N/A' %>
             
       	<div class="profile-institute-descriptors">
-          <p class="profile-institute-qualifier">&nbsp;
+          <p class="profile-institute-qualifier">
           	<i class="fa fa-calendar fa-profile-descriptors"></i>&nbsp;Program
           </p>
           <p class="profile-institute-value"><%= hdo %></p>
@@ -67,9 +67,10 @@
 		<div class="usa-width-one-fourth nested usa-card usa-card-fill">
 		  <div class="usa-card-header"><h4>Veteran Summary</h4></div>
 		  <div class="usa-card-content va-summary-card">
-	      <p>
-	      	<span class="search-value-each"><%= @school.gibill %></span> <a id="go" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a>
-	      </p>
+	      
+            <div class="gi-bill-students">
+	      	<span class="search-value-each"><%= @school.gibill %>&nbsp;</span><a id="go" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a></div>
+	   
 				<ul>
 					<% v_str = '<span class="programs-' + (@school.student_veteran ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
 	        <li>
@@ -111,7 +112,6 @@
 </div>
 
 <div class="usa-width-three-fourths">
-  <div class="newrow">
 	<div class=" usa-card usa-card-fill">
 	  <div class="usa-card-header">
 			<h3>Benefits Estimator</h3>
@@ -119,29 +119,29 @@
 	</div>
 
 	<div class="usa-width-one-third usa-card usa-card-fill">
-	  <div class="usa-card-content">	
+	  <div class="usa-card-content text-center benefits-cards">	
 			<h4>Tuition and Fees</h4>
-          <div class="icon"><i class="fa fa-graduation-cap fa-search-result"></i></div>
-			<p id="est-tuition-fees"></p>
+          <div class="icon"><i class="fa fa-graduation-cap fa-profile-benefits"></i></div>
+			<p id="est-tuition-fees" class="profile-benefits-values"></p>
 		</div>
 	</div>
 
 	<div class="usa-width-one-third usa-card usa-card-fill">
-	  <div class="usa-card-content">	
+	  <div class="usa-card-content text-center benefits-cards">	
 			<h4>Housing Allowance</h4>
-          <div class="icon"><i class="fa fa-home fa-search-result"></i></div>
-			<p id="est-housing-allowance"></p>
+          <div class="icon"><i class="fa fa-home fa-profile-benefits"></i></div>
+			<p id="est-housing-allowance" class="profile-benefits-values"></p>
 		</div>
 	</div>
 
 	<div class="usa-width-one-third usa-card usa-card-fill">
-	  <div class="usa-card-content">	
+	  <div class="usa-card-content text-center benefits-cards">	
 			<h4>Book Stipend</h4>
-          <div class="icon"><i class="fa fa-book fa-search-result"></i></div>
-			<p id="est-book-stipend"></p>
+          <div class="icon"><i class="fa fa-book fa-profile-benefits"></i></div>
+			<p id="est-book-stipend" class="profile-benefits-values"></p>
 		</div>
 	</div>
-    </div>
+
 </div>
 
 

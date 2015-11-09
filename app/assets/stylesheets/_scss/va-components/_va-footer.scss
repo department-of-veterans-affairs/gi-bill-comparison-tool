@@ -59,6 +59,22 @@ a {
   color: $va-body-content-color;
 }
 
+.about-this-tool, applinks{
+    a{
+    font-family: $open-sans;
+    color: $va-primary-color;
+    text-decoration: none;
+    
+    &:hover{
+        text-decoration: underline;
+    }
+    
+    &:visited{
+    color: $va-secondary-color;
+    }
+}
+}
+
 .footer-crisis {
   background:$va-body-accent-color;
   margin: 0.5rem;
