@@ -32,20 +32,30 @@
 }
 
 .fa-profile-descriptors{
-    font-size: 3rem;
+    font-size: 1.3rem;
     color: $va-primary-color;
+}
+
+.profile-institute-qualifier{
+    font-size: 1.3rem;
+    color: #444;
+    line-height: .5rem;
+    text-transform: uppercase;
 }
 
 .profile-institute-descriptors{
-    text-align: center;
+    text-align: left;
     margin-top: 1.7rem;
+    float: left;
+    width: 25%;
 }
 
-.profile-years-programs{
-    font-size: 3rem;
+
+.profile-institute-value{
+    font-size: 2.2rem;
     font-weight: 800;
     color: $va-primary-color;
-    line-height: 3rem;
+    line-height: 1rem;
 }
 
 .fa-additional-resources{

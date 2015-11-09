@@ -36,19 +36,19 @@
 		<div class="usa-width-one-whole">
 			<% hdo = @school.va_highest_degree_offered.present? ? @school.va_highest_degree_offered : 'N/A' %>
             
-      <div class="profile-institute-descriptors usa-width-one-sixth"> <!--PLACE DATA BEFORE "YEARS" TEXT -->
-          <span class="profile-years-programs"><%= hdo %></span>
-<!--          <p class="estimate-qualifier">YEARS</p>-->
+      <div class="profile-institute-descriptors">
+          <p class="profile-institute-qualifier">&nbsp;<i class="fa fa-calendar fa-profile-descriptors"></i>&nbsp;Program</p>
+          <p class="profile-institute-value"><%= hdo %></p>
       </div>
       
-			<div class="profile-institute-descriptors usa-width-one-sixth"><!--HAS DATA. ADD OTHERS LIKE THIS ONE -->
-          <i class="fa fa-university fa-profile-descriptors"></i>
-          <p class="estimate-qualifier"><%= @school.institution_type.name.upcase %></p>
+			<div class="profile-institute-descriptors"><!--HAS DATA. ADD OTHERS LIKE THIS ONE -->
+          <p class="profile-institute-qualifier"><i class="fa fa-university fa-profile-descriptors"></i>&nbsp;Type</p>
+          <p class="profile-institute-value"><%= @school.institution_type.name %></p>
       </div>
       
-      <div class="profile-institute-descriptors usa-width-one-sixth"><!--NEEDS DATA  -->
-          <i class="fa fa-map fa-profile-descriptors"></i>
-          <p class="estimate-qualifier"><%= to_locale(@school.locale) %></p>
+      <div class="profile-institute-descriptors"><!--NEEDS DATA  -->
+         <p class="profile-institute-qualifier"><i class="fa fa-map fa-profile-descriptors"></i>&nbsp;Locale</p>
+          <p class="profile-institute-value"><%= to_locale(@school.locale) %></p>
       </div>
                
 		</div>
@@ -91,7 +91,8 @@
 </div>
 
 <div class="usa-width-three-fourths">
-	<div class="usa-width-one-whole newrow usa-card usa-card-fill">
+  <div class="newrow">
+	<div class=" usa-card usa-card-fill">
 	  <div class="usa-card-header">
 			<h3>Benefits Estimator</h3>
 		</div>
@@ -100,6 +101,7 @@
 	<div class="usa-width-one-third usa-card usa-card-fill">
 	  <div class="usa-card-content">	
 			<h4>Tuition and Fees</h4>
+          <div class="icon"><i class="fa fa-graduation-cap fa-search-result"></i></div>
 			<p id="est-tuition-fees"></p>
 		</div>
 	</div>
@@ -107,6 +109,7 @@
 	<div class="usa-width-one-third usa-card usa-card-fill">
 	  <div class="usa-card-content">	
 			<h4>Housing Allowance</h4>
+          <div class="icon"><i class="fa fa-home fa-search-result"></i></div>
 			<p id="est-housing-allowance"></p>
 		</div>
 	</div>
@@ -114,9 +117,11 @@
 	<div class="usa-width-one-third usa-card usa-card-fill">
 	  <div class="usa-card-content">	
 			<h4>Book Stipend</h4>
+          <div class="icon"><i class="fa fa-book fa-search-result"></i></div>
 			<p id="est-book-stipend"></p>
 		</div>
 	</div>
+    </div>
 </div>
 
 
