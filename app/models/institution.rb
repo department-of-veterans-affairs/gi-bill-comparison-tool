@@ -4,14 +4,9 @@ class Institution < ActiveRecord::Base
 
   belongs_to :institution_type, inverse_of: :institutions
 
-  validates_presence_of :facility_code, :institution, :country, :institution_type_id
-  validates_presence_of :state, :zip, :city, if: :in_usa?
-
-  validates_uniqueness_of :facility_code
-
-  attr_reader :yr, :student_veteran, :poe, :eight_keys, :dodmou, 
-    :sec_702, :credit_for_mil_training, :vet_poc, :student_vet_grp_ipeds, 
-    :soc_member, :online_all, :accredited, :caution_flag
+  # attr_reader :yr, :student_veteran, :poe, :eight_keys, :dodmou, 
+  #   :sec_702, :credit_for_mil_training, :vet_poc, :student_vet_grp_ipeds, 
+  #   :soc_member, :online_all, :accredited, :caution_flag
 
   scope :with_type, -> { 
     select('institutions.*, institution_types.name').joins(:institution_type) 
@@ -23,66 +18,10 @@ class Institution < ActiveRecord::Base
   }
 
   #############################################################################
-  ## yr
-  #############################################################################
-  def yr
-    raw = read_attribute(:yr).try(:sub, /null/, '').try(:downcase)
-    raw.present? ? raw == "yes" : nil  
-  end
-
-  #############################################################################
-  ## student_veteran
-  #############################################################################
-  def student_veteran
-    raw = read_attribute(:student_veteran).try(:sub, /null/, '').try(:downcase)
-    raw.present? ? raw == "yes" : nil  
-  end
-
-  #############################################################################
-  ## poe
-  #############################################################################
-  def poe
-    raw = read_attribute(:poe).try(:sub, /null/, '').try(:downcase)
-    raw.present? ? raw == "yes" : nil  
-  end
-
-  #############################################################################
-  ## eight_keys
-  #############################################################################
-  def eight_keys
-    raw = read_attribute(:eight_keys).try(:sub, /null/, '').try(:downcase)
-    raw.present? ? raw == "yes" : nil  
-  end
-
-  #############################################################################
-  ## dodmou
-  #############################################################################
-  def dodmou
-    raw = read_attribute(:dodmou).try(:sub, /null/, '').try(:downcase)
-    raw.present? ? raw == "yes" : nil  
-  end
-
-  #############################################################################
-  ## sec_702
-  #############################################################################
-  def sec_702
-    raw = read_attribute(:sec_702).try(:sub, /null/, '').try(:downcase)
-    raw.present? ? raw == "yes" : nil  
-  end
-
-  #############################################################################
   ## credit_for_mil_training
   #############################################################################
   def credit_for_mil_training
-    raw = read_attribute(:credit_for_mil_training).try(:sub, /null/, '').try(:downcase)
-    raw.present? ? raw == "yes" : nil  
-  end
-
-  #############################################################################
-  ## student_vet_grp_ipeds
-  #############################################################################
-  def student_vet_grp_ipeds
-    raw = read_attribute(:student_vet_grp_ipeds).try(:sub, /null/, '').try(:downcase)
+    raw = read_attribute(:credit_for_mil_training).try(:downcase)
     raw.present? ? raw == "yes" : nil  
   end
 
@@ -90,7 +29,15 @@ class Institution < ActiveRecord::Base
   ## vet_poc
   #############################################################################
   def vet_poc
-    raw = read_attribute(:vet_poc).try(:sub, /null/, '').try(:downcase)
+    raw = read_attribute(:vet_poc).try(:downcase)
+    raw.present? ? raw == "yes" : nil  
+  end
+
+  #############################################################################
+  ## student_vet_grp_ipeds
+  #############################################################################
+  def student_vet_grp_ipeds
+    raw = read_attribute(:student_vet_grp_ipeds).try(:downcase)
     raw.present? ? raw == "yes" : nil  
   end
 
@@ -98,7 +45,7 @@ class Institution < ActiveRecord::Base
   ## soc_member
   #############################################################################
   def soc_member
-    raw = read_attribute(:soc_member).try(:sub, /null/, '').try(:downcase)
+    raw = read_attribute(:soc_member).try(:downcase)
     raw.present? ? raw == "yes" : nil  
   end
 
@@ -106,23 +53,7 @@ class Institution < ActiveRecord::Base
   ## online_all
   #############################################################################
   def online_all
-    raw = read_attribute(:online_all).try(:sub, /null/, '').try(:downcase)
-    raw.present? ? raw == "yes" : nil  
-  end
-
-  #############################################################################
-  ## accredited
-  #############################################################################
-  def accredited
-    raw = read_attribute(:accredited).try(:sub, /null/, '').try(:downcase)
-    raw.present? ? raw == "yes" : nil  
-  end
-
-  #############################################################################
-  ## caution_flag
-  #############################################################################
-  def caution_flag
-    raw = read_attribute(:caution_flag).try(:sub, /null/, '').try(:downcase)
+    raw = read_attribute(:online_all).try(:downcase)
     raw.present? ? raw == "yes" : nil  
   end
 

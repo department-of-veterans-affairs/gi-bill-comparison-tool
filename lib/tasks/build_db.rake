@@ -21,7 +21,7 @@ task :load_csv, [:csv_file] => [:environment, :build_db] do |t, args|
     end
   end
 
-	puts "\nDone ... Woop Woop!"
+	puts "\nDone ... Woo Hoo!"
 end
 
 task build_db: :environment do
@@ -125,7 +125,7 @@ class LoadCsvHelper
   ## Pads the CSV zip code to 5 characters if necessary.
   #############################################################################
   def self.pad_zip(row)
-    row[:zip].try(:rjust, 5, '0')
+    row[:zip].present? ? row[:zip].try(:rjust, 5, '0') : nil
   end
 
   #############################################################################
@@ -161,7 +161,7 @@ class LoadCsvHelper
   ## Removes single and double quotes from strings.
   #############################################################################
   def self.to_str(value)
-    value = value.to_s.gsub(/["']/, '').truncate(255)
+    value = value.to_s.gsub(/["']|\Anull\z/, '').truncate(255)
     value.present? ? value : nil
   end
 end
