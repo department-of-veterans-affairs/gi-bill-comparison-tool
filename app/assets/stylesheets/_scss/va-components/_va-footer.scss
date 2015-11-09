@@ -3,21 +3,38 @@
 .usa-footer-big .usa-footer-primary-section.va {
   padding-bottom: 4rem;
 }
+
+.usa-footer{
+a {
+  text-decoration: underline;
+  display: block;
+  background: none;
+  font-weight: 400;
+  padding: .65em 0;
+  @include media ($small-screen) {display: inline-block; padding: .25em 0;}
+  &:hover {color:#fff;}
+  &.contact, &.blog {
+    padding: .65em; font-size: 1em;  text-align: center; border: 2px solid $color-secondary;
+    @include media ($small-screen) {margin: 1.5em auto; display: inline-block;}
+    &:hover, &:focus, &:active {
+      background: $color-secondary; color: #fff;
+    }
+  }
+
+}
+}
+
 .usa-footer-primary-section.va{
   background-color: #0e345e;
   @include media($medium-screen) {
     li a {
+      text-decoration: underline;
+      display: block;
       background: none;
-      text-decoration: none;
-      border-bottom: 2px solid rgba(255,255,255,0.1);
+      font-weight: 400;
       padding: .65em 0;
-      display: inline-block;
-      &:hover {
-        color: #fff;
-        text-decoration: none;
-        border-bottom: 2px solid #0083BE;
-        text-shadow: 0 0 5px rgba(255,255,255,0.4);
-      }
+      @include media ($small-screen) {display: inline-block; padding: .25em 0;}
+      &:hover {color:#fff;}
     }
   }
 }
@@ -28,7 +45,7 @@
 }
 
 .usa-footer-secondary_section.va.two {
-  background-color: $va-secondary-color;
+  background-color: #205493;
   height: 10rem;
   padding-top: 2rem;
 }
@@ -47,6 +64,7 @@
   margin: 0.5rem;
   padding: 1rem;
   font-size: .85em;
+  text-align: center;
   span {
     font-weight: bold;
     color: $va-body-content-color;
@@ -54,16 +72,22 @@
   a {
     display:inline;
     text-decoration: none!important;
-    &:hover {
-      border-bottom: 2px solid $va-body-accent-color;
-    }
-    @media($small-screen) {
+
+    @include media($small-screen) {
       padding: .25em 0;
     }
-    @media($medium-screen) {
+    @include media($medium-screen) {
       display:block
     }
   }
+}
+
+a.sec-bob-button{
+    text-decoration: none;
+    padding: 1.5rem;
+    margin: .5rem;
+    font-size: 1.4rem;
+    font-weight: 700;
 }
 
 .usa-footer-logo{
@@ -71,4 +95,13 @@
     height: 50px;
     background-image: url(asset_path('va_images/seal-footer.svg'));
     background-repeat: no-repeat;
+}
+
+.fa-social{
+    font-size: 2rem;
+    padding-right: 1.7rem;
+}
+
+.text-right{
+    text-align: right;
 }
