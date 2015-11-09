@@ -244,7 +244,8 @@ class InstitutionsController < ApplicationController
       result[:poe] = to_bool(result[:poe])
       result[:yr] = to_bool(result[:yr])
       result[:eight_keys] = to_bool(result[:eight_keys])
-      result[:caution_flag] = to_bool(result[:caution_flag])
+      # This is a tri-state boolean as a string, needs downcase
+      result[:caution_flag] = to_bool(result[:caution_flag].try(:downcase))
       result[:profile_url] = make_url(@inputs, profile_path, @page, result)
     end
 
