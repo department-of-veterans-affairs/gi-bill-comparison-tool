@@ -58,6 +58,11 @@
          <p class="profile-institute-qualifier"><i class="fa fa-map fa-profile-descriptors"></i>&nbsp;Locale</p>
           <p class="profile-institute-value"><%= to_locale(@school.locale) %></p>
       </div>
+
+      <div class="profile-institute-descriptors"><!--NEEDS DATA  -->
+        <p class="profile-institute-qualifier"><i class="fa fa-map fa-profile-descriptors"></i>&nbsp;Size</p>
+          <p class="profile-institute-value"><%= to_school_size(@school.undergrad_enrollment) %></p>
+      </div>
                
 		</div>
 	</div>
