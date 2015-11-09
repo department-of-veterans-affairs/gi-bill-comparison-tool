@@ -45,8 +45,6 @@ function Calculator(institution_type, institution) {
     othis.resetVisibility();
     othis.writeOutputs();
   });
-
-//  this.updateTextInputs();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -179,11 +177,11 @@ Calculator.prototype.updateInState = function() {
 ///////////////////////////////////////////////////////////////////////////////
 // updateTextInputs
 ///////////////////////////////////////////////////////////////////////////////
-Calculator.prototype.updateTextInputs = function() {
-  $('#tuition-fees-input, #in-state-tuition-fees, #books-input,' + 
-    '#yellow-ribbon-amount, #scholar, #kicker').on('keyup', 
-    function(e) { $(this).change(); });
-};
+// Calculator.prototype.updateTextInputs = function() {
+//   $('#tuition-fees-input, #in-state-tuition-fees, #books-input,' + 
+//     '#yellow-ribbon-amount, #scholar, #kicker').on('keyup', 
+//     function(e) { $(this).change(); });
+// };
 
 
 ///////////////////////////////////////////////////////////////////////////////
