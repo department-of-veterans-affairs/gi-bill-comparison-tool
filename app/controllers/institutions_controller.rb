@@ -40,7 +40,6 @@ class InstitutionsController < ApplicationController
     @veteran_retention_rate = @school.get_veteran_retention_rate
     @all_student_retention_rate = @school.get_all_student_retention_rate
 
-
     respond_to do |format|
       format.json { render json: @school }
       format.html
