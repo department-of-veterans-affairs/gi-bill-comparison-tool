@@ -115,6 +115,8 @@ form {
   margin-bottom: 10rem;
 }
 
+
+
 ul li {
   &:before {
     content: none;
@@ -144,6 +146,10 @@ ul li {
   width: 20rem;
 }
 
+//.usa-search, .usa-search-big, .extra{
+//    width: 260px;
+//}
+
 .radio{
     margin-right: 2rem;
 }
@@ -156,6 +162,18 @@ ul li {
     font-family: $open-sans;
     font-size: 1.7rem;
     margin: 3.4rem;
+    @media(max-width: $small-screen) {
+        font-size: 1.2rem;
+        text-align: left;
+        margin: 0;
+        line-height: 1.2rem;
+    }
+    a.link{
+    @media(max-width: $small-screen) {
+        margin-left: 1rem;
+        padding: .5rem;
+    }
+    }
 }
 
 // All the stuff for showing the form vertically along the top
@@ -208,6 +226,18 @@ ul li {
     font-size: 1.25rem;
   }
 }
+
+.ui-autocomplete-input{
+    @media(max-width: $small-screen) {
+        width: 80%;
+    }
+}
+
+.ui-menu-item{
+    @media(max-width: $small-screen) {
+        font-size: 1.3rem;
+    }
+}
 .modal-bullets{
     font-size: 1.3rem;
     text-indent: 3rem;
@@ -234,4 +264,8 @@ ul li {
     margin-bottom: 1.7rem;
 }
 
-.red{background-color: bisque}
+label{
+    @media(max-width: $small-screen) {
+        font-size: 1.3rem;
+    }
+}
