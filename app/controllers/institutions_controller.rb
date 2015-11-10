@@ -30,7 +30,8 @@ class InstitutionsController < ApplicationController
       elig_for_post_gi_bill: params[:elig_for_post_gi_bill],
       number_of_dependents: params[:number_of_dependents],
       online_classes: params[:online_classes],
-      institution_search: params[:institution_search]
+      institution_search: params[:institution_search],
+      source: params[:source]
     }
 
     @school = Institution.find_by(facility_code: params[:facility_code])
@@ -67,7 +68,8 @@ class InstitutionsController < ApplicationController
       elig_for_post_gi_bill: params[:elig_for_post_gi_bill],
       number_of_dependents: params[:number_of_dependents],
       online_classes: params[:online_classes],
-      institution_search: params[:institution_search]
+      institution_search: params[:institution_search],
+      source: params[:source]
     }
 
     # Optional inputs
@@ -97,11 +99,10 @@ class InstitutionsController < ApplicationController
     @feature_8_keys_to_veteran_success = []
     @type_counts = {}
 
-
     # For filter counts
     @results.each do |result|
       # Institutions
-      if is_school?(result)
+      if result[:name].downcase != "ojt"
         @schools << result
       else
         @employers << result
@@ -185,7 +186,11 @@ class InstitutionsController < ApplicationController
     if @inputs[:types]
       types = @inputs[:types].split(',')
       types.each do |type|
-        @results = @results & @type_counts[type]
+        if @type_counts[type].present?
+          @results = @results & @type_counts[type]
+        else
+          @results = []
+        end
       end
     end
     @total_filtered_results = @results.length
@@ -238,6 +243,11 @@ class InstitutionsController < ApplicationController
       @page_urls[:last] = make_url(@inputs, search_page_path, @total_pages)
     end
 
+    # If from the home page, we may need to notate for skipping when only 1 result
+    # set the source to search for the purposes of creating a url for the profile to return to
+    from_home = @inputs[:source] == "home" 
+    @inputs[:source] = "search" if !from_home || from_home && @results.try(:length) > 1
+      
     # Generate URLs for school profiles
     @results.each do |result|
       result[:student_veteran] = to_bool(result[:student_veteran])
@@ -251,7 +261,7 @@ class InstitutionsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @results }
-      format.html { redirect_to @results[0][:profile_url] if @results.length == 1 }
+      format.html { redirect_to @results[0][:profile_url] if @results.length == 1 && from_home }
     end
   end
 
@@ -276,9 +286,5 @@ class InstitutionsController < ApplicationController
 
   def has_a_valid_instituion_type(a_hash, key)
     a_hash.has_key?(key) && %w(school, employer).include?(a_hash[key].downcase)
-  end
-
-  def is_school?(result)
-    result[:institution_type_id] != 2
   end
 end

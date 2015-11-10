@@ -82,6 +82,14 @@ class Institution < ActiveRecord::Base
   end
   
   #############################################################################
+  ## school?
+  ## True if school is not ojt.
+  #############################################################################
+  def school?
+    institution_type.name.downcase != 'ojt'
+  end
+
+  #############################################################################
   ## in_usa?
   ## True if school is in USA
   #############################################################################
@@ -188,10 +196,15 @@ class Institution < ActiveRecord::Base
   end
 
   #############################################################################
-  ## get_highest_degree_offered
-  ## Returns the highest degree offered as a hash { degree: qualifier: }
+  ## highest_degree
+  ## Returns the highest degree offered.
   #############################################################################
-  def get_highest_degree_offered
+  def highest_degree
+    degrees = {
+      0 => nil, "ncd" => "Certificate", 1 => "Certificate", 
+      "2-year" => 2, 2 => 2, 3 => 4, 4 => 4, "4-year" => 4 
+    }
     
+    degrees[pred_degree_awarded] || degrees[va_highest_degree_offered.try(:downcase)] || "No Data" 
   end
 end
