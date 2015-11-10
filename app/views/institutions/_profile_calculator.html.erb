@@ -56,11 +56,13 @@
 		      <div id="yellow-ribbon-amount-form" class="form-group top-aligned">
 		      	<%
 		      		link = @school.state.present? ? "http://www.benefits.va.gov/gibill/yellow_ribbon/2015/states/#{@school.state}.asp" : ""
+
 		      		l_str = link.present? ? "<a target=\"blank\" href=\"#{link}\" class=\"see-yr-rates-summary\"> See YR Rates</a>" : ""
+
 		      	%>
 		        <!-- Yellow Ribbon Amount -->
-<!--<<<<<<< HEAD-->
-		        <label for="yellow-ribbon-amount">Yellow Ribbon Amount From School (/year) <%= l_str.html_safe %>: 
+
+		        <label for="yellow-ribbon-amount">Yellow Ribbon Amount From School (/year) : 
 <!--
 =======
 		        <label for="yellow-ribbon-amount">Yellow Ribbon Amount From School (/year):&nbsp;<a id="go" rel="leanModal" name="status" href="#calc-yr"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a> 
@@ -70,6 +72,7 @@
 						</label>
 						<!--	        <span class="aria-tooltip" id="yellow-ribbon-amount-tooltip" role="tooltip">VA matches each dollar of unmet charges the institution agrees to contribute up to the total cost of tuition and fees.</span>-->
 		        <input id="yellow-ribbon-amount" type="text" value="$0" name="Yellow Ribbon Amount From School" alt="Yellow Ribbon Amount From School" class="filter-item" />
+		        <%= l_str.html_safe %>
 		      </div>
 
 	      	<div id="yellow-ribbon-rates-link" class="form-group"></div>
