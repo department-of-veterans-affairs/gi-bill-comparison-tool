@@ -90,7 +90,7 @@ Estimator.prototype.setMilitaryStatus = function(id) {
 // Saves as boolean
 ///////////////////////////////////////////////////////////////////////////////
 Estimator.prototype.setSpouseActiveDuty = function(id) {
-	this.spouse_active_duty = $(id).prop('checked');
+	this.spouse_active_duty = $(id).val().toLowerCase() === "yes";
 	return this;
 };
 
