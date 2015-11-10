@@ -30,7 +30,8 @@ class InstitutionsController < ApplicationController
       elig_for_post_gi_bill: params[:elig_for_post_gi_bill],
       number_of_dependents: params[:number_of_dependents],
       online_classes: params[:online_classes],
-      institution_search: params[:institution_search]
+      institution_search: params[:institution_search],
+      source: params[:source]
     }
 
     @school = Institution.find_by(facility_code: params[:facility_code])
@@ -67,7 +68,8 @@ class InstitutionsController < ApplicationController
       elig_for_post_gi_bill: params[:elig_for_post_gi_bill],
       number_of_dependents: params[:number_of_dependents],
       online_classes: params[:online_classes],
-      institution_search: params[:institution_search]
+      institution_search: params[:institution_search],
+      source: params[:source]
     }
 
     # Optional inputs
@@ -96,7 +98,6 @@ class InstitutionsController < ApplicationController
     @feature_principles_of_excellence = []
     @feature_8_keys_to_veteran_success = []
     @type_counts = {}
-
 
     # For filter counts
     @results.each do |result|
@@ -242,6 +243,10 @@ class InstitutionsController < ApplicationController
       @page_urls[:last] = make_url(@inputs, search_page_path, @total_pages)
     end
 
+    # If from the home page, we may need to notate for skipping when only 1 result
+    # set the source to search for the purposes of creating a url for the profile to return to
+    @inputs[:source] = "search" if @inputs[:source] == "search" || @results.try(:length) > 1
+      
     # Generate URLs for school profiles
     @results.each do |result|
       result[:student_veteran] = to_bool(result[:student_veteran])
@@ -255,7 +260,7 @@ class InstitutionsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @results }
-      format.html { redirect_to @results[0][:profile_url] if @results.length == 1 }
+      format.html { redirect_to @results[0][:profile_url] if @results.length == 1 &&  @inputs[:source] == "home" }
     end
   end
 
