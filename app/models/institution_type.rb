@@ -7,13 +7,14 @@ class InstitutionType < ActiveRecord::Base
   TYPES = { 
     "public" => "Public", "ojt" => "On The Job Training", 
     "for profit" => "For Profit", "private" => "Private",
-    "flight" => "Flight", 
+    "flight" => "Flight", "correspondence" => "Correspondence",
+    "foreign" => "Foreign"
   }
 
   #############################################################################
   ## school_type_display
   #############################################################################  
   def display
-    name == "ojt" ? "On the Job Training" : name.split.map(&:capitalize).join(" ")
+    InstitutionType::TYPES[name]
   end
 end
