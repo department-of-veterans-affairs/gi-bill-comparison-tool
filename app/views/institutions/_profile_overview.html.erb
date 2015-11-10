@@ -39,13 +39,15 @@
 		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
 		<div class="usa-width-one-whole">
 			<% if !@school.ojt? %>
-				<% hdo = @school.va_highest_degree_offered.present? ? @school.va_highest_degree_offered : 'N/A' %>
-            
+				<% 
+					hdo = @school.highest_degree 
+					qual = hdo == 2 || hdo == 4 ? "<br/><span>Year</span>".html_safe : ""
+				%>
       	<div class="profile-institute-descriptors">
           <p class="profile-institute-qualifier">
           	<i class="fa fa-calendar fa-profile-descriptors"></i>&nbsp;Program
           </p>
-          <p class="profile-institute-value"><%= hdo %></p>
+          <p class="profile-institute-value"><%= hdo %><%= qual %></p>
       	</div>
       <% end %>
       
