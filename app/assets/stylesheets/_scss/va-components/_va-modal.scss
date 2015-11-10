@@ -42,4 +42,7 @@ modal-style-wide{
 
 .info-icons{
  padding-left: 1rem;
+    @media(max-width: $small-screen) {
+        font-size: 1.7rem;
+    }
 }
