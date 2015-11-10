@@ -23,7 +23,14 @@ function buildSearchUrl() {
         var value = splitQuery[1];
 
         if (refineParams.indexOf(param) == -1) {
+          // Have to override source to prevent search from jumping to profile page when
+          // one result after applying filter.
+          if (param === "source") {
+            queryStr += '&' + 'source=search';
+          }
+          else {
             queryStr += '&' + query;
+          }
         }
     });
 
