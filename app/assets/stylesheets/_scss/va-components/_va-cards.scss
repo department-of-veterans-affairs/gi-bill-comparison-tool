@@ -73,6 +73,9 @@
       top: 1.5rem;
     }
     width: 100%;
+    @media(max-width: $small-screen) {
+        display: none;
+    }
 
     h1, h2, h3, h4, h5, h6 {
       margin: 0;
@@ -112,6 +115,10 @@
   > *:last-child {
     margin-bottom: 0;
   }
+
+    @media(max-width: $small-screen) {
+        padding: 1rem 1rem;
+    }
 }
 
 .light-type{
