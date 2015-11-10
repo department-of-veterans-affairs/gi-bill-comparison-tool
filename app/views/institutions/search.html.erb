@@ -1,54 +1,57 @@
-<div class="usa-width-one-whole filter-horizontal">
-  <%= render partial: 'yourself', locals: {use_label: false} %>
-  <div class="usa-button-primary search-button-new">
-    <a href="<%= root_path %>">New Search</a>
-  </div>
-</div>
-
-<div class="usa-grid-full">
-  <div class="usa-width-one-fourth">
-    <%= render partial: 'filter' %>
+<% if @results.try(:length) > 0 %>
+  <div class="usa-width-one-whole filter-horizontal">
+    <%= render partial: 'yourself', locals: {use_label: false} %>
+    <div class="usa-button-primary search-button-new">
+      <a href="<%= root_path %>">New Search</a>
+    </div>
   </div>
 
+  <div class="usa-grid-full">
+    <div class="usa-width-one-fourth"><%= render partial: 'filter' %></div>
     <div class="usa-width-three-fourths">
-
-      <div class="search-count">Showing <strong><%= @total_filtered_results %></strong> results for the term <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. </div>
-
+      <div class="search-count">Showing 
+        <strong><%= @total_filtered_results %></strong> 
+        results for the term <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
+      </div>
 
       <%= render partial: 'school_summary', collection: @results %>
      
-        <div class="usa-width-one-whole">  
-    <div class="search-count-headline pagination-bottom">
-        <% if @total_pages > 1 %>
-          <% if @page != 1 %>
-            <a href="<%= @page_urls[@page-1] %>"><i class="fa fa-angle-left"></i>&nbsp;Previous&nbsp;</a>
-          <% end %>
-
-          <% if @start_page > 1 %>
-            <a href="<%= @page_urls[:first] %>">1..</a>
-          <% end %>
-
-          <% @page_range.each do |page_num| %>
-            <% if page_num != @page %>
-              <a href="<%= @page_urls[page_num] %>"><%= page_num %></a>
-            <% else %>
-              <%= page_num %>
+      <div class="usa-width-one-whole">  
+        <div class="search-count-headline pagination-bottom">
+          <% if @total_pages > 1 %>
+            <% if @page != 1 %>
+              <a href="<%= @page_urls[@page-1] %>"><i class="fa fa-angle-left"></i>&nbsp;Previous&nbsp;</a>
             <% end %>
-          <% end %>
 
-          <% if @end_page < @total_pages %>
-            <a href="<%= @page_urls[:last] %>">...&nbsp;<%= @total_pages %></a>
-          <% end %>
+            <% if @start_page > 1 %>
+              <a href="<%= @page_urls[:first] %>">1..</a>
+            <% end %>
 
-          <% if @page != @total_pages %>
-            <a href="<%= @page_urls[@page+1] %>">&nbsp;Next&nbsp;<i class="fa fa-angle-right"></i></a>
+            <% @page_range.each do |page_num| %>
+              <% if page_num != @page %>
+                <a href="<%= @page_urls[page_num] %>"><%= page_num %></a>
+              <% else %>
+                <%= page_num %>
+              <% end %>
+            <% end %>
+
+            <% if @end_page < @total_pages %>
+              <a href="<%= @page_urls[:last] %>">...&nbsp;<%= @total_pages %></a>
+            <% end %>
+
+            <% if @page != @total_pages %>
+              <a href="<%= @page_urls[@page+1] %>">&nbsp;Next&nbsp;<i class="fa fa-angle-right"></i></a>
+            <% end %>
+          <% else %>
+            <br/>
           <% end %>
-        <% else %>
-          <br/>
-        <% end %>
-      </div>
-        </div>  
-        
+        </div>
+      </div>    
     </div>
-
-</div>
+  </div>
+<% else %>
+  <div class="search-count">The search for the term 
+    <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
+    Return no results, please <%= link_to "try a different search", root_path %>.
+  </div>
+<% end %>
