@@ -92,7 +92,7 @@
         <h3>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% 
           isa_v = is_number?(@veteran_retention_rate)
-          isa_c = is_number?(@all_student_retention_rate.present?)
+          isa_c = is_number?(@all_student_retention_rate)
 
           vrate = isa_v ? number_with_precision(@veteran_retention_rate.to_f * 100, precision: 2) : "null";
           crate = isa_c ? number_with_precision(@all_student_retention_rate.to_f * 100, precision: 2) : "null";
