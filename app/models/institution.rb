@@ -85,7 +85,7 @@ class Institution < ActiveRecord::Base
   ## school?
   ## True if school is not ojt.
   #############################################################################
-  def ojt?
+  def school?
     institution_type.name.downcase != 'ojt'
   end
 
@@ -196,18 +196,15 @@ class Institution < ActiveRecord::Base
   end
 
   #############################################################################
-  ## get_highest_degree_offered
-  ## Returns the highest degree offered as a hash { degree: qualifier: }
+  ## highest_degree
+  ## Returns the highest degree offered.
   #############################################################################
-  def get_highest_degree_offered
-    if [3, 4].include?(pred_degree_awarded)
-      degree = 4
-    elsif pred_degree_awarded == 2 
-      degree = 2
-    elsif pred_degree_awarded == 1
-      degree = "Certificate"
-    end
-
-    degree
+  def highest_degree
+    degrees = {
+      0 => nil, "ncd" => "Certificate", 1 => "Certificate", 
+      "2-year" => 2, 2 => 2, 3 => 4, 4 => 4, "4-year" => 4 
+    }
+    
+    degrees[pred_degree_awarded] || degrees[va_highest_degree_offered.try(:downcase)] || "No Data" 
   end
 end
