@@ -7,15 +7,15 @@
 .usa-footer{
 a {
   text-decoration: underline;
-  display: block;
+  display: inline-block;
   background: none;
   font-weight: 400;
   padding: .65em 0;
-  @include media ($small-screen) {display: inline-block; padding: .25em 0;}
+   @media(max-width: $small-screen) {display: inline-block; padding: .25em 0rem;}
   &:hover {color:#fff;}
   &.contact, &.blog {
-    padding: .65em; font-size: 1em;  text-align: center; border: 2px solid $color-secondary;
-    @include media ($small-screen) {margin: 1.5em auto; display: inline-block;}
+    padding: .65em; font-size: 1em;  text-align: center; border: 0px solid $color-secondary;
+     @media(max-width: $small-screen) {margin: 1.5em auto; display: inline-block;}
     &:hover, &:focus, &:active {
       background: $color-secondary; color: #fff;
     }
@@ -26,21 +26,30 @@ a {
 
 .usa-footer-primary-section.va{
   background-color: #0e345e;
-  @include media($medium-screen) {
-    li a {
-      text-decoration: underline;
-      display: block;
-      background: none;
-      font-weight: 400;
-      padding: .65em 0;
-      @include media ($small-screen) {display: inline-block; padding: .25em 0;}
-      &:hover {color:#fff;}
+    @media(max-width: $small-screen) {
+       height: auto;
+       padding: 1rem;
     }
-  }
+//  @include media($medium-screen) {
+//    li a {
+//      text-decoration: underline;
+//      display: block;
+//      background: none;
+//      font-weight: 400;
+//      padding: .65em 0;
+//      @include media ($small-screen) {display: inline-block; padding: .25em 0;}
+//      &:hover {color:#fff;}
+//    }
+//  }
 }
 .usa-footer-secondary_section.va.one {
   background-color: $va-primary-color;
   height: 10rem;
+    @media(max-width: $small-screen) {
+       height: auto;
+        text-align: center;
+        align-content: center;
+    }
   padding-top: 2rem;
 }
 
@@ -48,6 +57,9 @@ a {
   background-color: #205493;
   height: 10rem;
   padding-top: 2rem;
+    @media(max-width: $small-screen) {
+        height: auto;
+    }
 }
 
 .usa-footer-primary-section.va, .usa-footer-secondary_section.va.one, .usa-footer-secondary_section.va.two {
@@ -58,6 +70,8 @@ a {
 .usa-footer-secondary_section.va.one .footer-crisis a {
   color: $va-body-content-color;
 }
+
+
 
 .about-this-tool, applinks{
     a{
@@ -89,7 +103,7 @@ a {
     display:inline;
     text-decoration: none!important;
 
-    @include media($small-screen) {
+    @media(max-width: $small-screen) {
       padding: .25em 0;
     }
     @include media($medium-screen) {
@@ -104,6 +118,9 @@ a.sec-bob-button{
     margin: .5rem;
     font-size: 1.4rem;
     font-weight: 700;
+    @media(max-width: $small-screen) {
+        width: 95%;
+    }
 }
 
 .usa-footer-logo{
@@ -111,6 +128,9 @@ a.sec-bob-button{
     height: 50px;
     background-image: url(asset_path('va_images/seal-footer.svg'));
     background-repeat: no-repeat;
+    @media(max-width: $small-screen) {
+        margin: 0 auto;
+    }
 }
 
 .fa-social{
@@ -121,3 +141,12 @@ a.sec-bob-button{
 .text-right{
     text-align: right;
 }
+
+.small-pill{
+    @media(max-width: $small-screen) {
+        font-size: 1.7rem;
+        text-align: left;
+        padding: 1rem;
+    }
+}
+
