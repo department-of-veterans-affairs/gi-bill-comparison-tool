@@ -94,7 +94,7 @@
 						feature = @school.yr
 						link = "http://www.benefits.va.gov/gibill/yellow_ribbon/2015/states/#{@school.state}.asp"
 	        	v_str = '<span class="programs-' + (feature ? "yes\">\u2714" : "no\">\u2716") + '</span>' 
-						l_str = feature ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> <span class=\"see-yr-rates-summary\"> See YR Rates</span></a>" : ""
+						l_str = feature ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> <span class=\"see-yr-rates-summary\"> See Rates</span></a>" : ""
 	        %>
 	        <li>
 	        	<%= v_str.html_safe %>
