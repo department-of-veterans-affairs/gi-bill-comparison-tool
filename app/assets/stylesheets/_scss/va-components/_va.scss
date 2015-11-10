@@ -68,6 +68,15 @@ a{
 
 .teaser-container{
     padding-left: 3.4rem;
+    @media(max-width: $small-screen) {
+        display: none;
+    }
+}
+
+.whats-your-plan{
+    @media(max-width: $small-screen) {
+        display: none;
+    }
 }
 
 .fa-teaser{
@@ -150,7 +159,6 @@ ul li {
 }
 
 // All the stuff for showing the form vertically along the top
-// TODO: @Emilyville make better for mobile
 .filter-horizontal{
   border-bottom: solid $color-gray-lightest thin;
   padding-bottom: 2rem;
