@@ -153,7 +153,10 @@
           <script>
             new Graph({
               target:  '#salary-rates',
-              bars:    [ { name : 'all', value : <%= @school.salary_all_students %> } ],
+              bars:    [ 
+                { name : 'vet', value : <%= "null" %> },
+                { name : 'all', value : <%= @school.salary_all_students %> } 
+              ],
               max: 120000,
               average: 34343
             });
@@ -173,6 +176,7 @@
             new Graph({
               target:  '#repayment-rates',
               bars:    [ 
+                { name : 'vet', value : <%= "null" %> },
                 { name : 'all', 
                   value : <%= number_with_precision(@school.repayment_rate_all_students * 100,precision: 2) %> } 
               ],
