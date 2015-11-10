@@ -89,12 +89,12 @@
 	        	<a id="go" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a>
 	        	<%= l_str.html_safe %>
 	        </li>
-	                
+	           
 	        <% 
 						feature = @school.yr
 						link = "http://www.benefits.va.gov/gibill/yellow_ribbon/2015/states/#{@school.state}.asp"
 	        	v_str = '<span class="programs-' + (feature ? "yes\">\u2714" : "no\">\u2716") + '</span>' 
-						l_str = feature ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> See YR Rates >></a>" : ""
+l_str = feature ? "<a target=\"blank\" href=\"#{link}\" class=\"see-yr-rates-summary programs-text\">See YR Rates</a>" : ""
 	        %>
 	        <li>
 	        	<%= v_str.html_safe %>
