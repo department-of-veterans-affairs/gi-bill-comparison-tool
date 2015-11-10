@@ -101,7 +101,7 @@ class InstitutionsController < ApplicationController
     # For filter counts
     @results.each do |result|
       # Institutions
-      if is_school?(result)
+      if result[:name].downcase != "ojt"
         @schools << result
       else
         @employers << result
@@ -185,7 +185,11 @@ class InstitutionsController < ApplicationController
     if @inputs[:types]
       types = @inputs[:types].split(',')
       types.each do |type|
-        @results = @results & @type_counts[type]
+        if @type_counts[type].present?
+          @results = @results & @type_counts[type]
+        else
+          @results = []
+        end
       end
     end
     @total_filtered_results = @results.length
@@ -276,9 +280,5 @@ class InstitutionsController < ApplicationController
 
   def has_a_valid_instituion_type(a_hash, key)
     a_hash.has_key?(key) && %w(school, employer).include?(a_hash[key].downcase)
-  end
-
-  def is_school?(result)
-    result[:institution_type_id] != 2
   end
 end

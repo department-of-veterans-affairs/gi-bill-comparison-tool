@@ -82,6 +82,14 @@ class Institution < ActiveRecord::Base
   end
   
   #############################################################################
+  ## school?
+  ## True if school is not ojt.
+  #############################################################################
+  def ojt?
+    institution_type.name.downcase != 'ojt'
+  end
+
+  #############################################################################
   ## in_usa?
   ## True if school is in USA
   #############################################################################
@@ -192,6 +200,14 @@ class Institution < ActiveRecord::Base
   ## Returns the highest degree offered as a hash { degree: qualifier: }
   #############################################################################
   def get_highest_degree_offered
-    
+    if [3, 4].include?(pred_degree_awarded)
+      degree = 4
+    elsif pred_degree_awarded == 2 
+      degree = 2
+    elsif pred_degree_awarded == 1
+      degree = "Certificate"
+    end
+
+    degree
   end
 end
