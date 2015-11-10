@@ -1,8 +1,8 @@
 <% if @results.try(:length) > 0 %>
   <div class="usa-width-one-whole filter-horizontal">
     <%= render partial: 'yourself', locals: {use_label: false} %>
-    <div class="usa-button-primary search-button-new">
-      <a href="<%= root_path %>">New Search</a>
+    <div class="usa-button-primary search-button-new pull-right">
+      <a href="<%= root_path %>">Reset Search</a>
     </div>
   </div>
 
