@@ -32,7 +32,7 @@
 			<option value="all" selected>All (<%= @total_results %>)</option>
 			<% @countries.keys.each do |country| %>
 				<option value="<%= country %>" <%= 'selected' if @inputs[:country] == country %>>
-          <%= to_caps(country) %> (<%= @countries[country].length %>)
+          <%= country.upcase %> (<%= @countries[country].length %>)
 				</option>
 			<% end %>
 		</select>
