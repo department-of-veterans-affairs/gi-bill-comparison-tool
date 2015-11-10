@@ -74,19 +74,32 @@
 		<div class="usa-width-one-fourth nested usa-card usa-card-fill">
 		  <div class="usa-card-header"><h4>Veteran Summary</h4></div>
 		  <div class="usa-card-content va-summary-card">
-	      
-            <div class="gi-bill-students">
+	      <div class="gi-bill-students">
 	      	<span class="search-value-each"><%= @school.gibill %>&nbsp;</span><a id="go" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a></div>
 	   
 				<ul>
-					<% v_str = '<span class="programs-' + (@school.student_veteran ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+					<% 
+						feature = @school.student_veteran
+						link = @school.student_veteran_link
+						v_str = '<span class="programs-' + (feature ? "yes\">\u2714" : "no\">\u2716") + '</span>' 
+						l_str = feature && link.present? ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> Go To Site >></a>" : ""
+					%>
 	        <li>
-	        	<%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a>
+	        	<%= v_str.html_safe %> 
+	        	<a id="go" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a>
+	        	<%= l_str.html_safe %>
 	        </li>
 	                
-	        <% v_str = '<span class="programs-' + (@school.yr ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
+	        <% 
+						feature = @school.yr
+						link = "http://www.benefits.va.gov/gibill/yellow_ribbon/2015/states/#{@school.state}.asp"
+	        	v_str = '<span class="programs-' + (feature ? "yes\">\u2714" : "no\">\u2716") + '</span>' 
+						l_str = feature ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> See YR Rates >></a>" : ""
+	        %>
 	        <li>
-	        	<%= v_str.html_safe %><a id="go" rel="leanModal" name="status" href="#yribbon"><span class="programs-text">Yellow Ribbon Scholarships</span></a>
+	        	<%= v_str.html_safe %>
+	        	<a id="go" rel="leanModal" name="status" href="#yribbon"><span class="programs-text">Yellow Ribbon Scholarships</span></a>
+	        	<%= l_str.html_safe %>
 	        </li>
 	                
 	        <% v_str = '<span class="programs-' + (@school.poe ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
@@ -97,6 +110,18 @@
 	        <% v_str = '<span class="programs-' + (@school.dodmou ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
 	        <li>
 	        	<%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#ta"><span class="programs-text">Military Tuition Assistance (TA)</span></a>
+	        </li>
+
+	        <% 
+	        	feature = @school.vetsuccess_name
+	        	link = feature.present? && @school.vetsuccess_email.present? ? "mailto:#{@school.vetsuccess_email}" : ""
+	        	v_str = '<span class="programs-' + (feature.present? ? "yes\">\u2714" : "no\">\u2716") + '</span>' 
+						l_str = feature && link.present? ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> Email #{feature} >></a>" : ""
+	        %>
+	        <li>
+	        	<%= v_str.html_safe %> 
+	        	<a id="go" rel="leanModal" name="status" href="#"><span class="programs-text">VetSuccess on Campus</span></a>
+	        	<%= l_str.html_safe %>
 	        </li>
 
 	        <% v_str = '<span class="programs-' + (@school.eight_keys ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
