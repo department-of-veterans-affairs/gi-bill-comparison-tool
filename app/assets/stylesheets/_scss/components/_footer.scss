@@ -1,3 +1,13 @@
+.applinks{
+    a.link{
+        margin: 0 3.4rem;
+        &:hover{
+        color: #003F72;
+        }
+}
+}
+
+
 .usa-footer {
   .usa-unstyled-list {
     display: block;
