@@ -90,7 +90,6 @@ a{
 }
 
 .ui-autocomplete{
-
     background-color: #fff;
     border: 1px solid $olso-gray;
     text-indent: 1rem;
@@ -101,13 +100,25 @@ a{
   .ui-state-focus {
       background-color: #ddd;
     }
-
-
 }
 
 .ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content {
   @media(max-width: $small-screen) {
-    width: calc(100% - 4.5rem);
+    width: 93%;
+  }
+}
+
+#institution-search {
+  @media (max-width: $small-screen) {
+    width: 80%;
+  }
+}
+
+#search-button {
+  @media (max-width: $small-screen) {
+    width: 20%;
+    display: inline-block;
+    text-indent: -9999px;
   }
 }
 
