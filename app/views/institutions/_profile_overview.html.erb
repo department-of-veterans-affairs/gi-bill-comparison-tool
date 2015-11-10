@@ -41,7 +41,7 @@
 			<% if !@school.ojt? %>
 				<% 
 					hdo = @school.highest_degree 
-					qual = hdo == 2 || hdo == 4 ? "<br/><span>Year</span>".html_safe : ""
+					qual = hdo == 2 || hdo == 4 ? "<span>Year</span>".html_safe : ""
 				%>
       	<div class="profile-institute-descriptors">
           <p class="profile-institute-qualifier">
