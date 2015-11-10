@@ -1,18 +1,41 @@
 // VA header and logo
 .va-site-header{
-//  background-color: $va-secondary-color;
-//  left: 0;
-//  top: 0;
-//  width: 100%;
-//  z-index: 1;
-//    padding-top: 15.3px;
-////  margin-bottom: 5rem;
-//  .va-site-navbar.upper{
-//    height: 7.8rem;
-//  }
+  background-color: #205493;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  .va-site-navbar.upper{
+    height: 4rem;
+  }
 }
 .va-site-navbar{
+    color: #fff;
+    font-size: 1.3rem;
+    a{
+        color: #fff;
+    }
+    
+    @media(max-width: $small-screen) {
+        font-size: 1rem;
+    }
+    @media(min-width: $small-screen) and (max-width: $medium-screen) {
+        font-size: 1.1rem;
+    }
+}
 
+.upper{
+    p{
+        margin:0;
+        padding: 1rem;
+        @media(max-width: $small-screen) {
+        padding: .5rem;
+    }
+    }
+    @media(max-width: $small-screen) {
+        margin: 0 1rem 0 1rem;
+    }
+    
 }
 
 header{
