@@ -5,9 +5,11 @@
 
   @include media($medium) {
     .usa-width-one-whole {
+        margin-right: 0;
       @include span-columns(6);
     }
     .usa-width-one-half {
+        margin-right: 0;
       @include span-columns(3);
     }
     .usa-width-one-third {
@@ -24,6 +26,7 @@
       }
     }
     .usa-width-three-fourths {
+        margin-right: 0;
       @include span-columns(6);
     }
     .usa-width-one-sixth {
@@ -47,9 +50,11 @@
 
   @include media($large) {
     .usa-width-one-whole {
+        margin-right: 0;
       @include span-columns(12);
     }
     .usa-width-one-half {
+        margin-right: 0;
       @include span-columns(6);
     }
     .usa-width-one-third {

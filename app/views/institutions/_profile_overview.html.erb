@@ -1,6 +1,6 @@
-<div class="usa-width-one-whole">
+<div class="usa-width-one-whole print-width">
 
-	<div class="usa-width-one-half redback">
+	<div class="usa-width-one-half">
 		<div id="<%= @school.facility_code %>"
 			class="profile_overview"
 			data-type="<%= @school.institution_type.name %>"
@@ -94,7 +94,7 @@
 						feature = @school.yr
 						link = "http://www.benefits.va.gov/gibill/yellow_ribbon/2015/states/#{@school.state}.asp"
 	        	v_str = '<span class="programs-' + (feature ? "yes\">\u2714" : "no\">\u2716") + '</span>' 
-						l_str = feature ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> <span class=\"see-yr-rates-summary\"> See YR Rates</span></a>" : ""
+						l_str = feature ? "</br><a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> <p class=\"see-yr-rates-summary\"> See YR Rates</p></a>" : ""
 	        %>
 	        <li>
 	        	<%= v_str.html_safe %>
@@ -132,7 +132,7 @@
 		  </div>
 		</div>
 	<% end %>
-<div class="usa-width-one-fourth usa-card usa-card-fill">
+<div class="usa-width-one-fourth usa-card usa-card-fill add-resources">
   <div class="usa-card-header">
 		<h4>Additional Resources</h4>
   </div>
