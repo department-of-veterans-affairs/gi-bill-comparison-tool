@@ -3,6 +3,7 @@
 .graph {
   font-size: 10px;
   min-height: 200px;
+    margin: 0;
 }
 
 .graph .graph-background {
@@ -51,8 +52,8 @@
 
 <div id="horiz-filters-noprint" class="usa-width-one-whole filter-horizontal">
   <%= render partial: 'yourself', locals: { use_label: false } %>
-  <div class="usa-button-primary search-button-new pull-right">
-  	<a href="<%= root_path %>">Reset Search</a>
+  <div class="pull-right">
+  	<a href="<%= root_path %>" class="usa-button-primary search-button-new">Reset Search</a>
   </div>
 </div>
 
@@ -88,7 +89,7 @@
             
  <div class="usa-width-one-whole">
 		  <!-- Retention Rates -->
-      <div class="outcome-measure">
+      <div class="usa-width-one-half  outcome-measure">
         <h3>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% 
           isa_v = is_number?(@veteran_retention_rate)
@@ -117,7 +118,7 @@
       <!-- END RETENTION RATE -->
 
       <!-- Graduation Rates -->
-      <div class="outcome-measure">
+      <div class="usa-width-one-half  outcome-measure">
 		  <h3>Graduation Rate<a id="go" rel="leanModal" name="status" href="#gradrates"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
       <% 
         isa_v = is_number?(@school.graduation_rate_veteran)
@@ -146,7 +147,7 @@
       <!-- END GRAD RATE -->
                    
 			<!-- Salary Rates -->
-      <div class="outcome-measure">
+      <div class="usa-width-one-half outcome-measure">
         <h3>Average Salaries<a id="go" rel="leanModal" name="status" href="#salaries"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% if @school.salary_all_students.present? %>
           <div id="salary-rates" class="graph"></div>
@@ -168,7 +169,7 @@
       <!-- END SALARY RATE -->
 
 			<!-- Repayment -->
-      <div class="outcome-measure">
+      <div class="usa-width-one-half outcome-measure">
   			<h3>Repayment Rate<a id="go" rel="leanModal" name="status" href="#repayment"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% if @school.repayment_rate_all_students.present? %>
           <div id="repayment-rates" class="graph"></div>
@@ -188,7 +189,8 @@
         <% end %>
       </div>
       </div><!-- END REPAYMENT RATE -->
-      <p>Access a comprehensive spreadsheet of <a title="Veteran Outcome Measures" href="http://www.benefits.va.gov/gibill/docs/OutcomeMeasuresDashboard.xlsx" id="anch_373" target="_blank">Veteran Outcome Measures</a> (<i class="fa fa-file-excel-o info-icons"></i> | 14.4 MB)</p>      
+      <div class="usa-width-one-whole clearfix">
+            <p>Access a comprehensive spreadsheet of <a title="Veteran Outcome Measures" href="http://www.benefits.va.gov/gibill/docs/OutcomeMeasuresDashboard.xlsx" id="anch_373" target="_blank">Veteran Outcome Measures</a> (<i class="fa fa-file-excel-o info-icons"></i> | 14.4 MB)</p></div>      
     </div><!-- END Accordion ID Div -->
   </div><!-- END Accordion class Div -->
 </div><!-- END <div class="usa-width-three-fourths new-row"> -->

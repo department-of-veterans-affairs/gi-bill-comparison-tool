@@ -139,6 +139,10 @@ form {
   margin-bottom: 10rem;
 }
 
+.clearfix{
+    @include clearfix;
+}
+
 
 
 ul li {
@@ -152,7 +156,7 @@ ul li {
     margin-right: 0;
 }
 
-.usa-grid-full .usa-card .usa-width-three-fourths .usa-width-one-fourth .nested {
+.usa-grid-full .usa-card .usa-width-three-fourths .usa-width-one-half .usa-width-one-fourth .nested {
   margin-right: 0;
     margin-top: 0;
 }
@@ -293,3 +297,4 @@ label{
         font-size: 1.3rem;
     }
 }
+.nomargin{margin-right: 0;}

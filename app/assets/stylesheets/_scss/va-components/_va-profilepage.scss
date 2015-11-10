@@ -136,10 +136,12 @@
 }
 
 .see-yr-rates-summary{
-    a{
     font-size: 1.2rem;
-    text-indent: 3rem;
-    }
+    color:$va-secondary-color;
+    text-align: left;
+    line-height: 0;
+    margin: .5rem 0 0 0;
+    padding: 0;
 }
 
 .current-location{
@@ -168,10 +170,9 @@
     background-color: $va-body-accent-color;
 }
 .outcome-measure{
-    min-width: 100px;
-    width: 48%;
+    max-width: 375px;
+    min-width: 350px;
     float:left;
-    margin: 0px 25%;
 }
 .outcomes-learnmore{
     font-size: 1.7rem;
