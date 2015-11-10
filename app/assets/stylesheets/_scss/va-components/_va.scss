@@ -39,7 +39,7 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
 a{
     font-family: $open-sans;
     color: $va-primary-color;
-    
+
     &:visited{
     color: $va-secondary-color;
     }
@@ -89,13 +89,37 @@ a{
     color: $va-primary-color;
 }
 
-.ui-autocomplete {
+.ui-autocomplete{
     background-color: #fff;
     border: 1px solid $olso-gray;
     text-indent: 1rem;
-    .ui-state-focus {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+  .ui-state-focus {
       background-color: #ddd;
     }
+}
+
+.ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content {
+  @media(max-width: $small-screen) {
+    width: 93%;
+  }
+}
+
+#institution-search {
+  @media (max-width: $small-screen) {
+    width: 80%;
+  }
+}
+
+#search-button {
+  @media (max-width: $small-screen) {
+    width: 20%;
+    display: inline-block;
+    text-indent: -9999px;
+  }
 }
 
 .ui-helper-hidden-accessible{
@@ -252,7 +276,7 @@ ul li {
     a{
     font-family: $open-sans;
     color: $va-primary-color;
-    
+
     &:visited{
     color: $va-secondary-color;
     }
