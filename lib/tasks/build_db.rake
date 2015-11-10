@@ -30,8 +30,8 @@ task build_db: :environment do
 	puts "Clearing logs ..."
 	Rake::Task['log:clear'].invoke
 
-	puts "Creating database ..."
-	Rake::Task['db:create'].invoke
+	#puts "Creating database ..."
+	#Rake::Task['db:create'].invoke
 
   # if ActiveRecord::Base.connection.table_exists? :institutions
   #   puts "Dropping Institution ..."
