@@ -54,8 +54,12 @@
 		      </div>
 
 		      <div id="yellow-ribbon-amount-form" class="form-group top-aligned">
+		      	<%
+		      		link = @school.state.present? ? "http://www.benefits.va.gov/gibill/yellow_ribbon/2015/states/#{@school.state}.asp" : ""
+		      		l_str = link.present? ? "<a target=\"blank\" href=\"#{link}\"> See YR Rates >></a>" : ""
+		      	%>
 		        <!-- Yellow Ribbon Amount -->
-		        <label for="yellow-ribbon-amount">Yellow Ribbon Amount From School (/year): 
+		        <label for="yellow-ribbon-amount">Yellow Ribbon Amount From School (/year) <%= l_str.html_safe %>: 
 							<!--                <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#yellow_ribbon_from_school" onclick="track('Tool Tips', 'Calculator / Yellow Ribbon Amount');" target="_blank" class="info-link" aria-describedby="yellow-ribbon-amount-tooltip"><span aria-hidden="true">i</span><span class="sr-only">More information on yellow ribbon benefits</span></a>-->
 						</label>
 						<!--	        <span class="aria-tooltip" id="yellow-ribbon-amount-tooltip" role="tooltip">VA matches each dollar of unmet charges the institution agrees to contribute up to the total cost of tuition and fees.</span>-->
