@@ -245,7 +245,8 @@ class InstitutionsController < ApplicationController
 
     # If from the home page, we may need to notate for skipping when only 1 result
     # set the source to search for the purposes of creating a url for the profile to return to
-    @inputs[:source] = "search" if @inputs[:source] == "search" || @results.try(:length) > 1
+    from_home = @inputs[:source] == "home" 
+    @inputs[:source] = "search" if !from_home || from_home && @results.try(:length) > 1
       
     # Generate URLs for school profiles
     @results.each do |result|
@@ -260,7 +261,7 @@ class InstitutionsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @results }
-      format.html { redirect_to @results[0][:profile_url] if @results.length == 1 &&  @inputs[:source] == "home" }
+      format.html { redirect_to @results[0][:profile_url] if @results.length == 1 && from_home }
     end
   end
 
