@@ -6,8 +6,13 @@
 }
 
 
-#calculated-benefits{
-    
+.calc-results-1, .calc-results-2, .profile-school-summary{
+    th, tr, td{
+     
+    @media(max-width: $small-screen) {
+        padding: .75rem .75rem;
+    }
+    }
 
 .calc-title{
     text-align: left;
@@ -17,6 +22,12 @@
 
 table{
     margin-top: 0;
+    @media(max-width: $small-screen) {
+        font-size: 1.2rem;
+        line-height: 1.4rem;
+        padding: 0;
+        margin: 0;
+    }
 }
 
 .noborder{
@@ -42,6 +53,9 @@ table{
 
 .data-row{
     line-height: .5rem;
+    @media(max-width: $small-screen) {
+        line-height: 1.2rem;
+    }
 }
 
 .term-calc-results{

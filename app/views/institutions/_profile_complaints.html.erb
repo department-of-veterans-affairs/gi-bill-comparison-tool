@@ -15,7 +15,7 @@
       
   <% if (@school.complaints_main_campus_roll_up > 0) %>
     <h3>Complaint Breakdown <span class="caption"><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#sourcedata" onclick="track('Tool Tips', 'Complaint Box / Source');" target="_blank" alt="Click here for more information." title="Download data file used for the GI Bill Comparison Tool.">Source</a></span></h3>
-    <table>
+    <table class="complaints-table">
     <thead>
       <tr scope="col">
         <th id="institution-name-complaint"><%= @school.institution %></td>
