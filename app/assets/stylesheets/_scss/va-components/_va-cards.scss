@@ -3,14 +3,35 @@
 // It's basically all the same everything, but without the interaction renamed as usa-card.
 // and all the hover / opening / closing states removed
 
+
+    @media(max-width: $small-screen) {
+        #non-mobile-filters{display:none;}
+    }
+    @media(min-width: $small-screen) and (max-width: $medium-screen) {
+        #mobile-filters{display:none;}
+
+    }
+    @media(min-width: $medium-screen) and (max-width: $large-screen){
+        #mobile-filters{display:none;}
+    }
+    @media(min-width: $large-screen){
+        #mobile-filters{display:none;}
+    }
+#mobile-filters{
+    padding: 1rem;
+}
+
 .school_summary {
     position: relative;
   background-color: $color-gray-lightest;
   height: 36rem;
   width: 28rem;
-//  padding: 0 1em 1em 1em;
   margin: 0 0 1rem 1rem;
   float: left;
+    @media(max-width: $small-screen) {
+        width: 93%;
+        margin: 1rem 1rem 1rem 1rem;
+    }
 
   h4 {
     margin-top: 0;
@@ -181,6 +202,10 @@
     color: $va-secondary-color;
     line-height: 1.1rem;
     text-align: center;
+    @media(max-width: $small-screen) {
+        display: inline-block;
+        margin-left: 1.3rem;
+    }
 }
 .search-text-values{
     font-size: 1.2rem;
@@ -212,4 +237,8 @@ a.va-search-learnmore{
     bottom: 0;
     left: 1rem;
     width: 26rem;
+}
+
+.usa-button-unstyled{
+
 }

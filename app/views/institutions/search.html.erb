@@ -1,13 +1,38 @@
 <% if @results.try(:length) > 0 %>
-  <div class="usa-width-one-whole filter-horizontal">
+  <div id="horiz-filters-noprint2" class="usa-width-one-whole filter-horizontal">
     <%= render partial: 'yourself', locals: {use_label: false} %>
     <div class="pull-right">
       <a href="<%= root_path %>" class="usa-button-primary search-button-new">Reset Search</a>
     </div>
   </div>
 
-  <div class="usa-grid-full">
-    <div class="usa-width-one-fourth"><%= render partial: 'filter' %></div>
+  <div class="usa-width-one-fourth">
+      <div id="non-mobile-filters">
+    <div id="search-filters" class="usa-card usa-card-fill left-rail">
+ <div class="usa-card-header">
+		Refine My Search
+	</div>
+    <div class="usa-card-content">
+        
+        <%= render partial: 'filter' %>
+     </div>
+   </div>   
+ </div>
+</div>
+      
+    <div id="mobile-filters"class="usa-width-one-fourth">
+       <div class="usa-accordion">
+		<button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-5">
+			<h3>Refine My Search</h3>
+	  </button>
+    <div id="collapsible-5" aria-hidden="true" class="usa-card-content">
+        
+        <%= render partial: 'filter' %>
+     </div>
+   </div>   
+ </div>
+      
+      
     <div class="usa-width-three-fourths">
       <div class="search-count">Showing 
         <strong><%= @total_filtered_results %></strong> 
@@ -17,7 +42,7 @@
       <%= render partial: 'school_summary', collection: @results %>
      
       <div class="usa-width-one-whole">  
-        <div class="search-count-headline pagination-bottom">
+        <div class="search-count-headline pagination-bottom clearfix">
           <% if @total_pages > 1 %>
             <% if @page != 1 %>
               <a href="<%= @page_urls[@page-1] %>"><i class="fa fa-angle-left"></i>&nbsp;Previous&nbsp;</a>
