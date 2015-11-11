@@ -10,19 +10,13 @@
     display: none;
 }
 
-//#training {
-//  width: 500px;
-//  padding: 3rem;
-//  display:none;
-//  background: #FFF;
-//}
 
 .modal_close { 
   position: absolute; 
   top: 12px; 
   right: 12px; 
   display: block; 
-  z-index: 2; 
+  z-index: 2;
 }
 
 .modal-style{
@@ -31,6 +25,14 @@
   padding: 3rem;
   display:none;
   background: #FFF;
+    @media(max-width: $small-screen) {
+        width: 80%;
+        h3, p{
+            font-size: 1.4rem;
+            padding: .5rem;
+            line-height: 1.6rem;
+        }
+    }
 }
 
 modal-style-wide{
