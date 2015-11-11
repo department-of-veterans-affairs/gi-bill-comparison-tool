@@ -34,21 +34,21 @@ Estimator.prototype.BSCAP  = 1000,
 Estimator.prototype.FLTTFCAP = 12048.50;
 Estimator.prototype.CORRESPONDTFCAP = 10241.22;
 
-Estimator.prototype.MGIB3YRRATE = 1717;
-Estimator.prototype.MGIB2YRRATE = 1395;
-Estimator.prototype.SRRATE = 367;
+Estimator.prototype.MGIB3YRRATE = 1789;
+Estimator.prototype.MGIB2YRRATE = 1454;
+Estimator.prototype.SRRATE = 368;
 
-Estimator.prototype.DEARATE = 1018;
-Estimator.prototype.DEARATEOJT = 743;
+Estimator.prototype.DEARATE = 1021;
+Estimator.prototype.DEARATEOJT = 745;
 
-Estimator.prototype.VRE0DEPRATE = 603.33;
-Estimator.prototype.VRE1DEPRATE = 748.38;
-Estimator.prototype.VRE2DEPRATE = 881.91;
-Estimator.prototype.VREINCRATE = 64.28;
-Estimator.prototype.VRE0DEPRATEOJT = 527.51;
-Estimator.prototype.VRE1DEPRATEOJT = 637.92;
-Estimator.prototype.VRE2DEPRATEOJT = 735.20;
-Estimator.prototype.VREINCRATEOJT = 47.82;
+Estimator.prototype.VRE0DEPRATE = 605.44;
+Estimator.prototype.VRE1DEPRATE = 751.00;
+Estimator.prototype.VRE2DEPRATE = 885.00;
+Estimator.prototype.VREINCRATE = 64.50;
+Estimator.prototype.VRE0DEPRATEOJT = 529.36;
+Estimator.prototype.VRE1DEPRATEOJT = 640.15;
+Estimator.prototype.VRE2DEPRATEOJT = 737.77;
+Estimator.prototype.VREINCRATEOJT = 47.99;
 
 ///////////////////////////////////////////////////////////////////////////////
 // formatCurrency

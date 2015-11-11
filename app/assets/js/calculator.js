@@ -58,21 +58,21 @@ Calculator.prototype.BSOJTMONTH = 83;
 Calculator.prototype.FLTTFCAP = 12048.50;
 Calculator.prototype.CORRESPONDTFCAP = 10241.22;
 
-Calculator.prototype.MGIB3YRRATE = 1717;
-Calculator.prototype.MGIB2YRRATE = 1395;
-Calculator.prototype.SRRATE = 367;
+Calculator.prototype.MGIB3YRRATE = 1789;
+Calculator.prototype.MGIB2YRRATE = 1454;
+Calculator.prototype.SRRATE = 368;
 
-Calculator.prototype.DEARATE = 1018;
-Calculator.prototype.DEARATEOJT = 743;
+Calculator.prototype.DEARATE = 1021;
+Calculator.prototype.DEARATEOJT = 745;
 
-Calculator.prototype.VRE0DEPRATE = 603.33;
-Calculator.prototype.VRE1DEPRATE = 748.38;
-Calculator.prototype.VRE2DEPRATE = 881.91;
-Calculator.prototype.VREINCRATE = 64.28;
-Calculator.prototype.VRE0DEPRATEOJT = 527.51;
-Calculator.prototype.VRE1DEPRATEOJT = 637.92;
-Calculator.prototype.VRE2DEPRATEOJT = 735.20;
-Calculator.prototype.VREINCRATEOJT = 47.82;
+Calculator.prototype.VRE0DEPRATE = 605.44;
+Calculator.prototype.VRE1DEPRATE = 751.00;
+Calculator.prototype.VRE2DEPRATE = 885.00;
+Calculator.prototype.VREINCRATE = 64.50;
+Calculator.prototype.VRE0DEPRATEOJT = 529.36;
+Calculator.prototype.VRE1DEPRATEOJT = 640.15;
+Calculator.prototype.VRE2DEPRATEOJT = 737.77;
+Calculator.prototype.VREINCRATEOJT = 47.99;
 
 // Estimator Ids
 Calculator.prototype.MILITARY_STATUS = "#military-status"
