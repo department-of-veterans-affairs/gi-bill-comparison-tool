@@ -5,7 +5,6 @@
       <a href="<%= root_path %>" class="usa-button-primary search-button-new">Reset Search</a>
     </div>
   </div>
-
   <div class="usa-width-one-fourth">
       <div id="non-mobile-filters">
     <div id="search-filters" class="usa-card usa-card-fill left-rail">
@@ -31,7 +30,6 @@
      </div>
    </div>   
  </div>
-      
       
     <div class="usa-width-three-fourths">
       <div class="search-count">Showing 
@@ -75,8 +73,9 @@
     </div>
   </div>
 <% else %>
-  <div class="search-count">The search for the term 
-    <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
-    Return no results, please <%= link_to "try a different search", root_path %>.
+  <div class="search-count"> 
+    There were no results that matched 
+    <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>.  
+    Please try a <%= link_to "different search", root_path %>. 
   </div>
 <% end %>
