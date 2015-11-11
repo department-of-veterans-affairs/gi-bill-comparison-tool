@@ -37,7 +37,7 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 set :default_env, {
-  "RAILS_RELATIVE_URL_ROOT" => '/gibill'
+  "RAILS_RELATIVE_URL_ROOT" => '/gi-bill-comparison-tool'
 }
 
 # Default value for keep_releases is 5
