@@ -3,13 +3,11 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-set :app_server, ENV['STAGING_APP_SERVER']
-
 # server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server ENV['STAGING_APP_SERVER'], user: 'ec2-user', roles: %w{app}
+server ENV['STAGING_APP_SERVER'], user: 'ec2-user', roles: %w{app db}
 
 # role-based syntax
 # ==================
@@ -22,9 +20,6 @@ server ENV['STAGING_APP_SERVER'], user: 'ec2-user', roles: %w{app}
 # role :app, %w{deploy@example.com}, my_property: :my_value
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
-
-role :app, [ENV['STAGING_APP_SERVER']]
-role :db, [ENV['STAGING_APP_SERVER']]
 
 # Configuration
 # =============
