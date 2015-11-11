@@ -290,6 +290,9 @@ ul li {
 .search-count{
     margin-left: 1.7rem;
     margin-bottom: 1.7rem;
+    @media(max-width: $small-screen) {
+        font-size: 1.3rem;
+    }
 }
 
 label{
