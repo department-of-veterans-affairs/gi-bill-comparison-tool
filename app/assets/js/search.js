@@ -11,7 +11,7 @@ var refineParams = ['schools',
 
 
 function buildSearchUrl() {
-    var baseUrl = window.location.origin + window.location.pathname;
+    var baseUrl = window.location.href.split("?")[0];
     var queryParams = window.location.search.replace(/^\?/, '').split('&');
 
     var queryStr = "?";

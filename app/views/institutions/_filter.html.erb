@@ -61,6 +61,4 @@
 				class="filter" value="<%= type %>" <%= 'checked' if selected_types.include?(type) %>/>
 			<label id="<%= id %>-label" for="<%= id %>"><%= display %> (<%= @type_counts[type].present? ? @type_counts[type].length : 0 %>)</label>
 		<% end %>
-
-
 </div>
