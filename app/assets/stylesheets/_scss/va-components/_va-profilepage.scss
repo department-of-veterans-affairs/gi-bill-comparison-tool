@@ -20,7 +20,8 @@
 }
 
 .back-chevron, .backlink{
-    font-size: 1.7rem;
+    font-size: 1.4rem;
+    margin-bottom: 1.4rem;
     @media(max-width: $small-screen) {
         font-size: 1.2rem;
         margin-left: .5rem;
@@ -38,7 +39,7 @@
 
 .caution-profile{
     background-color: $va-body-accent-color;
-    height: 5.2rem;
+    height: 4.2rem;
     width: 100%;
     padding: 0 .5rem .5rem 1.7rem;
     @media(max-width: $small-screen) {
@@ -56,8 +57,8 @@
         color: #000;
         font-family: $open-sans;
         text-decoration: none;
-        font-size: 2rem;
-        line-height: 5.2rem;
+        font-size: 1.5rem;
+        line-height: 4.2rem;
         @media(max-width: $small-screen) {
             font-size: 1.0rem;
             line-height: 3.2rem;
@@ -110,7 +111,7 @@
 
 
 .profile-institute-value{
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: $va-primary-color;
     line-height: 2.2rem;
@@ -166,6 +167,11 @@
         background-color: $va-body-accent-color;
       }
 
+}
+
+.fa-info-caution{
+    color: #000;
+    padding-left: 1.7rem;
 }
 
 .horz-timeline-text{

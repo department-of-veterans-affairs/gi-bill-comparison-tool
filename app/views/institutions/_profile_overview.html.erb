@@ -10,7 +10,7 @@
 			<% if @school.caution_flag %>
 				<div class="caution-profile">
 					<%
-						caution = '<i class="fa fa-exclamation-triangle"></i>'.html_safe
+						caution = '<i class="fa fa-exclamation-triangle"></i>&nbsp'.html_safe
 						caution += "Caution Flag - #{@school.caution_flag_reason.try(:chomp, ',')}"
 					%>
 					<a id="jump-to-complaints" href="#caution_jump_flag"><%= caution %></a>
