@@ -25,38 +25,38 @@
 
         <% if @school.vet_tuition_policy_url.present? %>
         <tr>
-            <td>Link to Veterans Tuition Policy:</td>
+            <td>Link to Veterans Tuition Policy:<a id="go" rel="leanModal" name="status" href="#tuition-policy"><i class="fa fa-info-circle info-icons"></i></a></td>
             <td><a target="_blank" href="http://<%= @school.vet_tuition_policy_url %>">View Policy</a></td>
             <td></td>
         </tr>
         <% end %>
         <tr>
-            <td>Single Point of Contact For Veterans:</td>
+            <td>Single Point of Contact For Veterans:<a id="go" rel="leanModal" name="status" href="#single-contact"><i class="fa fa-info-circle info-icons"></i></a></td>
             <td><%= @school.vet_poc.present? ? @school.vet_poc : 'No Data' %></td>
             <td></td>
         </tr>
         <tr>
-            <td>Credit for Military Training:</td>
+            <td>Credit for Military Training:<a id="go" rel="leanModal" name="status" href="#credit-training"><i class="fa fa-info-circle info-icons"></i></a></td>
             <td><%= @school.credit_for_mil_training.present? ? @school.credit_for_mil_training : 'No Data' %></td>
             <td></td>
         </tr>
         <tr>
-            <td>Servicemember Opportunity College Member:</td>
+            <td>Servicemember Opportunity College Member:<a id="go" rel="leanModal" name="status" href="#servicemember-opportunity"><i class="fa fa-info-circle info-icons"></i></a></td>
             <td><%= @school.soc_member.present? ? @school.soc_member : 'No Data' %></td>
             <td></td>
         </tr>        
         <tr>
-            <td>VA Facility Code:</td>
+            <td>VA Facility Code:<a id="go" rel="leanModal" name="status" href="#facility-code"><i class="fa fa-info-circle info-icons"></i></a></td>
             <td><%= @school.facility_code.present? ? @school.facility_code : 'No Data' %></td>
             <td></td>
         </tr>
         <tr>
-            <td>ED IPEDS Code:</td>
+            <td>ED IPEDS Code:<a id="go" rel="leanModal" name="status" href="#ipeds-code"><i class="fa fa-info-circle info-icons"></i></a></td>
             <td><%= @school.cross.present? ? @school.cross : 'No Data' %></td>
             <td></td>
         </tr>
         <tr>
-            <td>ED OPE Code:</td>
+            <td>ED OPE Code:<a id="go" rel="leanModal" name="status" href="#ope-code"><i class="fa fa-info-circle info-icons"></i></a></td>
             <td><%= @school.ope.present? ? @school.ope : 'No Data' %></td>
             <td></td>
         </tr>
@@ -94,6 +94,79 @@
 </div></div>  
 
 <!--END accredited -->
+
+<!-- Tuition Policy -->
+<div id="tuition-policy" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>Link to Veterans Tuition Policy</h3>
+    
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>        
+        <p>URL for tuition policies specifically related to veterans and military service members.</p>
+</div></div>  
+
+<!--END Tuition Policy -->
+
+<!-- Single Point of Contact -->
+<div id="single-contact" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>Single Point of Contact For Veterans</h3>
+    
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+    <p>Does the school have a dedicated point of contact for support services for veterans, military servicemembers, and their families?</p>
+</div></div>  
+
+<!--END Single Point of Contact -->
+
+<!-- Credit for Military Training -->
+<div id="credit-training" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>Credit for Military Training</h3>
+    
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+    <p>Does the school offer postsecondary credit for experiences and military training?</p>
+</div></div>  
+
+<!--END Credit for Military Training -->
+
+<!-- Servicemember Opportunity College Member -->
+<div id="servicemember-opportunity" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>Servicemember Opportunity College Member</h3>
+    
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+    <p>Is the school a member of the Servicemembers Opportunity College (SOC)?</p>
+</div></div>  
+
+<!--END Servicemember Opportunity College Member -->
+
+<!-- VA Facility Code -->
+<div id="facility-code" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>VA Facility Code</h3>
+    
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+    <p>Unique identifier for VA approved facilities.</p>
+</div></div>  
+
+<!--END SVA Facility Code -->
+
+<!-- ED IPEDS Code -->
+<div id="ipeds-code" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>ED IPEDS Code</h3>   
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+    <p>Unique identification number assigned to postsecondary institutions surveyed through the Integrated Postsecondary Education Data System (IPEDS). Also referred to as UNITID or IPEDS ID.</p>
+</div></div>  
+<!--END ED IPEDS Code -->
+
+<!-- ED OPE Code -->
+<div id="ope-code" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>ED OPE Code</h3>   
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+    <p>Identification number used by the U.S. Department of Education's Office of Postsecondary Education (OPE) to identify schools that have Program Participation Agreements (PPA) so that its students are eligible to participate in Federal Student Financial Assistance programs under Title IV regulations.</p>
+</div></div>  
+<!--END ED OPE Code -->
     
     
     

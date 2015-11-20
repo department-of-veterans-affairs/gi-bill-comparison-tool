@@ -5,7 +5,7 @@
       <table class="usa-table-borderless">
         <tr class="caution-profile-summary">
           <th><i class="fa fa-exclamation-triangle"></i> Caution Flag Reason:</th>
-          <td><%= @school.caution_flag_reason.try(:chomp, ',') %></td>
+          <td><%= @school.caution_flag_reason.try(:chomp, ',') %><a id="go" rel="leanModal" name="status" href="#caution-info"><i class="fa fa-info-circle fa-info-caution"></i></td>
         </tr>
       </table>
     </div>
@@ -99,4 +99,24 @@
   <% end %>
 </div>
 
+<!-- Modals -->
+<!-- Caution Flag -->
+<div id="caution-info" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+    <div>
+    <h3>Caution Flag</h3>
+    
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+        
+        <p>These are indicators VA has determined potential students should pay attention to and consider before enrolling in a program of education. A caution flag means VA or other federal agencies like the Department of Education or Department of Defense have applied increased regulatory or legal scrutiny to a program of education. VA will display other categories of caution flags in future releases of the GI Bill Comparison Tool.</p>
+                
+        <p> To learn more about caution flags, visit the <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#caution" target="_blank">About this Tool</a> page.</p>
 
+</div></div> 
+
+<!-- END Caution Flag -->
+
+
+<script>    
+// Makes the modals work!
+$("a[rel*=leanModal]").leanModal();
+</script>
