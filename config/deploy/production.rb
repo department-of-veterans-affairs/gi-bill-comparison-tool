@@ -47,7 +47,7 @@ server 'gi2.vets.gov', user: 'ec2-user', roles: %w{app}
 #  }
 
 set :ssh_options, {
-  keys: ENV['STAGING_APP_SERVER_KEY_PATH'],
+  keys: ENV['PRODUCTION_APP_SERVER_KEY_PATH'],
   forward_agent: false,
   auth_methods: %w(publickey)
 }

@@ -6,6 +6,7 @@ set :repo_url, 'git@github.com:department-of-veterans-affairs/gi-bill-comparison
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :branch, 'master'
 
 set :rails_env, 'production'
 
