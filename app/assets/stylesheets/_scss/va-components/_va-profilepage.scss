@@ -28,6 +28,10 @@
      }
 }
 
+.back-chevron{
+    margin-right: .425rem;
+}
+
 .complaints-table{
     th, tr, td{
     @media(max-width: $small-screen) {
