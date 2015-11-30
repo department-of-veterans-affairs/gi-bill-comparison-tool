@@ -70,11 +70,17 @@ a{
     padding-left: 3.4rem;
     @media(max-width: $small-screen) {
         display: none;
+    }    
+    @media(max-width: $medium-screen) {
+        display: none;
     }
 }
 
 .whats-your-plan{
     @media(max-width: $small-screen) {
+        display: none;
+    }
+    @media(max-width: $medium-screen) {
         display: none;
     }
 }
