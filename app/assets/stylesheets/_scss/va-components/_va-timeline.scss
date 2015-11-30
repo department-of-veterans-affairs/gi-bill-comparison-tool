@@ -8,7 +8,9 @@
     @media(max-width: $small-screen) {
         display: none;
     }
-
+    @media(max-width: $medium-screen) {
+        display: none;
+    }
     .box {
         @include media($medium-screen) {
             margin-left: 0;
