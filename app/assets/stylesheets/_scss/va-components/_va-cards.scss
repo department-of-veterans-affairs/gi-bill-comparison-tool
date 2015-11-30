@@ -4,16 +4,10 @@
 // and all the hover / opening / closing states removed
 
 
-    @media(max-width: $small-screen) {
+    @media(max-width: $medium-screen) {
         #non-mobile-filters{display:none;}
     }
-    @media(min-width: $small-screen) and (max-width: $medium-screen) {
-        #mobile-filters{display:none;}
 
-    }
-    @media(min-width: $medium-screen) and (max-width: $large-screen){
-        #mobile-filters{display:none;}
-    }
     @media(min-width: $large-screen){
         #mobile-filters{display:none;}
     }
@@ -202,8 +196,11 @@
     color: $va-secondary-color;
     line-height: 1.1rem;
     text-align: center;
+    display: inline-block;
     @media(max-width: $small-screen) {
-        display: inline-block;
+        margin-left: 1.3rem;
+    }
+    @media(max-width: $medium-screen) {
         margin-left: 1.3rem;
     }
 }
