@@ -9,6 +9,14 @@
     #horiz-filters-noprint2 {display:none;}
     }
 
+@media(max-width: $medium-screen) {
+    .add-resources {display:none;} 
+    #about-your-school{display:none;}
+    #about-you {display:none;}
+    #horiz-filters-noprint {display:none;}
+    #horiz-filters-noprint2 {display:none;}
+    }
+
 #profile-summary, #benefits{
     @media(max-width: $small-screen) {
         margin: 0 1rem;
