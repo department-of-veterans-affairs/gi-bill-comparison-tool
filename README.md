@@ -11,7 +11,7 @@ See the long version below if this is not enough detail.
 1. Install Ruby 2.2.x
 1. Install PostgreSQL
 1. Clone this repo
-1. `bundle install` (but comment out `MPH Deployment Group` from `Gemfile`)
+1. `bundle install`
 1. `rake load_csv[data.csv]`
 
 ## First Time Setup (Long Version)
@@ -87,7 +87,7 @@ This will format and transfer the data in the CSV to the database.
 
 When deploying the application to production or staging, and if a change to the raw CSV data is part of that deployment, the 
 
-`rake load_csv[csv_file_to_load]` 
+`rake load_csv[data.csv]` 
 
 task must be run both in production and staging to populate the database with the new data.
 
