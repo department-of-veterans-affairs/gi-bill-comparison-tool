@@ -57,34 +57,39 @@ This is the database. The easiest way to get setup with a PostgreSQL database is
 
 Now, clone this repository and navigate to it via a terminal.
 
-Temporary step for local developer:
-
-1. Open `Gemfile`
-1. Comment out the group label `MPH Deployment Stuff`
-
 Install the application's dependencies:
 
 `bundle install`
 
 This step will have to be performed anytime `Gemfile` is modified.
 
-### Setup Database
+### Setup Database (Production and Development)
 
 First, make sure Postgres is running. Next, create the database:
 
 `rake db:create`
 
-From here, migrate any database changes using this command:
+This creates an empty database for your current environment (either production or development). From here, migrate any database changes using this command:
 
 `rake db:migrate`
 
-This will leave you with an empty, but created, database. To load test data, choose a CSV that you want to load (there are a few), then:
+This creates the tables, attributes, and indexes in the databse that the application needs to store data. At the current time, the data for the application is extracted from a CSV file that is compiled from various sources.To load data into the database, there is a rake task that will transfer data from this CSV file to the database. By convention, the latest data will be found in the data.csv file (however, you may have reason to use another version of the data in its own CSV file). To run the rake task choose a CSV that you want to load, and issue the following rake command:
 
 `rake load_csv[(the name of the CSV to load)]`
 
 For example:
 
 `rake load_csv[data.csv]`
+
+This will format and transfer the data in the CSV to the database.
+
+#### A Note About Deployment to Production/Staging
+
+When deploying the application to production or staging, and if a change to the raw CSV data is part of that deployment, the 
+
+`rake load_csv[csv_file_to_load]` 
+
+task must be run both in production and staging to populate the database with the new data.
 
 ## Running the Application
 
