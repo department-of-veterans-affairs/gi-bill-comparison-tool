@@ -32,17 +32,20 @@
         <% end %>
         <tr>
             <td>Single Point of Contact For Veterans:<a id="go" rel="leanModal" name="status" href="#single-contact">&nbsp;<i class="fa fa-info-circle info-icons"></i></a></td>
-            <td><%= @school.vet_poc.present? ? @school.vet_poc : 'No Data' %></td>
+            <td><%= @school.vet_poc.present? ? @school.vet_poc ? "Yes" : "No" : 'No Data' %></td>
             <td></td>
         </tr>
         <tr>
             <td>Credit for Military Training:<a id="go" rel="leanModal" name="status" href="#credit-training">&nbsp;<i class="fa fa-info-circle info-icons"></i></a></td>
-            <td><%= @school.credit_for_mil_training.present? ? @school.credit_for_mil_training : 'No Data' %></td>
+            <td>
+                <%= @school.credit_for_mil_training.present? ? 
+                    (@school.credit_for_mil_training ? "Yes" : "No") : 'No Data' %>
+            </td>
             <td></td>
         </tr>
         <tr>
             <td>Servicemember Opportunity College Member:<a id="go" rel="leanModal" name="status" href="#servicemember-opportunity">&nbsp;<i class="fa fa-info-circle info-icons"></i></a></td>
-            <td><%= @school.soc_member.present? ? @school.soc_member : 'No Data' %></td>
+            <td><%= @school.soc_member.present? ? @school.soc_member ? "Yes" : "No" : 'No Data' %></td>
             <td></td>
         </tr>        
         <tr>
