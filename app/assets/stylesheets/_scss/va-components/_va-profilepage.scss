@@ -240,6 +240,9 @@
 
 .caution-profile-summary{
     background-color: $va-body-accent-color;
+    th{
+        width: 40%;
+    }
 }
 .outcome-measure{
     max-width: 375px;
