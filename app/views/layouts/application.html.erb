@@ -7,7 +7,7 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
-  <link href='//fonts.googleapis.com/css?family=Droid+Serif:400,700|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700|Roboto+Slab' rel='stylesheet' type='text/css'>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -25,15 +25,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NH9SZZ');</script>
 <!-- End Google Tag Manager -->
     
-  <%= render partial: "layouts/header" %>
+  <%= render '../vendor/va_common/header' %>
 
-  <div class="main-content">
-    <div class="usa-grid-full">
-      <%= yield %>
-    </div>
-  </div>
-
-  <%= render partial: "layouts/footer" %>
+  <main role="main">
+    <%= yield %>
+    <%= render "../vendor/va_common/footer" %>
+  </main>
 
 </body>
 </html>

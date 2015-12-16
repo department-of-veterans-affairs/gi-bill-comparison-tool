@@ -1,55 +1,56 @@
-@import "lib/font-awesome-sprockets";
-@import "lib/font-awesome";
+// @import "lib/font-awesome-sprockets";
+// @import "lib/font-awesome";
 
-// Vendor -------------- //
+// // Vendor -------------- //
 
-@import 'lib/bourbon/bourbon';
-@import 'lib/neat/neat';
-@import 'lib/normalize';
+// @import 'lib/bourbon/bourbon';
+// @import 'lib/neat/neat';
+// @import 'lib/normalize';
 
 
-// Core -------------- //
+// // Core -------------- //
 
-@import 'core/grid-settings';
-@import 'core/defaults';
-@import 'core/variables';
-@import 'core/base';
-@import 'core/grid';
-@import 'core/utilities';
+// @import 'core/grid-settings';
+// @import 'core/defaults';
+// @import 'core/variables';
+// @import 'core/base';
+// @import 'core/grid';
+// @import 'core/utilities';
 
-// Elements -------------- //
-// Styles basic html elements
+// // Elements -------------- //
+// // Styles basic html elements
 
-@import 'elements/typography';
-@import 'elements/list';
-@import 'elements/inputs';
-@import 'elements/buttons';
-@import 'elements/table';
-@import 'elements/figure';
-@import 'elements/labels';
+// @import 'elements/typography';
+// @import 'elements/list';
+// @import 'elements/inputs';
+// @import 'elements/buttons';
+// @import 'elements/table';
+// @import 'elements/figure';
+// @import 'elements/labels';
 
-// Components -------------- //
+// // Components -------------- //
 
-@import 'components/skipnav';
-@import 'components/disclaimer';
-@import 'components/sidenav';
-@import 'components/footer';
-@import 'components/forms';
-@import 'components/search';
-@import 'components/alerts';
-@import 'components/accordions';
+// @import 'components/skipnav';
+// @import 'components/disclaimer';
+// @import 'components/sidenav';
+// @import 'components/footer';
+// @import 'components/forms';
+// @import 'components/search';
+// @import 'components/alerts';
+// @import 'components/accordions';
 
-// VA components -------------- //
+// // VA components -------------- //
 
-@import 'va-components/va';
-@import 'va-components/va-header';
-@import 'va-components/va-footer';
-@import 'va-components/va-cards';
-@import 'va-components/va-modal';
-@import 'va-components/_va-profilepage';
-@import 'va-components/_va-timeline';
-@import 'va-components/_va-complaints';
-@import 'va-components/_va-print';
-@import 'va-components/_va-outcomes';
-@import 'va-components/_va-calculator';
-@import 'va-components/_va-vetsdotgov.scss';
+// @import 'va-components/va';
+// @import 'va-components/va-header';
+// @import 'va-components/va-footer';
+@import 'va-components/_gi';
+@import 'va-components/_gi-cards';
+@import 'va-components/_gi-modal';
+@import 'va-components/_gi-profilepage';
+@import 'va-components/_gi-timeline';
+@import 'va-components/_gi-complaints';
+@import 'va-components/_gi-print';
+@import 'va-components/_gi-outcomes';
+@import 'va-components/_gi-calculator';
+// @import 'va-components/_va-vetsdotgov.scss';
