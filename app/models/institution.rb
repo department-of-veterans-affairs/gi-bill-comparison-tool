@@ -58,13 +58,6 @@ class Institution < ActiveRecord::Base
   end
 
   #############################################################################
-  ## online_all
-  ## MPH Crappy hack to remove caution flag
-  #############################################################################
-  def caution_flag
-    nil 
-  end
-  #############################################################################
   ## correspondence?
   ## True if school is a correspondence school
   #############################################################################
@@ -161,9 +154,6 @@ class Institution < ActiveRecord::Base
       s.inject({}) do |m,r| 
         m[r[0].to_sym] = r[1]; 
         m[:name] = types[m[:institution_type_id]]
-
-        # MPH: Crappy hack to remove caution flags
-        m[:caution_flag] = nil
         
         m
       end
