@@ -3,16 +3,29 @@
 // It's basically all the same everything, but without the interaction renamed as usa-card.
 // and all the hover / opening / closing states removed
 
-
-    @media(max-width: $medium-screen) {
-        #non-mobile-filters{display:none;}
+//    @media(max-width: $small-screen) {
+//        #non-mobile-filters{display:none;}
+//    }
+//    @media(max-width: $medium-screen) {
+//        #non-mobile-filters{display:none;}
+////        #mobile-filters{display:block;}
+//    }
+//
+//    @media(min-width: $large-screen){
+//        #mobile-filters{display:none;}
+//    }
+#non-mobile-filters{
+    @media(max-width: $medium-screen){
+        display:none;
+    }
     }
 
-    @media(min-width: $large-screen){
-        #mobile-filters{display:none;}
-    }
 #mobile-filters{
     padding: 1rem;
+    @media(min-width: $medium-screen){
+        display:none;
+    }
+    
 }
 
 .school_summary {
