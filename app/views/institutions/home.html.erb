@@ -1,183 +1,175 @@
-
-
-<div class="usa-width-three-fourths">
-  <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
-    <input name="page" value="1" type="hidden"/>
-    <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
-    <input name="source" value="home" type="hidden" />
-</div>
-
-  
-  <!--  Timeline -->  
-  <div class="timeline usa-width-three-fourths">
-    <div class="timeline-bar">
-    </div>
-      
-    <div class="usa-width-one-sixth box">
-      <span>EXPLORE<br>YOUR CAREER</span>
-      <a href="http://www.benefits.va.gov/gibill/careerscope.asp" onclick="track('Timeline', 'Explore Your Career');" target="_blank">
-        <div class="icon">
-          <i class="fa fa-search fa-timeline"></i>
-        </div>
-        <span>CareerScope</span>
-      </a>
-    </div>
-
-    <div class="usa-width-one-sixth box">
-      <span>COMPARE<br>SCHOOLS</span>
-      <a href="#">
-        <div class="icon">
-          <i class="fa fa-balance-scale fa-timeline onpage"></i>
-        </div>
-        <span>GI Bill<br>Comparison Tool</span>
-      </a>
-    </div>
-
-    <div class="usa-width-one-sixth box">
-      <span>CHOOSE<br>A SCHOOL</span>
-      <a href="http://www.benefits.va.gov/gibill/choosing_a_school.asp" onclick="track('Timeline', 'Choose a School');" target="_blank">
-        <div class="icon">
-          <i class="fa fa-university fa-timeline"></i>
-        </div>
-        <span>Decision Guide</span>
-      </a>
-    </div>
-
-    <div class="usa-width-one-sixth box">
-      <span>APPLY FOR<br>GI BILL</span>
-      <a href="https://www.ebenefits.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&amp;_nfxr=false&amp;_pageLabel=Vonapp" onclick="track('Timeline', 'Apply for GI Bill');" target="_blank">
-        <div class="icon">
-          <i class="fa fa-list-ol fa-timeline"></i>
-        </div>
-        <span>VONAPP</span>
-      </a>
-    </div>
-
-    <div class="usa-width-one-sixth box">
-      <span>SUCCEED<br>IN SCHOOL</span>
-      <a href="http://www.benefits.va.gov/vocrehab/edu_voc_counseling.asp" onclick="track('Timeline', 'Succeed in School');" target="_blank">
-        <div class="icon">
-          <i class="fa fa-graduation-cap fa-timeline"></i>
-        </div>
-        <span>Educational<br>Counseling</span>
-      </a>
-    </div>
-
-    <div class="usa-width-one-sixth box">
-      <span>FIND<br>EMPLOYMENT</span>
-      <a href="https://www.ebenefits.va.gov/ebenefits/jobs" onclick="track('Timeline', 'Find Employment');" target="_blank">
-        <div class="icon">
-          <i class="fa fa-dollar fa-timeline"></i>
-        </div>
-        <span>Employment Center</span>
-      </a>
-    </div>
-  </div><!-- End Timeline-->
-
-
-
-
-
-<div class="usa-width-three-fourths nested">
-    
-    <div class="usa-card nested">
-      <div id="about-you" class="usa-card-header nested">
-        Step 1: Tell Us About Yourself
+<div id="content" class="interior">
+  <a href="#content" class="sr-only">Content starts here.</a>
+  <div class="splash">
+    <div class="row">
+      <div class="small-12 columns">
+        <ul class="breadcrumbs" role="menubar" aria-label="Primary">
+          <li class="active">GI Bill<sup class="trademark">&reg;</sup> Benefits Comparison Tool
+          </h1></li>
+        </ul>
       </div>
-      <div class="usa-card-content nested">
- 
-
-
-          <!-- About Yourself Section -->
-          <div class="usa-width-one-half nested">
-            <%= render partial: 'yourself', locals: { use_label: true } %>
-          </div>
-          
-          <!-- Home Page Teaser -->
-          
-          <div class="usa-width-one-half nested teaser-container">
-              <h3 class="home-teaser">Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit.</h3>
-              
-              <p>Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>
-              
-                <div class="usa-width-one-third box ">
-                    
-                    <div class="icon">
-                        <i class="fa fa-graduation-cap fa-teaser"></i>
-                    </div>
-                    <span class="teaser-figure"><b>$</b></span>
-                    </br>
-                    <span class="teaser-head">Tuition & Fees</span>
-                </div>
-            <div class="usa-width-one-third box">
-                    
-                    <div class="icon">
-                        <i class="fa fa-home fa-teaser"></i>
-                    </div>
-                    <span class="teaser-figure"><b>$</b></span>
-                    </br>
-                    <span class="teaser-head">Housing</span>
-                </div>
-            <div class="usa-width-one-third box">
-                    
-                    <div class="icon">
-                        <i class="fa fa-book fa-teaser"></i>
-                    </div>
-                    <span class="teaser-figure"><b>$</b></span>
-                    </br>
-                    <span class="teaser-head">Books</span>
-            </div>
-
-          </div>
-      </div>
-    </div>
-</div>
-<div class="whats-your-plan pull-right usa-width-one-fourth nested">
-  <div class="usa-card usa-card-fill">
-    <div class="usa-card-header">
-      What's Your Plan?
-    </div>
-    <div class="usa-card-content">
-      <p>
-        Transitioning to civilian life takes preparation, research, planning, and the right tools. We're here to help you make the right decisions on where to use your hard earned benefits! 
-      </p>
-        <iframe title="Know Before You Go Video" width="100%" src="https://www.youtube.com/embed/4tOIC3CnSuA" frameborder="0" alt="We're here to help you make the right decisions on where to use your hard earned benefits!" allowfullscreen></iframe>
-
     </div>
   </div>
-</div>
-<div class="usa-width-three-fourths nested">
-    <div class="usa-card">
-      <div id="about-your-school" class="usa-card-header">
-        Step 2: About Your School
+  <div class="section one">
+    <div class="row">
+      <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
+      <input name="page" value="1" type="hidden"/>
+      <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
+      <input name="source" value="home" type="hidden" />
+      <!--  Timeline -->  
+      <!-- <div class="timeline small-12 medium-12 columns">
+        <div class="timeline-bar">
+        </div>
+
+        <div class="small-2 medium-2 columns box">
+          <p>EXPLORE<br>YOUR CAREER</p>
+          <a href="http://www.benefits.va.gov/gibill/careerscope.asp" onclick="track('Timeline', 'Explore Your Career');" target="_blank">
+            <div class="icon">
+              <i class="fa fa-search fa-timeline"></i>
+            </div>
+            <span>CareerScope</span>
+          </a>
+        </div>
+
+        <div class="small-2 medium-2 columns box">
+          <p>COMPARE<br>SCHOOLS</p>
+          <a href="#">
+            <div class="icon">
+              <i class="fa fa-balance-scale fa-timeline onpage"></i>
+            </div>
+            <span>GI Bill<br>Comparison Tool</span>
+          </a>
+        </div>
+
+        <div class="small-2 medium-2 columns box">
+          <p>CHOOSE<br>A SCHOOL</p>
+          <a href="http://www.benefits.va.gov/gibill/choosing_a_school.asp" onclick="track('Timeline', 'Choose a School');" target="_blank">
+            <div class="icon">
+              <i class="fa fa-university fa-timeline"></i>
+            </div>
+            <span>Decision Guide</span>
+          </a>
+        </div>
+
+        <div class="small-2 medium-2 columns box">
+          <p>APPLY FOR<br>GI BILL</p>
+          <a href="https://www.ebenefits.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&amp;_nfxr=false&amp;_pageLabel=Vonapp" onclick="track('Timeline', 'Apply for GI Bill');" target="_blank">
+            <div class="icon">
+              <i class="fa fa-list-ol fa-timeline"></i>
+            </div>
+            <span>VONAPP</span>
+          </a>
+        </div>
+
+        <div class="small-2 medium-2 columns box">
+          <p>SUCCEED<br>IN SCHOOL</p>
+          <a href="http://www.benefits.va.gov/vocrehab/edu_voc_counseling.asp" onclick="track('Timeline', 'Succeed in School');" target="_blank">
+            <div class="icon">
+              <i class="fa fa-graduation-cap fa-timeline"></i>
+            </div>
+            <span>Educational<br>Counseling</span>
+          </a>
+        </div>
+
+        <div class="small-2 medium-2 columns box">
+          <p>FIND<br>EMPLOYMENT</p>
+          <a href="https://www.ebenefits.va.gov/ebenefits/jobs" onclick="track('Timeline', 'Find Employment');" target="_blank">
+            <div class="icon">
+              <i class="fa fa-dollar fa-timeline"></i>
+            </div>
+            <span>Employment Center</span>
+          </a>
+        </div>
+      </div> -->
+    <!-- End Timeline--> 
+  </div>
+  <div class="row">
+    <!-- Home Page Teaser -->
+    <div class="small-12 medium-10 columns teaser-container">
+      <h4 class="home-teaser">Learn about education programs and compare estimated benefits by school</h4>
+        
+      <p>Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit. Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>   
+      <!-- <div class="box"> 
+        <div class="icon">
+          <i class="fa fa-graduation-cap fa-teaser"></i>
+        </div>
+        <span class="teaser-figure"><b>$</b></span>
+        </br>
+        <span class="teaser-head">Tuition & Fees</span>
       </div>
-      <div class="usa-card-content">
-          <!-- About Your School Section -->
-          <a name="about_your_school"></a>
-          <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
+
+      <div class="box">
+        <div class="icon">
+          <i class="fa fa-home fa-teaser"></i>
+        </div>
+        <span class="teaser-figure"><b>$</b></span>
+        </br>
+        <span class="teaser-head">Housing</span>
+      </div>
+
+      <div class="box">
+        <div class="icon">
+          <i class="fa fa-book fa-teaser"></i>
+        </div>
+        <span class="teaser-figure"><b>$</b></span>
+        </br>
+        <span class="teaser-head">Books</span>
+      </div> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-8 columns">
+      <div class="usa-card nested">
+        <div id="about-you" class="usa-card-header nested">
+          Step 1: Tell Us About Yourself
+        </div>
+        <div class="usa-card-content nested">
+          <!-- About Yourself Section -->
+          <%= render partial: 'yourself', locals: { use_label: true } %>
+        </div>
+      </div>
+
+        <div class="usa-card">
+          <div id="about-your-school" class="usa-card-header">
+            Step 2: About Your School
+          </div>
+          <div class="usa-card-content">
+              <!-- About Your School Section -->
+              <a name="about_your_school"></a>
+              <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+        <div class="whats-your-plan pull-right small-12 medium-4 columns nested">
+          <div class="usa-card usa-card-fill">
+            <div class="usa-card-header">
+              What's Your Plan?
+            </div>
+            <div class="usa-card-content">
+              <p>
+                Transitioning to civilian life takes preparation, research, planning, and the right tools. We're here to help you make the right decisions on where to use your hard earned benefits! 
+              </p>
+                <iframe title="Know Before You Go Video" width="100%" src="https://www.youtube.com/embed/4tOIC3CnSuA" frameborder="0" alt="We're here to help you make the right decisions on where to use your hard earned benefits!" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  <% end %>
-</div>
-
-
-
-
-<!-- About School Modal -->
-<div id="aboutSchool" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+  </div>
+  <!-- About School Modal -->
+  <div id="aboutSchool" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
     <div>
-    <h3>Post 9/11 GI Bill Approved Programs</h3>
-    
-    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
-        
-   <p>You can use the <a title="Post-9/11 GI Bill" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_380" target="_blank">Post-9/11 GI Bill</a> at colleges, universities, trade schools, and for on-the-job training, apprenticeship, and flight schools. To see what programs are currently approved for VA benefits, go to our <a title="website" href="http://www.benefits.va.gov/gibill/index.asp" id="anch_381" target="_blank">website</a>. You can use the Post 9/11 GI Bill for tutorial assistance, licensing/certification tests (attorney license, cosmetology license, etc.) and national exams (SAT, LSAT, etc.).</p>
-    
-    <p>The Post 9/11 GI Bill Comparison Tool uses a list of schools offering approved programs from VA’s database. The GI Bill Comparison Tool will update its list of approved programs quarterly. However, new information is added to the VA database every day. <a title="Click here" href="http://inquiry.vba.va.gov/weamspub/buildSearchInstitutionCriteria.do" id="anch_382" target="_blank">Click here</a> to access a list of approved schools by state.</p>
-</div>
-</div> 
-
-<!--END About School Modal -->
-
+      <h3>Post 9/11 GI Bill Approved Programs</h3>
+      
+      <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+          
+       <p>You can use the <a title="Post-9/11 GI Bill" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_380" target="_blank">Post-9/11 GI Bill</a> at colleges, universities, trade schools, and for on-the-job training, apprenticeship, and flight schools. To see what programs are currently approved for VA benefits, go to our <a title="website" href="http://www.benefits.va.gov/gibill/index.asp" id="anch_381" target="_blank">website</a>. You can use the Post 9/11 GI Bill for tutorial assistance, licensing/certification tests (attorney license, cosmetology license, etc.) and national exams (SAT, LSAT, etc.).</p>
+      
+        <p>The Post 9/11 GI Bill Comparison Tool uses a list of schools offering approved programs from VA’s database. The GI Bill Comparison Tool will update its list of approved programs quarterly. However, new information is added to the VA database every day. <a title="Click here" href="http://inquiry.vba.va.gov/weamspub/buildSearchInstitutionCriteria.do" id="anch_382" target="_blank">Click here</a> to access a list of approved schools by state.</p>
+    </div>
+  </div> 
+  <!--END About School Modal -->
 </div>
 <script>    
 // Makes the modals work!

@@ -1,77 +1,94 @@
 <% if @results.try(:length) > 0 %>
-  <div id="horiz-filters-noprint2" class="usa-width-one-whole filter-horizontal">
-    <%= render partial: 'yourself', locals: {use_label: false} %>
-    <div class="pull-right">
-      <a href="<%= root_path %>" class="usa-button-primary search-button-new">Reset Search</a>
-    </div>
-  </div>
-  <div class="usa-width-one-fourth">
-      <div id="non-mobile-filters">
-    <div id="search-filters" class="usa-card usa-card-fill left-rail">
- <div class="usa-card-header">
-		Refine My Search
-	</div>
-    <div class="usa-card-content">
-        
-        <%= render partial: 'filter' %>
-     </div>
-   </div>   
- </div>
-</div>
-      
-    <div id="mobile-filters"class="usa-width-one-fourth">
-       <div class="usa-accordion">
-		<button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-5">
-			<h3>Refine My Search</h3>
-	  </button>
-    <div id="collapsible-5" aria-hidden="true" class="usa-card-content">
-        
-        <%= render partial: 'filter' %>
-     </div>
-   </div>   
- </div>
-      
-    <div class="usa-width-three-fourths">
-      <div class="search-count">Showing 
-        <strong><%= @total_filtered_results %></strong> 
-        results for the term <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
+
+<div id="content" class="interior">
+  <a href="#content" class="sr-only">Content starts here.</a>
+  <div class="splash">
+    <div class="row">
+      <div class="small-12 columns">
+        <ul class="breadcrumbs" role="menubar" aria-label="Primary">
+          <li class="parent"><a href="<%= root_path %>">GI Bill<sup class="trademark">&reg;</sup> Benefits Comparison Tool</a></li>
+          <li class="active">Search
+          </h1></li>
+        </ul>
       </div>
-
-      <%= render partial: 'school_summary', collection: @results %>
-     
-      <div class="usa-width-one-whole">  
-        <div class="search-count-headline pagination-bottom clearfix">
-          <% if @total_pages > 1 %>
-            <% if @page != 1 %>
-              <a href="<%= @page_urls[@page-1] %>"><i class="fa fa-angle-left"></i>&nbsp;Previous&nbsp;</a>
-            <% end %>
-
-            <% if @start_page > 1 %>
-              <a href="<%= @page_urls[:first] %>">1..</a>
-            <% end %>
-
-            <% @page_range.each do |page_num| %>
-              <% if page_num != @page %>
-                <a href="<%= @page_urls[page_num] %>"><%= page_num %></a>
-              <% else %>
-                <%= page_num %>
-              <% end %>
-            <% end %>
-
-            <% if @end_page < @total_pages %>
-              <a href="<%= @page_urls[:last] %>">...&nbsp;<%= @total_pages %></a>
-            <% end %>
-
-            <% if @page != @total_pages %>
-              <a href="<%= @page_urls[@page+1] %>">&nbsp;Next&nbsp;<i class="fa fa-angle-right"></i></a>
-            <% end %>
-          <% else %>
-            <br/>
-          <% end %>
-        </div>
-      </div>    
     </div>
   </div>
+  <div class="action-bar">
+    <div class="row">
+      <div class="small-12 medium-12 columns filter-horizontal" id="horiz-filters-noprint2">
+        <%= render partial: 'yourself', locals: {use_label: false} %>
+        <div class="pull-right">
+          <a href="<%= root_path %>" class="usa-button-primary search-button-new">Reset Search</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section one">
+    <div class="row">
+      <div class="small-12 medium-3 columns">
+        <div id="non-mobile-filters">
+          <div id="search-filters" class="usa-card usa-card-fill left-rail">
+            <div class="usa-card-header">
+		          Refine My Search
+          	</div>
+            <div class="usa-card-content">      
+              <%= render partial: 'filter' %>
+            </div>
+          </div>   
+        </div>
+      </div>
+      <div id="mobile-filters"class="small-6 medium-3 columns">
+        <div class="usa-accordion">
+  		    <button class="usa-button-unstyled" aria-expanded="false" aria-controls="collapsible-5">
+            <h3>Refine My Search</h3>
+          </button>
+          <div id="collapsible-5" aria-hidden="true" class="usa-card-content">
+            <%= render partial: 'filter' %>
+          </div>
+        </div>   
+      </div>
+    
+      <div class="small-12 medium-9 columns">
+        <div class="search-count">Showing 
+          <strong><%= @total_filtered_results %></strong> 
+          results for the term <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
+        </div>
+        <%= render partial: 'school_summary', collection: @results %>
+      </div>
+    </div>
+    <div class="usa-width-one-whole">  
+      <div class="search-count-headline pagination-bottom clearfix">
+        <% if @total_pages > 1 %>
+          <% if @page != 1 %>
+            <a href="<%= @page_urls[@page-1] %>"><i class="fa fa-angle-left"></i>&nbsp;Previous&nbsp;</a>
+          <% end %>
+
+          <% if @start_page > 1 %>
+            <a href="<%= @page_urls[:first] %>">1..</a>
+          <% end %>
+
+          <% @page_range.each do |page_num| %>
+            <% if page_num != @page %>
+              <a href="<%= @page_urls[page_num] %>"><%= page_num %></a>
+            <% else %>
+              <%= page_num %>
+            <% end %>
+          <% end %>
+
+          <% if @end_page < @total_pages %>
+            <a href="<%= @page_urls[:last] %>">...&nbsp;<%= @total_pages %></a>
+          <% end %>
+
+          <% if @page != @total_pages %>
+            <a href="<%= @page_urls[@page+1] %>">&nbsp;Next&nbsp;<i class="fa fa-angle-right"></i></a>
+          <% end %>
+        <% else %>
+          <br/>
+        <% end %>
+      </div>
+    </div>    
+  </div>
+</div>
 <% else %>
   <div class="search-count"> 
     There were no results that matched 
