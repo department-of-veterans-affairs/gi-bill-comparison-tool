@@ -50,6 +50,8 @@
 
 </style>
 
+<% content_for :title, @school.institution %>
+
 <div id="horiz-filters-noprint" class="usa-width-one-whole filter-horizontal">
   <%= render partial: 'yourself', locals: { use_label: false } %>
   <div class="pull-right">
