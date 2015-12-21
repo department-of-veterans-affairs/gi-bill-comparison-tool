@@ -1,3 +1,5 @@
+<% content_for :title, "Vets.gov" %>
+
 <% if @results.try(:length) > 0 %>
   <div id="horiz-filters-noprint2" class="usa-width-one-whole filter-horizontal">
     <%= render partial: 'yourself', locals: {use_label: false} %>
