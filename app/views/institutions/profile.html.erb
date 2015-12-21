@@ -50,7 +50,13 @@
 
 </style>
 
-<% content_for :title, @school.institution %>
+<% 
+  school_name = @school.institution || "" 
+  school_name = @school.institution.gsub(/\b-\b/, " - ")
+      .split(/\s/).map(&:capitalize).join(" ").gsub(" - ", "-")
+
+  content_for :title, "#{school_name} - GI Bill Comparison Tool" 
+%>
 
 <div id="horiz-filters-noprint" class="usa-width-one-whole filter-horizontal">
   <%= render partial: 'yourself', locals: { use_label: false } %>
@@ -64,7 +70,6 @@
     <a id="back-link" href="<%= @back_url %>" class="backlink"><i class="fa fa-chevron-left back-chevron"></i>Back to Search Results</a>
   </div>
 <% end %>
-
 
 <div>
 	<%= render partial: 'profile_overview' %>
