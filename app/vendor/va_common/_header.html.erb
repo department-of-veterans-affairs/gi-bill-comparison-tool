@@ -1,0 +1,58 @@
+<div class="header">
+  <div data-alert class="alert-box notice">
+    <div class="row full">
+      <div class="small-12 message">
+        <p><strong>This site is a <a href="https://www.vets.gov/playbook/design/">work in progress.</a></strong> If you don&rsquo;t find what you need, visit <a href="http://www.va.gov"> VA.gov</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- /header alert box -->
+  <div class="row full">
+    <div class="small-6 medium-4 columns">
+      <h1 role="banner"><a href="/">Vets.gov</a></h1>
+    </div>
+
+    <!-- Mobile search button -->
+    <div class="hide-for-medium-up search-button" id="trigger-overlay-button">
+      <button type="button" data-reveal-id="mobile-menu" class="usa-button usa-button-outline-inverse" aria-hidden="true">Search</button>
+    </div>
+
+    <div id="mobile-menu" class="reveal-modal overlay overlay-fullscreen" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog" data-options="close_on_background_click:false">
+      <button type="usa-button" id="overlay-close-button" class="overlay-close close-reveal-modal" aria-label="Close">Close</button>
+        <div class="menu">
+         <form accept-charset="UTF-8" action="https://search.usa.gov/search" id="search_form" method="get">
+         <div style="margin:0;padding:0;display:inline">
+         <input name="utf8" type="hidden" value="&#x2713;" /></div>
+         <input id="affiliate" name="affiliate" type="hidden" value="vets.gov_staging" />
+         <label for="mobile-query">Search:</label>
+         <div class="row collapse">
+           <div class="small-9 columns">
+             <input autocomplete="off" class="usagov-search-autocomplete" id="mobile-query" name="query" type="text" />
+           </div>
+           <div class="small-3 columns">
+             <input name="commit" type="submit" value="Search" />
+           </div>
+         </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="medium-5 medium-offset-3 text-right columns show-for-medium-up">
+      <form accept-charset="UTF-8" action="https://search.usa.gov/search" id="search_form" method="get">
+        <div style="margin:0;padding:0;display:inline">
+        <input name="utf8" type="hidden" value="&#x2713;" /></div>
+        <input id="affiliate" name="affiliate" type="hidden" value="vets.gov_staging" />
+        <label for="query">Search:</label>
+        <div class="row collapse">
+          <div class="small-9 columns">
+            <input autocomplete="off" class="usagov-search-autocomplete" id="query" name="query" type="text" />
+          </div>
+          <div class="small-3 columns">
+            <input name="commit" type="submit" value="Search" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
