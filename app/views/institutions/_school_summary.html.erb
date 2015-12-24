@@ -54,28 +54,29 @@
 
         <div class="search-selections-label">You may be eligible for up to:</div>
         
-		<div class="search-value-each usa-width-one-third"> <!-- tuition -->
+		<div class="search-value-each small-4 column"> <!-- tuition -->
             <div class="icon"><i class="fa fa-graduation-cap fa-search-result"></i></div>
             <div id="<%= school_summary[:facility_code] %>-est-tuition-fees"></div>
         </div><!-- END tuition -->
         
         
-		<div class="search-value-each usa-width-one-third"><!-- housing -->
+		<div class="search-value-each small-4 column"><!-- housing -->
             <div class="icon"><i class="fa fa-home fa-search-result"></i></div>
             <div id="<%= school_summary[:facility_code] %>-est-housing-allowance"></div>
         </div><!-- END Housing -->
     
     
-		<div class="search-value-each usa-width-one-third"><!-- Books -->
+		<div class="search-value-each small-4 column"><!-- Books -->
             <div class="icon"><i class="fa fa-book fa-search-result"></i></div>
             <div id="<%= school_summary[:facility_code] %>-est-book-stipend"></div>
         </div><!-- END books -->
     
     </div><!-- Contains the benefit values divs -->
-
+    <div class="row">
     <div class="search-learnmore-div"><!-- Contains the learn more div for consistent position -->
-        <a class="usa-button-primary va-search-learnmore" href="<%= school_summary[:profile_url] %>">Learn More</a>
+        <a class="usa-button-primary va-search-learnmore  center" href="<%= school_summary[:profile_url] %>">Learn More</a>
     </div>
-     </div> <!-- END learn more div -->
+     </div> 
+    </div><!-- END learn more div -->
 </div>
 
