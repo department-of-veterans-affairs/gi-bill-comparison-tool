@@ -105,6 +105,21 @@ a{
   margin: 0;
 }
 
+.info-icons{
+ margin-left: .25rem;
+    
+    &:link{
+        background-color: white;
+        text-decoration: none;
+    }
+    
+    
+    @media(max-width: $small-screen) {
+        font-size: 1.7rem;
+    }
+}
+
+
 .fa-teaser{
     font-size: 1.7rem;
     color: $va-secondary-color;
