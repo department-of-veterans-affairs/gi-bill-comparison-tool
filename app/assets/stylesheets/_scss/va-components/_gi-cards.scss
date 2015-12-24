@@ -31,9 +31,12 @@
 .school_summary {
   position: relative;
   background-color: $color-gray-lightest;
+    border-style: solid;
+    border-width: .50rem;
+    border-color: white;
   height: 36rem;
-  width: 21rem;
-  margin: 0 0 1rem 1rem;
+//  width: 21rem;
+//  margin: 0 0 1rem 1rem;
   float: left;
     @media(max-width: $small-screen) {
         width: 93%;
@@ -155,7 +158,7 @@
     background-color: $va-body-accent-color;
     height: 2.5rem;
     width: 100%;
-    padding: 0 .5rem .5rem 1.7rem;
+    padding: .3rem .5rem .5rem 1.25rem;
     
     a{
         color: #000;
@@ -172,40 +175,42 @@
     line-height: .8rem;
 }
 .search-content{
-    padding: 1.7rem;
+    padding: .25rem;
     font-family: $font-sans;
 }
 .search-insitution-name{
-    margin-top: 1.3rem;
-    height: 7rem;
+    margin-top: 2.5rem;
     a{
+        font-family: $roboto-slab;
         color: $va-primary-color;
-        
+        font-weight: 800;
+        font-size: 1.3rem;
+        line-height: .5rem;
     }
 }
 .search-locality{
-    font-size: 1.4rem;
+    font-size: 1rem;
     margin: 0 0 1.7rem 0;
 }
 .search-vet-count{
     margin: 0 0 1.7rem 0;
-    font-size: 1.4rem;   
+    font-size: 1rem;   
 }
 .vet-count-value{
     font-family: $roboto-slab;
-    font-size: 2.2rem;
+    font-size: 1rem;
     color: $va-secondary-color;
 }
 .search-benefits-values-container{
 }
 .search-selections-label{
-    font-size: 1.3rem;
+    font-size: .75rem;
     color: #aeb0b5;
     margin-bottom: 1.7rem;
 }
 .search-value-each{
     font-family: $roboto-slab;
-    font-size: 2.2rem;
+    font-size: 1rem;
     color: $va-secondary-color;
     line-height: 1.1rem;
     text-align: center;
@@ -218,23 +223,23 @@
     }
 }
 .search-text-values{
-    font-size: 1.2rem;
+    font-size: .5rem;
 }
 
 .fa-search-result{
     color: $va-primary-color;
-    font-size: 3rem;
+    font-size: 1.5rem;
     margin-bottom: .8rem;
 }
 
 .estimate-qualifier{
-    font-size: 1rem;
+    font-size: .5rem;
     color: #444;
     line-height: .5rem;
 }
 
 .estimator-dollar-sign{
-    font-size: 1rem;
+    font-size: .75rem;
     color: #999;
 }
 a.va-search-learnmore{
@@ -246,7 +251,7 @@ a.va-search-learnmore{
     position:absolute;
     bottom: 0;
     left: 1rem;
-    width: 26rem;
+//    width: 26rem;
 }
 
 .usa-button-unstyled{
