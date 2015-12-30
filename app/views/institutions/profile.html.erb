@@ -49,7 +49,6 @@
 }
 
 </style>
-
 <% 
   school_name = @school.institution || "" 
   school_name = @school.institution.gsub(/\b-\b/, " - ")
@@ -57,25 +56,79 @@
 
   content_for :title, "#{school_name} - GI Bill Comparison Tool" 
 %>
+<div class="action-bar">
+    <div class="row">
+        <div class="small-12 medium-12 columns filter-horizontal">
+            <div id="horiz-filters-noprint" class="form-group top-aligned">
+              <%= render partial: 'yourself', locals: { use_label: false } %>
+              <div class="small-2 column">
+                <a href="<%= root_path %>" class="button">Reset Search</a>
+              </div>
+            </div>
+        </div>
+    </div>
+</div><!--end action bar-->
 
-<div id="horiz-filters-noprint" class="usa-width-one-whole filter-horizontal">
-  <%= render partial: 'yourself', locals: { use_label: false } %>
-  <div class="pull-right">
-  	<a href="<%= root_path %>" class="usa-button-primary search-button-new">Reset Search</a>
-  </div>
-</div>
-
+<div class="section one"><!--Left Container-->
+<div class="row">
+    <div class="large-9 columns"><!--Left Container-->
 <% if @inputs[:source] != "home" %>
+<div class="row">
   <div id="backtosearch-noprint">
     <a id="back-link" href="<%= @back_url %>" class="backlink"><i class="fa fa-chevron-left back-chevron"></i>Back to Search Results</a>
   </div>
 <% end %>
+</div>
+<div class="row"><!--Left 9 Columns-->
+        <%= render partial: 'profile_overview' %>
+</div>
+<!--Benefits Estimator (moved from _profile_overview.html/erb | -RL)-->
+<div id="benefits" class="medium-12 columns">
+	<div class=" usa-card usa-card-fill">
+	  <div class="usa-card-header">
+			<h3>Benefits Estimator</h3>
+		</div>
+	</div>
 
-<div>
-	<%= render partial: 'profile_overview' %>
+	<div class="medium-4 columns usa-card usa-card-fill">
+	  <div class="usa-card-content text-center benefits-cards">	
+			<h4>Tuition and Fees</h4>
+          <div class="icon"><i class="fa fa-graduation-cap fa-profile-benefits"></i></div>
+			<p id="est-tuition-fees" class="profile-benefits-values"></p>
+		</div>
+	</div>
+
+	<div class="medium-4 columns  usa-card usa-card-fill">
+	  <div class="usa-card-content text-center benefits-cards">	
+			<h4>Housing Allowance</h4>
+          <div class="icon"><i class="fa fa-home fa-profile-benefits"></i></div>
+			<p id="est-housing-allowance" class="profile-benefits-values"></p>
+		</div>
+	</div>
+
+	<div class="medium-4 columns  usa-card usa-card-fill">
+	  <div class="usa-card-content text-center benefits-cards">	
+			<h4>Book Stipend</h4>
+          <div class="icon"><i class="fa fa-book fa-profile-benefits"></i></div>
+			<p id="est-book-stipend" class="profile-benefits-values"></p>
+		</div>
+	</div>
+
 </div>
 
-<div class="usa-width-three-fourths new-row">
+</div><!-- End Left 9 col span -->
+<div class="large-3 column">
+    <div class="usa-card usa-card-fill add-resources">
+      <div class="usa-card-header">
+            <h4>Additional Resources</h4>
+      </div>
+      <div class="usa-card-content">	
+        <%= render partial: 'profile_additional_resources' %>
+      </div>
+    </div>
+</div>
+
+<div class="medium-12 columns">
 	<div class="usa-accordion">
 		<button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-0">
 			<h3>Benefits Calculator</h3>
@@ -235,6 +288,9 @@
 	</div>
 </div>
 
+
+
+</div><!--end row-->
 <!-- modals -->
 
 <!-- Retention Rates -->
@@ -278,8 +334,8 @@
 
   </div>
 </div><!-- END Repayment rates -->
-
-
+        
+</div><!-- End section one from top -->
 <script>    
 // Makes the modals work!
 $("a[rel*=leanModal]").leanModal();
