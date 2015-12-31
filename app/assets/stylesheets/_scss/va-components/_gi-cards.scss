@@ -115,7 +115,7 @@
   }
   .usa-card-content {
     background-color: $polar;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -133,7 +133,7 @@
   display: block;
   background-color: white;
   overflow: auto;
-  padding: 2rem;
+  padding: 1rem;
 
   > *:first-child {
     margin-top: 0;
@@ -233,9 +233,9 @@
 }
 
 .estimate-qualifier{
-    font-size: .5rem;
+    font-size: .75rem;
     color: #444;
-    line-height: .5rem;
+    line-height: .75rem;
 }
 
 .estimator-dollar-sign{

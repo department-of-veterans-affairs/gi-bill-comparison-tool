@@ -67,9 +67,9 @@ a{
 }
 
 .caption{
-    font-size: 1.2rem;
+    font-size: .75rem;
     a{
-    font-size: 1.2rem;
+    font-size: .75rem;
     }
 }
 
@@ -351,4 +351,10 @@ label{
     margin-bottom: 0px;
     float: left;
     margin-right: 5rem;
+}
+
+.multicolumn-text{
+  column-count:2;
+  -moz-column-count:2;
+  -webkit-column-count:2;
 }
