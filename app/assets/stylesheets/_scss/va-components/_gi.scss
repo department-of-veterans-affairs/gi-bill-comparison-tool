@@ -249,8 +249,8 @@ ul li {
 // All the stuff for showing the form vertically along the top
 .filter-horizontal{
   border-bottom: solid $color-gray-lightest thin;
-  padding-bottom: 2rem;
-  margin-bottom: 3rem;
+  padding-bottom: .5rem;
+  margin-bottom: .5rem;
 
   .filter-p[style] {
     display: inline-block !important;
@@ -261,12 +261,12 @@ ul li {
     .filter-item {
         margin-top: 1rem;
         width: 15%;
-        height: 4rem;
+        height: 2.5rem;
         margin-right: -1rem;
         float: left;
         background-image: none;
-        font-size: 1.3rem;
-        line-height: 1.3rem;
+        font-size: 1rem;
+        line-height: 1rem;
     }
     &:after {
       font-family: FontAwesome;
@@ -275,10 +275,11 @@ ul li {
       float: left;
       left: -12px;
       margin-top: 18px;
-      background: #fff;
+      background: #fafafa;
       padding: 3px;
       position: relative;
       pointer-events: none;
+        line-height: 1.85rem;
     }
   }
 }
@@ -290,10 +291,10 @@ ul li {
 // All the stuff for showing the left rail
 .left-rail {
   margin-top: 43px;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   label, input, input[type="text"], input[type="email"], input[type="password"], input[type="url"], input[type="tel"], input[type="number"], input[type="search"], input[type="file"], input[type="date"], input[type="datetime-local"], input[type="month"], input[type="time"], input[type="week"], textarea, select {
     margin-top: 1rem;
-    font-size: 1.25rem;
+    font-size: .75rem;
   }
 }
 
