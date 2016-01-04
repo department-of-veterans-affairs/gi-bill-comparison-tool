@@ -242,7 +242,13 @@
 .border-left{
     border-left: 1px;
     border-left-style: solid;
-    border-left-color: #ccc;
+    border-left-color: #f1f1f1;
+}
+
+.border-bottom{
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #f1f1f1;
 }
 
 .borderless tr td{

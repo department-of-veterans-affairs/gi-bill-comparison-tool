@@ -338,6 +338,15 @@ ul li {
     }
 }
 
+.filter-box{
+    padding: 0 1rem;
+    
+}
+
+.filter-p{
+    margin-bottom: -.75rem;
+}
+
 label{
     @media(max-width: $small-screen) {
         font-size: 1.3rem;
