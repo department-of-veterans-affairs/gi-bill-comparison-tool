@@ -10,6 +10,7 @@
 <p class="filter-p filter-item " style="display: none;"> About You: </p>
 
 <!-- Military status -->
+<div class="row">
 <div class="form-group top-aligned">
   <% if use_label %>
     <label for="military-status">Military Status: <a id="go" rel="leanModal" name="status" href="#militaryStatus" class="info-icons"><i id="military-status-info" class="fa fa-info-circle info-icons"></i></a></label>
@@ -162,7 +163,7 @@
     <% end %>
   </select>
 </div>
-
+</div><!--End Row-->
 <!-- Military Status Modal -->
 <div id="militaryStatus" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
   <div>

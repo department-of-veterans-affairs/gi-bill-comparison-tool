@@ -1,6 +1,6 @@
 <div id="search-filters" class="usa-card usa-card-fill left-rail">
 
-		<h4>Institution</h4>
+		<h6>Institution</h6>
 		<input type="radio" id="all-school" name="institution-type" 
 			class="filter" value="all" checked />
 		<label id="all-school-label" for="all-school">All (<%= @total_results %>)</label>
@@ -34,7 +34,7 @@
 			<% end %>
 		</select>
 
-		<h4>School Features</h4>
+		<h6>School Features</h6>
 		<input type="checkbox" id="student-veteran" name="student_veteran" 
 			class="filter" value="true" <%= 'checked' if @inputs[:student_veteran_group].present? %>/>
 		<label id="student-veteran-label" for="student-veteran">Student Veteran Group (<%= @feature_student_veteran_group.length %>)</label>
@@ -51,7 +51,7 @@
 			class="filter" value="true" <%= 'checked' if @inputs[:f8_keys_to_veteran_success].present? %>/>
 		<label id="eight-keys-label" for="eight-keys">8 Keys to Veteran Success (<%= @feature_8_keys_to_veteran_success.length %>)</label>
 
-		<h4>Types of Schools</h4>
+		<h6>Types of Schools</h6>
 
     <% selected_types = @inputs[:types].present? ? @inputs[:types].split(',') : []  %>
 		<% @types.each do |type| %>
