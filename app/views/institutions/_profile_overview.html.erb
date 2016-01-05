@@ -7,12 +7,12 @@
 						caution = '<i class="fa fa-exclamation-triangle"></i>&nbsp'.html_safe
 						caution += "Caution Flag (see details)"
 					%>
-					<a id="jump-to-complaints" href="#caution_jump_flag"><%= caution %></a>
+					<a id="jump-to-complaints" class="noback" href="#caution_jump_flag"><%= caution %></a>
         </div>
 			<% end %>
       </div>
     
-	<div class="small-8 columns">
+	<div class="small-7 columns">
 		<div id="<%= @school.facility_code %>"
 			class="profile_overview"
 			data-type="<%= @school.institution_type.name %>"
@@ -47,7 +47,7 @@
 
 		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
 
-		<div class="small-4 columns border-left profile-details">
+		<div class="small-5 columns border-left profile-details">
 			<% if !@school.ojt? %>
 				<% 
 					hdo = @school.highest_degree 
@@ -67,12 +67,12 @@
                     </tr>
 
                   <tr class="profile-institute-descriptors">
-                     <td class="profile-institute-qualifier"><i class="fa fa-map fa-profile-descriptors"></i>&nbsp;Locale</td>
+                     <td class="profile-institute-qualifier"><i class="fa fa-map fa-profile-descriptors"></i>&nbsp;Locale:</td>
                       <td class="profile-institute-value"><%= to_locale(@school.locale) %></td>
                     </tr>
 
                     <tr class="profile-institute-descriptors">
-                    <td class="profile-institute-qualifier"><i class="fa fa-users fa-profile-descriptors"></i>&nbsp;Size</td>
+                    <td class="profile-institute-qualifier"><i class="fa fa-users fa-profile-descriptors"></i>&nbsp;Size:</td>
                     <td class="profile-institute-value"><%= to_school_size(@school.undergrad_enrollment) %></td>
                 </tr>
             

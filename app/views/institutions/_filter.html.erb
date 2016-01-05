@@ -1,6 +1,6 @@
 
 <div class="row" data-equalizer>
-<div class="medium-3 columns filter-box" data-equalizer-watch>
+<div class="large-3 medium-6 columns filter-box" data-equalizer-watch>
 		<h6>Institution</h6>
 		<p class="filter-p"><input type="radio" id="all-school" name="institution-type" 
 			class="filter" value="all" checked />
@@ -14,7 +14,8 @@
 			class="filter" value="employer" <%= 'checked' if @inputs[:employers].present? %>/>
             <label id="employer-label" for="employer">Employer (<%= @employers.length %>)</label></p>
 </div>
-<div class="medium-3 columns filter-box border-left" data-equalizer-watch>
+    
+<div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
 		<h4>Location</h4>
 		<label for="state">State: </label>
 		<select id="states" name="state" class="filter">
@@ -36,11 +37,11 @@
 			<% end %>
 		</select>
 </div>
-<div class="medium-3 columns filter-box border-left" data-equalizer-watch>
+<div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
 		<h6>School Features</h6>
 		<p class="filter-p"><input type="checkbox" id="student-veteran" name="student_veteran" 
 			class="filter" value="true" <%= 'checked' if @inputs[:student_veteran_group].present? %>/>
-            <label id="student-veteran-label" for="student-veteran">Student Veteran Group (<%= @feature_student_veteran_group.length %>)</label></p>
+            <label id="student-veteran-label" for="student-veteran">Student Vet Group (<%= @feature_student_veteran_group.length %>)</label></p>
 
 		<p class="filter-p"><input type="checkbox" id="yr" name="yr" 
 			class="filter" value="true" <%= 'checked' if @inputs[:yellow_ribbon_scholarship].present? %>/>
@@ -52,11 +53,11 @@
 
 		<p class="filter-p"><input type="checkbox" id="eight-keys" name="eight_keys" 
 			class="filter" value="true" <%= 'checked' if @inputs[:f8_keys_to_veteran_success].present? %>/>
-            <label id="eight-keys-label" for="eight-keys">8 Keys to Veteran Success (<%= @feature_8_keys_to_veteran_success.length %>)</label></p>
+            <label id="eight-keys-label" for="eight-keys">8 Keys to Vet Success (<%= @feature_8_keys_to_veteran_success.length %>)</label></p>
 </div>
     
     
-<div class="medium-3 columns filter-box border-left" data-equalizer-watch>
+<div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
 		<h6>Types of Schools</h6>
 
     <% selected_types = @inputs[:types].present? ? @inputs[:types].split(',') : []  %>

@@ -7,7 +7,7 @@
 <!-- ====================================================================== -->
 
 <!-- This will show up only on the filter/search view and is hidden in the landing page view via the filter-p class. Sorry about the magic -->
-<p class="filter-p filter-item " style="display: none;"> About You: </p>
+<p class="filter-p filter-item about-you" style="display: none;"> About You:</p>
 
 <!-- Military status -->
 <div class="row">
@@ -163,6 +163,26 @@
     <% end %>
   </select>
 </div>
+
+
+
+<!-- Dependents Educational Assistance Spectific Controls: None -->
+
+<!-- Online classes are only included on the search/profile page here -->
+<!-- On the home page, its part of the school search section -->
+<% if !use_label %>
+  <div id="online-classes-form" class="form-group">
+    <select id="online-classes" name="online_classes" alt="Online? Yes/No" class="filter-item">
+      <% { 
+        'yes' => 'All Online', 'no' => 'None Online', 'both' => 'Both online and on-campus'
+      }.each_pair do |value, label| %>
+        <option value="<%= value %>" 
+          <%= 'selected' if value == @inputs[:online_classes] %>
+        ><%= label %></option>
+      <% end %>
+    </select>
+  </div>
+<% end %>
 </div><!--End Row-->
 <!-- Military Status Modal -->
 <div id="militaryStatus" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
@@ -217,24 +237,6 @@
 
   </div>
 </div><!-- END REAP Modal -->
-
-<!-- Dependents Educational Assistance Spectific Controls: None -->
-
-<!-- Online classes are only included on the search/profile page here -->
-<!-- On the home page, its part of the school search section -->
-<% if !use_label %>
-  <div id="online-classes-form" class="form-group">
-    <select id="online-classes" name="online_classes" alt="Online? Yes/No" class="filter-item">
-      <% { 
-        'yes' => 'All Online', 'no' => 'None Online', 'both' => 'Both online and on-campus'
-      }.each_pair do |value, label| %>
-        <option value="<%= value %>" 
-          <%= 'selected' if value == @inputs[:online_classes] %>
-        ><%= label %></option>
-      <% end %>
-    </select>
-  </div>
-<% end %>
 
 <script>
 $(document).ready(function() {
