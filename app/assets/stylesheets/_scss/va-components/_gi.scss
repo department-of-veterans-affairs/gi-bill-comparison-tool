@@ -344,7 +344,7 @@ ul li {
 }
 
 .filter-box{
-    padding: 0 1rem;
+    padding: 1rem 1rem;
     
 }
 
@@ -352,7 +352,7 @@ ul li {
     margin-bottom: -.75rem;
 }
 .nopad{
-    padding: 0;
+    padding: 0 0 0 0;
 }
 
 label{
@@ -392,4 +392,17 @@ label{
 
 .noback{
     background: none;
+}
+
+.noback-icon{
+    background: none;
+    text-decoration: none;
+    &:hover{
+        background: none;
+        text-decoration: none;
+    }
+}
+
+#panel-filters.content{
+    padding: 0;
 }
