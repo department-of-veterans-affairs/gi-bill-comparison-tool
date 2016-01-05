@@ -124,7 +124,7 @@
     <div class="row">
 		  <!-- Retention Rates -->
       <div class="medium-6 columns">
-        <h4>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention" class="info-icons"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h4>
+        <h4>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention" class="info-icons"><i id="retention-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h4>
         <% 
           isa_v = is_number?(@veteran_retention_rate)
           isa_c = is_number?(@all_student_retention_rate)
@@ -153,7 +153,7 @@
 
       <!-- Graduation Rates -->
       <div class="medium-6 columns">
-		  <h3>Graduation Rate<a id="go" rel="leanModal" name="status" href="#gradrates" class="info-icons"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
+		  <h3>Graduation Rate<a id="go" rel="leanModal" name="status" href="#gradrates" class="info-icons"><i id="graduation-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
       <% 
         isa_v = is_number?(@school.graduation_rate_veteran)
         isa_c = is_number?(@school.graduation_rate_all_students)
@@ -183,7 +183,7 @@
    <div class="row">             
 			<!-- Salary Rates -->
       <div class="medium-6 columns">
-        <h3>Average Salaries<a id="go" rel="leanModal" name="status" href="#salaries" class="info-icons"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
+        <h3>Average Salaries<a id="go" rel="leanModal" name="status" href="#salaries" class="info-icons"><i id="average-salaries-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% if @school.salary_all_students.present? %>
           <div id="salary-rates" class="graph"></div>
           <script>
@@ -205,7 +205,7 @@
 
 <!-- Repayment -->
 <div class="medium-6 columns">
-  			<h3>Repayment Rate<a id="go" rel="leanModal" name="status" href="#repayment" class="info-icons"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
+  			<h3>Repayment Rate<a id="go" rel="leanModal" name="status" href="#repayment" class="info-icons"><i id="repayment-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% if @school.repayment_rate_all_students.present? %>
           <div id="repayment-rates" class="graph"></div>
           <script>
@@ -227,7 +227,7 @@
     </div>
                 
 <div class="small-12 columns access-sheet clearfix">
-            <p>Access a comprehensive spreadsheet of <a title="Veteran Outcome Measures" href="http://www.benefits.va.gov/gibill/docs/OutcomeMeasuresDashboard.xlsx" id="anch_373" target="_blank">Veteran Outcome Measures</a> (<i class="fa fa-file-excel-o info-icons"></i> | 14.4 MB)</p></div>      
+            <p>Access a comprehensive spreadsheet of <a id="veteran-outcome-spreadsheet-link-out" title="Veteran Outcome Measures" href="http://www.benefits.va.gov/gibill/docs/OutcomeMeasuresDashboard.xlsx" id="anch_373" target="_blank">Veteran Outcome Measures</a> (<i class="fa fa-file-excel-o info-icons"></i> | 14.4 MB)</p></div>      
 
   </div>
         </li>

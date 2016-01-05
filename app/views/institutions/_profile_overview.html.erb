@@ -105,7 +105,7 @@
 					%>
 	        <li>
 	        	<%= v_str.html_safe %> 
-	        	<a id="go" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a>
+	        	<a id="student-veteran-group-info-link" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a>
 	        	<%= l_str.html_safe %>
 	        </li>
 	           
@@ -119,7 +119,7 @@
 	        %>
 	        <li>
 	        	<%= v_str.html_safe %>
-	        	<a id="go" rel="leanModal" name="status" href="#yribbon"><span class="programs-text">Yellow Ribbon</span></a>
+	        	<a id="yellow-ribbon-info-link" rel="leanModal" name="status" href="#yribbon"><span class="programs-text">Yellow Ribbon</span></a>
 	        	<%= l_str.html_safe %>
 	        </li>
 	                
@@ -130,7 +130,7 @@
 	                
 	        <% v_str = '<span class="programs-' + (@school.dodmou ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
 	        <li>
-	        	<%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#ta"><span class="programs-text">Military Tuition Assistance (TA)</span></a>
+	        	<%= v_str.html_safe %> <a id="military-tuition-assistance-info-link" rel="leanModal" name="status" href="#ta"><span class="programs-text">Military Tuition Assistance (TA)</span></a>
 	        </li>
 
 	        <% 
@@ -147,7 +147,7 @@
 
 	        <% v_str = '<span class="programs-' + (@school.eight_keys ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
 	        <li>
-	        	<%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#8keys"><span class="programs-text">8 Keys to Veteran Success</span></a>
+	        	<%= v_str.html_safe %> <a id="8-keys-info-link" rel="leanModal" name="status" href="#8keys"><span class="programs-text">8 Keys to Veteran Success</span></a>
 	        </li>        
 				</ul>
 		  </div>
