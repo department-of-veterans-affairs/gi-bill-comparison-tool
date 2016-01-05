@@ -1,5 +1,5 @@
 <div id="<%= school_summary[:facility_code] %>"  
-  class="school_summary medium-4 columns"
+  class="school_summary large-4 medium-5-center small-12-center columns"
 
   data-id="<%= school_summary[:id] %>" 
   data-facility-code="<%= school_summary[:facility_code] %>"
@@ -35,7 +35,7 @@
         <h6><a class="a-<%= school_summary[:id] %> noback" href="<%= school_summary[:profile_url] %>">
             <%= school_summary[:institution].upcase %></a></h6>
     </div><!-- END Institution name -->
-    
+    <div
     <div class="search-locality"><!-- locality data -->
 	<% if school_summary[:country].downcase == 'usa' %>
 		
@@ -74,7 +74,7 @@
     </div><!-- Contains the benefit values divs -->
     <div class="row">
     <div class="search-learnmore-div"><!-- Contains the learn more div for consistent position -->
-        <a class="usa-button-primary va-search-learnmore" href="<%= school_summary[:profile_url] %>">Learn More</a>
+        <a class="button filter-button va-search-learnmore" href="<%= school_summary[:profile_url] %>">Learn More</a>
     </div>
      </div> 
     </div><!-- END learn more div -->

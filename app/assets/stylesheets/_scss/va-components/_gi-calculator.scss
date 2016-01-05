@@ -1,6 +1,5 @@
 .calc-outputs{
     background-color: #E8F5FA;
-//    float: left;
     margin: 0;
     box-sizing: border-box;
 }
@@ -19,15 +18,12 @@
     border-width: 0 0 3px 0;
 }
 }
-
+.calc-results-1{
+    table, tr, td, th{
+      background-color: #E8F5FA;  }
+    }
 table{
     margin-top: 0;
-    @media(max-width: $small-screen) {
-        font-size: 1.2rem;
-        line-height: 1.4rem;
-        padding: 0;
-        margin: 0;
-    }
 }
 
 .noborder{
@@ -35,8 +31,7 @@ table{
 }
 
 .border-bottom{
-    border: 0px 0px 1px 0px;
-    border-color: #444;
+    border-bottom: solid $color-gray-lightest thin;
 }
 
 .align-right{

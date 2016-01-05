@@ -5,7 +5,7 @@
         <tr>
           <th><i class="fa fa-exclamation-triangle"></i>&nbsp;Caution&nbsp;Flag&nbsp;Reason:</th>
           <td><%= @school.caution_flag_reason.try(:chomp, ',').try(:gsub, /,(?!\W)/, ", ") %>
-          <a id="go" rel="leanModal" name="status" href="#caution-info">&nbsp;<i class="fa fa-info-circle fa-info-caution"></i></td>
+          <a id="go" rel="leanModal" name="status" href="#caution-info" class="noback-icon">&nbsp;<i class="fa fa-info-circle fa-info-caution"></i></td>
         </tr>
       </table>
   <% else %>
