@@ -17,12 +17,11 @@
     #horiz-filters-noprint2 {display:none;}
     }
 
-#profile-summary, #benefits{
+ .mobile-padding{
     @media(max-width: $small-screen) {
-        margin: 0 1rem;
-        }
+    padding: 0 1rem;
     }
-
+}
 .calc-questions, .calc-outputs{
     padding: 0 1rem ;
 }
@@ -84,9 +83,7 @@
 .fa-profile-descriptors{
     font-size: .85rem;
     color: $va-primary-color;
-    @media(max-width: $small-screen) {
-        display:none;
-    }
+
 }
 .profile-institute-qualifier, .profile-institute-value{
     font-size: .8rem;
@@ -97,9 +94,6 @@
     line-height: .5rem;
     text-transform: uppercase;
     padding: .5rem;
-    @media(max-width: $small-screen) {
-        font-size: 1.1rem;
-    }
 }
 
 .profile-institute-descriptors{
@@ -123,9 +117,6 @@
     margin-top: 0;
     margin-left: .5rem;
     text-align: right;
-    @media(max-width: $small-screen) {
-        font-size: 1.4rem;
-    }
 }
 
 .text-center{
@@ -226,11 +217,7 @@
             background-color: $va-body-accent-color;
         }
 }
-//.outcome-measure{
-//    max-width: 375px;
-//    min-width: 350px;
-//    float:left;
-//}
+
 .outcomes-learnmore{
     font-size: 1rem;
 }

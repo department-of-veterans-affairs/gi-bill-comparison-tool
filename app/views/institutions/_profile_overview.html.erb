@@ -1,6 +1,6 @@
 <div id="profile-summary" class=" print-width">
   <div class="row">
-      <div class="small-12 columns">
+      <div class="small-12 columns mobile-padding">
       			<% if @school.caution_flag %>
 				<div class="caution-profile">
 					<%
@@ -12,7 +12,7 @@
 			<% end %>
       </div>
     
-	<div class="small-7 columns">
+	<div class="medium-7 columns">
 		<div id="<%= @school.facility_code %>"
 			class="profile_overview"
 			data-type="<%= @school.institution_type.name %>"
@@ -47,7 +47,7 @@
 
 		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
 
-		<div class="small-5 columns border-left profile-details">
+		<div class="medium-5 columns border-left profile-details">
             <table class="borderless">
                     <tr class="profile-institute-descriptors">
             

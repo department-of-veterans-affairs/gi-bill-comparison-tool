@@ -57,6 +57,20 @@
   content_for :title, "#{school_name} - GI Bill Comparison Tool" 
 %>
 
+<!--Breadcrumb -->
+<div id="content" class="interior">
+  <a href="#content" class="sr-only">Content starts here.</a>
+  <div class="splash">
+    <div class="row">
+      <div class="small-12 columns">
+        <ul class="breadcrumbs" role="menubar" aria-label="Primary">
+          <li class="parent"><a href="<%= root_path %>">GI Bill<sup class="trademark">&reg;</sup> Benefits Comparison Tool</a></li>
+          <li class="active">Institution
+          </h1></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 <!--Horizontal Filters-->
 
   <div class="action-bar">
@@ -281,6 +295,7 @@
 
 
 </div><!--end row-->
+</div><!-- End Content -->
 <!-- modals -->
 
 <!-- Retention Rates -->
@@ -326,6 +341,7 @@
 </div><!-- END Repayment rates -->
         
 </div><!-- End section one from top -->
+
 <script>    
 // Makes the modals work!
 $("a[rel*=leanModal]").leanModal();
