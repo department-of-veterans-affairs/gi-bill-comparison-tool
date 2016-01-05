@@ -79,6 +79,10 @@ a{
 
 // Home Teaser Block - Lots of styles, I know....rl
 
+#content ul.breadcrumbs li.active {
+ margin: 0em;
+}
+
 .teaser-head{
     font-size: 1rem;
 }
@@ -381,6 +385,7 @@ label{
   column-count:2;
   -moz-column-count:2;
   -webkit-column-count:2;
+    
 }
 
 .about-you{
