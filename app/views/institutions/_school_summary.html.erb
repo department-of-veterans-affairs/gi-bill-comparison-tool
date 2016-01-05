@@ -24,7 +24,7 @@
 
 	<% if school_summary[:caution_flag] %>
 		<div class="caution">
-			<a class="searchresults-caution" href="<%= school_summary[:profile_url] %>"><i class="fa fa-exclamation-triangle"></i> Caution Flag</a>
+			<a class="searchresults-caution noback" href="<%= school_summary[:profile_url] %>"><i class="fa fa-exclamation-triangle"></i> Caution Flag</a>
         </div>
 	<% end %>
     
@@ -32,8 +32,8 @@
    <!-- Divs added to preserve consistent heights regardless of # of lines -->
     
     <div class="search-insitution-name"><!-- Institution name -->
-        <h4><a class="a-<%= school_summary[:id] %>" href="<%= school_summary[:profile_url] %>">
-            <%= school_summary[:institution].upcase %></a></h4>
+        <h6><a class="a-<%= school_summary[:id] %> noback" href="<%= school_summary[:profile_url] %>">
+            <%= school_summary[:institution].upcase %></a></h6>
     </div><!-- END Institution name -->
     
     <div class="search-locality"><!-- locality data -->

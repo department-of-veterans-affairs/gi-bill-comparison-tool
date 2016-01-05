@@ -59,18 +59,17 @@
 
 <!--Horizontal Filters-->
 
-<div class="action-bar">
+  <div class="action-bar">
     <div class="row">
-        <div class="small-12 medium-12 columns filter-horizontal">
-            <div id="horiz-filters-noprint" class="form-group top-aligned">
-              <%= render partial: 'yourself', locals: { use_label: false } %>
-              <div class="small-2 column">
-                <a href="<%= root_path %>" class="button">Reset Search</a>
-              </div>
-            </div>
+      <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">
+          <%= render partial: 'yourself', locals: {use_label: false} %>
+          </div>
+        <div class="medium-2 columns">
+          <a href="<%= root_path %>" class="button filter-button">Reset Search</a>
         </div>
+      
     </div>
-</div><!--end action bar-->
+  </div><!--end action bar-->
 
 <div class="section one"><!--Content Container-->
 <div class="row">
