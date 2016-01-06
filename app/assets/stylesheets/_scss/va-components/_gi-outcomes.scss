@@ -1,8 +1,14 @@
 .ui-autocomplete {
   max-height: 200px;
+  max-width: 50%;
   overflow-y: auto;
   /* prevent horizontal scrollbar */
   overflow-x: hidden;
+ 
+    @media #{$small-only} {
+        max-width: 85%;
+    }
+
 }
 
 .outcome-measure{
