@@ -17,20 +17,17 @@
     #horiz-filters-noprint2 {display:none;}
     }
 
- .mobile-padding{
-    @media(max-width: $small-screen) {
+.mobile-padding{
     padding: 0 1rem;
-    }
 }
+
 .calc-questions, .calc-outputs{
     padding: 0 1rem ;
 }
-
 .back-chevron, .backlink{
     
     margin-bottom: 1rem;
 }
-
 .back-chevron{
     font-size: .75rem;
     margin-right: .25rem;
@@ -39,7 +36,9 @@
 .backlink{
     font-size: 1rem;
 }
-
+.onerempadleft{
+    padding-left: 1rem;
+}
 .complaints-table{
     th, tr, td{
     @media(max-width: $small-screen) {
@@ -48,7 +47,6 @@
         }
     }
 }
-
 .caution-profile{
     background-color: $va-body-accent-color;
     height: 2.2rem;
@@ -71,7 +69,6 @@
         }
     }
 }
-
 .profile-head{
     color: $va-primary-color;
         @media(max-width: $small-screen) {
@@ -79,7 +76,6 @@
             line-height: 2.5rem;
         }
 }
-
 .fa-profile-descriptors{
     font-size: .85rem;
     color: $va-primary-color;
@@ -88,14 +84,12 @@
 .profile-institute-qualifier, .profile-institute-value{
     font-size: .8rem;
 }
-
 .profile-institute-qualifier{
     color: #444;
     line-height: .5rem;
     text-transform: uppercase;
     padding: .5rem;
 }
-
 .profile-institute-descriptors{
     text-align: left;
     margin-top: .25rem;
@@ -107,9 +101,6 @@
         margin-bottom: .5rem;
     }
 }
-
-
-
 .profile-institute-value{
     font-weight: 600;
     color: $va-primary-color;
@@ -118,15 +109,12 @@
     margin-left: .5rem;
     text-align: right;
 }
-
 .text-center{
     text-align: center;
 }
-
 .text-left{
     text-align: left;
 }
-
 .fa-profile-benefits{
     font-size: 3rem;
     color: $va-primary-color;
@@ -138,7 +126,6 @@
     height: 4rem;
 
 }
-
 .profile-benefits-values{
     font-family: $roboto-slab;
     font-size: 2.6rem;
@@ -146,7 +133,6 @@
     line-height: 1rem;
     text-align: center;
 }
-
 .benefits-cards{
     margin-top: .85rem;
     min-height: 12rem;
@@ -158,17 +144,10 @@
         min-height: 16rem;
     }
 }
-
-
-
 .fa-info-caution{
     color: #000;
     padding-left: 1rem;
 }
-
-
-
-
 .programs-text{
     font-size: 1rem;
     text-decoration: none;
@@ -177,7 +156,6 @@
         text-decoration: none;
     }
 }
-
 .see-yr-rates-summary{
     font-size: .75rem;
     color:$va-secondary-color;
@@ -186,9 +164,6 @@
     margin: .5rem 0 0 0;
     padding: 0;
 }
-
-
-
 .programs-yes, .programs-no {
     width: 1rem;
     height: 1rem;
@@ -196,11 +171,8 @@
     font-size: 1rem;
     margin: .25rem;
 }
-
 .programs-yes{color:$va-secondary-color}
-
 .programs-no{color:#888}
-
 .va-summary-card{
     padding: 0rem;
     background-color: #fff;
@@ -209,7 +181,6 @@
         list-style: none;
     }
 }
-
 .caution-profile-summary{
     tr td{background-color: $va-body-accent-color;}
         th{
@@ -217,36 +188,30 @@
             background-color: $va-body-accent-color;
         }
 }
-
 .outcomes-learnmore{
     font-size: 1rem;
 }
-
 .gi-bill-student-count{
     font-size: 2rem;
     color: #0083BE;
 }
-
 .border-left{
     border-left: 1px;
     border-left-style: solid;
     border-left-color: #f1f1f1;
 }
-
 .borderless tr td{
     border: none;
     margin: 0;
 }
-
 .profile-details{
     margin-top: 3rem;
+    max-width: 400px;
 }
-
 .accordion-vert-spacing{
     margin-top: .5rem;
     margin-bottom: .5rem;
 }
-
 .access-sheet{
     margin-top: 1rem;
 }
