@@ -3,7 +3,7 @@
     <a id="caution-jump-flag" name="caution_jump_flag"></a>
       <table class="usa-table-borderless caution-profile-summary">
         <tr>
-          <th><i class="fa fa-exclamation-triangle"></i>&nbsp;Caution&nbsp;Flag&nbsp;Reason:</th>
+          <th><i id="caution-jump-flag-icon" class="fa fa-exclamation-triangle"></i>&nbsp;Caution&nbsp;Flag&nbsp;Reason:</th>
           <td><%= @school.caution_flag_reason.try(:chomp, ',').try(:gsub, /,(?!\W)/, ", ") %>
           <a id="go" rel="leanModal" name="status" href="#caution-info" class="noback-icon">&nbsp;<i class="fa fa-info-circle fa-info-caution"></i></td>
         </tr>

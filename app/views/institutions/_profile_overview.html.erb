@@ -4,7 +4,7 @@
       			<% if @school.caution_flag %>
 				<div class="caution-profile">
 					<%
-						caution = '<i class="fa fa-exclamation-triangle"></i>&nbsp'.html_safe
+						caution = '<i id="caution-jump-flag-con" class="fa fa-exclamation-triangle"></i>&nbsp'.html_safe
 						caution += "Caution Flag (see details)"
 					%>
 					<a id="jump-to-complaints" class="noback" href="#caution_jump_flag"><%= caution %></a>
@@ -32,7 +32,7 @@
 		<!-- Holds student attendance and link -->
         
         	       <p>
-	      	<span class="gi-bill-student-count"><%= @school.gibill %>&nbsp;</span><a id="go" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a>
+	      	<span class="gi-bill-student-count"><%= @school.gibill %>&nbsp;</span><a id="gi-bill-students-info" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a>
               </p>
 		<p>Total Enrollment:</br>
 			<%= format_number_or_null(@school.undergrad_enrollment, "Undergraduate Students") %>
@@ -308,4 +308,3 @@ $("a[rel*=leanModal]").leanModal();
     }
   });
 </script>
-<script src="js/foundation/foundation.accordion.js"></script>
