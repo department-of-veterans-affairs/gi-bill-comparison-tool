@@ -1,24 +1,27 @@
-<div id="search-filters" class="usa-card usa-card-fill left-rail">
 
-		<h4>Institution</h4>
-		<input type="radio" id="all-school" name="institution-type" 
+<div class="row" data-equalizer>
+<div class="large-3 medium-6 columns filter-box" data-equalizer-watch>
+		<h6>Institution</h6>
+		<p class="filter-p"><input type="radio" id="all-school" name="institution-type" 
 			class="filter" value="all" checked />
-		<label id="all-school-label" for="all-school">All (<%= @total_results %>)</label>
+		<label id="all-school-label" for="all-school">All (<%= @total_results %>)</label></p>
 
-		<input type="radio" id="school" name="institution-type" 
-			class="filter" value="school" <%= 'checked' if @inputs[:schools].present? %>/>
-		<label id="school-label" for="school">School (<%= @schools.length %>)</label>
+		<p class="filter-p"><input type="radio" id="school" name="institution-type" 
+                                   class="filter" value="school" <%= 'checked' if @inputs[:schools].present? %>/>
+		<label id="school-label" for="school">School (<%= @schools.length %>)</label></p>
 
-		<input type="radio" id="employer" name="institution-type" 
+		<p class="filter-p"><input type="radio" id="employer" name="institution-type" 
 			class="filter" value="employer" <%= 'checked' if @inputs[:employers].present? %>/>
-		<label id="employer-label" for="employer">Employer (<%= @employers.length %>)</label>
-
+            <label id="employer-label" for="employer">Employer (<%= @employers.length %>)</label></p>
+</div>
+    
+<div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
 		<h4>Location</h4>
 		<label for="state">State: </label>
 		<select id="states" name="state" class="filter">
 			<option value="all" selected>All (<%= @total_results %>)</option>
 			<% @states.keys.each do |state| %>
-				<option value="<%= state %>" <%= 'selected' if @inputs[:state] == state %>>
+				<option id="filters-<%= state %>" value="<%= state %>" <%= 'selected' if @inputs[:state] == state %>>
           <%= state.upcase %> (<%= @states[state].length %>)
 				</option>
 			<% end %>
@@ -28,37 +31,43 @@
 		<select id="countries" name="country" class="filter">
 			<option value="all" selected>All (<%= @total_results %>)</option>
 			<% @countries.keys.each do |country| %>
-				<option value="<%= country %>" <%= 'selected' if @inputs[:country] == country %>>
+				<option id="filters-<%= country %>" value="<%= country %>" <%= 'selected' if @inputs[:country] == country %>>
           <%= country.upcase %> (<%= @countries[country].length %>)
 				</option>
 			<% end %>
 		</select>
-
-		<h4>School Features</h4>
-		<input type="checkbox" id="student-veteran" name="student_veteran" 
+</div>
+<div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
+		<h6>School Features</h6>
+		<p class="filter-p"><input type="checkbox" id="student-veteran" name="student_veteran" 
 			class="filter" value="true" <%= 'checked' if @inputs[:student_veteran_group].present? %>/>
-		<label id="student-veteran-label" for="student-veteran">Student Veteran Group (<%= @feature_student_veteran_group.length %>)</label>
+            <label id="student-veteran-label" for="student-veteran">Student Vet Group (<%= @feature_student_veteran_group.length %>)</label></p>
 
-		<input type="checkbox" id="yr" name="yr" 
+		<p class="filter-p"><input type="checkbox" id="yr" name="yr" 
 			class="filter" value="true" <%= 'checked' if @inputs[:yellow_ribbon_scholarship].present? %>/>
-		<label id="yr-label" for="yr">Yellow Ribbon Scholarship (<%= @feature_yellow_ribbon_scholarship.length %>)</label>
+            <label id="yr-label" for="yr">Yellow Ribbon  (<%= @feature_yellow_ribbon_scholarship.length %>)</label></p>
 
-		<input type="checkbox" id="poe" name="poe" 
+		<p class="filter-p"><input type="checkbox" id="poe" name="poe" 
 			class="filter" value="true" <%= 'checked' if @inputs[:principles_of_excellence].present? %>/>
-		<label id="poe-label" for="poe">Principles of Excellence (<%= @feature_principles_of_excellence.length %>)</label>
+            <label id="poe-label" for="poe">Principles of Excellence (<%= @feature_principles_of_excellence.length %>)</label></p>
 
-		<input type="checkbox" id="eight-keys" name="eight_keys" 
+		<p class="filter-p"><input type="checkbox" id="eight-keys" name="eight_keys" 
 			class="filter" value="true" <%= 'checked' if @inputs[:f8_keys_to_veteran_success].present? %>/>
-		<label id="eight-keys-label" for="eight-keys">8 Keys to Veteran Success (<%= @feature_8_keys_to_veteran_success.length %>)</label>
-
-		<h4>Types of Schools</h4>
+            <label id="eight-keys-label" for="eight-keys">8 Keys to Vet Success (<%= @feature_8_keys_to_veteran_success.length %>)</label></p>
+</div>
+    
+    
+<div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
+		<h6>Types of Schools</h6>
 
     <% selected_types = @inputs[:types].present? ? @inputs[:types].split(',') : []  %>
 		<% @types.each do |type| %>
 			<% id, name = type.gsub(' ', '-'), type.gsub(' ', '_') %>
 			<% display = InstitutionType::TYPES[type] %>
-			<input type="checkbox" id="<%= id %>" name="type" 
+			<p class="filter-p"><input type="checkbox" id="<%= id %>" name="type" 
 				class="filter" value="<%= type %>" <%= 'checked' if selected_types.include?(type) %>/>
-			<label id="<%= id %>-label" for="<%= id %>"><%= display %> (<%= @type_counts[type].present? ? @type_counts[type].length : 0 %>)</label>
+                <label id="<%= id %>-label" for="<%= id %>"><%= display %> (<%= @type_counts[type].present? ? @type_counts[type].length : 0 %>)</label></p>
 		<% end %>
 </div>
+</div>
+</div><!--end row-->

@@ -1,23 +1,27 @@
-<div id="profile-summary" class="usa-width-one-whole print-width">
-
-	<div class="usa-width-one-half">
+<div id="profile-summary" class=" print-width">
+  <div class="row mobile-padding">
+      <div class="small-12 columns">
+      			<% if @school.caution_flag %>
+				<div class="caution-profile">
+					<%
+						caution = '<i id="caution-jump-flag-con" class="fa fa-exclamation-triangle"></i>&nbsp'.html_safe
+						caution += "Caution Flag (see details)"
+					%>
+					<a id="jump-to-complaints" class="noback" href="#caution_jump_flag"><%= caution %></a>
+        </div>
+			<% end %>
+      </div>
+    
+	<div class="medium-7 columns">
 		<div id="<%= @school.facility_code %>"
 			class="profile_overview"
 			data-type="<%= @school.institution_type.name %>"
 			data-country="<%= @school.country %>"
 			data-bah="<%= @school.bah.present? ? @school.bah : 0 %>">
 
-			<% if @school.caution_flag %>
-				<div class="caution-profile">
-					<%
-						caution = '<i class="fa fa-exclamation-triangle"></i>&nbsp'.html_safe
-						caution += "Caution Flag (see details)"
-					%>
-					<a id="jump-to-complaints" href="#caution_jump_flag"><%= caution %></a>
-        </div>
-			<% end %>
 
-			<h2 class="profile-head"><%= @school.institution %></h2>
+
+			<h4 class="profile-head"><%= @school.institution %></h4>
 			<% if @school.in_usa? %>
 				<p><%= @school.city %>, <%= @school.state %></p>
 			<% else %>
@@ -26,7 +30,11 @@
 		</div>
 
 		<!-- Holds student attendance and link -->
-		<p>
+        
+        	       <p>
+	      	<span class="gi-bill-student-count"><%= @school.gibill %>&nbsp;</span><a id="gi-bill-students-info" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a>
+              </p>
+		<p>Total Enrollment:</br>
 			<%= format_number_or_null(@school.undergrad_enrollment, "Undergraduate Students") %>
 		</p>
 
@@ -35,47 +43,58 @@
 				<%= @school.insturl.downcase %>
 			</a></p>
 		<% end %>
+    	</div>
 
 		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
-		<div class="usa-width-one-whole">
-			<% if !@school.ojt? %>
+
+		<div class="medium-5 columns border-left profile-details">
+            <table class="borderless">
+                    <tr class="profile-institute-descriptors">
+            
+            <% if !@school.ojt? %>
 				<% 
 					hdo = @school.highest_degree 
 					qual = hdo == 2 || hdo == 4 ? "<span>Year</span>".html_safe : ""
 				%>
-      	<div class="profile-institute-descriptors">
-          <p class="profile-institute-qualifier">
-          	<i class="fa fa-calendar fa-profile-descriptors"></i>&nbsp;Program
-          </p>
-          <p class="profile-institute-value"><%= hdo %> <%= qual %></p>
-      	</div>
-      <% end %>
-      
-			<div class="profile-institute-descriptors"><!--HAS DATA. ADD OTHERS LIKE THIS ONE -->
-         <p class="profile-institute-qualifier"><i class="fa fa-university fa-profile-descriptors"></i>&nbsp;Type</p>
-          <p class="profile-institute-value"><%= @school.institution_type.display %></p>
-      </div>
-      
-      <div class="profile-institute-descriptors"><!--NEEDS DATA  -->
-         <p class="profile-institute-qualifier"><i class="fa fa-map fa-profile-descriptors"></i>&nbsp;Locale</p>
-          <p class="profile-institute-value"><%= to_locale(@school.locale) %></p>
-      </div>
 
-      <div class="profile-institute-descriptors"><!--NEEDS DATA  -->
-        <p class="profile-institute-qualifier"><i class="fa fa-users fa-profile-descriptors"></i>&nbsp;Size</p>
-          <p class="profile-institute-value"><%= to_school_size(@school.undergrad_enrollment) %></p>
-      </div>
-               
-		</div>
-	</div>
+                      <td class="profile-institute-qualifier">
+                        <i class="fa fa-calendar fa-profile-descriptors"></i>&nbsp;Program:&nbsp;</td>
+                      <td class="profile-institute-value"><%= hdo %> <%= qual %>
+                              <% end %></td>
+                    </tr> 
+
+                    <tr class="profile-institute-descriptors"><!--HAS DATA. ADD OTHERS LIKE THIS ONE -->
+                     <td class="profile-institute-qualifier"><i class="fa fa-university fa-profile-descriptors"></i>&nbsp;Type:&nbsp;
+                         <td class="profile-institute-value"><%= @school.institution_type.display %></span></td>
+                    </tr>
+
+                  <tr class="profile-institute-descriptors">
+                     <td class="profile-institute-qualifier"><i class="fa fa-map fa-profile-descriptors"></i>&nbsp;Locale:</td>
+                      <td class="profile-institute-value"><%= to_locale(@school.locale) %></td>
+                    </tr>
+
+                    <tr class="profile-institute-descriptors">
+                    <td class="profile-institute-qualifier"><i class="fa fa-users fa-profile-descriptors"></i>&nbsp;Size:</td>
+                    <td class="profile-institute-value"><%= to_school_size(@school.undergrad_enrollment) %></td>
+                </tr>
+            
+</table>
+</div>
 
 	<% if !@school.ojt? %>
-		<!-- Veteran Summary -->
-		<div class="usa-width-one-fourth nested usa-card usa-card-fill">
-		  <div class="usa-card-header"><h4>Veteran Summary</h4></div>
-		  <div class="usa-card-content va-summary-card">
-	      <div class="gi-bill-students">
-	      	<span class="search-value-each"><%= @school.gibill %>&nbsp;</span><a id="go" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a></div>
+
+</div><!--End Row-->
+    
+<!-- Veteran Summary -->
+
+      <div class="row">
+		<div class="large-12 columns accordion-vert-spacing">
+            <ul class="accordion" data-accordion>
+                <li class="accordion-navigation">
+                    <a href="#panel1a" aria-expanded="true">Veteran Summary</a>
+                    <div id="panel1a" class="content active">
+                         <div class="va-summary-card multicolumn-text">
+
 	   
 				<ul>
 					<% 
@@ -86,7 +105,7 @@
 					%>
 	        <li>
 	        	<%= v_str.html_safe %> 
-	        	<a id="go" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a>
+	        	<a id="student-veteran-group-info-link" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a>
 	        	<%= l_str.html_safe %>
 	        </li>
 	           
@@ -100,7 +119,7 @@
 	        %>
 	        <li>
 	        	<%= v_str.html_safe %>
-	        	<a id="go" rel="leanModal" name="status" href="#yribbon"><span class="programs-text">Yellow Ribbon</span></a>
+	        	<a id="yellow-ribbon-info-link" rel="leanModal" name="status" href="#yribbon"><span class="programs-text">Yellow Ribbon</span></a>
 	        	<%= l_str.html_safe %>
 	        </li>
 	                
@@ -111,7 +130,7 @@
 	                
 	        <% v_str = '<span class="programs-' + (@school.dodmou ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
 	        <li>
-	        	<%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#ta"><span class="programs-text">Military Tuition Assistance (TA)</span></a>
+	        	<%= v_str.html_safe %> <a id="military-tuition-assistance-info-link" rel="leanModal" name="status" href="#ta"><span class="programs-text">Military Tuition Assistance (TA)</span></a>
 	        </li>
 
 	        <% 
@@ -128,56 +147,55 @@
 
 	        <% v_str = '<span class="programs-' + (@school.eight_keys ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
 	        <li>
-	        	<%= v_str.html_safe %> <a id="go" rel="leanModal" name="status" href="#8keys"><span class="programs-text">8 Keys to Veteran Success</span></a>
+	        	<%= v_str.html_safe %> <a id="8-keys-info-link" rel="leanModal" name="status" href="#8keys"><span class="programs-text">8 Keys to Veteran Success</span></a>
 	        </li>        
 				</ul>
 		  </div>
+                    </div>
+                  </li>
+		 
+        </ul>
 		</div>
 	<% end %>
-<div class="usa-width-one-fourth usa-card usa-card-fill add-resources">
-  <div class="usa-card-header">
-		<h4>Additional Resources</h4>
-  </div>
-  <div class="usa-card-content">	
-  	<%= render partial: 'profile_additional_resources' %>
-  </div>
 </div>
+<!--Benefits Estimator (moved from _profile_overview.html/erb | -RL)-->    
+<div class="row">   
+    <div id="benefits" class="large-12 columns accordion-vert-spacing">
+            <ul class="accordion" data-accordion>
+                <li class="accordion-navigation">
+                    <a href="#panel-benefits-estimator" aria-expanded="true">Benefits Estimator</a>
+                    <div id="panel-benefits-estimator" class="content active">
 
+        <div class="medium-4 columns usa-card usa-card-fill">
+          <div class="usa-card-content text-center benefits-cards">	
+                <h4>Tuition and Fees</h4>
+              <div class="icon benefits-estimator-icon-box"><i class="fa fa-graduation-cap fa-profile-benefits"></i></div>
+                <p id="est-tuition-fees" class="profile-benefits-values"></p>
+            </div>
+        </div>
+
+        <div class="medium-4 columns  usa-card usa-card-fill">
+          <div class="usa-card-content text-center benefits-cards">	
+                <h4>Housing Allowance</h4>
+              <div class="icon benefits-estimator-icon-box"><i class="fa fa-home fa-profile-benefits"></i></div>
+                <p id="est-housing-allowance" class="profile-benefits-values"></p>
+            </div>
+        </div>
+
+        <div class="medium-4 columns  usa-card usa-card-fill">
+          <div class="usa-card-content text-center benefits-cards">	
+                <h4>Book Stipend</h4>
+              <div class="icon benefits-estimator-icon-box"><i class="fa fa-book fa-profile-benefits"></i></div>
+                <p id="est-book-stipend" class="profile-benefits-values"></p>
+            </div>
+        </div>
+
+    </div>
+                </li>
+        </ul>
+    </div>
 </div>
-
-<div id="benefits" class="usa-width-three-fourths">
-	<div class=" usa-card usa-card-fill">
-	  <div class="usa-card-header">
-			<h3>Benefits Estimator</h3>
-		</div>
-	</div>
-
-	<div class="usa-width-one-third usa-card usa-card-fill">
-	  <div class="usa-card-content text-center benefits-cards">	
-			<h4>Tuition and Fees</h4>
-          <div class="icon"><i class="fa fa-graduation-cap fa-profile-benefits"></i></div>
-			<p id="est-tuition-fees" class="profile-benefits-values"></p>
-		</div>
-	</div>
-
-	<div class="usa-width-one-third usa-card usa-card-fill">
-	  <div class="usa-card-content text-center benefits-cards">	
-			<h4>Housing Allowance</h4>
-          <div class="icon"><i class="fa fa-home fa-profile-benefits"></i></div>
-			<p id="est-housing-allowance" class="profile-benefits-values"></p>
-		</div>
-	</div>
-
-	<div class="usa-width-one-third usa-card usa-card-fill">
-	  <div class="usa-card-content text-center benefits-cards">	
-			<h4>Book Stipend</h4>
-          <div class="icon"><i class="fa fa-book fa-profile-benefits"></i></div>
-			<p id="est-book-stipend" class="profile-benefits-values"></p>
-		</div>
-	</div>
-
 </div>
-
 
 <!-- GI Bill Students -->
 <div id="vetgroups" class="modal-style clearfix" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
@@ -280,4 +298,13 @@
 <script>    
 // Makes the modals work!
 $("a[rel*=leanModal]").leanModal();
+</script>
+<script>
+  $(document).foundation({
+    accordion: {
+      callback : function (accordion) {
+        console.log(accordion);
+      }
+    }
+  });
 </script>

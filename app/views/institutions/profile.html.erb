@@ -49,7 +49,6 @@
 }
 
 </style>
-
 <% 
   school_name = @school.institution || "" 
   school_name = @school.institution.gsub(/\b-\b/, " - ")
@@ -58,46 +57,88 @@
   content_for :title, "#{school_name} - GI Bill Comparison Tool" 
 %>
 
-<div id="horiz-filters-noprint" class="usa-width-one-whole filter-horizontal">
-  <%= render partial: 'yourself', locals: { use_label: false } %>
-  <div class="pull-right">
-  	<a href="<%= root_path %>" class="usa-button-primary search-button-new">Reset Search</a>
+<!--Breadcrumb -->
+<div id="content" class="interior">
+  <a href="#content" class="sr-only">Content starts here.</a>
+  <div class="splash">
+    <div class="row">
+      <div class="small-12 columns">
+        <ul class="breadcrumbs" role="menubar" aria-label="Primary">
+          <li class="parent"><a href="<%= root_path %>">GI Bill<sup class="trademark">&reg;</sup> Benefits Comparison Tool</a></li>
+          <li class="active">Institution
+          </h1></li>
+        </ul>
+      </div>
+    </div>
   </div>
-</div>
+<!--Horizontal Filters-->
 
+  <div class="action-bar">
+    <div class="row">
+      <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">
+          <%= render partial: 'yourself', locals: {use_label: false} %>
+          </div>
+        <div class="medium-2 columns">
+          <a href="<%= root_path %>" class="button filter-button">Reset Search</a>
+        </div>
+      
+    </div>
+  </div><!--end action bar-->
+
+<div class="section one"><!--Content Container-->
+<div class="row onerempadleft">
 <% if @inputs[:source] != "home" %>
   <div id="backtosearch-noprint">
     <a id="back-link" href="<%= @back_url %>" class="backlink"><i class="fa fa-chevron-left back-chevron"></i>Back to Search Results</a>
   </div>
 <% end %>
+</div>
+<div class="row">
+    <div class="large-8 columns"><!--Left Container-->
 
-<div>
-	<%= render partial: 'profile_overview' %>
+<div class="row"><!--Left 9 Columns-->
+        <%= render partial: 'profile_overview' %>
+
+        
+
+</div>       
+
+        
+</div><!-- End Left 8 col span -->
+    
+<!--Additional Resources-->
+    
+<div class="large-4 column">
+	
+        <%= render partial: 'profile_additional_resources' %>
 </div>
 
-<div class="usa-width-three-fourths new-row">
-	<div class="usa-accordion">
-		<button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-0">
-			<h3>Benefits Calculator</h3>
-	  </button>
-    <div id="collapsible-0" aria-hidden="false" class="usa-accordion-content">
-    	<%= render partial: 'profile_calculator' %>
-    </div>
+<!--Benefits Calculator-->
+<div class="row">  
+<div class="small-12 columns accordion-vert-spacing">
+    <ul class="accordion" data-accordion>
+        <li class="accordion-navigation">
+            <a href="#panel-benefits-calculator" aria-expanded="true">Benefits Calculator</a>
+            <div id="panel-benefits-calculator" class="content active">
+<%= render partial: 'profile_calculator' %>
+            </div>
+        </li>
+    </ul>
   </div>
-</div>  
-
-<div class="usa-width-three-fourths new-row">
-	<div class="usa-accordion">
-    <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-1">
-    	<h3>Outcomes</h3>
-    </button>
-
-		<div id="collapsible-1" aria-hidden="false" class="usa-accordion-content">   
-            
- <div class="usa-width-one-whole">
+</div><!--end row-->
+    
+<!--Outcomes-->
+    
+<div class="row">      
+<div class="small-12 columns accordion-vert-spacing">
+    <ul class="accordion" data-accordion>
+        <li class="accordion-navigation">
+            <a href="#panel-outcomes" aria-expanded="true">Outcomes</a>
+            <div id="panel-outcomes" class="content active"> 
+    <div class="row">
 		  <!-- Retention Rates -->
-      <div class="usa-width-one-half  outcome-measure">
-        <h3>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
+      <div class="medium-6 columns">
+        <h4>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention" class="info-icons"><i id="retention-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h4>
         <% 
           isa_v = is_number?(@veteran_retention_rate)
           isa_c = is_number?(@all_student_retention_rate)
@@ -125,8 +166,8 @@
       <!-- END RETENTION RATE -->
 
       <!-- Graduation Rates -->
-      <div class="usa-width-one-half  outcome-measure">
-		  <h3>Graduation Rate<a id="go" rel="leanModal" name="status" href="#gradrates"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
+      <div class="medium-6 columns">
+		  <h3>Graduation Rate<a id="go" rel="leanModal" name="status" href="#gradrates" class="info-icons"><i id="graduation-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
       <% 
         isa_v = is_number?(@school.graduation_rate_veteran)
         isa_c = is_number?(@school.graduation_rate_all_students)
@@ -152,10 +193,11 @@
       <% end %>
       </div>
       <!-- END GRAD RATE -->
-                   
+      </div>      
+   <div class="row">             
 			<!-- Salary Rates -->
-      <div class="usa-width-one-half outcome-measure">
-        <h3>Average Salaries<a id="go" rel="leanModal" name="status" href="#salaries"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
+      <div class="medium-6 columns">
+        <h3>Average Salaries<a id="go" rel="leanModal" name="status" href="#salaries" class="info-icons"><i id="average-salaries-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% if @school.salary_all_students.present? %>
           <div id="salary-rates" class="graph"></div>
           <script>
@@ -175,9 +217,9 @@
       </div>
       <!-- END SALARY RATE -->
 
-			<!-- Repayment -->
-      <div class="usa-width-one-half outcome-measure">
-  			<h3>Repayment Rate<a id="go" rel="leanModal" name="status" href="#repayment"><i class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
+<!-- Repayment -->
+<div class="medium-6 columns">
+  			<h3>Repayment Rate<a id="go" rel="leanModal" name="status" href="#repayment" class="info-icons"><i id="repayment-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
         <% if @school.repayment_rate_all_students.present? %>
           <div id="repayment-rates" class="graph"></div>
           <script>
@@ -194,47 +236,66 @@
         <% else %>
   			 <p>Salary Data Not Available</p>
         <% end %>
-      </div>
-      </div><!-- END REPAYMENT RATE -->
-      <div class="usa-width-one-whole clearfix">
-            <p>Access a comprehensive spreadsheet of <a title="Veteran Outcome Measures" href="http://www.benefits.va.gov/gibill/docs/OutcomeMeasuresDashboard.xlsx" id="anch_373" target="_blank">Veteran Outcome Measures</a> (<i class="fa fa-file-excel-o info-icons"></i> | 14.4 MB)</p></div>      
-    </div><!-- END Accordion ID Div -->
-  </div><!-- END Accordion class Div -->
-</div><!-- END <div class="usa-width-three-fourths new-row"> -->
 
-<div class="usa-width-three-fourths new-row">
-	<div class="usa-accordion">
-    <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-2">
-      <h3>School Summary</h3>
-    </button>
-    <div id="collapsible-2" aria-hidden="false" class="usa-accordion-content">
+</div><!-- END REPAYMENT RATE -->
+    </div>
+                
+<div class="small-12 columns access-sheet clearfix">
+            <p>Access a comprehensive spreadsheet of <a id="veteran-outcome-spreadsheet-link-out" title="Veteran Outcome Measures" href="http://www.benefits.va.gov/gibill/docs/OutcomeMeasuresDashboard.xlsx" id="anch_373" target="_blank">Veteran Outcome Measures</a> (<i class="fa fa-file-excel-o info-icons"></i> | 14.4 MB)</p></div>      
+
+  </div>
+        </li>
+    </ul>
+        </div>
+</div><!--end row-->
+    
+<!--School Summary--> 
+    
+<div class="row">      
+<div class="small-12 columns accordion-vert-spacing">
+    <ul class="accordion" data-accordion>
+        <li class="accordion-navigation">
+            <a href="#panel-school-summary" aria-expanded="true">School Summary</a>
+            <div id="panel-school-summary" class="content active"> 
 			<%= render partial: 'profile_summary' %>
-    </div>
+            </div>
+        </li>
+    </ul>
   </div>
-</div>
+</div><!--end row-->
 
-<div class="usa-width-three-fourths new-row">
-	<div class="usa-accordion">
-    <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-3">
-      <h3>Caution Flags (<%= @school.complaints_main_campus_roll_up %> Student Complaints)</h3>
-    </button>
-    <div id="collapsible-3" aria-hidden="false" class="usa-accordion-content">
+<!--Caution Flags/Complaints--> 
+    
+<div class="row">  
+<div class="small-12 columns accordion-vert-spacing">
+    <ul class="accordion" data-accordion>
+        <li class="accordion-navigation">
+      <a href="#panel-caution-flags" aria-expanded="true">Caution Flags (<%= @school.complaints_main_campus_roll_up %> Student Complaints)</a>
+        <div id="panel-caution-flags" class="content active"> 
 			<%= render partial: 'profile_complaints' %>
-    </div>
+        </div>
+        </li>
+    </ul>
   </div>
-</div>
+</div><!--end row-->
 
-<div class="usa-width-three-fourths new-row">
-    <div class="usa-accordion">
-    <button class="usa-button-unstyled" aria-expanded="true" aria-controls="collapsible-4">
-      <h3>Historical School Information</h3>
-    </button>
-    <div id="collapsible-4" aria-hidden="false" class="usa-accordion-content">
+<!--Historical School Information--> 
+    
+<div class="row">      
+<div class="small-12 columns accordion-vert-spacing">
+    <ul class="accordion" data-accordion>
+        <li class="accordion-navigation">
+            <a href="#panel-historical-info" aria-expanded="true">Historical School Information</a>
+            <div id="panel-historical-info" class="content active"> 
 			<%= render partial: 'profile_history' %>
-    </div>
+        </div>
 	</div>
 </div>
+</div><!--end row-->
 
+
+</div><!--end row-->
+</div><!-- End Content -->
 <!-- modals -->
 
 <!-- Retention Rates -->
@@ -278,7 +339,8 @@
 
   </div>
 </div><!-- END Repayment rates -->
-
+        
+</div><!-- End section one from top -->
 
 <script>    
 // Makes the modals work!

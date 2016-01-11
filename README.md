@@ -109,7 +109,8 @@ To prevent routing error on jquery pngs, run
 rake assets:precompile
 ```
 
-To watch SCSS files, run
-```
- sass --watch app/assets/stylesheets/_scss
-```
+## Assets
+
+Are from the va_common gem. To update assets, or header or footer, please go here: 
+
+https://github.com/department-of-veterans-affairs/va_common
