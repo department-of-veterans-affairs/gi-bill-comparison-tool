@@ -34,14 +34,16 @@
   	</label>
   <% end %>
 
-  <div class="usa-search usa-search-big extra usa-width-one-whole">
-    <div role="search">
+  <div class="row">
+    <div class="small-12 columns search-button-div" role="search">
       <input id="institution-search" name="institution_search" 
       	placeholder="City, school or employer name" 
       	title="Enter school/employer name"
         type="search" 
-      />
-      <%= submit_tag 'Search Schools', id: "search-button", :class => "usa-search-submit-text" %>
+             />
+        </div>
+      <div class="small-12 columns" role="search">
+      <%= submit_tag 'Search Schools', id: "search-button", :class => "button" %>
     </div>
   </div>
 </div>
