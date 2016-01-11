@@ -21,7 +21,7 @@
 		<select id="states" name="state" class="filter">
 			<option value="all" selected>All (<%= @total_results %>)</option>
 			<% @states.keys.each do |state| %>
-				<option value="<%= state %>" <%= 'selected' if @inputs[:state] == state %>>
+				<option id="filters-<%= state %>" value="<%= state %>" <%= 'selected' if @inputs[:state] == state %>>
           <%= state.upcase %> (<%= @states[state].length %>)
 				</option>
 			<% end %>
@@ -31,7 +31,7 @@
 		<select id="countries" name="country" class="filter">
 			<option value="all" selected>All (<%= @total_results %>)</option>
 			<% @countries.keys.each do |country| %>
-				<option value="<%= country %>" <%= 'selected' if @inputs[:country] == country %>>
+				<option id="filters-<%= country %>" value="<%= country %>" <%= 'selected' if @inputs[:country] == country %>>
           <%= country.upcase %> (<%= @countries[country].length %>)
 				</option>
 			<% end %>

@@ -105,23 +105,6 @@ a{
         display: none;
     }
 }
-.icon {
-  margin: 0;
-}
-
-.info-icons{
- margin-left: .25rem;
-    
-    &:link{
-        background-color: white;
-        text-decoration: none;
-    }
-}
-
-.fa-teaser{
-    font-size: 1.7rem;
-    color: $va-secondary-color;
-}
 .teaser-figure{
     font-family: $roboto-slab;
     font-size: 1.7rem;
