@@ -1,15 +1,13 @@
-<div id="usa-width-one-whole">  
+<div id="small-12 columns">  
   <% if @school.caution_flag %>
     <a id="caution-jump-flag" name="caution_jump_flag"></a>
-    <div>
-      <table class="usa-table-borderless">
-        <tr class="caution-profile-summary">
-          <th><i class="fa fa-exclamation-triangle"></i>&nbsp;Caution&nbsp;Flag&nbsp;Reason:</th>
+      <table class="usa-table-borderless caution-profile-summary">
+        <tr>
+          <th><i id="caution-jump-flag-icon" class="fa fa-exclamation-triangle"></i>&nbsp;Caution&nbsp;Flag&nbsp;Reason:</th>
           <td><%= @school.caution_flag_reason.try(:chomp, ',').try(:gsub, /,(?!\W)/, ", ") %>
-          <a id="go" rel="leanModal" name="status" href="#caution-info">&nbsp;<i class="fa fa-info-circle fa-info-caution"></i></td>
+          <a id="go" rel="leanModal" name="status" href="#caution-info" class="noback-icon">&nbsp;<i class="fa fa-info-circle fa-info-caution"></i></td>
         </tr>
       </table>
-    </div>
   <% else %>
     <!-- <p>No Caution Flags</p> -->
   <% end %>
