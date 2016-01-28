@@ -1,7 +1,7 @@
 
 <div class="row" data-equalizer>
 <div class="large-3 medium-6 columns filter-box" data-equalizer-watch>
-		<h6>Institution</h6>
+		<p>Institution</p>
 		<p class="filter-p"><input type="radio" id="all-school" name="institution-type" 
 			class="filter" value="all" checked />
 		<label id="all-school-label" for="all-school">All (<%= @total_results %>)</label></p>
@@ -16,7 +16,7 @@
 </div>
     
 <div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
-		<h4>Location</h4>
+		<p>Location</p>
 		<label for="state">State: </label>
 		<select id="states" name="state" class="filter">
 			<option value="all" selected>All (<%= @total_results %>)</option>
@@ -38,7 +38,7 @@
 		</select>
 </div>
 <div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
-		<h6>School Features</h6>
+		<p>School Features</p>
 		<p class="filter-p"><input type="checkbox" id="student-veteran" name="student_veteran" 
 			class="filter" value="true" <%= 'checked' if @inputs[:student_veteran_group].present? %>/>
             <label id="student-veteran-label" for="student-veteran">Student Vet Group (<%= @feature_student_veteran_group.length %>)</label></p>
@@ -58,7 +58,7 @@
     
     
 <div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
-		<h6>Types of Schools</h6>
+		<p>Types of Schools</p>
 
     <% selected_types = @inputs[:types].present? ? @inputs[:types].split(',') : []  %>
 		<% @types.each do |type| %>
