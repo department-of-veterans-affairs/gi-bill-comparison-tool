@@ -23,34 +23,58 @@
   </div>
   <div class="row">
     <!-- Home Page Teaser -->
-    <div class="small-12 medium-10 columns teaser-container">
-      <h4 class="home-teaser">Learn about education programs and compare estimated benefits by school</h4>
-        
-      <p>Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit. Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>   
-      
-    </div>
+
   </div>
   <div class="row">
     <div class="small-12 medium-8 columns">
-      <div class="usa-card nested">
-        <div id="about-you" class="usa-card-header nested">
-          Step 1: Tell Us About Yourself
-        </div>
-        <div class="usa-card-content nested">
+            <div class="small-12 columns nopadding teaser-container">
+      <h3 class="home-teaser">Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit.</h3>
+        
+      
+    </div>
+        <div class="medium-5 columns">
           <!-- About Yourself Section -->
           <%= render partial: 'yourself', locals: { use_label: true } %>
         </div>
-      </div>
+          <div class="medium-6 medium-offset-1 columns">
+              
+              
+              <p>Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>
+              
+                <div class="medium-4 columns box">
+                    
+                    <div class="icon">
+                        <i class="fa fa-graduation-cap fa-teaser"></i>
+                    </div>
+                    <span class="teaser-figure"><b>$</b></span>
+                    <span class="teaser-head">Tuition &amp; Fees</span>
+                </div>
+            <div class="medium-4 columns box">
+                    
+                    <div class="icon">
+                        <i class="fa fa-home fa-teaser"></i>
+                    </div>
+                    <span class="teaser-figure"><b>$</b></span>
+                    <span class="teaser-head">Housing</span>
+                </div>
+            <div class="medium-4 columns box">
+                    
+                    <div class="icon">
+                        <i class="fa fa-book fa-teaser"></i>
+                    </div>
+                    <span class="teaser-figure"><b>$</b></span>
+                    <span class="teaser-head">Books</span>
+            </div>
 
-        <div class="usa-card">
-          <div id="about-your-school" class="usa-card-header">
-            Step 2: About Your School
           </div>
-          <div class="usa-card-content">
+
+
+        <div class="medium-12 column clearfix nopadding">
+
               <!-- About Your School Section -->
               <a name="about_your_school"></a>
               <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
-          </div>
+
         </div>
       <% end %>
     </div>

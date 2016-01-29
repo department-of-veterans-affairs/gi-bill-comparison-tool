@@ -84,7 +84,7 @@ a{
 }
 
 .teaser-head{
-    font-size: 1rem;
+    font-size: .75rem;
 }
 
 .teaser-container{
@@ -337,12 +337,12 @@ ul li {
 }
 
 .filter-box{
-    padding: 1rem 1rem;
+    padding: 0rem 1rem;
     
 }
 
 .filter-p{
-    margin-bottom: -.75rem;
+    margin-bottom: -1rem;
 }
 .nopad{
     padding: 0 0 0 0;
@@ -361,20 +361,21 @@ label{
 }
 
 
-.box {
-    color: #222;
-    text-align: center;
-    font-size: .9rem;
-    margin-bottom: 0px;
-    float: left;
-    margin-right: 5rem;
-}
+//.box {
+//    color: #222;
+//    font-size: .9rem;
+//    margin-bottom: 0px;
+//    float: left;
+//}
 
 .multicolumn-text{
   column-count:2;
   -moz-column-count:2;
   -webkit-column-count:2;
     
+}
+.text-center{
+    text-align: center;
 }
 
 .about-you{
@@ -386,6 +387,10 @@ label{
 
 .noback{
     background: none;
+}
+
+.nopadding{
+    padding: 0 0 0 0;
 }
 
 .noback-icon{
@@ -402,5 +407,12 @@ label{
 }
 .search-button-div{
     text-align: left;
+    
+}
+#search-filters .usa-card-content{
+    padding: 0  1rem 1rem 1rem;
+}
+
+#search-filters .filter{
     
 }
