@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 #va stuff
-gem 'va_common', '~> 0.3.5'
+gem "va_common", "~> 0.3.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
