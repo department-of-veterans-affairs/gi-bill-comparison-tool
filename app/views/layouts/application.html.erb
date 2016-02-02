@@ -13,6 +13,13 @@
     
 <!-- We participate in the US government's analytics program. See the data at analytics.usa.gov. -->
 <script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=VA" id="_fed_an_ua_tag"></script>
+
+<!-- Per VA common main -->
+<%= split_stylesheet_link_tag "application", :media => "all" %>
+<!--[if lte IE 9]>
+    <link href="/stylesheets/application_split2.css" media="all" rel="stylesheet" type="text/css" />
+<![endif]-->
+
 </head>
 <body>
     <!-- Google Tag Manager -->
