@@ -13,5 +13,5 @@
 //= require jquery2
 //= require jquery_ujs
 //= require ./components
-//= require va_common_main
+//= require va_common_main 
 //= require_tree .

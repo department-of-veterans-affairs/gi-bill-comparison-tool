@@ -9,12 +9,12 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
+ * Adding support for va common 3.5 gem
 */
 
 @import 'jquery-ui';
 @import 'va_common_main';
 @import '_scss/all.scss';
-
 
 /*********************************************************
 ** Stying for outcomes
