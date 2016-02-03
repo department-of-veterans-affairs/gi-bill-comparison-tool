@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><%= yield :title %></title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><%= yield :title %></title>
   <link rel="shortcut icon" href="/assets/images/design/icons/favicon.ico" />
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
@@ -11,19 +11,26 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-<!-- We participate in the US government's analytics program. See the data at analytics.usa.gov. -->
-<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=VA" id="_fed_an_ua_tag"></script>
+  <!-- We participate in the US government's analytics program. See the data at analytics.usa.gov. -->
+  <script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=VA" id="_fed_an_ua_tag"></script>
+
+  <!-- Per VA common main version 3.5 -->
+  <%= split_stylesheet_link_tag "application", :media => "all" %>
+  <!--[if lte IE 9]>
+    <link href="/stylesheets/application_split2.css" media="all" rel="stylesheet" type="text/css" />
+  <![endif]-->
 </head>
+
 <body>
-    <!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NH9SZZ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NH9SZZ');</script>
-<!-- End Google Tag Manager -->
+  <!-- Google Tag Manager -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NH9SZZ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NH9SZZ');</script>
+  <!-- End Google Tag Manager -->
     
   <%= render 'va_common/header' %>
 
