@@ -24,7 +24,7 @@ class Kilter
 
 	#############################################################################
 	## model
-	## Gets the name of the underlying model of the rset.
+	## Gets the name of the underlying model of the filtered_rset.
 	#############################################################################
 	def model
 		@filtered_rset.model
@@ -32,7 +32,7 @@ class Kilter
 
 	#############################################################################
 	## column_names
-	## Gets the column names of the rset.
+	## Gets the column names of the filtered_rset.
 	#############################################################################
 	def column_names
 		@filtered_rset.column_names
@@ -40,10 +40,10 @@ class Kilter
 
 	#############################################################################
 	## counts
-	## Counts the number of records in the rset.
+	## Counts the number of records in the filtered_rset.
 	#############################################################################
 	def count_all
-		@filtered_rset.count
+		@filtered_rset.length
 	end
 
 	#############################################################################

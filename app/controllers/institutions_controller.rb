@@ -71,7 +71,21 @@ class InstitutionsController < ApplicationController
       source: params[:source]
     }
 
-    # Optional inputs
+    @rset = Institution.search(@inputs[:institution_search])
+    @kilter = Kilter.new(@rset)
+
+    # Institution types are "all", "employer" (ojt), "school" (!ojt)
+    @inputs[:institituion_type] = params[:institution_type]
+    @kilter.track(:type_name)
+
+    if @inputs[:institituion_type] == "school"
+      @kilter.add(:type_name, "ojt", "!=")
+    elsif @inputs[:institituion_type] == "employer"
+      @kilter.add(:type_name, "ojt")
+    end
+
+    @kilter.filter.count
+
     # @inputs[:schools] = params[:schools] if params[:schools].present?
     # @inputs[:employers] = params[:employers] if params[:employers].present?
     # @inputs[:state] = params[:state].downcase if params[:state].present?
@@ -81,10 +95,6 @@ class InstitutionsController < ApplicationController
     # @inputs[:principles_of_excellence] = params[:principles_of_excellence] if params[:principles_of_excellence].present?
     # @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success] if params[:f8_keys_to_veteran_success].present?
     # @inputs[:types] = params[:types] if params[:types].present?
-
-    @rset = Institution.search(@inputs[:institution_search])
-    @results = []
-    kilter = Kilter.new(@rset)
 
 
     # # Perform query
@@ -263,10 +273,10 @@ class InstitutionsController < ApplicationController
     #   result[:profile_url] = make_url(@inputs, profile_path, @page, result)
     # end
 
-    respond_to do |format|
-      format.json { render json: @results }
-      format.html { redirect_to @results[0][:profile_url] if @results.length == 1 && from_home }
-    end
+    # respond_to do |format|
+      # format.json { render json: @results }
+      # format.html { redirect_to @results[0][:profile_url] if @results.length == 1 && from_home }
+    # end
   end
 
   # TODO: Move this logic into a view
