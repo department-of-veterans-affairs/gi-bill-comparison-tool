@@ -9,17 +9,20 @@ FactoryGirl.define do
     trait :in_nyc do
       city "new york"
       state "ny"
-      country "USA"
+      country "usa"
     end
 
     trait :in_chicago do
       city "chicago"
       state "il"
-      country "USA"    
+      country "usa"    
     end
 
     trait :like_harv do
       sequence :institution do |n| ["harv#{n}", "harv #{n}"].sample end
+      city "boston"
+      state "ma"
+      country "usa"
     end
   end
 end

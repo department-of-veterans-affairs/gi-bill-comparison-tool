@@ -1,5 +1,6 @@
 class Institution < ActiveRecord::Base
-  TRUTHY = %w(yes true t 1)
+  include Tristateable
+
   EMPLOYER = 'ojt'
 
   belongs_to :institution_type, inverse_of: :institutions
@@ -17,40 +18,35 @@ class Institution < ActiveRecord::Base
   ## credit_for_mil_training
   #############################################################################
   def credit_for_mil_training
-    raw = read_attribute(:credit_for_mil_training).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:credit_for_mil_training)
   end
 
   #############################################################################
   ## vet_poc
   #############################################################################
   def vet_poc
-    raw = read_attribute(:vet_poc).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:vet_poc)
   end
 
   #############################################################################
   ## student_vet_grp_ipeds
   #############################################################################
   def student_vet_grp_ipeds
-    raw = read_attribute(:student_vet_grp_ipeds).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:student_vet_grp_ipeds)
   end
 
   #############################################################################
   ## soc_member
   #############################################################################
   def soc_member
-    raw = read_attribute(:soc_member).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:soc_member)
   end
 
   #############################################################################
   ## online_all
   #############################################################################
   def online_all
-    raw = read_attribute(:online_all).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:online_all)
   end
 
   #############################################################################
@@ -94,14 +90,6 @@ class Institution < ActiveRecord::Base
   end
 
   #############################################################################
-  ## to_bool
-  ## Converts boolean text values to boolean types
-  #############################################################################
-  def self.to_bool(value)
-    TRUTHY.include?(value.try(:downcase))
-  end
-
-  #############################################################################
   ## autocomplete
   ## Given a search term representing a partial school name, returns all
   ## schools starting with the search term.
@@ -122,14 +110,13 @@ class Institution < ActiveRecord::Base
   ## by facility code is exact match.
   ##
   ## NOTE: facility_code is used for uniqueness, therefore it is possible that
-  ## schools will appear to be duplicated since they have the same name but
+  ## schools might appear to be duplicated since they have the same name but
   ## different facility codes.
   #############################################################################
   def self.search(search_term)
     if search_term.empty?
       @rset = Institution.with_type
     else
-    
       search_term = search_term.downcase
 
       clause = ["facility_code = (?) OR lower(institution) LIKE (?) OR lower(city) LIKE (?)"]
