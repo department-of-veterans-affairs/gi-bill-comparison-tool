@@ -1,5 +1,8 @@
 .icon {
-  margin: 0;
+    margin: 0 0 1rem 0;
+    width: 100%;
+    text-align: center;
+    display: block;  
 }
 
 .info-icons{
@@ -11,7 +14,7 @@
     }
 }
 .fa-teaser{
-    font-size: 1.7rem;
+    font-size: 2.5rem;
     color: $va-secondary-color;
 }
 .fa-additional-resources{
@@ -23,8 +26,10 @@
     margin: .25rem;
     margin-right: 1rem;
     text-align: center;
-    font-size: 1rem;
+    font-family: $roboto-slab;
+    font-size: 1.5rem;
     line-height: 2rem;
+    display: inline-block;
 
     &:hover, :active {
         background-color: $va-body-accent-color;
