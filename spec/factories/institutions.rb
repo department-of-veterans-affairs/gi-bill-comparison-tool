@@ -12,17 +12,37 @@ FactoryGirl.define do
       country "usa"
     end
 
+    trait :in_new_rochelle do
+      city "new rochelle"
+      state "ny"
+      country "usa"    
+    end
+
     trait :in_chicago do
       city "chicago"
       state "il"
       country "usa"    
     end
 
-    trait :like_harv do
+    trait :uchicago do
+      institution "university of chicago - not in chicago"
+      city "some other city"
+      state "il"
+      country "usa"       
+    end
+
+    trait :start_like_harv do
       sequence :institution do |n| ["harv#{n}", "harv #{n}"].sample end
       city "boston"
       state "ma"
       country "usa"
+    end
+
+    trait :contains_harv do
+      sequence :institution do |n| ["hasharv#{n}", "has harv #{n}"].sample end
+      city "boston"
+      state "ma"
+      country "usa"    
     end
   end
 end

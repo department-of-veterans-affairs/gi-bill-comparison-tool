@@ -104,10 +104,11 @@ RSpec.describe Institution, type: :model do
   describe 'when autocompleting' do 
     let!(:nyc) { create_list :institution, 10, :in_nyc }
     let!(:chicago) { create_list :institution, 10, :in_chicago }
-    let!(:like_harvard) { create_list :institution, 10, :like_harv }
+    let!(:start_like_harvard) { create_list :institution, 10, :start_like_harv }
+    let!(:contains_harv) { create_list :institution, 10, :contains_harv }
     let!(:mit) { create :institution, institution: "massachussets institute of technology"}
 
-    it 'gets a single institution if a unique name entered' do
+    it 'gets a single institution with unique name' do
       inst = Institution.autocomplete("massachussets institute of technology")
 
       expect(inst.size).to eql(1)
@@ -115,23 +116,23 @@ RSpec.describe Institution, type: :model do
       expect(inst.first.label).to eq(mit.institution)
     end
 
-    it "gets all institutions beginning with partial name entered" do
+    it "gets institutions beginning with partial name" do
       inst = Institution.autocomplete("harv")
 
-      expect(inst.size).to eql(like_harvard.size)
+      expect(inst.size).to eql(start_like_harvard.size)
       inst.each do |i|
-        expect(i.label =~ /\Aharv\w*/).to be_present
-        expect(i.label =~ /\A\w+harv\w*/).to be_nil
+        expect(i.label =~ /\Aharv/).to be_present
+        expect(i.label =~ /.+harv/).to be_nil
       end
     end
 
     it "can handle leading and trailing blanks" do
       inst = Institution.autocomplete("    harv     ")
 
-      expect(inst.size).to eql(like_harvard.size)
+      expect(inst.size).to eql(start_like_harvard.size)
       inst.each do |i|
-        expect(i.label =~ /\Aharv\w*/).to be_present
-        expect(i.label =~ /\A\w+harv\w*/).to be_nil
+        expect(i.label =~ /\Aharv/).to be_present
+        expect(i.label =~ /.+harv/).to be_nil
       end
     end
 
@@ -140,6 +141,55 @@ RSpec.describe Institution, type: :model do
         inst = Institution.autocomplete(arg)
         expect(inst.size).to eql(Institution.all.count)
       end
+    end
+  end
+
+  describe 'when searching' do 
+    let!(:nyc) { create_list :institution, 10, :in_nyc }
+    let!(:new_rochelle) { create_list :institution, 10, :in_new_rochelle }
+    let!(:chicago) { create_list :institution, 10, :in_chicago }
+    let!(:u_chi_not_in_chi) { create :institution, :uchicago }
+    let!(:start_like_harvard) { create_list :institution, 10, :start_like_harv }
+    let!(:contains_harv) { create_list :institution, 10, :contains_harv }
+    let!(:mit) { create :institution, institution: "massachussets institute of technology"}
+
+    it "facility codes produce an exact match" do
+      inst = Institution.search(mit.facility_code)
+
+      expect(inst.size).to eql(1)
+      expect(inst.first.facility_code).to eq(mit.facility_code)
+    end
+
+    it "gets institutions by partial name" do
+      inst = Institution.search("harv")
+
+      expect(inst.size).to eql(start_like_harvard.size + contains_harv.size)
+      inst.each do |i|
+        expect(i.institution =~ /\Aharv|.+harv/).to be_present
+      end
+    end
+
+    it "gets institutions by city" do
+      inst = Institution.search("new york")
+      expect(inst.pluck(:city).uniq).to contain_exactly("new york")
+
+      inst = Institution.search("new")
+      expect(inst.pluck(:city).uniq).to contain_exactly("new york", "new rochelle")
+    end
+
+    it "gets institutions by city or name" do
+      inst = Institution.search("chicago")
+
+      expect(inst.size).to eq(chicago.size + 1)
+      expect(inst.pluck(:institution)).to include("university of chicago - not in chicago")
+      expect(inst.pluck(:city).uniq).to contain_exactly("chicago", "some other city")
+    end
+
+    it "queries are case insensitive" do
+      inst1 = Institution.search("NEW YORK")
+      inst2 = Institution.search("new york")
+
+      expect(inst1).to eq(inst2)
     end
   end
 end

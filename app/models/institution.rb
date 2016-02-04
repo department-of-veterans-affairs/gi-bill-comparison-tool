@@ -104,8 +104,7 @@ class Institution < ActiveRecord::Base
   #############################################################################
   ## search
   ## Searchs for schools containing the search_term in their name or city. 
-  ## Also used when a facility_code is passed in. Results are returned as an
-  ## array of hashes, even when there is only one hit.
+  ## Also used when a facility_code is passed in. 
   ##
   ## Search for cities and institutions are based on LIKE %term% and will 
   ## return every city and institution matching the wildcard %term%. Searching 
@@ -119,7 +118,7 @@ class Institution < ActiveRecord::Base
     if search_term.empty?
       @rset = Institution.with_type
     else
-      search_term = search_term.downcase
+      search_term = search_term.to_s.downcase
 
       clause = ["facility_code = (?) OR lower(institution) LIKE (?) OR lower(city) LIKE (?)"]
       terms = [search_term, "%#{search_term}%", "%#{search_term}%"]
