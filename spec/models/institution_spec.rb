@@ -124,5 +124,22 @@ RSpec.describe Institution, type: :model do
         expect(i.label =~ /\A\w+harv\w*/).to be_nil
       end
     end
+
+    it "can handle leading and trailing blanks" do
+      inst = Institution.autocomplete("    harv     ")
+
+      expect(inst.size).to eql(like_harvard.size)
+      inst.each do |i|
+        expect(i.label =~ /\Aharv\w*/).to be_present
+        expect(i.label =~ /\A\w+harv\w*/).to be_nil
+      end
+    end
+
+    it "nil or empty returns all institutions" do
+      [nil, "", "      "].each do |arg|
+        inst = Institution.autocomplete(arg)
+        expect(inst.size).to eql(Institution.all.count)
+      end
+    end
   end
 end

@@ -95,8 +95,10 @@ class Institution < ActiveRecord::Base
   ## schools starting with the search term.
   #############################################################################
   def self.autocomplete(search_term)
+    search_term = search_term.try(:strip).try(:downcase)
+
     Institution.select("facility_code as value, institution as label")
-      .where("lower(institution) LIKE (?)", "#{search_term.try(:downcase)}%")
+      .where("lower(institution) LIKE (?)", "#{search_term}%")
   end
 
   #############################################################################
