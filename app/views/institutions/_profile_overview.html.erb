@@ -1,6 +1,6 @@
 <div id="profile-summary" class=" print-width">
   <div class="row mobile-padding">
-      <div class="small-12 columns">
+      <div class="small-12 columns nopadding">
       			<% if @school.caution_flag %>
 				<div class="caution-profile">
 					<%
@@ -11,6 +11,9 @@
         </div>
 			<% end %>
       </div>
+      <div class="small-12 columns">
+          			<h4 class="profile-head"><%= @school.institution %></h4>
+      </div>
     
 	<div class="medium-7 columns">
 		<div id="<%= @school.facility_code %>"
@@ -19,9 +22,6 @@
 			data-country="<%= @school.country %>"
 			data-bah="<%= @school.bah.present? ? @school.bah : 0 %>">
 
-
-
-			<h4 class="profile-head"><%= @school.institution %></h4>
 			<% if @school.in_usa? %>
 				<p><%= @school.city %>, <%= @school.state %></p>
 			<% else %>
@@ -34,9 +34,11 @@
         	       <p>
 	      	<span class="gi-bill-student-count"><%= @school.gibill %>&nbsp;</span><a id="gi-bill-students-info" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a>
               </p>
+<!--
 		<p>Total Enrollment:</br>
 			<%= format_number_or_null(@school.undergrad_enrollment, "Undergraduate Students") %>
 		</p>
+-->
 
 		<% if @school.insturl.present? %>
 			<p><a href="http://<%= @school.insturl.downcase %>"target="_blank">
@@ -84,7 +86,45 @@
 	<% if !@school.ojt? %>
 
 </div><!--End Row-->
-    
+
+<!--Benefits Estimator (moved from _profile_overview.html/erb | -RL)-->    
+<div class="row">   
+    <div id="benefits" class="large-12 columns accordion-vert-spacing">
+            <ul class="accordion" data-accordion>
+                <li class="accordion-navigation blueback-header">
+                    <h5>Your Estimated Benefits</h5>
+
+        <div class="medium-4 columns">
+          <div class="text-center benefits-cards">	
+                <h4>Tuition and Fees</h4>
+              <div class="icon benefits-estimator-icon-box"><i class="fa fa-graduation-cap fa-profile-benefits"></i></div>
+                <p id="est-tuition-fees" class="profile-benefits-values"></p>
+            </div>
+        </div>
+
+        <div class="medium-4 columns">
+          <div class="text-center benefits-cards">	
+                <h4>Housing Allowance</h4>
+              <div class="icon benefits-estimator-icon-box"><i class="fa fa-home fa-profile-benefits"></i></div>
+                <p id="est-housing-allowance" class="profile-benefits-values"></p>
+            </div>
+        </div>
+
+        <div class="medium-4 columns">
+          <div class="text-center benefits-cards">	
+                <h4>Book Stipend</h4>
+              <div class="icon benefits-estimator-icon-box"><i class="fa fa-book fa-profile-benefits"></i></div>
+                <p id="est-book-stipend" class="profile-benefits-values"></p>
+            </div>
+        </div>
+
+
+                </li>
+        </ul>
+    </div>
+</div>
+<!-- END Benefits Estimator -->
+
 <!-- Veteran Summary -->
 
       <div class="row">
@@ -158,43 +198,9 @@
 		</div>
 	<% end %>
 </div>
-<!--Benefits Estimator (moved from _profile_overview.html/erb | -RL)-->    
-<div class="row">   
-    <div id="benefits" class="large-12 columns accordion-vert-spacing">
-            <ul class="accordion" data-accordion>
-                <li class="accordion-navigation">
-                    <a href="#panel-benefits-estimator" aria-expanded="true">Benefits Estimator</a>
-                    <div id="panel-benefits-estimator" class="content active">
 
-        <div class="medium-4 columns usa-card usa-card-fill">
-          <div class="usa-card-content text-center benefits-cards">	
-                <h4>Tuition and Fees</h4>
-              <div class="icon benefits-estimator-icon-box"><i class="fa fa-graduation-cap fa-profile-benefits"></i></div>
-                <p id="est-tuition-fees" class="profile-benefits-values"></p>
-            </div>
-        </div>
+<!-- END Veteran Summary -->
 
-        <div class="medium-4 columns  usa-card usa-card-fill">
-          <div class="usa-card-content text-center benefits-cards">	
-                <h4>Housing Allowance</h4>
-              <div class="icon benefits-estimator-icon-box"><i class="fa fa-home fa-profile-benefits"></i></div>
-                <p id="est-housing-allowance" class="profile-benefits-values"></p>
-            </div>
-        </div>
-
-        <div class="medium-4 columns  usa-card usa-card-fill">
-          <div class="usa-card-content text-center benefits-cards">	
-                <h4>Book Stipend</h4>
-              <div class="icon benefits-estimator-icon-box"><i class="fa fa-book fa-profile-benefits"></i></div>
-                <p id="est-book-stipend" class="profile-benefits-values"></p>
-            </div>
-        </div>
-
-    </div>
-                </li>
-        </ul>
-    </div>
-</div>
 </div>
 
 <!-- GI Bill Students -->

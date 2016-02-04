@@ -6,7 +6,7 @@
     <div class="row">
       <div class="small-12 columns">
         <ul class="breadcrumbs" role="menubar" aria-label="Primary">
-          <li class="active">GI Bill<sup class="trademark">&reg;</sup> Benefits Comparison Tool
+          <li class="active">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool
           </h1></li>
         </ul>
       </div>
@@ -23,22 +23,50 @@
   </div>
   <div class="row">
     <!-- Home Page Teaser -->
-    <div class="small-12 medium-10 columns teaser-container">
-      <h4 class="home-teaser">Learn about education programs and compare estimated benefits by school</h4>
-        
-      <p>Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit. Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>   
-      
-    </div>
+    <div class="small-12 medium-8 columns teaser-container">
+      <h4 class="home-teaser">Learn about education programs and compare estimated benefits by school.</h4>
+      </div>
   </div>
   <div class="row">
     <div class="small-12 medium-8 columns">
+        
       <div class="usa-card nested">
         <div id="about-you" class="usa-card-header nested">
           Step 1: Tell Us About Yourself
         </div>
         <div class="usa-card-content nested">
           <!-- About Yourself Section -->
+            <div class="medium-5 columns">
           <%= render partial: 'yourself', locals: { use_label: true } %>
+            </div>
+            <div class="medium-6 medium-offset-1 columns">
+                <p>Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>
+              
+                <div class="medium-4 columns box">
+                    
+                    <div class="icon">
+                        <i class="fa fa-graduation-cap fa-teaser"></i>
+                    </div>
+                    <span class="teaser-figure"><b>$</b></span>
+                    <span class="teaser-head">Tuition &amp; Fees</span>
+                </div>
+            <div class="medium-4 columns box">
+                    
+                    <div class="icon">
+                        <i class="fa fa-home fa-teaser"></i>
+                    </div>
+                    <span class="teaser-figure"><b>$</b></span>
+                    <span class="teaser-head">Housing</span>
+                </div>
+            <div class="medium-4 columns box">
+                    
+                    <div class="icon">
+                        <i class="fa fa-book fa-teaser"></i>
+                    </div>
+                    <span class="teaser-figure"><b>$</b></span>
+                    <span class="teaser-head">Books</span>
+            </div>
+            </div>
         </div>
       </div>
 
@@ -58,6 +86,30 @@
 <div class="small-12 medium-4 column">
         <%= render partial: 'profile_additional_resources' %>
 </div>      
+
+      </div>
+    </div>
+  </div>
+  <div class="section one">
+    <div class="row">
+      <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
+      <input name="page" value="1" type="hidden"/>
+      <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
+      <input name="source" value="home" type="hidden" />
+      
+        
+  </div>
+  <div class="row">
+
+                
+
+
+
+
+      <% end %>
+      </div>
+      
+   
 
       </div>
     </div>

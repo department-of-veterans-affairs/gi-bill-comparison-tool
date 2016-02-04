@@ -19,4 +19,29 @@
             <td><%= number_to_currency(@school.p911_yellow_ribbon) %></td>
         </tr>
     </table>
+    
+    <table class="usa-table-borderless">
+            <thead>
+        <tr>
+            <th scope="col">Additional Information</th>
+            <th scope="col">&nbsp;</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+        </thead>
+            <tr>
+            <td>VA Facility Code:<a id="go" rel="leanModal" name="status" href="#facility-code" class="info-icons">&nbsp;<i id="va-facility-code-info" class="fa fa-info-circle info-icons"></i></a></td>
+            <td><%= @school.facility_code.present? ? @school.facility_code : 'No Data' %></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ED IPEDS Code:<a id="go" rel="leanModal" name="status" href="#ipeds-code" class="info-icons">&nbsp;<i id="ipeds-code-info" class="fa fa-info-circle info-icons"></i></a></td>
+            <td><%= @school.cross.present? ? @school.cross : 'No Data' %></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>ED OPE Code:<a id="go" rel="leanModal" name="status" href="#ope-code" class="info-icons">&nbsp;<i id="ed-ope-code-info"class="fa fa-info-circle info-icons"></i></a></td>
+            <td><%= @school.ope.present? ? @school.ope : 'No Data' %></td>
+            <td></td>
+        </tr>
+    </table>
 </div>

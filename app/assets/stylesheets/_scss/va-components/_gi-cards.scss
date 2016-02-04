@@ -181,12 +181,12 @@
         font-family: $roboto-slab;
         color: $va-primary-color;
         font-weight: 800;
-        font-size: 1.25rem;
+        font-size: 1rem;
         line-height: .5rem;
     }
 }
 .search-locality{
-    font-size: 1rem;
+    font-size: .75rem;
     margin: 0 0 0 0;
 }
 .search-vet-count{
@@ -195,7 +195,7 @@
 }
 .vet-count-value{
     font-family: $roboto-slab;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: $va-secondary-color;
 }
 .search-benefits-values-container{
@@ -207,11 +207,13 @@
 }
 .search-value-each{
     font-family: $roboto-slab;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     color: $va-secondary-color;
     line-height: 1.1rem;
     text-align: center;
     display: inline-block;
+    padding-left: 0;
+    padding-right: 0;
     
     .search-text-values{
     font-size: .75rem;
@@ -220,9 +222,9 @@
 
 }
 .estimate-qualifier{
-    font-size: .75rem;
+    font-size: .65rem;
     color: #444;
-    line-height: .75rem;
+    line-height: .65rem;
 }
 
 .estimator-dollar-sign{
@@ -230,7 +232,7 @@
     color: #999;
 }
 a.va-search-learnmore{
-    width: 100%;
+    width: 94%;
     margin: 1rem auto;
 }
 
