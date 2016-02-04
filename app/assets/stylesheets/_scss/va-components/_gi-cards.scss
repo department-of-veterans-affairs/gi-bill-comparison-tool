@@ -27,7 +27,9 @@
     }
     
 }
-
+.column + .column:last-child, .columns + .column:last-child, .column + .columns:last-child, .columns + .columns:last-child {
+    float: left;
+}
 .school_summary {
   position: relative;
   background-color: $color-gray-lightest;
@@ -173,6 +175,7 @@
 .search-content{
     padding: .25rem;
     font-family: $font-sans;
+
 }
 .search-insitution-name{
     margin-top: 2rem;
