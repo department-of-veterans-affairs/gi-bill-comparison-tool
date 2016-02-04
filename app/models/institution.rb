@@ -4,17 +4,13 @@ class Institution < ActiveRecord::Base
 
   belongs_to :institution_type, inverse_of: :institutions
 
-  # attr_reader :yr, :student_veteran, :poe, :eight_keys, :dodmou, 
-  #   :sec_702, :credit_for_mil_training, :vet_poc, :student_vet_grp_ipeds, 
-  #   :soc_member, :online_all, :accredited, :caution_flag
+  validates :facility_code, uniqueness: true, presence: true
+  validates :institution, presence: true
+  validates :country, presence: true
+  validates :institution_type_id, presence: true
 
   scope :with_type, -> { 
-    select('institutions.*, institution_types.name').joins(:institution_type) 
-  }
-
-  # USE WITH CAUTION, NO USER INPUT!!!
-  scope :tri, ->(v) { 
-    where("LOWER(\"#{v.keys[0].to_s}\") = ?", v.values[0] ? "yes" : "no")
+    select('institutions.*, institution_types.name as type_name').joins(:institution_type) 
   }
 
   #############################################################################
@@ -111,8 +107,8 @@ class Institution < ActiveRecord::Base
   ## schools starting with the search term.
   #############################################################################
   def self.autocomplete(search_term)
-    Institution.select('facility_code as value, institution as label')
-      .where("institution ~* ?", "^#{search_term}")
+    Institution.select("facility_code as value, institution as label")
+      .where("lower(institution) LIKE (?)", "#{search_term.try(:downcase)}%")
   end
 
   #############################################################################
@@ -121,43 +117,26 @@ class Institution < ActiveRecord::Base
   ## Also used when a facility_code is passed in. Results are returned as an
   ## array of hashes, even when there is only one hit.
   ##
+  ## Search for cities and institutions are based on LIKE %term% and will 
+  ## return every city and institution matching the wildcard %term%. Searching 
+  ## by facility code is exact match.
+  ##
   ## NOTE: facility_code is used for uniqueness, therefore it is possible that
   ## schools will appear to be duplicated since they have the same name but
   ## different facility codes.
   #############################################################################
   def self.search(search_term)
-    # fac = Institution.with_type.where(facility_code: search_term).to_sql
-    # inst = Institution.with_type.where("institution ~* ?", "#{search_term}").to_sql
-    # city = Institution.with_type.where("city ~* ?", "#{search_term}").to_sql
-
-    fac = Institution.where(facility_code: search_term).to_sql
-    inst = Institution.where("institution ~* ?", "#{search_term}").to_sql
-    city = Institution.where("city ~* ?", "#{search_term}").to_sql
-
-    if search_term.present?
-      schools = ActiveRecord::Base.connection.execute("#{fac} UNION #{inst} UNION #{city} ORDER BY institution")
+    if search_term.empty?
+      @rset = Institution.with_type
     else
-      schools = ActiveRecord::Base.connection.execute(Institution.with_type.to_sql)
+    
+      search_term = search_term.downcase
+
+      clause = ["facility_code = (?) OR lower(institution) LIKE (?) OR lower(city) LIKE (?)"]
+      terms = [search_term, "%#{search_term}%", "%#{search_term}%"]
+
+      @rset = Institution.with_type.where(clause + terms)
     end
-
-    # schools = schools.map do |school| 
-    #   school.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
-    # end.uniq { |school| school[:facility_code] }
-
-    types = InstitutionType.all.inject({}) do |m,r| 
-      m[r.id] = r.name; m
-    end
-
-    schools = schools.map do |school| 
-      # Need to use read accessors to get true/false/nil or value/nil
-      s = Institution.new(school).as_json
-      s.inject({}) do |m,r| 
-        m[r[0].to_sym] = r[1]; 
-        m[:name] = types[m[:institution_type_id]]
-        
-        m
-      end
-    end.uniq { |school| school[:facility_code] }
   end
 
   #############################################################################
