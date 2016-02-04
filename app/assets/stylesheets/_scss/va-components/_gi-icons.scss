@@ -26,8 +26,10 @@
     margin: .25rem;
     margin-right: 1rem;
     text-align: center;
-    font-size: 1rem;
+    font-family: $roboto-slab;
+    font-size: 1.5rem;
     line-height: 2rem;
+    display: inline-block;
 
     &:hover, :active {
         background-color: $va-body-accent-color;

@@ -1,6 +1,6 @@
 <div id="profile-summary" class=" print-width">
   <div class="row mobile-padding">
-      <div class="small-12 columns">
+      <div class="small-12 columns nopadding">
       			<% if @school.caution_flag %>
 				<div class="caution-profile">
 					<%
@@ -91,35 +91,34 @@
 <div class="row">   
     <div id="benefits" class="large-12 columns accordion-vert-spacing">
             <ul class="accordion" data-accordion>
-                <li class="accordion-navigation">
-                    <a href="#panel-benefits-estimator" aria-expanded="true">Benefits Estimator</a>
-                    <div id="panel-benefits-estimator" class="content active">
+                <li class="accordion-navigation blueback-header">
+                    <h5>Your Estimated Benefits</h5>
 
-        <div class="medium-4 columns usa-card usa-card-fill">
-          <div class="usa-card-content text-center benefits-cards">	
+        <div class="medium-4 columns">
+          <div class="text-center benefits-cards">	
                 <h4>Tuition and Fees</h4>
               <div class="icon benefits-estimator-icon-box"><i class="fa fa-graduation-cap fa-profile-benefits"></i></div>
                 <p id="est-tuition-fees" class="profile-benefits-values"></p>
             </div>
         </div>
 
-        <div class="medium-4 columns  usa-card usa-card-fill">
-          <div class="usa-card-content text-center benefits-cards">	
+        <div class="medium-4 columns">
+          <div class="text-center benefits-cards">	
                 <h4>Housing Allowance</h4>
               <div class="icon benefits-estimator-icon-box"><i class="fa fa-home fa-profile-benefits"></i></div>
                 <p id="est-housing-allowance" class="profile-benefits-values"></p>
             </div>
         </div>
 
-        <div class="medium-4 columns  usa-card usa-card-fill">
-          <div class="usa-card-content text-center benefits-cards">	
+        <div class="medium-4 columns">
+          <div class="text-center benefits-cards">	
                 <h4>Book Stipend</h4>
               <div class="icon benefits-estimator-icon-box"><i class="fa fa-book fa-profile-benefits"></i></div>
                 <p id="est-book-stipend" class="profile-benefits-values"></p>
             </div>
         </div>
 
-    </div>
+
                 </li>
         </ul>
     </div>

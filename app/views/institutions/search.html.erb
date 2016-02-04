@@ -30,7 +30,8 @@
   </div><!--end action bar-->
 
 <div class="section one">
-<div class="row"> 
+<div class="row">
+    <div class="small-12 medium-3 columns">
 <ul class="accordion" data-accordion>
   <li class="accordion-navigation search-filters-header">
     <a id="open-or-close-filters-accordion" href="#panel-filters">Filter Results</a>
@@ -44,14 +45,9 @@
 
         </li>
 </ul>
- </div><!--end FILTERS row-->   
-    
-    
-</div><!--end Section one-->
-<div class="section one">
-
-  <div class="row">  
-      <div class="small-12 medium-12 columns nopad">
+</div>
+  
+      <div class="small-12 medium-9 columns">
         <div class="search-count">Showing 
           <strong><%= @total_filtered_results %></strong> 
           results for the term <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
@@ -62,7 +58,7 @@
 </div><!--end RESULTS row-->
       
 <div class="row">
-    <div class="small-12 column">  
+    <div class="small-9 small-offset-3 column">  
       <div class="search-count-headline pagination-bottom clearfix">
         <% if @total_pages > 1 %>
           <% if @page != 1 %>

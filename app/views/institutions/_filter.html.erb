@@ -1,6 +1,6 @@
 
-<div class="row" data-equalizer>
-<div class="large-3 medium-6 columns filter-box" data-equalizer-watch>
+<div class="row">
+<div class="small-12 columns filter-box">
 		<p>Institution</p>
 		<p class="filter-p"><input type="radio" id="all-school" name="institution-type" 
 			class="filter" value="all" checked />
@@ -15,7 +15,7 @@
             <label id="employer-label" for="employer">Employer (<%= @employers.length %>)</label></p>
 </div>
     
-<div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
+<div class="small-12 columns filter-box">
 		<p>Location</p>
 		<label for="state">State: </label>
 		<select id="states" name="state" class="filter">
@@ -27,7 +27,6 @@
 			<% end %>
 		</select>
 
-<!--
 		<label for="country">Country: </label>
 		<select id="countries" name="country" class="filter">
 			<option value="all" selected>All (<%= @total_results %>)</option>
@@ -37,9 +36,8 @@
 				</option>
 			<% end %>
 		</select>
--->
 </div>
-<div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
+<div class="small-12 columns filter-box">
 		<p>School Features</p>
 		<p class="filter-p"><input type="checkbox" id="student-veteran" name="student_veteran" 
 			class="filter" value="true" <%= 'checked' if @inputs[:student_veteran_group].present? %>/>
@@ -59,7 +57,7 @@
 </div>
     
     
-<div class="large-3 medium-6 columns filter-box border-left" data-equalizer-watch>
+<div class="small-12 columns filter-box">
 		<p>Types of Schools</p>
 
     <% selected_types = @inputs[:types].present? ? @inputs[:types].split(',') : []  %>

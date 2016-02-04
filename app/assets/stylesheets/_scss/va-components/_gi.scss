@@ -337,7 +337,7 @@ ul li {
 }
 
 .filter-box{
-    padding: 0rem 1rem;
+    padding: 1rem 1rem;
     
 }
 
@@ -349,6 +349,7 @@ ul li {
 }
 
 label{
+    font-size: .78rem;
     @media(max-width: $small-screen) {
         font-size: 1.3rem;
     }
@@ -401,6 +402,8 @@ label{
         text-decoration: none;
     }
 }
+.red{background-color: red;}
+
 
 #panel-filters.content{
     padding: 0;

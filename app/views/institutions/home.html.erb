@@ -23,23 +23,24 @@
   </div>
   <div class="row">
     <!-- Home Page Teaser -->
-
+    <div class="small-12 medium-8 columns teaser-container">
+      <h4 class="home-teaser">Learn about education programs and compare estimated benefits by school.</h4>
+      </div>
   </div>
   <div class="row">
     <div class="small-12 medium-8 columns">
-            <div class="small-12 columns nopadding teaser-container">
-      <h3 class="home-teaser">Use the VA's GI Bill Comparison Tool to make the most of your GI Bill Benefit.</h3>
         
-      
-    </div>
-        <div class="medium-5 columns">
-          <!-- About Yourself Sections -->
-          <%= render partial: 'yourself', locals: { use_label: true } %>
+      <div class="usa-card nested">
+        <div id="about-you" class="usa-card-header nested">
+          Step 1: Tell Us About Yourself
         </div>
-          <div class="medium-6 medium-offset-1 columns">
-              
-              
-              <p>Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>
+        <div class="usa-card-content nested">
+          <!-- About Yourself Section -->
+            <div class="medium-5 columns">
+          <%= render partial: 'yourself', locals: { use_label: true } %>
+            </div>
+            <div class="medium-6 medium-offset-1 columns">
+                <p>Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>
               
                 <div class="medium-4 columns box">
                     
@@ -65,16 +66,19 @@
                     <span class="teaser-figure"><b>$</b></span>
                     <span class="teaser-head">Books</span>
             </div>
+            </div>
+        </div>
+      </div>
 
+        <div class="usa-card">
+          <div id="about-your-school" class="usa-card-header">
+            Step 2: About Your School
           </div>
-
-
-        <div class="medium-12 column clearfix nopadding">
-
+          <div class="usa-card-content">
               <!-- About Your School Section -->
               <a name="about_your_school"></a>
               <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
-
+          </div>
         </div>
       <% end %>
     </div>
@@ -82,6 +86,30 @@
 <div class="small-12 medium-4 column">
         <%= render partial: 'profile_additional_resources' %>
 </div>      
+
+      </div>
+    </div>
+  </div>
+  <div class="section one">
+    <div class="row">
+      <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
+      <input name="page" value="1" type="hidden"/>
+      <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
+      <input name="source" value="home" type="hidden" />
+      
+        
+  </div>
+  <div class="row">
+
+                
+
+
+
+
+      <% end %>
+      </div>
+      
+   
 
       </div>
     </div>
