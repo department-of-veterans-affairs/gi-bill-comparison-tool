@@ -1,6 +1,6 @@
 class Kilter
 	attr_reader :rset, :filtered_rset, :terms, :values, :tracked, :pages, 
-		:page_size
+		:page_size, :count_all, :column_names
 
 	DEFAULT_ITEMS_PER_PAGE = 9
 
@@ -13,6 +13,8 @@ class Kilter
 		raise ArgumentError if rset.nil? || !rset.kind_of?(ActiveRecord::Relation)
 
 		@filtered_rset = rset
+		@count_all = rset.length
+		@column_names = @filtered_rset.first.attributes.keys.map(&:to_sym)
 
 		@terms = []
 		@values = []
@@ -31,27 +33,11 @@ class Kilter
 	end
 
 	#############################################################################
-	## column_names
-	## Gets the column names of the filtered_rset.
-	#############################################################################
-	def column_names
-		@filtered_rset.column_names
-	end
-
-	#############################################################################
-	## counts
-	## Counts the number of records in the filtered_rset.
-	#############################################################################
-	def count_all
-		@filtered_rset.length
-	end
-
-	#############################################################################
 	## column_type
 	## Gets the type of column via Activerecord.
 	#############################################################################
 	def column_type(col = "")
-		column_names.include?(col.to_s) ? @filtered_rset.columns_hash[col.to_s].type : nil
+		@column_names.include?(col.to_s) ? @filtered_rset.columns_hash[col.to_s].type : nil
 	end
 
 	#############################################################################
@@ -72,7 +58,7 @@ class Kilter
 	#############################################################################
 	def add(col, value, op = "=")
 		raise ArgumentError if (col.nil? || col.empty?)
-		return unless column_names.include?(col.to_s)
+		return unless @column_names.include?(col)
 
 		# If value is nil, then a IS NULL query has no "?"
 		query = to_query(col, value, op)
@@ -101,7 +87,7 @@ class Kilter
 	#############################################################################
 	def track(col)
 		raise ArgumentError if (col.nil? || col.empty?)
-		return unless column_names.include?(col.to_s)
+		return unless @column_names.include?(col)
 
 		tracked[col] = Hash.new(0) unless tracked.keys.include?(col)
 		self		
@@ -123,7 +109,7 @@ class Kilter
 			@tracked.keys.each do |k|
 				# use send to handle columns that may be overriden in models
 				value = r.send(k.to_s)
-				@tracked[k][value] += 1 unless (value.nil? || value.try(:empty?))
+				@tracked[k][value.to_s] += 1 unless (value.nil? || value.try(:empty?))
 			end
 		end
 	end
@@ -134,7 +120,7 @@ class Kilter
 	#############################################################################
 	def sort(col, dir = :asc)
 		raise ArgumentError if (col.nil? || col.empty?)
-		return unless column_names.include?(col.to_s)
+		return unless @column_names.include?(col)
 
 		@filtered_rset = @filtered_rset.order(col => dir)
 		self	

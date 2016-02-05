@@ -13,8 +13,6 @@ module Tristateable
   extend ActiveSupport::Concern
 
   TRUTHY = %w(yes true t 1 on)
-
-  # included do end
   
   class_methods do 
   	###########################################################################
@@ -25,7 +23,6 @@ module Tristateable
     	TRUTHY.include?(value.try(:downcase))
   	end	
   end
-
 
 	#############################################################################
 	## tristate_boolean

@@ -11,7 +11,7 @@ class Institution < ActiveRecord::Base
   validates :institution_type_id, presence: true
 
   scope :with_type, -> { 
-    select('institutions.*, institution_types.name as type_name').joins(:institution_type) 
+    select('institutions.*, institution_types.name').joins(:institution_type) 
   }
 
   #############################################################################

@@ -71,30 +71,65 @@ class InstitutionsController < ApplicationController
       source: params[:source]
     }
 
+    @inputs[:type_name] = params[:type_name].try(:downcase)
+    @inputs[:state] = params[:state].try(:downcase)
+    @inputs[:country] = params[:country].try(:downcase)
+    @inputs[:student_veteran_group] = params[:student_veteran_group].try(:downcase)
+    @inputs[:yellow_ribbon_scholarship] = params[:yellow_ribbon_scholarship].try(:downcase)
+    @inputs[:principles_of_excellence] = params[:principles_of_excellence].try(:downcase)
+    @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success].try(:downcase)
+    @inputs[:types] = params[:types].try(:downcase)
+
     @rset = Institution.search(@inputs[:institution_search])
     @kilter = Kilter.new(@rset)
 
-    # Institution types are "all", "employer" (ojt), "school" (!ojt)
-    @inputs[:institituion_type] = params[:institution_type]
-    @kilter.track(:type_name)
+    @kilter.track(:name).track(:state).track(:country).track(:student_veteran)
+      .track(:yr).track(:poe).track(:eight_keys)
 
-    if @inputs[:institituion_type] == "school"
-      @kilter.add(:type_name, "ojt", "!=")
-    elsif @inputs[:institituion_type] == "employer"
-      @kilter.add(:type_name, "ojt")
+    # Institution types are "all", "employer" (ojt), "school" (!ojt)
+    if @inputs[:type_name] == "school"
+      @kilter.add(:name, "ojt", "!=")
+    elsif @inputs[:type_name] == "employer"
+      @kilter.add(:name, "ojt")
+    end
+
+    # States are "all", or distinct states in the rset
+    if @inputs[:state].present? && @inputs[:state] != "all"
+      @kilter.add(:state, @inputs[:state]) 
+    end
+
+    # Countries are "all", or distinct countries in the rset
+    if @inputs[:country].present? && @inputs[:country] != "all"
+      @kilter.add(:country, @inputs[:country]) 
+    end
+
+    # Student veterans groups are nil or boolean text values
+    if @inputs[:student_veteran_group].present?
+      @kilter.add(:student_veteran, Institution.to_bool(@inputs[:student_veteran_group]))
+    end
+
+    # Yellow ribbon scholarships are nil or boolean text values
+    if @inputs[:yellow_ribbon_scholarship].present?
+      @kilter.add(:yr, Institution.to_bool(@inputs[:yellow_ribbon_scholarship]))
+    end
+
+    # Principles of excellence are nil or boolean text values
+    if @inputs[:principles_of_excellence].present?
+      @kilter.add(:poe, Institution.to_bool(@inputs[:principles_of_excellence]))
+    end
+
+    # 8 keys to veterans success are nil or boolean text values
+    if @inputs[:f8_keys_to_veteran_success].present?
+      @kilter.add(:eight_keys, Institution.to_bool(@inputs[:f8_keys_to_veteran_success]))
+    end
+
+    # Types may be "all", or distinct institution types
+    if @inputs[:types].present? && @inputs[:types] != "all"
+      @kilter.add(:name, @inputs[:types])
     end
 
     @kilter.filter.count
 
-    # @inputs[:schools] = params[:schools] if params[:schools].present?
-    # @inputs[:employers] = params[:employers] if params[:employers].present?
-    # @inputs[:state] = params[:state].downcase if params[:state].present?
-    # @inputs[:country] = params[:country].downcase if params[:country].present?
-    # @inputs[:student_veteran_group] = params[:student_veteran_group] if params[:student_veteran_group].present?
-    # @inputs[:yellow_ribbon_scholarship] = params[:yellow_ribbon_scholarship] if params[:yellow_ribbon_scholarship].present?
-    # @inputs[:principles_of_excellence] = params[:principles_of_excellence] if params[:principles_of_excellence].present?
-    # @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success] if params[:f8_keys_to_veteran_success].present?
-    # @inputs[:types] = params[:types] if params[:types].present?
 
 
     # # Perform query
