@@ -87,10 +87,8 @@ class InstitutionsController < ApplicationController
       .track(:yr).track(:poe).track(:eight_keys)
 
     # Institution types are "all", "employer" (ojt), "school" (!ojt)
-    if @inputs[:type_name] == "school"
-      @kilter.add(:name, "ojt", "!=")
-    elsif @inputs[:type_name] == "employer"
-      @kilter.add(:name, "ojt")
+    if @inputs[:type_name].present? && @inputs[:state] != "all"
+      @kilter.add(:name, "ojt", @inputs[:type_name] == "school" ? "!=" : "=")
     end
 
     # States are "all", or distinct states in the rset
@@ -130,119 +128,6 @@ class InstitutionsController < ApplicationController
 
     @kilter.filter.count
 
-
-
-    # # Perform query
-    # @types = InstitutionType.pluck(:name).uniq.map { |t| t.downcase }
-    # @results = Institution.search(@inputs[:institution_search])
-
-    # # Filter collections
-    # @total_results = @results.length
-    # @schools = []
-    # @employers = []
-    # @states = {}
-    # @countries = {}
-    # @feature_student_veteran_group = []
-    # @feature_yellow_ribbon_scholarship = []
-    # @feature_principles_of_excellence = []
-    # @feature_8_keys_to_veteran_success = []
-    # @type_counts = {}
-
-    # # For filter counts
-    # @results.each do |result|
-    #   # Institutions
-    #   if result[:name].downcase != "ojt"
-    #     @schools << result
-    #   else
-    #     @employers << result
-    #   end
-
-    #   # States
-    #   if result[:state].present?
-    #     state = result[:state].downcase
-    #     if @states[state].present?
-    #       @states[state] << result
-    #     else
-    #       @states[state] = [result]
-    #     end
-    #   end
-
-    #   # Countries
-    #   if result[:country].present?
-    #     country = result[:country].downcase
-    #     if @countries[country].present?
-    #       @countries[country] << result
-    #     else
-    #       @countries[country] = [result]
-    #     end
-    #   end
-
-    #   # Features
-    #   @feature_student_veteran_group << result if result[:student_veteran]
-    #   @feature_yellow_ribbon_scholarship << result if result[:yr]
-    #   @feature_principles_of_excellence << result if result[:poe]
-    #   @feature_8_keys_to_veteran_success << result if result[:eight_keys]
-
-    #   # Types
-    #   type = result[:name].downcase
-    #   if @type_counts[type].present?
-    #     @type_counts[type] << result
-    #   else
-    #     @type_counts[type] = [result]
-    #   end
-    # end
-
-    # # Filter out the results based on criteria
-    # # @inputs[:schools] = params[:schools].present?
-    # if @inputs[:schools]
-    #   @results = @results & @schools
-    # # @inputs[:employers] = params[:employers].present?
-    # elsif @inputs[:employers]
-    #   @results = @results & @employers
-    # end
-
-    # # @inputs[:state] = params[:state].downcase if params[:state].present?
-    # if @inputs[:state]
-    #   @results = @results & @states[@inputs[:state]]
-    # end
-
-    # # @inputs[:country] = params[:country].downcase if params[:country].present?
-    # if @inputs[:country]
-    #   @results = @results & @countries[@inputs[:country]]
-    # end
-
-    # # @inputs[:student_veteran_group] = params[:student_veteran_group].present?
-    # if @inputs[:student_veteran_group]
-    #   @results = @results & @feature_student_veteran_group
-    # end
-
-    # # @inputs[:yellow_ribbon_scholarship] = params[:yellow_ribbon_scholarship].present?
-    # if @inputs[:yellow_ribbon_scholarship]
-    #   @results = @results & @feature_yellow_ribbon_scholarship
-    # end
-
-    # # @inputs[:principles_of_excellence] = params[:principles_of_excellence].present?
-    # if @inputs[:principles_of_excellence]
-    #   @results = @results & @feature_principles_of_excellence
-    # end
-
-    # # @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success].present?
-    # if @inputs[:f8_keys_to_veteran_success]
-    #   @results = @results & @feature_8_keys_to_veteran_success
-    # end
-
-    # # @input[:types] = params[:types] if params[:types].present?
-    # if @inputs[:types]
-    #   types = @inputs[:types].split(',')
-    #   types.each do |type|
-    #     if @type_counts[type].present?
-    #       @results = @results & @type_counts[type]
-    #     else
-    #       @results = []
-    #     end
-    #   end
-    # end
-    # @total_filtered_results = @results.length
 
     # # Pagination
     # @page = 1
