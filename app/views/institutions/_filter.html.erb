@@ -4,9 +4,9 @@
 	<div class="small-12 columns filter-box">
 	<%
 		type_name = @inputs[:type_name] || "all"
-		count_ojt = @kilter.count(:name)["ojt"]
+		count_ojt = @kilter.count(:name)[Institution::EMPLOYER]
 		
-		count_school = InstitutionType.where.not(name: "ojt").inject(0) do |memo, it|
+		count_school = InstitutionType.where.not(name: Institution::EMPLOYER).inject(0) do |memo, it|
 			memo += @kilter.count(:name)[it.name]
 		end
 	%>

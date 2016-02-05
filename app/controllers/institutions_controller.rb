@@ -88,7 +88,7 @@ class InstitutionsController < ApplicationController
 
     # Institution types are "all", "employer" (ojt), "school" (!ojt)
     if @inputs[:type_name].present? && @inputs[:state] != "all"
-      @kilter.add(:name, "ojt", @inputs[:type_name] == "school" ? "!=" : "=")
+      @kilter.add(:name, Institution::EMPLOYER, @inputs[:type_name] == "school" ? "!=" : "=")
     end
 
     # States are "all", or distinct states in the rset

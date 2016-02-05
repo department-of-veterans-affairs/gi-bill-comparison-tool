@@ -46,11 +46,11 @@
       
       <div class="small-12 medium-9 columns">
         <div class="search-count">Showing 
-          <strong><%= @total_filtered_results %></strong> 
-          results for the term <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
+          <strong><%= @kilter.count_all %></strong> results for the term 
+          <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
         </div>
         
-        <%= render partial: 'school_summary', collection: @results %>
+        <%= render partial: 'school_summary', collection: @kilter.filtered_rset %>
       </div>  
     </div><!--end RESULTS row-->
       
