@@ -318,15 +318,17 @@ ul li {
 .pagination-bottom{
     text-align: center;
     padding: 1.7rem;
-    a{
-    font-family: $font-sans;
-    color: $va-primary-color;
 
-    &:visited{
-    color: $va-secondary-color;
+    a, .pagination-current-page{
+        margin-right: 1rem;
+        @media(max-width: $small-screen) {
+            margin-right: .25rem;
+            
     }
     }
 }
+
+
 
 .search-count{
     margin-left: 1rem;

@@ -53,13 +53,7 @@
           results for the term <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
         </div>
         <%= render partial: 'school_summary', collection: @results %>
-      </div>
-      
-</div><!--end RESULTS row-->
-      
-<div class="row">
-    <div class="small-9 small-offset-3 column">  
-      <div class="search-count-headline pagination-bottom clearfix">
+                <div class="pagination-bottom clearfix">
         <% if @total_pages > 1 %>
           <% if @page != 1 %>
             <a href="<%= @page_urls[@page-1] %>"><i class="fa fa-angle-left"></i>&nbsp;Previous&nbsp;</a>
@@ -73,7 +67,7 @@
             <% if page_num != @page %>
               <a href="<%= @page_urls[page_num] %>"><%= page_num %></a>
             <% else %>
-              <%= page_num %>
+          <span class="pagination-current-page"><%= page_num %></span>
             <% end %>
           <% end %>
 
@@ -88,8 +82,10 @@
           <br/>
         <% end %>
       </div>
-    </div>
-    </div><!--end PAGINATION row-->
+      </div>    
+</div><!--end RESULTS row-->
+      
+
 </div><!--end Section One--> 
 
 <% else %>
