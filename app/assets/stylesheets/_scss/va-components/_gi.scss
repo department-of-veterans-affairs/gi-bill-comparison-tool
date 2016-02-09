@@ -60,10 +60,6 @@ h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
 a{
     font-family: $font-sans;
     color: $va-primary-color;
-
-    &:visited{
-    color: $va-secondary-color;
-    }
 }
 
 .caption{
