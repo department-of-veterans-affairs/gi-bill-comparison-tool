@@ -1,8 +1,12 @@
 class Kilter
 	attr_reader :rset, :filtered_rset, :terms, :values, :tracked, :pages, 
-		:page_size, :count_all, :column_names
+		:page_size, :count_all, :column_names, :page_number, :paged_filtered_rset
 
 	DEFAULT_ITEMS_PER_PAGE = 9
+	DEFAULT_PAGE_LINK_RANGE = 4
+
+	MIN = -> (a, b) { a < b ? a : b }
+	MAX = -> (a, b) { a > b ? a : b }
 
 	#############################################################################
 	## initialize
@@ -14,14 +18,21 @@ class Kilter
 
 		@filtered_rset = rset
 		@count_all = rset.length
-		@column_names = @filtered_rset.first.attributes.keys.map(&:to_sym)
+		@pages = 1
+		@page_number = 1
+		@page_size = DEFAULT_ITEMS_PER_PAGE
+
+		page(1)
+
+		if !@filtered_rset.empty?
+			@column_names = @filtered_rset.first.attributes.keys.map(&:to_sym)
+		else
+			@column_names = []
+		end
 
 		@terms = []
 		@values = []
 		@tracked = {}
-
-		@pages = 1
-		@page_size = DEFAULT_ITEMS_PER_PAGE
 	end
 
 	#############################################################################
@@ -36,8 +47,8 @@ class Kilter
 	## column_type
 	## Gets the type of column via Activerecord.
 	#############################################################################
-	def column_type(col = "")
-		@column_names.include?(col.to_s) ? @filtered_rset.columns_hash[col.to_s].type : nil
+	def column_type(col)
+		@column_names.include?(col) ? @filtered_rset.columns_hash[col.to_s].type : nil
 	end
 
 	#############################################################################
@@ -47,6 +58,8 @@ class Kilter
 	def filter
 		query = [@terms.join(" AND ")] + @values
 		@filtered_rset = @filtered_rset.where(query) unless query.empty?
+
+		page(1)
 
 		self
 	end
@@ -90,6 +103,7 @@ class Kilter
 		return unless @column_names.include?(col)
 
 		tracked[col] = Hash.new(0) unless tracked.keys.include?(col)
+
 		self		
 	end
 
@@ -112,6 +126,8 @@ class Kilter
 				@tracked[k][value.to_s] += 1 unless (value.nil? || value.try(:empty?))
 			end
 		end
+
+		self
 	end
 
 	#############################################################################
@@ -123,6 +139,7 @@ class Kilter
 		return unless @column_names.include?(col)
 
 		@filtered_rset = @filtered_rset.order(col => dir)
+		
 		self	
 	end
 
@@ -149,10 +166,14 @@ class Kilter
 		num = 1 if num < 1
 		num = @pages if num > @pages
 
-		# offset n is the n+1 record
-		start = (num - 1) * @page_size 
+		@page_number = num
 
-		return @filtered_rset.offset(start).limit(@page_size)
+		# offset n is the n+1 record
+		start = (@page_number - 1) * @page_size 
+
+		@paged_filtered_rset = @filtered_rset.offset(start).limit(@page_size)
+
+		return self
 	end
 
 	#############################################################################
@@ -188,4 +209,83 @@ class Kilter
 		
 		"(#{lhs} #{rhs})"
 	end
+
+  #############################################################################
+  ## to_href
+  ## Used to create a href.
+  ## - where: url of resource
+  ## - vars: optional variable pairs
+  ## - for_page: optional pagination page specifier
+  #############################################################################
+  def to_href(where, vars = {}, for_page = {}) 
+  	return where if vars.blank? && for_page.blank?
+
+    vars ||= {}
+
+    url = where + "?" 
+    url += vars.inject("") do |vars, pair| 
+      if pair[1].present? && pair[0] != :page
+       	vars += "#{pair[0]}=#{pair[1]}&"
+     	else
+       	vars
+     	end
+   	end
+
+		if for_page.present?
+			url += "#{for_page.keys[0]}=#{for_page.values[0]}" 
+		end
+
+    URI.encode(url)
+  end
+
+  #############################################################################
+  ## to_link
+  ## Creates a link (a) tag.
+  #############################################################################
+  def to_link(href_str, label, class_str = nil)
+    a = %Q(<a href="#{href_str}")
+    a += %Q( class="#{class_str}") if class_str.present?
+    a += ">#{label}</a>"
+  end
+
+  #############################################################################
+  ## pagination_links
+  ## Returns a block of html representing the current pagination.
+  #############################################################################
+  def pagination_links(where, vars = {}, prev_str = nil, next_str = nil)
+  	range_start = MAX.call(@page_number - DEFAULT_PAGE_LINK_RANGE, 1)
+  	range_end = MIN.call(@page_number + DEFAULT_PAGE_LINK_RANGE, @pages)
+
+    prev_str ||= "< Previous "
+    next_str ||= " Next >"
+
+    links = []
+
+    # Create links for "< Previous " if the current page is not the first
+    if @page_number > 1
+    	links << to_link(to_href(where, vars, page: @page_number - 1), prev_str) 
+    end
+
+    # Display a link for "1 ..." if the start of the page range >= 2
+    if range_start > 1
+    	links << to_link(to_href(where, vars, page: 1), "1") + " ..." 
+    end
+
+    # Create links for each page in the ragebut the current page
+    (range_start .. range_end).each do |i|
+      links << (i == @page_number ? i.to_s : to_link(to_href(where, vars, page: i), i))
+    end
+
+    # Create links for " ... n" if the end of the page range <= n
+    if range_end < @pages
+    	links << "... " + to_link(to_href(where, vars, page: @pages), @pages)  
+    end
+
+    # Create links for " Next >" if the current page is not the last
+    if @page_number < @pages
+    	links << to_link(to_href(where, vars, page: @page_number + 1), next_str) 
+    end
+
+    links.join(" ")
+  end
 end

@@ -2,6 +2,12 @@ class Institution < ActiveRecord::Base
   include Tristateable
 
   EMPLOYER = 'ojt'
+  LOCALE = {
+    11 => 'City', 12 => 'City', 13 => 'City', 
+    21 => 'Suburban', 22 => 'Suburban', 23 => 'Suburban',
+    31 => 'Town', 32 => 'Town', 33 => 'Town',
+    41 => 'Rural', 42 => 'Rural', 43 => 'Rural'
+  }
 
   belongs_to :institution_type, inverse_of: :institutions
 
@@ -87,6 +93,14 @@ class Institution < ActiveRecord::Base
   #############################################################################
   def in_usa?
     country.try(:downcase) == 'usa'
+  end
+
+  #############################################################################
+  ## locale_name
+  ## Gets the locale name correpsonding to the locale
+  #############################################################################
+  def locale_name
+    LOCALE[locale] || "Locale Unknown"
   end
 
   #############################################################################

@@ -50,11 +50,25 @@
           <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
         </div>
         
-        <%= render partial: 'school_summary', collection: @kilter.filtered_rset %>
+        <%= 
+          render partial: 'school_summary', 
+            collection: @kilter.paged_filtered_rset,
+            locals: { url: @kilter.to_href(profile_path, @inputs, page: @page) }
+        %>
       </div>  
     </div><!--end RESULTS row-->
       
-    <!-- REMOVED CONTENT HERE -->
+
+    <div class="row">
+      <div class="small-9 small-offset-3 column">  
+        <div class="search-count-headline pagination-bottom clearfix">
+          <% prev_str = %Q(<i class="fa fa-angle-left"></i> Previous) %>
+          <% next_str = %Q(<i class="fa fa-angle-right"></i>Next ) %>
+          <%= @kilter.pagination_links(search_page_path, @inputs, prev_str, next_str).html_safe %>
+        </div>
+      </div>
+    </div><!--end PAGINATION row-->      
+
   </div><!--end Section One--> 
 <% else %>
   <div class="search-count"> 

@@ -1,6 +1,7 @@
 class InstitutionsController < ApplicationController
-
   NUM_PAGE_LINKS = 10
+
+  helper_method :to_href
 
   def home
     @url = Rails.env.production? ? request.host : 'http://localhost:3000'
@@ -56,7 +57,7 @@ class InstitutionsController < ApplicationController
   end
 
   def search
-    # Required inputs
+    # About you inputs
     @inputs = {
       military_status: params[:military_status],
       spouse_active_duty: params[:spouse_active_duty],
@@ -66,11 +67,12 @@ class InstitutionsController < ApplicationController
       consecutive_service: params[:consecutive_service],
       elig_for_post_gi_bill: params[:elig_for_post_gi_bill],
       number_of_dependents: params[:number_of_dependents],
-      online_classes: params[:online_classes],
-      institution_search: params[:institution_search],
-      source: params[:source]
+      online_classes: params[:online_classes]
     }
 
+    # Filter, page info, source (landing page or profile page), and search term
+    @inputs[:institution_search] = params[:institution_search]
+    @inputs[:source] = params[:source]
     @inputs[:type_name] = params[:type_name].try(:downcase)
     @inputs[:state] = params[:state].try(:downcase)
     @inputs[:country] = params[:country].try(:downcase)
@@ -80,6 +82,8 @@ class InstitutionsController < ApplicationController
     @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success].try(:downcase)
     @inputs[:types] = params[:types].try(:downcase)
 
+    @page = params[:page].try(:to_i)
+
     @rset = Institution.search(@inputs[:institution_search])
     @kilter = Kilter.new(@rset)
 
@@ -87,7 +91,7 @@ class InstitutionsController < ApplicationController
       .track(:yr).track(:poe).track(:eight_keys)
 
     # Institution types are "all", "employer" (ojt), "school" (!ojt)
-    if @inputs[:type_name].present? && @inputs[:state] != "all"
+    if @inputs[:type_name].present? && @inputs[:type_name] != "all"
       @kilter.add(:name, Institution::EMPLOYER, @inputs[:type_name] == "school" ? "!=" : "=")
     end
 
@@ -126,99 +130,22 @@ class InstitutionsController < ApplicationController
       @kilter.add(:name, @inputs[:types])
     end
 
-    @kilter.filter.count
+    # Sort by institution ascending
+    @kilter.filter.sort(:institution).count
 
-
-    # # Pagination
-    # @page = 1
-    # @total_pages = 1
-    # @before_pages = []
-    # @after_pages = []
-    # if has_a_valid_int(params, :page) && has_a_valid_int(params, :num_results) && @results.length > 1
-    #   page_param = params[:page].to_i
-    #   num_results_param = params[:num_results].to_i
-
-    #   @total_pages = (@results.length.to_f / num_results_param.to_f).ceil
-    #   if @total_pages >= page_param.to_f
-    #     @page = page_param
-    #   end
-
-    #   start_index = (@page * num_results_param) - num_results_param
-    #   end_index = start_index + num_results_param - 1
-
-    #   @results = @results[start_index..end_index]
-
-    #   # TODO: Move the rest of the pagination logic to the ERB
-    #   @start_page = 1
-    #   @end_page = @total_pages
-    #   @page_url = make_url(@inputs, search_page_path, @page)
-
-    #   # When < 10 pages: Do nothing
-
-    #   # Page is 1-5 for more than 10 results
-    #   if @total_pages > NUM_PAGE_LINKS && (@page-NUM_PAGE_LINKS/2) < 1
-    #     @start_page = 1
-    #     @end_page = NUM_PAGE_LINKS
-    #   # Current page has 4 prior pages and 4 pages ahead
-    #   elsif @total_pages > NUM_PAGE_LINKS && (@page-NUM_PAGE_LINKS/2) >= 1 && (@page+NUM_PAGE_LINKS/2) <= @total_pages
-    #     @start_page = @page - NUM_PAGE_LINKS/2 + 1
-    #     @end_page = @page + NUM_PAGE_LINKS/2
-    #   # Current page has 4 prior pages, but not 4 pages ahead
-    #   elsif @total_pages > NUM_PAGE_LINKS && (@page-NUM_PAGE_LINKS/2) >= 1 && (@page+NUM_PAGE_LINKS/2) > @total_pages
-    #     pages_to_end = (@total_pages - @page)
-    #     @start_page = @page - (NUM_PAGE_LINKS - pages_to_end) + 1
-    #     @end_page = @total_pages
-    #   end
-    #   @page_range = (@start_page..@end_page)
-
-    #   @page_urls = {}
-    #   @page_range.each { |p| @page_urls[p] = make_url(@inputs, search_page_path, p) }
-    #   @page_urls[:first] = make_url(@inputs, search_page_path, 1)
-    #   @page_urls[:last] = make_url(@inputs, search_page_path, @total_pages)
-    # end
-
-    # # If from the home page, we may need to notate for skipping when only 1 result
-    # # set the source to search for the purposes of creating a url for the profile to return to
-    # from_home = @inputs[:source] == "home" 
-    # @inputs[:source] = "search" if !from_home || from_home && @results.try(:length) > 1
-      
-    # # Generate URLs for school profiles
-    # @results.each do |result|
-    #   result[:student_veteran] = to_bool(result[:student_veteran])
-    #   result[:poe] = to_bool(result[:poe])
-    #   result[:yr] = to_bool(result[:yr])
-    #   result[:eight_keys] = to_bool(result[:eight_keys])
-    #   # This is a tri-state boolean as a string, needs downcase
-    #   result[:caution_flag] = to_bool(result[:caution_flag].try(:downcase))
-    #   result[:profile_url] = make_url(@inputs, profile_path, @page, result)
-    # end
-
-    # respond_to do |format|
-      # format.json { render json: @results }
-      # format.html { redirect_to @results[0][:profile_url] if @results.length == 1 && from_home }
-    # end
-  end
-
-  # TODO: Move this logic into a view
-  def make_url(inputs, path, page_num, school=nil)
-    url = "#{path}?" + inputs.map{|k,v| "#{k}=#{v}"}.join('&') + "&page=#{page_num}&num_results=#{RESULTS_PER_PAGE}"
-
-    if school
-      url += "&facility_code=#{school[:facility_code]}"
+    # Page the returned institutions
+    @kilter.set_size.page(@page)
+    
+    # Go directly to school if only one result
+    if @rset.length == 1 && @inputs[:source] == "home"
+      profile = to_href(profile_path, @inputs, @kilter.filtered_rset.first.facility_code)
+    else
+      profile = nil
     end
 
-    url
-  end
-
-  def to_bool (val)
-    %w(yes true t 1).include?(val.to_s)
-  end
-
-  def has_a_valid_int(a_hash, key)
-    a_hash.has_key?(key) && a_hash[key] =~ /^\d+$/ && a_hash[key].to_i > 0
-  end
-
-  def has_a_valid_instituion_type(a_hash, key)
-    a_hash.has_key?(key) && %w(school, employer).include?(a_hash[key].downcase)
+    respond_to do |format|
+      format.json { render json: @kilter.page(@inputs[:page].try(:to_i)) }
+      format.html { redirect_to profile if profile.present? }
+    end
   end
 end
