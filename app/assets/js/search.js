@@ -71,7 +71,7 @@ function buildSearchUrl() {
         queryStr += '&types=' + typeVal;
     }
 
-    queryStr += '&page=1&num_results=9';
+    // queryStr += '&page=1&num_results=9';
 
     return baseUrl + queryStr.replace(/^\?&/, '?');
 }
