@@ -15,8 +15,6 @@
   <div class="section one">
     <div class="row">
       <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
-      <input name="page" value="1" type="hidden"/>
-      <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
       <input name="source" value="home" type="hidden" />
       
         
@@ -93,8 +91,6 @@
   <div class="section one">
     <div class="row">
       <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
-      <input name="page" value="1" type="hidden"/>
-      <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
       <input name="source" value="home" type="hidden" />
       
         

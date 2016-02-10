@@ -140,6 +140,6 @@ class InstitutionsController < ApplicationController
     @inputs[:types] = params[:types].try(:downcase)
 
     # Pagination - do not put in inputs
-    @page = params[:page].try(:to_i)
+    @page = params[:page].try(:to_i) || 1
   end
 end
