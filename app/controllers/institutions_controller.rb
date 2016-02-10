@@ -1,8 +1,6 @@
 class InstitutionsController < ApplicationController
   NUM_PAGE_LINKS = 10
 
-  helper_method :to_href
-
   def home
     @url = Rails.env.production? ? request.host : 'http://localhost:3000'
     @inputs = {
@@ -21,23 +19,12 @@ class InstitutionsController < ApplicationController
 
   def profile
     @id = params[:id]
-    @inputs = {
-      military_status: params[:military_status],
-      spouse_active_duty: params[:spouse_active_duty],
-      gi_bill_chapter: params[:gi_bill_chapter],
-      cumulative_service: params[:cumulative_service],
-      enlistment_service: params[:enlistment_service],
-      consecutive_service: params[:consecutive_service],
-      elig_for_post_gi_bill: params[:elig_for_post_gi_bill],
-      number_of_dependents: params[:number_of_dependents],
-      online_classes: params[:online_classes],
-      institution_search: params[:institution_search],
-      source: params[:source]
-    }
+    params_to_inputs
 
     @school = Institution.find_by(facility_code: params[:facility_code])
+    @kilter = Kilter.new(Institution.none)
 
-    @back_url = make_url(params, search_page_path, params[:page] || 1)
+    @back_url = @kilter.to_href(search_page_path, @inputs, page: @page)
     @veteran_retention_rate = @school.get_veteran_retention_rate
     @all_student_retention_rate = @school.get_all_student_retention_rate
 
@@ -57,32 +44,7 @@ class InstitutionsController < ApplicationController
   end
 
   def search
-    # About you inputs
-    @inputs = {
-      military_status: params[:military_status],
-      spouse_active_duty: params[:spouse_active_duty],
-      gi_bill_chapter: params[:gi_bill_chapter],
-      cumulative_service: params[:cumulative_service],
-      enlistment_service: params[:enlistment_service],
-      consecutive_service: params[:consecutive_service],
-      elig_for_post_gi_bill: params[:elig_for_post_gi_bill],
-      number_of_dependents: params[:number_of_dependents],
-      online_classes: params[:online_classes]
-    }
-
-    # Filter, page info, source (landing page or profile page), and search term
-    @inputs[:institution_search] = params[:institution_search]
-    @inputs[:source] = params[:source]
-    @inputs[:type_name] = params[:type_name].try(:downcase)
-    @inputs[:state] = params[:state].try(:downcase)
-    @inputs[:country] = params[:country].try(:downcase)
-    @inputs[:student_veteran_group] = params[:student_veteran_group].try(:downcase)
-    @inputs[:yellow_ribbon_scholarship] = params[:yellow_ribbon_scholarship].try(:downcase)
-    @inputs[:principles_of_excellence] = params[:principles_of_excellence].try(:downcase)
-    @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success].try(:downcase)
-    @inputs[:types] = params[:types].try(:downcase)
-
-    @page = params[:page].try(:to_i)
+    params_to_inputs
 
     @rset = Institution.search(@inputs[:institution_search])
     @kilter = Kilter.new(@rset)
@@ -138,8 +100,10 @@ class InstitutionsController < ApplicationController
     
     # Go directly to school if only one result
     if @rset.length == 1 && @inputs[:source] == "home"
-      profile = to_href(profile_path, @inputs, @kilter.filtered_rset.first.facility_code)
+      @inputs[:facility_code] = @kilter.filtered_rset.first.facility_code
+      profile = @kilter.to_href(profile_path, @inputs)
     else
+      @inputs[:source] = "search"
       profile = nil
     end
 
@@ -147,5 +111,35 @@ class InstitutionsController < ApplicationController
       format.json { render json: @kilter.page(@inputs[:page].try(:to_i)) }
       format.html { redirect_to profile if profile.present? }
     end
+  end
+
+  def params_to_inputs
+    # Standard "about you" parameters
+    @inputs = {
+      military_status: params[:military_status],
+      spouse_active_duty: params[:spouse_active_duty],
+      gi_bill_chapter: params[:gi_bill_chapter],
+      cumulative_service: params[:cumulative_service],
+      enlistment_service: params[:enlistment_service],
+      consecutive_service: params[:consecutive_service],
+      elig_for_post_gi_bill: params[:elig_for_post_gi_bill],
+      number_of_dependents: params[:number_of_dependents],
+      online_classes: params[:online_classes]
+    }
+
+    # Search parameters
+    @inputs[:source] = params[:source].try(:downcase)
+    @inputs[:institution_search] = params[:institution_search]
+    @inputs[:type_name] = params[:type_name].try(:downcase)
+    @inputs[:state] = params[:state].try(:downcase)
+    @inputs[:country] = params[:country].try(:downcase)
+    @inputs[:student_veteran_group] = params[:student_veteran_group].try(:downcase)
+    @inputs[:yellow_ribbon_scholarship] = params[:yellow_ribbon_scholarship].try(:downcase)
+    @inputs[:principles_of_excellence] = params[:principles_of_excellence].try(:downcase)
+    @inputs[:f8_keys_to_veteran_success] = params[:f8_keys_to_veteran_success].try(:downcase)
+    @inputs[:types] = params[:types].try(:downcase)
+
+    # Pagination - do not put in inputs
+    @page = params[:page].try(:to_i)
   end
 end

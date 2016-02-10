@@ -1,6 +1,7 @@
 class Kilter
 	attr_reader :rset, :filtered_rset, :terms, :values, :tracked, :pages, 
-		:page_size, :count_all, :column_names, :page_number, :paged_filtered_rset
+		:page_size, :count_all, :page_number, :paged_filtered_rset, :columns
+
 
 	DEFAULT_ITEMS_PER_PAGE = 9
 	DEFAULT_PAGE_LINK_RANGE = 4
@@ -18,17 +19,10 @@ class Kilter
 
 		@filtered_rset = rset
 		@count_all = rset.length
-		@pages = 1
-		@page_number = 1
-		@page_size = DEFAULT_ITEMS_PER_PAGE
 
+		info
+		set_size(DEFAULT_ITEMS_PER_PAGE)
 		page(1)
-
-		if !@filtered_rset.empty?
-			@column_names = @filtered_rset.first.attributes.keys.map(&:to_sym)
-		else
-			@column_names = []
-		end
 
 		@terms = []
 		@values = []
@@ -44,14 +38,6 @@ class Kilter
 	end
 
 	#############################################################################
-	## column_type
-	## Gets the type of column via Activerecord.
-	#############################################################################
-	def column_type(col)
-		@column_names.include?(col) ? @filtered_rset.columns_hash[col.to_s].type : nil
-	end
-
-	#############################################################################
 	## filter
 	## Runs the filter, reducing the filtered set of results.
 	#############################################################################
@@ -60,8 +46,50 @@ class Kilter
 		@filtered_rset = @filtered_rset.where(query) unless query.empty?
 
 		page(1)
+		set_size(@page_size)
 
 		self
+	end
+
+	#############################################################################
+	## info
+	## Gets meta-information regarding the query: tables, columns, and types.
+	#############################################################################
+	def info
+		if (@filtered_rset).empty?
+			@columns = {}
+			return
+		end
+
+		query = @filtered_rset.to_sql
+
+		@columns = @filtered_rset.first.attributes.inject({}) do |m, c| 
+			m[c[0].to_sym] = nil
+			m
+		end
+
+		tables = ActiveRecord::Base.connection.tables.select do |t|
+			Regexp.new('\b' + t + '\b') =~ query
+		end
+
+		tables.each do |t|
+			ActiveRecord::Base.connection.columns(t).each do |c|
+				@columns[c.name.to_sym] = c.type if @columns.key?(c.name.to_sym)
+			end
+		end
+
+		unless (extra = @columns.values.reject { |v| v.present? }).empty?
+			msg = extra.join(', ') + "have missing types, perhaps these are aliased?"
+			raise KilterError.new(msg)
+		end
+	end
+
+	#############################################################################
+	## in_rset?
+	## True, if column is present in the filtered query results.
+	#############################################################################
+	def in_rset?(col)
+		@columns.key?(col)
 	end
 
 	#############################################################################
@@ -71,7 +99,7 @@ class Kilter
 	#############################################################################
 	def add(col, value, op = "=")
 		raise ArgumentError if (col.nil? || col.empty?)
-		return unless @column_names.include?(col)
+		return unless in_rset?(col = col.to_sym)
 
 		# If value is nil, then a IS NULL query has no "?"
 		query = to_query(col, value, op)
@@ -82,12 +110,12 @@ class Kilter
 		if value.is_a?(Array)
 			raise ArgumentError if nvals > value.length
 
-			value = value.map(&:downcase) if column_type(col) == :string
+			value = value.map(&:downcase) if @columns[col] == :string
 			@values += value[0, nvals]
 		elsif !value.nil?
 			raise ArgumentError if nvals > 1
 
-			value = value.downcase if column_type(col) == :string
+			value = value.downcase if @columns[col] == :string
 			@values << value
 		end
 
@@ -100,7 +128,7 @@ class Kilter
 	#############################################################################
 	def track(col)
 		raise ArgumentError if (col.nil? || col.empty?)
-		return unless @column_names.include?(col)
+		return unless @columns.include?(col)
 
 		tracked[col] = Hash.new(0) unless tracked.keys.include?(col)
 
@@ -136,7 +164,7 @@ class Kilter
 	#############################################################################
 	def sort(col, dir = :asc)
 		raise ArgumentError if (col.nil? || col.empty?)
-		return unless @column_names.include?(col)
+		return unless @columns.include?(col)
 
 		@filtered_rset = @filtered_rset.order(col => dir)
 		
@@ -178,7 +206,7 @@ class Kilter
 
 	#############################################################################
 	## to_query
-	## Returns a SQL query string suitable for use in Activerecord's query by
+	## Returns a SQL query string suitable for use in ActiveRecord's query by
 	## array.
 	#############################################################################
 	def to_query(col, value, op = "=")
@@ -205,7 +233,7 @@ class Kilter
 		end
 
 		lhs = "#{col.to_s}"
-		lhs = "LOWER(#{lhs})" if column_type(col) == :string
+		lhs = "LOWER(#{lhs})" if @columns[col] == :string
 		
 		"(#{lhs} #{rhs})"
 	end
@@ -288,4 +316,7 @@ class Kilter
 
     links.join(" ")
   end
+end
+
+class KilterError < StandardError
 end

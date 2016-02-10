@@ -15,13 +15,6 @@ module Tristateable
   TRUTHY = %w(yes true t 1 on)
   
   class_methods do 
-  	###########################################################################
-  	## to_bool
-  	## Converts boolean text values to boolean types.
-  	###########################################################################
-  	def to_bool(value)
-    	TRUTHY.include?(value.try(:downcase))
-  	end	
   end
 
 	#############################################################################
@@ -32,6 +25,6 @@ module Tristateable
 	#############################################################################
   def tristate_boolean(field_sym)
    	raw = read_attribute(field_sym)
-    raw.present? ? to_bool(raw) : nil  
+    raw.present? ? TRUTHY.include?(raw.try(:downcase)) : nil  
   end
 end

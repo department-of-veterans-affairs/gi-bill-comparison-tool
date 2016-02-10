@@ -57,8 +57,8 @@
   content_for :title, "#{school_name} - GI Bill Comparison Tool" 
 %>
 
-<!--Breadcrumb -->
-<div id="content" class="interior">
+
+<div id="content" class="interior"><!--Breadcrumb -->
   <a href="#content" class="sr-only">Content starts here.</a>
   <div class="splash">
     <div class="row">
@@ -71,9 +71,8 @@
       </div>
     </div>
   </div>
-<!--Horizontal Filters-->
-
-  <div class="action-bar">
+  
+  <div class="action-bar"><!--Horizontal Filters-->
     <div class="row">
       <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">
           <%= render partial: 'yourself', locals: {use_label: false} %>
@@ -89,7 +88,9 @@
 <div class="row onerempadleft">
 <% if @inputs[:source] != "home" %>
   <div id="backtosearch-noprint">
-    <a id="back-link" href="<%= @back_url %>" class="backlink"><i class="fa fa-chevron-left back-chevron"></i>Back to Search Results</a>
+    <a id="back-link" href="<%= @back_url %>" class="backlink">
+      <i class="fa fa-chevron-left back-chevron"></i>Back to Search Results
+    </a>
   </div>
 <% end %>
 </div>
