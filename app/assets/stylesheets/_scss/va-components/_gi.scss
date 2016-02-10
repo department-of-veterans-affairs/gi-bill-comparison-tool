@@ -16,9 +16,6 @@ $va-alert-color: #741B30;
 
 // Search
 
-#search_form input[type="submit"] {
-    font-size: 14px;
-}
 
 .overlay {
   z-index: 10000;
@@ -362,13 +359,6 @@ label{
 }
 
 
-//.box {
-//    color: #222;
-//    font-size: .9rem;
-//    margin-bottom: 0px;
-//    float: left;
-//}
-
 .multicolumn-text{
   column-count:2;
   -moz-column-count:2;
@@ -414,8 +404,4 @@ label{
 }
 #search-filters .usa-card-content{
     padding: 0  1rem 1rem 1rem;
-}
-
-#search-filters .filter{
-    
 }
