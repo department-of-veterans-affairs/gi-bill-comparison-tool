@@ -46,12 +46,11 @@
       
       <div class="small-12 medium-9 columns">
         <div class="search-count">Showing 
-          <strong><%= @kilter.count_all %></strong> results for the term 
+          <strong><%= @kilter.count_filtered %></strong> results for the term 
           <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
         </div>
         
-        <%= 
-          render partial: 'school_summary', 
+        <%= render partial: 'school_summary', 
             collection: @kilter.paged_filtered_rset,
             locals: { url: @kilter.to_href(profile_path, @inputs, page: @page) }
         %>

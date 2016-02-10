@@ -42,7 +42,7 @@
 		<select id="states" name="state" class="filter">
 			<option value="all" selected>All (<%= count_all %>)</option>
 			<% @kilter.count(:state).each_pair do |state, count| %>
-				<option id="filters-<%= state %>" value="<%= state %>" <%= 'selected' if @inputs[:state] == state %>>
+				<option id="filters-<%= state %>" value="<%= state %>" <%= 'selected' if compare_downcase(@inputs[:state], state) %>>
           <%= state.upcase %> (<%= count %>)
 				</option>
 			<% end %>
@@ -52,7 +52,7 @@
 		<select id="countries" name="country" class="filter">
 			<option value="all" selected>All (<%= count_all %>)</option>
 			<% @kilter.count(:country).each_pair do |country, count| %>
-				<option id="filters-<%= country %>" value="<%= country %>" <%= 'selected' if @inputs[:country] == country %>>
+				<option id="filters-<%= country %>" value="<%= country %>" <%= 'selected' if compare_downcase(@inputs[:country], country) %>>
           <%= country.upcase %> (<%= count %>)
 				</option>
 			<% end %>
@@ -105,7 +105,7 @@
 		<select id="types" name="types" class="filter">
 			<option value="all" selected>All (<%= count_all %>)</option>
 			<% @kilter.count(:name).each_pair do |itype, count| %>
-				<option id="filters-<%= itype %>" value="<%= itype %>" <%= 'selected' if @inputs[:types] == itype %>>
+				<option id="filters-<%= itype %>" value="<%= itype %>" <%= 'selected' if compare_downcase(@inputs[:types], itype) %>>
           <%= itype.upcase %> (<%= count %>)
 				</option>
 			<% end %>

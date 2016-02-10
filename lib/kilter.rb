@@ -1,6 +1,6 @@
 class Kilter
 	attr_reader :rset, :filtered_rset, :terms, :values, :tracked, :pages, 
-		:page_size, :count_all, :page_number, :paged_filtered_rset, :columns
+		:page_size, :page_number, :paged_filtered_rset, :columns, :count_all
 
 
 	DEFAULT_ITEMS_PER_PAGE = 9
@@ -18,7 +18,7 @@ class Kilter
 		raise ArgumentError if rset.nil? || !rset.kind_of?(ActiveRecord::Relation)
 
 		@filtered_rset = rset
-		@count_all = rset.length
+		@count_all = @filtered_rset.length
 
 		info
 		set_size(DEFAULT_ITEMS_PER_PAGE)
@@ -90,6 +90,13 @@ class Kilter
 	#############################################################################
 	def in_rset?(col)
 		@columns.key?(col)
+	end
+
+	#############################################################################
+	## count_filtered
+	#############################################################################
+	def count_filtered
+		filtered_rset.length
 	end
 
 	#############################################################################
@@ -179,7 +186,7 @@ class Kilter
 		@page_size = page_size > 0 ? page_size : DEFAULT_ITEMS_PER_PAGE
 
 		# Add an extra page only if there is at least 1 extra record
-		@pages = count_all / @page_size + (count_all % @page_size == 0 ? 0 : 1) 
+		@pages = count_filtered / @page_size + (count_filtered % @page_size == 0 ? 0 : 1) 
 		@pages = 1 if @pages == 0
 
 		self

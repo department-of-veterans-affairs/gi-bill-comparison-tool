@@ -1,4 +1,11 @@
 module InstitutionsHelper
+  def compare_downcase(v1, v2)
+    v1 = v1.try(:downcase)
+    v2 = v2.try(:downcase)
+
+    return v1 == v2
+  end
+
   def to_caps(string)
     string.blank? ? '' : string.split(' ').map{|w| w.capitalize}.join(' ')
   end

@@ -88,7 +88,7 @@ class InstitutionsController < ApplicationController
     end
 
     # Types may be "all", or distinct institution types
-    if @inputs[:types].present? && @inputs[:types] != "all"
+    if @inputs[:types].present? && @inputs[:type_name] != "all"
       @kilter.add(:name, @inputs[:types])
     end
 
@@ -97,7 +97,7 @@ class InstitutionsController < ApplicationController
 
     # Page the returned institutions
     @kilter.set_size.page(@page)
-    
+
     # Go directly to school if only one result
     if @rset.length == 1 && @inputs[:source] == "home"
       @inputs[:facility_code] = @kilter.filtered_rset.first.facility_code

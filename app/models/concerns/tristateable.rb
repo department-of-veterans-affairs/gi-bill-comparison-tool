@@ -15,6 +15,9 @@ module Tristateable
   TRUTHY = %w(yes true t 1 on)
   
   class_methods do 
+    def to_bool(val)
+      TRUTHY.include?(val.to_s)
+    end
   end
 
 	#############################################################################
