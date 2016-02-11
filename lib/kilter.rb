@@ -106,7 +106,7 @@ class Kilter
 	#############################################################################
 	def add(col, value, op = "=")
 		raise ArgumentError if (col.nil? || col.empty?)
-		return unless in_rset?(col = col.to_sym)
+		return self unless in_rset?(col = col.to_sym)
 
 		# If value is nil, then a IS NULL query has no "?"
 		query = to_query(col, value, op)
