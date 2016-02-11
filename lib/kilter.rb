@@ -287,7 +287,7 @@ class Kilter
   ## pagination_links
   ## Returns a block of html representing the current pagination.
   #############################################################################
-  def pagination_links(where, vars = {}, prev_str = nil, next_str = nil)
+  def pagination_links(where, vars = {}, prev_str = nil, next_str = nil, cur_pg_class = nil)
   	range_start = MAX.call(@page_number - DEFAULT_PAGE_LINK_RANGE, 1)
   	range_end = MIN.call(@page_number + DEFAULT_PAGE_LINK_RANGE, @pages)
 
@@ -308,7 +308,11 @@ class Kilter
 
     # Create links for each page in the ragebut the current page
     (range_start .. range_end).each do |i|
-      links << (i == @page_number ? i.to_s : to_link(to_href(where, vars, page: i), i))
+    	if i == @page_number
+      	links << %Q(<span class="#{cur_pg_class}">#{i.to_s}</span>)
+    	else
+      	links << to_link(to_href(where, vars, page: i), i)
+      end
     end
 
     # Create links for " ... n" if the end of the page range <= n

@@ -62,10 +62,11 @@
           <div class="search-count-headline pagination-bottom clearfix">
             <% prev_str = %Q(<i class="fa fa-angle-left"></i> Previous) %>
             <% next_str = %Q(Next <i class="fa fa-angle-right"></i>) %>
-            <%= @kilter.pagination_links(search_page_path, @inputs, prev_str, next_str).html_safe %>
+            <%= @kilter.pagination_links(search_page_path, @inputs, prev_str, next_str, "cur-page").html_safe %>
           </div>
         </div>
       </div><!-- End Pagination row -->
+
 
       <div class="row"><!-- Utility Nav start -->
         <div class="small-12 columns">
