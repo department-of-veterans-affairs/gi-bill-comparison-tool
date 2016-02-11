@@ -13,12 +13,13 @@
             <li class="active">Search</li>
           </ul>
         </div>
-      </div><!-- end splash -->
+      </div>
+    </div><!-- end splash -->
 
-      <div class="action-bar">
+    <div class="action-bar">
       <div class="row">
         <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">
-            <%= render partial: 'yourself', locals: {use_label: false} %>
+          <%= render partial: 'yourself', locals: {use_label: false} %>
         </div>
         <div class="medium-2 columns">
           <a href="<%= root_path %>" class="button filter-button">Reset Search</a>
@@ -27,9 +28,9 @@
     </div><!--end action bar-->
          
     <div class="section one">
-      <div class="row">
+      <div class="row"><!-- results start -->
         <div class="small-12 medium-3 columns">
-          <ul class="accordion" data-accordion>
+          <ul class="accordion filtermargin" data-accordion>
             <li class="accordion-navigation search-filters-header">
               <a id="open-or-close-filters-accordion" href="#panel-filters">Filter Results</a>
               <div id="panel-filters" class="content">           
@@ -56,7 +57,7 @@
         </div>
       </div><!--end Results row-->
 
-      <div class="row">
+      <div class="row"><!-- pagination start -->
         <div class="small-9 small-offset-3 column">
           <div class="search-count-headline pagination-bottom clearfix">
             <% prev_str = %Q(<i class="fa fa-angle-left"></i> Previous) %>
@@ -85,7 +86,6 @@
         </div>
       </div><!-- Utility Nav end --> 
     </div><!--end Section One-->
-  </div><!-- end Splash -->
 <% else %>
   <div class="search-count"> 
     There were no results that matched 
