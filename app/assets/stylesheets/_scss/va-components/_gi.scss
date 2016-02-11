@@ -216,8 +216,10 @@ ul li {
 .applinks{
     text-align: center;
     font-family: $font-sans;
-    font-size: 1.7rem;
-    margin: 3.4rem;
+    font-size: .85rem;
+    line-height: 4rem;
+    margin-right: 2.5rem;
+    margin-bottom: 2rem;
     @media(max-width: $small-screen) {
         font-size: 1.2rem;
         text-align: left;
