@@ -6,8 +6,10 @@
     <div class="row">
       <div class="small-12 columns">
         <ul class="breadcrumbs" role="menubar" aria-label="Primary">
-          <li class="active">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool
-          </h1></li>
+          <li class="parent"><a href="https://www.vets.gov/education/">Education Benefits</a></li>
+            <li class="parent"><a href="https://www.vets.gov/education/gi-bill/">GI Bill</a></li>
+            <li class="active">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool
+          </li>
         </ul>
       </div>
     </div>
@@ -15,8 +17,6 @@
   <div class="section one">
     <div class="row">
       <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
-      <input name="page" value="1" type="hidden"/>
-      <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
       <input name="source" value="home" type="hidden" />
       
         
@@ -93,27 +93,39 @@
   <div class="section one">
     <div class="row">
       <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
-      <input name="page" value="1" type="hidden"/>
-      <input name="num_results" value="<%= RESULTS_PER_PAGE %>" type="hidden"/>
       <input name="source" value="home" type="hidden" />
       
         
   </div>
   <div class="row">
 
-                
-
+<!-- Utility Nav start -->
+      
+     <div class="small-12 columns">
+<a class="applinks" href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp"
+onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Tool</a>
+<a class="applinks" href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#feedback" onclick="track('Tool Tips', 'Feedback');" target="_blank" title="Send us an email at 223D.VBAVACO@va.gov with “Comparison Tool” in the subject line.">Feedback</a>
+<a class="applinks" href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#accessibility" onclick="track('Tool Tips', 'Accessibility');" target="_blank" title="The Comparison Tool is accessible to users utilizing assisted technologies, such as screen readers, screen magnifiers and voice recognition.">Accessibility</a>
+<a href="http://www.benefits.va.gov/GIBILL/docs/job_aids/ComparisonToolData.xlsx" onclick="track('Tool Tips', 'Full Data');" class="applinks">Download Data on All Schools (Excel)</a>
+</div>
+<!-- Utility Nav end -->           
+</div>
 
 
 
       <% end %>
-      </div>
+      
       
    
 
       </div>
     </div>
   </div>
+
+
+
+
+
   <!-- About School Modal -->
   <div id="aboutSchool" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
     <div>

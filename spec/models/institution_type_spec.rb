@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe InstitutionType, type: :model do
   subject { build :institution_type }
 

@@ -1,6 +1,5 @@
 var searchFilters;
-var refineParams = ['schools',
-    'employers',
+var refineParams = ['type_name',
     'state',
     'country',
     'student_veteran_group',
@@ -36,46 +35,43 @@ function buildSearchUrl() {
 
     // Add refinement parameters
     if (searchFilters.filter('#school:checked').val()) {
-        queryStr += '&schools=true';
+        queryStr += '&type_name=school';
     } else if (searchFilters.filter('#employer:checked').val()) {
-        queryStr += '&employers=true';
+        queryStr += '&type_name=employer';
     }
 
     var stateVal = searchFilters.filter('#states').val();
     if (stateVal && stateVal !== 'all') {
-        queryStr += '&state=' + searchFilters.filter('#states').val()
+        queryStr += '&state=' + stateVal;
     }
 
     var countryVal = searchFilters.filter('#countries').val();
     if (countryVal && countryVal !== 'all') {
-        queryStr += '&country=' + searchFilters.filter('#countries').val()
+        queryStr += '&country=' + countryVal;
     }
 
     if (searchFilters.filter('#student-veteran:checked').val()) {
-        queryStr += '&student_veteran_group=true'
+        queryStr += '&student_veteran_group=true';
     }
 
     if (searchFilters.filter('#yr:checked').val()) {
-        queryStr += '&yellow_ribbon_scholarship=true'
+        queryStr += '&yellow_ribbon_scholarship=true';
     }
 
     if (searchFilters.filter('#poe:checked').val()) {
-        queryStr += '&principles_of_excellence=true'
+        queryStr += '&principles_of_excellence=true';
     }
 
     if (searchFilters.filter('#eight-keys:checked').val()) {
-        queryStr += '&f8_keys_to_veteran_success=true'
+        queryStr += '&f8_keys_to_veteran_success=true';
     }
 
-    var typesToFilter = [];
-    searchFilters.filter('input[name="type"]:checked').each(function(index, typeInput) {
-        typesToFilter.push(typeInput.value);
-    });
-    if(typesToFilter.length > 0) {
-        queryStr += '&types=' + typesToFilter.join(',');
+    var typeVal = searchFilters.filter('#types').val();
+    if (typeVal && typeVal !== 'all') {
+        queryStr += '&types=' + typeVal;
     }
 
-    queryStr += '&page=1&num_results=9';
+    // queryStr += '&page=1&num_results=9';
 
     return baseUrl + queryStr.replace(/^\?&/, '?');
 }

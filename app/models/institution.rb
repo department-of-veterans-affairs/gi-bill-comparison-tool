@@ -1,60 +1,58 @@
 class Institution < ActiveRecord::Base
-  TRUTHY = %w(yes true t 1)
+  include Tristateable
+
   EMPLOYER = 'ojt'
+  LOCALE = {
+    11 => 'City', 12 => 'City', 13 => 'City', 
+    21 => 'Suburban', 22 => 'Suburban', 23 => 'Suburban',
+    31 => 'Town', 32 => 'Town', 33 => 'Town',
+    41 => 'Rural', 42 => 'Rural', 43 => 'Rural'
+  }
 
   belongs_to :institution_type, inverse_of: :institutions
 
-  # attr_reader :yr, :student_veteran, :poe, :eight_keys, :dodmou, 
-  #   :sec_702, :credit_for_mil_training, :vet_poc, :student_vet_grp_ipeds, 
-  #   :soc_member, :online_all, :accredited, :caution_flag
+  validates :facility_code, uniqueness: true, presence: true
+  validates :institution, presence: true
+  validates :country, presence: true
+  validates :institution_type_id, presence: true
 
   scope :with_type, -> { 
     select('institutions.*, institution_types.name').joins(:institution_type) 
-  }
-
-  # USE WITH CAUTION, NO USER INPUT!!!
-  scope :tri, ->(v) { 
-    where("LOWER(\"#{v.keys[0].to_s}\") = ?", v.values[0] ? "yes" : "no")
   }
 
   #############################################################################
   ## credit_for_mil_training
   #############################################################################
   def credit_for_mil_training
-    raw = read_attribute(:credit_for_mil_training).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:credit_for_mil_training)
   end
 
   #############################################################################
   ## vet_poc
   #############################################################################
   def vet_poc
-    raw = read_attribute(:vet_poc).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:vet_poc)
   end
 
   #############################################################################
   ## student_vet_grp_ipeds
   #############################################################################
   def student_vet_grp_ipeds
-    raw = read_attribute(:student_vet_grp_ipeds).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:student_vet_grp_ipeds)
   end
 
   #############################################################################
   ## soc_member
   #############################################################################
   def soc_member
-    raw = read_attribute(:soc_member).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:soc_member)
   end
 
   #############################################################################
   ## online_all
   #############################################################################
   def online_all
-    raw = read_attribute(:online_all).try(:downcase)
-    raw.present? ? raw == "yes" : nil  
+    tristate_boolean(:online_all)
   end
 
   #############################################################################
@@ -98,11 +96,11 @@ class Institution < ActiveRecord::Base
   end
 
   #############################################################################
-  ## to_bool
-  ## Converts boolean text values to boolean types
+  ## locale_name
+  ## Gets the locale name correpsonding to the locale
   #############################################################################
-  def self.to_bool(value)
-    TRUTHY.include?(value.try(:downcase))
+  def locale_name
+    LOCALE[locale] || "Locale Unknown"
   end
 
   #############################################################################
@@ -111,53 +109,36 @@ class Institution < ActiveRecord::Base
   ## schools starting with the search term.
   #############################################################################
   def self.autocomplete(search_term)
-    Institution.select('facility_code as value, institution as label')
-      .where("institution ~* ?", "^#{search_term}")
+    search_term = search_term.try(:strip).try(:downcase)
+
+    Institution.select("facility_code as value, institution as label")
+      .where("lower(institution) LIKE (?)", "#{search_term}%")
   end
 
   #############################################################################
   ## search
   ## Searchs for schools containing the search_term in their name or city. 
-  ## Also used when a facility_code is passed in. Results are returned as an
-  ## array of hashes, even when there is only one hit.
+  ## Also used when a facility_code is passed in. 
+  ##
+  ## Search for cities and institutions are based on LIKE %term% and will 
+  ## return every city and institution matching the wildcard %term%. Searching 
+  ## by facility code is exact match.
   ##
   ## NOTE: facility_code is used for uniqueness, therefore it is possible that
-  ## schools will appear to be duplicated since they have the same name but
+  ## schools might appear to be duplicated since they have the same name but
   ## different facility codes.
   #############################################################################
   def self.search(search_term)
-    # fac = Institution.with_type.where(facility_code: search_term).to_sql
-    # inst = Institution.with_type.where("institution ~* ?", "#{search_term}").to_sql
-    # city = Institution.with_type.where("city ~* ?", "#{search_term}").to_sql
-
-    fac = Institution.where(facility_code: search_term).to_sql
-    inst = Institution.where("institution ~* ?", "#{search_term}").to_sql
-    city = Institution.where("city ~* ?", "#{search_term}").to_sql
-
-    if search_term.present?
-      schools = ActiveRecord::Base.connection.execute("#{fac} UNION #{inst} UNION #{city} ORDER BY institution")
+    if search_term.empty?
+      @rset = Institution.with_type
     else
-      schools = ActiveRecord::Base.connection.execute(Institution.with_type.to_sql)
+      search_term = search_term.to_s.downcase
+
+      clause = ["facility_code = (?) OR lower(institution) LIKE (?) OR lower(city) LIKE (?)"]
+      terms = [search_term, "%#{search_term}%", "%#{search_term}%"]
+
+      @rset = Institution.with_type.where(clause + terms)
     end
-
-    # schools = schools.map do |school| 
-    #   school.inject({}) { |m,r| m[r[0].to_sym] = r[1]; m }
-    # end.uniq { |school| school[:facility_code] }
-
-    types = InstitutionType.all.inject({}) do |m,r| 
-      m[r.id] = r.name; m
-    end
-
-    schools = schools.map do |school| 
-      # Need to use read accessors to get true/false/nil or value/nil
-      s = Institution.new(school).as_json
-      s.inject({}) do |m,r| 
-        m[r[0].to_sym] = r[1]; 
-        m[:name] = types[m[:institution_type_id]]
-        
-        m
-      end
-    end.uniq { |school| school[:facility_code] }
   end
 
   #############################################################################
