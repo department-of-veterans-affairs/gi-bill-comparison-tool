@@ -135,7 +135,7 @@ class Kilter
 	#############################################################################
 	def track(col)
 		raise ArgumentError if (col.nil? || col.empty?)
-		return unless @columns.include?(col)
+		return self unless @columns.include?(col)
 
 		tracked[col] = Hash.new(0) unless tracked.keys.include?(col)
 
@@ -151,7 +151,7 @@ class Kilter
 	def count(col = nil)
 		count_operation = col.nil? || col.empty?
 
-		return unless (@tracked.keys.include?(col) || count_operation)
+		return self unless (@tracked.keys.include?(col) || count_operation)
 		return @tracked[col] unless count_operation
 
 		@filtered_rset.each do |r|
@@ -171,7 +171,7 @@ class Kilter
 	#############################################################################
 	def sort(col, dir = :asc)
 		raise ArgumentError if (col.nil? || col.empty?)
-		return unless @columns.include?(col)
+		return self unless @columns.include?(col)
 
 		@filtered_rset = @filtered_rset.order(col => dir)
 		
