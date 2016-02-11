@@ -219,11 +219,17 @@
     padding-right: 0;
     
     .search-text-values{
-    font-size: .75rem;
-    line-height: 0;
+    font-size: .65rem;
+    line-height: .75rem;
+    text-align: left;
+}
+    
+}
+.search-text-values{
+    font-size: 1.25rem;
+    line-height: 1.5rem;
 }
 
-}
 .estimate-qualifier{
     font-size: .65rem;
     color: #444;
