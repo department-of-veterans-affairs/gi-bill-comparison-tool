@@ -16,9 +16,6 @@ $va-alert-color: #741B30;
 
 // Search
 
-#search_form input[type="submit"] {
-    font-size: 14px;
-}
 
 .overlay {
   z-index: 10000;
@@ -216,8 +213,10 @@ ul li {
 .applinks{
     text-align: center;
     font-family: $font-sans;
-    font-size: 1.7rem;
-    margin: 3.4rem;
+    font-size: .85rem;
+    line-height: 4rem;
+    margin-right: 2.5rem;
+    margin-bottom: 2rem;
     @media(max-width: $small-screen) {
         font-size: 1.2rem;
         text-align: left;
@@ -327,7 +326,9 @@ ul li {
     }
     }
 }
-
+.filtermargin{
+    margin-top: 2rem;
+}
 .search-count{
     margin-left: 1rem;
 //    margin-bottom: 1.7rem;
@@ -361,13 +362,6 @@ label{
     padding: 15px 0 0 0;
 }
 
-
-//.box {
-//    color: #222;
-//    font-size: .9rem;
-//    margin-bottom: 0px;
-//    float: left;
-//}
 
 .multicolumn-text{
   column-count:2;
@@ -414,8 +408,4 @@ label{
 }
 #search-filters .usa-card-content{
     padding: 0  1rem 1rem 1rem;
-}
-
-#search-filters .filter{
-    
 }
