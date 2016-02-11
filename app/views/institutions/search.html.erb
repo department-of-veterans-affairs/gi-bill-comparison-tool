@@ -56,7 +56,7 @@
         %>
         <div class="pagination-bottom clearfix">
           <% prev_str = %Q(<i class="fa fa-angle-left"></i> Previous) %>
-          <% next_str = %Q(<i class="fa fa-angle-right"></i>Next ) %>
+          <% next_str = %Q(Next <i class="fa fa-angle-right"></i>) %>
           <%= @kilter.pagination_links(search_page_path, @inputs, prev_str, next_str).html_safe %>
         </div>
       </div>
