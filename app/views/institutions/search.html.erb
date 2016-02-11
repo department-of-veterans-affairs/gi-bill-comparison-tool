@@ -1,93 +1,92 @@
 <% content_for :title, "Search Results - \"#{@inputs[:institution_search]}\" - GI Bill Comparison Tool" %>
 
-<% if @results.try(:length) > 0 %>
-
-<div id="content" class="interior">
-  <a href="#content" class="sr-only">Content starts here.</a>
-  <div class="splash">
-    <div class="row">
-      <div class="small-12 columns">
-        <ul class="breadcrumbs" role="menubar" aria-label="Primary">
-          <li class="parent"><a href="<%= root_path %>">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool</a></li>
-          <li class="active">Search
-          </h1></li>
-        </ul>
+<% if @kilter.count_all > 0 %>
+  <div id="content" class="interior">
+    <a href="#content" class="sr-only">Content starts here.</a>
+    <div class="splash">
+      <div class="row">
+        <div class="small-12 columns">
+          <ul class="breadcrumbs" role="menubar" aria-label="Primary">
+            <li class="parent"><a href="https://www.vets.gov/education/">Education Benefits</a></li>
+            <li class="parent"><a href="https://www.vets.gov/education/gi-bill/">GI Bill</a></li>
+            <li class="parent"><a href="<%= root_path %>">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool</a></li>
+            <li class="active">Search</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </div><!-- end splash -->
 
-
-  <div class="action-bar">
-    <div class="row">
-      <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">
+    <div class="action-bar">
+      <div class="row">
+        <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">
           <%= render partial: 'yourself', locals: {use_label: false} %>
-          </div>
+        </div>
         <div class="medium-2 columns">
           <a href="<%= root_path %>" class="button filter-button">Reset Search</a>
-        </div>
-      
-    </div>
-  </div><!--end action bar-->
-
-<div class="section one">
-<div class="row">
-    <div class="small-12 medium-3 columns">
-<ul class="accordion" data-accordion>
-  <li class="accordion-navigation search-filters-header">
-    <a id="open-or-close-filters-accordion" href="#panel-filters">Filter Results</a>
-    <div id="panel-filters" class="content">           
-
-          <div id="search-filters">
-            <div class="usa-card-content">      
-              <%= render partial: 'filter' %>
-            </div>
-          </div>   
-
-        </li>
-</ul>
-</div>
-  
-      <div class="small-12 medium-9 columns">
-        <div class="search-count">Showing 
-          <strong><%= @total_filtered_results %></strong> 
-          results for the term <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
-        </div>
-        <%= render partial: 'school_summary', collection: @results %>
-                <div class="pagination-bottom clearfix">
-        <% if @total_pages > 1 %>
-          <% if @page != 1 %>
-            <a href="<%= @page_urls[@page-1] %>"><i class="fa fa-angle-left"></i>&nbsp;Previous&nbsp;</a>
-          <% end %>
-
-          <% if @start_page > 1 %>
-            <a href="<%= @page_urls[:first] %>">1..</a>
-          <% end %>
-
-          <% @page_range.each do |page_num| %>
-            <% if page_num != @page %>
-              <a href="<%= @page_urls[page_num] %>"><%= page_num %></a>
-            <% else %>
-          <span class="pagination-current-page"><%= page_num %></span>
-            <% end %>
-          <% end %>
-
-          <% if @end_page < @total_pages %>
-            <a href="<%= @page_urls[:last] %>">...&nbsp;<%= @total_pages %></a>
-          <% end %>
-
-          <% if @page != @total_pages %>
-            <a href="<%= @page_urls[@page+1] %>">&nbsp;Next&nbsp;<i class="fa fa-angle-right"></i></a>
-          <% end %>
-        <% else %>
-          <br/>
-        <% end %>
+        </div>   
       </div>
-      </div>    
-</div><!--end RESULTS row-->
+    </div><!--end action bar-->
+         
+    <div class="section one">
+      <div class="row"><!-- results start -->
+        <div class="small-12 medium-3 columns">
+          <ul class="accordion filtermargin" data-accordion>
+            <li class="accordion-navigation search-filters-header">
+              <a id="open-or-close-filters-accordion" href="#panel-filters">Filter Results</a>
+              <div id="panel-filters" class="content">           
+                <div id="search-filters">
+                  <div class="usa-card-content">      
+                    <%= render partial: 'filter' %>
+                  </div>
+                </div>   
+              </div>
+            </li>
+          </ul>
+        </div>
       
+        <div class="small-12 medium-9 columns">
+          <div class="search-count">Showing 
+            <strong><%= @kilter.count_filtered %></strong> results for the term 
+            <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
+          </div>
+        
+          <%= render partial: 'school_summary', 
+            collection: @kilter.paged_filtered_rset,
+            locals: { url: @kilter.to_href(profile_path, @inputs, page: @page) }
+          %>
+        </div>
+      </div><!--end Results row-->
 
-</div><!--end Section One--> 
+      <div class="row"><!-- pagination start -->
+        <div class="small-9 small-offset-3 column">
+          <div class="search-count-headline pagination-bottom clearfix">
+            <% prev_str = %Q(<i class="fa fa-angle-left"></i> Previous) %>
+            <% next_str = %Q(Next <i class="fa fa-angle-right"></i>) %>
+            <%= @kilter.pagination_links(search_page_path, @inputs, prev_str, next_str, "cur-page").html_safe %>
+          </div>
+        </div>
+      </div><!-- End Pagination row -->
 
+
+      <div class="row"><!-- Utility Nav start -->
+        <div class="small-12 columns">
+          <a class="applinks" href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp"
+              onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Tool
+          </a>
+          <a class="applinks" href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#feedback" 
+              onclick="track('Tool Tips', 'Feedback');" target="_blank" 
+              title="Send us an email at 223D.VBAVACO@va.gov with “Comparison Tool” in the subject line.">Feedback
+          </a>
+          <a class="applinks" href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#accessibility" 
+              onclick="track('Tool Tips', 'Accessibility');" target="_blank" 
+              title="The Comparison Tool is accessible to users utilizing assisted technologies, such as screen readers, screen magnifiers and voice recognition.">Accessibility
+          </a>
+          <a href="http://www.benefits.va.gov/GIBILL/docs/job_aids/ComparisonToolData.xlsx" 
+              onclick="track('Tool Tips', 'Full Data');" class="applinks">Download Data on All Schools (Excel)
+          </a>
+        </div>
+      </div><!-- Utility Nav end --> 
+    </div><!--end Section One-->
 <% else %>
   <div class="search-count"> 
     There were no results that matched 
@@ -96,8 +95,7 @@
   </div>
 <% end %>
 
-  <!-- Other JS plugins can be included here -->
-
-  <script>
-    $(document).foundation();
-  </script>
+<!-- Other JS plugins can be included here -->
+<script>
+  $(document).foundation();
+</script>

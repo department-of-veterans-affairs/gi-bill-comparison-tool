@@ -1,17 +1,13 @@
 module InstitutionsHelper
-  LOCALE = {
-    11 => 'City', 12 => 'City', 13 => 'City', 
-    21 => 'Suburban', 22 => 'Suburban', 23 => 'Suburban',
-    31 => 'Town', 32 => 'Town', 33 => 'Town',
-    41 => 'Rural', 42 => 'Rural', 43 => 'Rural'
-  }
+  def compare_downcase(v1, v2)
+    v1 = v1.try(:downcase)
+    v2 = v2.try(:downcase)
+
+    return v1 == v2
+  end
 
   def to_caps(string)
     string.blank? ? '' : string.split(' ').map{|w| w.capitalize}.join(' ')
-  end
-
-  def to_bool(val)
-    %w(yes true t 1).include?(val.to_s)
   end
 
   def is_number?(v)
@@ -39,11 +35,6 @@ module InstitutionsHelper
     else
       v
     end
-  end
-
-  def to_locale(key)
-    l = InstitutionsHelper::LOCALE[key]
-    l || 'Locale Unknown'
   end
 
   def to_school_size(size)
