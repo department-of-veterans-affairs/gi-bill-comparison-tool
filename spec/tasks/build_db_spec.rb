@@ -1,69 +1,72 @@
-require 'spec_helper'
 require 'rspec/expectations'
 
 RSpec.describe 'load_csv' do
-#   def get_column_type(type)
-#     LoadCsvHelper.get_columns.select do |name| 
-#       Institution.columns_hash[name].type == type 
-#     end
-#   end
+  def get_column_type(type)
+    LoadCsvHelper.get_columns.select do |name| 
+      Institution.columns_hash[name].type == type 
+    end
+  end
 
-#   before(:all) do 
-#     GiBillComparisonToolNew::Application.load_tasks 
+  before(:all) do 
+    GiBillComparisonToolNew::Application.load_tasks 
     
-#     @csv_rows = CSV.read('rake_test_data.csv', headers: true, 
-#         encoding: "iso-8859-1:utf-8", header_converters: :symbol).map { |row| row.to_hash }
+    @csv_rows = CSV.read('rake_test_data.csv', headers: true, 
+        encoding: "iso-8859-1:utf-8", header_converters: :symbol).map { |row| row.to_hash }
 
-#     silence_stream(STDOUT) do
-#       Rake::Task['load_csv'].invoke('rake_test_data.csv')
-#     end
-#   end
+    silence_stream(STDOUT) do
+      Rake::Task['load_csv'].invoke('rake_test_data.csv')
+    end
+  end
 
-#   context 'transcription from Csv to DB' do
-#     let(:all_yesses) { 0 }
-#     let(:all_nos) { 1 }
-#     let(:all_nils) { 2 }
+  describe 'transcribing Csv to DB' do
+    it 'both have the same row count' do 
+      expect(@csv_rows.length).to eql(Institution.count)
+    end
+  end
 
-#     it 'both have the same row count' do 
-#       expect(@csv_rows.length).to eql(Institution.count)
-#     end
+  describe 'processing booleans' do
+  	let(:all_yesses) { 0 }
+  	let(:all_nos) { 1 }
+  	let(:all_nils) { 2 }
 
-#     describe 'booleans' do
-#       before(:all) do @bools = get_column_type(:boolean) end
+    before(:all) do @bools = get_column_type(:boolean) end
 
-#       it "are true when csv is 'Yes' or 'True'" do
-#         row = Institution.find_by(facility_code: @csv_rows[all_yesses][:facility_code])
-#         @bools.each { |bool| expect(row[bool]).to be_truthy }
-#       end
+    it "sets fields to true when csv is 'Yes' or 'True'" do
+      row = Institution.find_by(facility_code: @csv_rows[all_yesses][:facility_code])
+      @bools.each { |bool| expect(row[bool]).to be_truthy }
+    end
 
-#       it "are false when csv neither 'Yes' nor 'True'" do
-#         row = Institution.find_by(facility_code: @csv_rows[all_nos][:facility_code])
-#         @bools.each { |bool| expect(row[bool]).to be_falsy }
-#       end
+    it "sets fields to false when csv neither 'Yes' nor 'True'" do
+      row = Institution.find_by(facility_code: @csv_rows[all_nos][:facility_code])
+      @bools.each { |bool| expect(row[bool]).to be_falsy }
+    end
 
-#       it "are false when csv is nil" do
-#         row = Institution.find_by(facility_code: @csv_rows[all_nils][:facility_code])
-#         @bools.each { |bool| expect(row[bool]).to be_falsy }
-#       end
-#     end
+    it "are false when csv is nil" do
+      row = Institution.find_by(facility_code: @csv_rows[all_nils][:facility_code])
+      @bools.each { |bool| expect(row[bool]).to be_falsy }
+    end
+  end
 
-#     describe 'floats' do
-#       before(:all) do @floats = get_column_type(:float) end
+  describe 'floats' do
+    before(:all) do @floats = get_column_type(:float) end
 
-#       let(:all_valid_floats) { 3 }
-#       let(:no_valid_floats) { 4 }
-#       let(:valid_float_value) { 1234.5 }
+    let(:all_valid_floats) { 3 }
+    let(:no_valid_floats) { 4 }
+    let(:valid_float_value) { 1234.5 }
 
-#       it "valid strings are floats" do
-#         row = Institution.find_by(facility_code: @csv_rows[all_valid_floats][:facility_code])
-#         @floats.each { |float| expect(row[float]).to eq(valid_float_value) }
-#       end
+    it "valid strings are floats" do
+      row = Institution.find_by(facility_code: @csv_rows[all_valid_floats][:facility_code])
+      @floats.each { |float| puts "@@@@@@@@@@@@ #{float}"; expect(row[float]).to eq(valid_float_value) }
+      end
 
-#       it "invalid strings are 0" do
-#         row = Institution.find_by(facility_code: @csv_rows[no_valid_floats][:facility_code])
-#         @floats.each { |float| expect(row[float]).to be_zero }
-#       end
-#     end
+    it "invalid strings are 0" do
+      #row = Institution.find_by(facility_code: @csv_rows[no_valid_floats][:facility_code])
+      #@floats.each { |float| expect(row[float]).to be_zero }
+    end
+  end
+end
+
+
 
 #     describe 'Integers' do
 #       before(:all) do @ints = get_column_type(:integer) end
@@ -113,4 +116,3 @@ RSpec.describe 'load_csv' do
 #       expect(types).to match_array(InstitutionType.pluck(:name))
 #     end
 #   end
-end
