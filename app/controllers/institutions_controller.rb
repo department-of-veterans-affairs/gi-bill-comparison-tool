@@ -1,6 +1,4 @@
 class InstitutionsController < ApplicationController
-  NUM_PAGE_LINKS = 10
-
   def home
     @url = Rails.env.production? ? request.host : 'http://localhost:3000'
     @inputs = {
