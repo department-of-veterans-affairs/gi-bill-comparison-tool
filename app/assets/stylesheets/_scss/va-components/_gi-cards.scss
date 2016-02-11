@@ -36,7 +36,7 @@
     border-style: solid;
     border-width: .50rem;
     border-color: white;
-    min-height: 28rem;
+    min-height: 29rem;
     max-width: 350px;
   float: left;
 
@@ -179,13 +179,16 @@
 }
 .search-insitution-name{
     margin-top: 2rem;
-    min-height: 7.5rem;
+    min-height: 150px;
     a{
         font-family: $roboto-slab;
         color: $va-primary-color;
         font-weight: 800;
         font-size: 1rem;
-        line-height: .5rem;
+        line-height: 0;
+    }
+    h6{
+      line-height: 1.25rem;  
     }
 }
 .search-locality{
