@@ -1,310 +1,106 @@
 <div id="profile-summary" class=" print-width">
   <div class="row mobile-padding">
-      <div class="small-12 columns nopadding">
-      			<% if @school.caution_flag %>
-				<div class="caution-profile">
-					<%
-						caution = '<i id="caution-jump-flag-con" class="fa fa-exclamation-triangle"></i>&nbsp'.html_safe
-						caution += "Caution Flag (see details)"
-					%>
-					<a id="jump-to-complaints" class="noback" href="#caution_jump_flag"><%= caution %></a>
-        </div>
-			<% end %>
-      </div>
-      <div class="small-12 columns">
-          			<h4 class="profile-head"><%= @school.institution %></h4>
-      </div>
+    <%= render partial: 'institutions/profile_components/caution_flags' %>
+    <%= render partial: 'institutions/profile_components/school_header' %>
+  </div><!--End Row-->
+
+  <div class="row">   
+    <%= render partial: 'institutions/profile_components/estimator' %>
+  </div>
+
+  <div class="row">
+    <%= render partial: 'institutions/profile_components/veteran_summary' %>
+  </div>
+
+  <!-- GI Bill Students -->
+  <div id="vetgroups" class="modal-style clearfix" 
+    style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;"
+  >
+    <div>
+      <h3>Student Veterans Group</h3>
     
-	<div class="medium-7 columns">
-		<div id="<%= @school.facility_code %>"
-			class="profile_overview"
-			data-type="<%= @school.institution_type.name %>"
-			data-country="<%= @school.country %>"
-			data-bah="<%= @school.bah.present? ? @school.bah : 0 %>">
-
-			<% if @school.in_usa? %>
-				<p><%= @school.city %>, <%= @school.state %></p>
-			<% else %>
-				<p><%= @school.city %>, <%= @school.country %></p>
-			<% end %>
-		</div>
-
-		<!-- Holds student attendance and link -->
-        
-        	       <p>
-	      	<span class="gi-bill-student-count"><%= @school.gibill %>&nbsp;</span><a id="gi-bill-students-info" rel="leanModal" name="status" href="#gibillstudents"><span class="programs-text">GI Bill Students</span></a>
-              </p>
-<!--
-		<p>Total Enrollment:</br>
-			<%= format_number_or_null(@school.undergrad_enrollment, "Undergraduate Students") %>
-		</p>
--->
-
-		<% if @school.insturl.present? %>
-			<p><a href="http://<%= @school.insturl.downcase %>"target="_blank">
-				<%= @school.insturl.downcase %>
-			</a></p>
-		<% end %>
-    	</div>
-
-		<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
-
-		<div class="medium-5 columns border-left profile-details">
-            <table class="borderless">
-                    <tr class="profile-institute-descriptors">
-            
-            <% if !@school.ojt? %>
-				<% 
-					hdo = @school.highest_degree 
-					qual = hdo == 2 || hdo == 4 ? "<span>Year</span>".html_safe : ""
-				%>
-
-                      <td class="profile-institute-qualifier">
-                        <i class="fa fa-calendar fa-profile-descriptors"></i>&nbsp;Program:&nbsp;</td>
-                      <td class="profile-institute-value"><%= hdo %> <%= qual %>
-                              <% end %></td>
-                    </tr> 
-
-                    <tr class="profile-institute-descriptors"><!--HAS DATA. ADD OTHERS LIKE THIS ONE -->
-                     <td class="profile-institute-qualifier"><i class="fa fa-university fa-profile-descriptors"></i>&nbsp;Type:&nbsp;
-                         <td class="profile-institute-value"><%= @school.institution_type.display %></span></td>
-                    </tr>
-
-                  <tr class="profile-institute-descriptors">
-                     <td class="profile-institute-qualifier"><i class="fa fa-map fa-profile-descriptors"></i>&nbsp;Locale:</td>
-                      <td class="profile-institute-value"><%= @school.locale_name %></td>
-                    </tr>
-
-                    <tr class="profile-institute-descriptors">
-                    <td class="profile-institute-qualifier"><i class="fa fa-users fa-profile-descriptors"></i>&nbsp;Size:</td>
-                    <td class="profile-institute-value"><%= to_school_size(@school.undergrad_enrollment) %></td>
-                </tr>
-            
-</table>
-</div>
-
-	<% if !@school.ojt? %>
-
-</div><!--End Row-->
-
-<!--Benefits Estimator (moved from _profile_overview.html/erb | -RL)-->    
-<div class="row">   
-    <div id="benefits" class="large-12 columns accordion-vert-spacing">
-            <ul class="accordion" data-accordion>
-                <li class="accordion-navigation blueback-header">
-                    <h5>Your Estimated Benefits</h5>
-
-        <div class="medium-4 columns">
-          <div class="text-center benefits-cards">	
-                <h4>Tuition and Fees</h4>
-              <div class="icon benefits-estimator-icon-box"><i class="fa fa-graduation-cap fa-profile-benefits"></i></div>
-                <p id="est-tuition-fees" class="profile-benefits-values"></p>
-            </div>
-        </div>
-
-        <div class="medium-4 columns">
-          <div class="text-center benefits-cards">	
-                <h4>Housing Allowance</h4>
-              <div class="icon benefits-estimator-icon-box"><i class="fa fa-home fa-profile-benefits"></i></div>
-                <p id="est-housing-allowance" class="profile-benefits-values"></p>
-            </div>
-        </div>
-
-        <div class="medium-4 columns">
-          <div class="text-center benefits-cards">	
-                <h4>Book Stipend</h4>
-              <div class="icon benefits-estimator-icon-box"><i class="fa fa-book fa-profile-benefits"></i></div>
-                <p id="est-book-stipend" class="profile-benefits-values"></p>
-            </div>
-        </div>
-
-
-                </li>
-        </ul>
+      <a class="modal_close" href=""><i class="fa fa-close"></i></a> 
+      <p>Does this college/university have a student led student veterans group on campus?</p>
+      <p>If a school has a student veterans group that is not represented on the comparison tool, please let us know by emailing us at&nbsp;<a title="224A.VBAVACO@va.gov" href="mailto:224A.VBAVACO@va.gov?subject=Comparison Tool" id="anch_436">224A.VBAVACO@va.gov</a>. Based on your feedback, we will be making quarterly updates to the GI Bill Comparison Tool.</p>
+      <p>Please note this email address is only for website related issues, all questions regarding GI Bill benefits should be directed to the “<a href="https://gibill.custhelp.com/app/utils/login_form/redirect/ask" target="_blank">Ask a Question</a>” section of our website.</p>
     </div>
-</div>
-<!-- END Benefits Estimator -->
+  </div><!-- END GI Bill Students -->
 
-<!-- Veteran Summary -->
+  <!-- Student Vet Groups -->
+  <div id="gibillstudents" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;"
+  >
+    <div>
+      <h3>GI Bill Beneficiaries</h3>
+    
+      <a class="modal_close" href=""><i class="fa fa-close"></i></a>  
+      <p>The number of Veterans, Servicemembers and family members utilizing their GI Bill benefits attending this institution the previous calendar year. This number includes all the different chapters of the GI Bill (e.g., <a title="Post-9/11" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_423" target="_blank">Post-9/11</a>, <a title="Montgomery GI Bill: MGIB" href="http://www.benefits.va.gov/gibill/montgomery_bill.asp" id="anch_424" target="_blank">Montgomery GI Bill: MGIB</a>, <a title="Reserve Education Assistance Program-REAP" href="http://www.benefits.va.gov/gibill/reap.asp" id="anch_425" target="_blank">Reserve Education Assistance Program-REAP</a>, and <a href="http://www.benefits.va.gov/vocrehab/index.asp" id="anch_426" target="_blank">Vocational Rehabilitation</a>). Please keep in mind that we include this number for informational purposes only and that high or low numbers of VA beneficiaries attending a particular school is not an indication one school is more military friendly than another. This information will be updated annually.</p>
+    </div>
+  </div><!-- END Student Vet Groups -->
 
-      <div class="row">
-		<div class="large-12 columns accordion-vert-spacing">
-            <ul class="accordion" data-accordion>
-                <li class="accordion-navigation">
-                    <a href="#panel1a" aria-expanded="true">Veteran Summary</a>
-                    <div id="panel1a" class="content active">
-                         <div class="va-summary-card multicolumn-text">
+  <!-- Yellow Ribbon Scholarships -->
+  <div id="yribbon" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;"
+  >
+    <div>
+      <h3>Yellow Ribbon</h3>
+    
+      <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+      <p>The <a title="Post-9/11 GI Bill" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_420" target="_blank">Post-9/11 GI Bill</a> can cover all in-state tuition and fees at public degree granting schools, but may not cover all private degree granting schools and out-of-state tuition. The Yellow Ribbon Program provides additional support in those situations. Institutions voluntarily enter into an agreement with VA to fund uncovered charges. VA matches each dollar of unmet charges the institution agrees to contribute, up to the total cost of the tuition and fees. <a title="Click here for FAQs about the Yellow Ribbon Program" href="http://www.benefits.va.gov/gibill/docs/factsheets/2012_Yellow_Ribbon_Student_FAQs.pdf" id="anch_421" target="_blank">Click here for FAQs about the Yellow Ribbon Program</a></p>
+      <p>Only Veterans entitled to the maximum benefit rate (based on service requirements) or their designated transferees may receive this funding. Active duty Servicemembers and their spouses are not eligible for this program (child transferees of active duty Servicemembers may be eligible if the servicemember is qualified at the 100% rate). This information will be updated quarterly.&nbsp;</p>
+    </div>
+  </div><!-- END Yellow Ribbon Scholarships -->
 
-	   
-				<ul>
-					<% 
-						feature = @school.student_veteran
-						link = @school.student_veteran_link
-						v_str = '<span class="programs-' + (feature ? "yes\">\u2714" : "no\">\u2716") + '</span>' 
-						l_str = feature && link.present? ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> Go To Site >></a>" : ""
-					%>
-	        <li>
-	        	<%= v_str.html_safe %> 
-	        	<a id="student-veteran-group-info-link" rel="leanModal" name="status" href="#vetgroups"><span class="programs-text">Student Veteran Group</span></a>
-	        	<%= l_str.html_safe %>
-	        </li>
-	           
-	        <% 
-						feature = @school.yr
-						link = "http://www.benefits.va.gov/gibill/yellow_ribbon/2015/states/#{@school.state}.asp"
-	        	v_str = '<span class="programs-' + (feature ? "yes\">\u2714" : "no\">\u2716") + '</span>' 
+  <!-- Principles of Excellence -->
+  <div id="poe" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;"
+  >
+    <div>
+      <h3>Principles of Excellence</h3>
+    
+      <a class="modal_close" href=""><i class="fa fa-close"></i></a>  
+      <p>The <a title="Principles of Excellence" href="http://www.gpo.gov/fdsys/pkg/FR-2012-05-02/pdf/2012-10715.pdf" id="anch_418" target="_blank">Principles of Excellence</a> are guidelines for educational institutions receiving Federal funding. Schools that agree to participate will:</p>
+      <ul class="modal-bullets">
+        <li>Provide students with a personalized form covering the total cost of an education program.</li>
+        <li>Provide educational plans for all Military and Veteran education beneficiaries.</li>
+        <li>End fraudulent and aggressive recruiting techniques and misrepresentation.</li>
+        <li>Provide accommodations for Service Members and Reservists absent due to service requirements.</li>
+        <li>Designate a Point of Contact for academic and financial advising.</li>
+        <li>Ensure accreditation of all new programs prior to enrolling students.</li>
+        <li>Align institutional refund policies with those under Title IV.</li>
+      </ul>
+      <p>Foreign schools, high schools, on-the-job training and apprenticeship programs, residency and internship programs, and those who do not charge tuition and fees were not asked to comply with the Principles of Excellence.</p>
+      <p>While every effort has been made to ensure the accuracy of the information, prospective students should only use this as a planning tool. The Principles of Excellence schools will be updated quarterly.&nbsp;</p>
+    </div>
+  </div><!-- END Principles of Excellence -->
 
-						l_str = feature ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> <span class=\"see-yr-rates-summary\"> See YR Rates</span></a>" : ""
+  <!-- Military Tuition Assistance (TA) -->
+  <div id="ta" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;"
+  >
+    <div>
+      <h3>GI Bill® Comparison Tool: About This Tool</h3>
+  
+      <a class="modal_close" href=""><i class="fa fa-close"></i></a>  
+      <p>VA is making it easier to research colleges and employers approved for the GI Bill. Answer just a few questions about yourself and the school/employer you are considering. You’ll receive an estimate of your GI Bill benefits and some information about the facility’s value and affordability.</p>
+    </div>
+  </div><!-- END Military Tuition Assistance (TA) -->
 
-	        %>
-	        <li>
-	        	<%= v_str.html_safe %>
-	        	<a id="yellow-ribbon-info-link" rel="leanModal" name="status" href="#yribbon"><span class="programs-text">Yellow Ribbon</span></a>
-	        	<%= l_str.html_safe %>
-	        </li>
-	                
-	        <% v_str = '<span class="programs-' + (@school.poe ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
-	        <li>
-	        	<%= v_str.html_safe %><a id="go" rel="leanModal" name="status" href="#poe"> <span class="programs-text">Principles of Excellence</span></a>
-	        </li>
-	                
-	        <% v_str = '<span class="programs-' + (@school.dodmou ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
-	        <li>
-	        	<%= v_str.html_safe %> <a id="military-tuition-assistance-info-link" rel="leanModal" name="status" href="#ta"><span class="programs-text">Military Tuition Assistance (TA)</span></a>
-	        </li>
-
-	        <% 
-	        	feature = @school.vetsuccess_name
-	        	link = feature.present? && @school.vetsuccess_email.present? ? "mailto:#{@school.vetsuccess_email}" : ""
-	        	v_str = '<span class="programs-' + (feature.present? ? "yes\">\u2714" : "no\">\u2716") + '</span>' 
-						l_str = feature && link.present? ? "<a target=\"blank\" href=\"#{link}\" class=\"programs-text\"> Email #{feature} >></a>" : ""
-	        %>
-	        <li>
-	        	<%= v_str.html_safe %> 
-	        	<a id="go" rel="leanModal" name="status" href="#"><span class="programs-text">VetSuccess on Campus</span></a>
-	        	<%= l_str.html_safe %>
-	        </li>
-
-	        <% v_str = '<span class="programs-' + (@school.eight_keys ? "yes\">\u2714" : "no\">\u2716") + '</span>' %>
-	        <li>
-	        	<%= v_str.html_safe %> <a id="8-keys-info-link" rel="leanModal" name="status" href="#8keys"><span class="programs-text">8 Keys to Veteran Success</span></a>
-	        </li>        
-				</ul>
-		  </div>
-                    </div>
-                  </li>
-		 
-        </ul>
-		</div>
-	<% end %>
+  <!-- 8 Keys -->
+  <div id="8keys" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;"
+  >
+    <div>
+      <h3>8 Keys to Veterans' Success Sites</h3>
+    
+      <a class="modal_close" href=""><i class="fa fa-close"></i></a>  
+      <p>The "8 Keys to Veterans' Success" are steps that postsecondary institutions can take to assist Veterans and Service members in transitioning to higher education, completing their college programs, and obtaining career-ready skills.</p>
+      <p>Postsecondary institutions listed on this site have voluntarily affirmed their support for the 8 Keys. However, a listing here is not a representation or assurance by the U.S. Department of Education that an institution has implemented the 8 Keys or how well it has implemented them, and it does not constitute an endorsement by the U.S. Department of Education of these institutions or their policies or programs.</p>
+      <p> To learn more about accreditaion, visit the U.S. Department of Education's <a href="http://www.ed.gov/veterans-and-military-families/8-keys-success-sites" target="_blank"> 8 Keys to Veterans' Success</a> page. </p>
+    </div>
+  </div><!-- END 8 keys -->
 </div>
 
-<!-- END Veteran Summary -->
-
-</div>
-
-<!-- GI Bill Students -->
-<div id="vetgroups" class="modal-style clearfix" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-    <div>
-    <h3>Student Veterans Group</h3>
-    
-    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
-        
-        <p>Does this college/university have a student led student veterans group on campus?</p>
-        <p>If a school has a student veterans group that is not represented on the comparison tool, please let us know by emailing us at&nbsp;<a title="224A.VBAVACO@va.gov" href="mailto:224A.VBAVACO@va.gov?subject=Comparison Tool" id="anch_436">224A.VBAVACO@va.gov</a>. Based on your feedback, we will be making quarterly updates to the GI Bill Comparison Tool.</p>
-        <p>Please note this email address is only for website related issues, all questions regarding GI Bill benefits should be directed to the “<a href="https://gibill.custhelp.com/app/utils/login_form/redirect/ask" target="_blank">Ask a Question</a>” section of our website.</p>
-        
-
-</div></div>  
-
-<!-- END GI Bill Students -->
-
-<!-- Student Vet Groups -->
-<div id="gibillstudents" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-    <div>
-    <h3>GI Bill Beneficiaries</h3>
-    
-    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
-        
-        <p>The number of Veterans, Servicemembers and family members utilizing their GI Bill benefits attending this institution the previous calendar year. This number includes all the different chapters of the GI Bill (e.g., <a title="Post-9/11" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_423" target="_blank">Post-9/11</a>, <a title="Montgomery GI Bill: MGIB" href="http://www.benefits.va.gov/gibill/montgomery_bill.asp" id="anch_424" target="_blank">Montgomery GI Bill: MGIB</a>, <a title="Reserve Education Assistance Program-REAP" href="http://www.benefits.va.gov/gibill/reap.asp" id="anch_425" target="_blank">Reserve Education Assistance Program-REAP</a>, and <a href="http://www.benefits.va.gov/vocrehab/index.asp" id="anch_426" target="_blank">Vocational Rehabilitation</a>). Please keep in mind that we include this number for informational purposes only and that high or low numbers of VA beneficiaries attending a particular school is not an indication one school is more military friendly than another. This information will be updated annually.</p>
-        
-
-</div></div>  
-
-<!-- END Student Vet Groups -->
-
-<!-- Yellow Ribbon Scholarships -->
-<div id="yribbon" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-    <div>
-    <h3>Yellow Ribbon</h3>
-    
-    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
-        
-        <p>The <a title="Post-9/11 GI Bill" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_420" target="_blank">Post-9/11 GI Bill</a> can cover all in-state tuition and fees at public degree granting schools, but may not cover all private degree granting schools and out-of-state tuition. The Yellow Ribbon Program provides additional support in those situations. Institutions voluntarily enter into an agreement with VA to fund uncovered charges. VA matches each dollar of unmet charges the institution agrees to contribute, up to the total cost of the tuition and fees. <a title="Click here for FAQs about the Yellow Ribbon Program" href="http://www.benefits.va.gov/gibill/docs/factsheets/2012_Yellow_Ribbon_Student_FAQs.pdf" id="anch_421" target="_blank">Click here for FAQs about the Yellow Ribbon Program</a></p>
-        <p>Only Veterans entitled to the maximum benefit rate (based on service requirements) or their designated transferees may receive this funding. Active duty Servicemembers and their spouses are not eligible for this program (child transferees of active duty Servicemembers may be eligible if the servicemember is qualified at the 100% rate). This information will be updated quarterly.&nbsp;</p>
-
-</div></div>  
-
-<!-- END Yellow Ribbon Scholarships -->
-
-<!-- Principles of Excellence -->
-<div id="poe" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-    <div>
-    <h3>Principles of Excellence</h3>
-    
-    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
-        
-<p>The <a title="Principles of Excellence" href="http://www.gpo.gov/fdsys/pkg/FR-2012-05-02/pdf/2012-10715.pdf" id="anch_418" target="_blank">Principles of Excellence</a> are guidelines for educational institutions receiving Federal funding. Schools that agree to participate will:</p>
-        <ul class="modal-bullets">
-<li>Provide students with a personalized form covering the total cost of an education program.</li>
-<li>Provide educational plans for all Military and Veteran education beneficiaries.</li>
-<li>End fraudulent and aggressive recruiting techniques and misrepresentation.</li>
-<li>Provide accommodations for Service Members and Reservists absent due to service requirements.</li>
-<li>Designate a Point of Contact for academic and financial advising.</li>
-<li>Ensure accreditation of all new programs prior to enrolling students.</li>
-<li>Align institutional refund policies with those under Title IV.</li>
-</ul>
-        
-<p>Foreign schools, high schools, on-the-job training and apprenticeship programs, residency and internship programs, and those who do not charge tuition and fees were not asked to comply with the Principles of Excellence.</p>
-
-<p>While every effort has been made to ensure the accuracy of the information, prospective students should only use this as a planning tool. The Principles of Excellence schools will be updated quarterly.&nbsp;</p>
-
-</div></div>  
-
-<!-- END Principles of Excellence -->
-
-<!-- Military Tuition Assistance (TA) -->
-<div id="ta" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-    <div>
-    <h3>GI Bill® Comparison Tool: About This Tool</h3>
-    
-    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
-        
-        <p>VA is making it easier to research colleges and employers approved for the GI Bill. Answer just a few questions about yourself and the school/employer you are considering. You’ll receive an estimate of your GI Bill benefits and some information about the facility’s value and affordability.</p>
-
-</div></div>  
-
-<!-- END Military Tuition Assistance (TA) -->
-
-<!-- 8 Keys -->
-<div id="8keys" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-    <div>
-    <h3>8 Keys to Veterans' Success Sites</h3>
-    
-    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
-        
-        <p>The "8 Keys to Veterans' Success" are steps that postsecondary institutions can take to assist Veterans and Service members in transitioning to higher education, completing their college programs, and obtaining career-ready skills.</p>
-                <p>Postsecondary institutions listed on this site have voluntarily affirmed their support for the 8 Keys. However, a listing here is not a representation or assurance by the U.S. Department of Education that an institution has implemented the 8 Keys or how well it has implemented them, and it does not constitute an endorsement by the U.S. Department of Education of these institutions or their policies or programs.</p>
-        <p> To learn more about accreditaion, visit the U.S. Department of Education's <a href="http://www.ed.gov/veterans-and-military-families/8-keys-success-sites" target="_blank"> 8 Keys to Veterans' Success</a> page. </p>
-
-</div></div>  
-
-<!-- END 8 keys -->
-    
 <script>    
 // Makes the modals work!
 $("a[rel*=leanModal]").leanModal();
 </script>
+
 <script>
   $(document).foundation({
     accordion: {

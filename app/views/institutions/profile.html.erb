@@ -57,18 +57,24 @@
   content_for :title, "#{school_name} - GI Bill Comparison Tool" 
 %>
 
-
 <div id="content" class="interior"><!--Breadcrumb -->
   <a href="#content" class="sr-only">Content starts here.</a>
   <div class="splash">
     <div class="row">
       <div class="small-12 columns">
         <ul class="breadcrumbs" role="menubar" aria-label="Primary">
-            <li class="parent"><a href="https://www.vets.gov/education/">Education Benefits</a></li>
-            <li class="parent"><a href="https://www.vets.gov/education/gi-bill/">GI Bill</a></li>
-          <li class="parent"><a href="<%= root_path %>">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool</a></li>
-          <li class="active">Institution
-          </h1></li>
+          <li class="parent">
+            <a href="https://www.vets.gov/education/">Education Benefits</a>
+          </li>
+          <li class="parent">
+            <a href="https://www.vets.gov/education/gi-bill/">GI Bill</a>
+          </li>
+          <li class="parent">
+            <a href="<%= root_path %>">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool</a>
+          </li>
+          <li class="active">
+            Institution
+          </li>
         </ul>
       </div>
     </div>
@@ -77,45 +83,38 @@
   <div class="action-bar"><!--Horizontal Filters-->
     <div class="row">
       <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">
-          <%= render partial: 'yourself', locals: {use_label: false} %>
-          </div>
-        <div class="medium-2 columns">
-          <a href="<%= root_path %>" class="button filter-button">Reset Search</a>
-        </div>
-      
+        <%= render partial: 'yourself', locals: {use_label: false} %>
+      </div>
+      <div class="medium-2 columns">
+        <a href="<%= root_path %>" class="button filter-button">Reset Search</a>
+      </div>
     </div>
   </div><!--end action bar-->
 
-<div class="section one"><!--Content Container-->
-<div class="row onerempadleft">
-<% if @inputs[:source] != "home" %>
-  <div id="backtosearch-noprint">
-    <a id="back-link" href="<%= @back_url %>" class="backlink">
-      <i class="fa fa-chevron-left back-chevron"></i>Back to Search Results
-    </a>
-  </div>
-<% end %>
-</div>
-<div class="row">
-    <div class="large-8 columns"><!--Left Container-->
+  <div class="section one"><!--Content Container-->
+    <div class="row onerempadleft">
+      <% if @inputs[:source] != "home" %>
+        <div id="backtosearch-noprint">
+          <a id="back-link" href="<%= @back_url %>" class="backlink">
+            <i class="fa fa-chevron-left back-chevron"></i>
+            Back to Search Results
+          </a>
+        </div>
+      <% end %>
+    </div>
 
-<div class="row"><!--Left 9 Columns-->
-        <%= render partial: 'profile_overview' %>
-
-        
-
-</div>       
-
-        
-</div><!-- End Left 8 col span -->
+    <div class="row">
+      <div class="large-8 columns"><!--Left Container-->
+        <div class="row"><!--Left 9 Columns-->
+          <%= render partial: 'profile_overview' %>
+        </div>       
+      </div><!-- End Left 8 col span -->
     
-<!--Additional Resources-->
-    
-<div class="large-4 column">
-	
+      <div class="large-4 column"><!--Additional Resources-->
         <%= render partial: 'profile_additional_resources' %>
-</div>
-
+      </div>
+    </div>
+    
 <!--Benefits Calculator-->
 <div class="row">  
 <div class="small-12 columns accordion-vert-spacing">
