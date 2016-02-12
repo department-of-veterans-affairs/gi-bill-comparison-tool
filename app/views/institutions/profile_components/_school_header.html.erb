@@ -1,0 +1,89 @@
+<!-- Profile school header -->
+
+<!-- Name -->
+<div class="small-12 columns">
+  <h4 class="profile-head"><%= @school.institution %></h4>
+</div>
+ 
+<!-- Location and attendence -->
+<div class="medium-7 columns">
+
+	<!-- Address -->
+	<div id="<%= @school.facility_code %>" class="profile_overview"
+		data-type="<%= @school.institution_type.name %>"
+		data-country="<%= @school.country %>"
+		data-bah="<%= @school.bah.present? ? @school.bah : 0 %>">
+
+		<% if @school.in_usa? %>
+			<p><%= @school.city %>, <%= @school.state %></p>
+		<% else %>
+			<p><%= @school.city %>, <%= @school.country %></p>
+		<% end %>
+	</div>
+
+	<!-- Holds student attendance and link -->
+  <p>
+	  <span class="gi-bill-student-count"><%= @school.gibill %>&nbsp;</span>
+	  <a id="gi-bill-students-info" rel="leanModal" name="status" href="#gibillstudents">
+	  	<span class="programs-text">GI Bill Students</span>
+	  </a>
+  </p>
+
+	<% if @school.insturl.present? %>
+		<p>
+			<a href="http://<%= @school.insturl.downcase %>"target="_blank">
+				<%= @school.insturl.downcase %>
+			</a>
+		</p>
+	<% end %>
+ </div>
+
+<!-- School descriptors, eg 4 yr, type, ... Add meaningful icon -->
+<div class="medium-5 columns border-left profile-details">
+	<table class="borderless">
+    <tr class="profile-institute-descriptors">
+      <% if !@school.ojt? %>
+				<% 
+					hdo = @school.highest_degree 
+					qual = hdo == 2 || hdo == 4 ? "<span>Year</span>".html_safe : ""
+				%>
+
+        <td class="profile-institute-qualifier">
+        	<i class="fa fa-calendar fa-profile-descriptors"></i>
+        		&nbsp;Program:&nbsp;
+        </td>
+        
+        <td class="profile-institute-value">
+        	<%= hdo %> <%= qual %>
+        </td>
+      <% end %>
+    </tr> 
+		<tr class="profile-institute-descriptors">
+      <td class="profile-institute-qualifier">
+      	<i class="fa fa-university fa-profile-descriptors"></i>
+      	&nbsp;Type:&nbsp;
+      </td>
+      <td class="profile-institute-value">
+      	<%= @school.institution_type.display %>
+      </td>
+    </tr>
+		<tr class="profile-institute-descriptors">
+      <td class="profile-institute-qualifier">
+     		<i class="fa fa-map fa-profile-descriptors"></i>
+     		&nbsp;Locale:
+    	</td>
+      <td class="profile-institute-value">
+       	<%= @school.locale_name %>
+      </td>      
+    </tr>
+		<tr class="profile-institute-descriptors">
+			<td class="profile-institute-qualifier">
+				<i class="fa fa-users fa-profile-descriptors"></i>
+				&nbsp;Size:
+			</td>
+      <td class="profile-institute-value">
+      	<%= to_school_size(@school.undergrad_enrollment) %>
+      </td>
+    </tr>      
+	</table>
+</div>
