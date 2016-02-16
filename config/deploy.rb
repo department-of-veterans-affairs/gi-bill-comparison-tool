@@ -29,7 +29,7 @@ set :tmp_dir, '/home/ec2-user/tmp'
 set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/database.yml')
+# set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 
 
 # Default value for linked_dirs is []
