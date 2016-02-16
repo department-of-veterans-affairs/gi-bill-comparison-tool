@@ -1,0 +1,14 @@
+<!-- Profile Caution Flags -->
+<div class="small-12 columns nopadding">
+  <% if @school.caution_flag %>
+		<div class="caution-profile">
+			<%
+				caution = %Q(<i id="caution-jump-flag-con" class="fa fa-exclamation-triangle"></i>)
+				caution += %Q(&nbsp;Caution Flag (see details))
+			%>
+			<a id="jump-to-complaints" class="noback" href="#caution_jump_flag">
+				<%= caution.html_safe %>
+			</a>
+    </div>
+	<% end %>
+</div>
