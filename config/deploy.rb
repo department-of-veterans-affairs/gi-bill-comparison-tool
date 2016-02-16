@@ -2,7 +2,8 @@
 lock '3.4.0'
 
 set :application, 'GiBillComparisonToolNew'
-set :repo_url, 'git@github.com:department-of-veterans-affairs/gi-bill-comparison-tool-new.git'
+# set :repo_url, 'git@github.com:department-of-veterans-affairs/gi-bill-comparison-tool-new.git'
+set :repo_url, 'git@github.com:department-of-veterans-affairs/gi-bill-comparison-tool.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
