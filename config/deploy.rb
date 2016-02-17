@@ -55,7 +55,7 @@ task :mv_yml do
 end
 
 namespace :deploy do
-  before :updating, :mv_yml
+  after :started, :mv_yml
 
   before :finished, :set_permissions do
     on roles(:app) do
