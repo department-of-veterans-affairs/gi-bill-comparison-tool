@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 #ruby=ruby-2.3.0
-#ruby-gemset=kilter
+#ruby-gemset=gitool
 
 # va new gem
 gem 'va_common', '~> 0.3.5'

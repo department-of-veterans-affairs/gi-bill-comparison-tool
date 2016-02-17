@@ -47,7 +47,7 @@ set :assets_roles, [:app]
 
 # Copy database.yml to shared
 task :mv_yml do
-  on rolls(:all) do
+  on roles(:all) do
     linked_files.each do |f|
       upload!(f, "#{shared_path}/#{f}")
     end
@@ -55,7 +55,7 @@ task :mv_yml do
 end
 
 namespace :deploy do
-  after :starting, :mv_yml
+  before :starting, :mv_yml
 
   before :finished, :set_permissions do
     on roles(:app) do
