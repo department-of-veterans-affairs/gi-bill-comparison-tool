@@ -76,8 +76,16 @@ a{
  margin: 0em;
 }
 
+.teaser-pad{
+    padding-left: 2rem;
+}
+
 .teaser-head{
-    font-size: .75rem;
+    
+    p{
+        font-size: .75rem;
+        line-height: 1rem;
+    }
 }
 
 .teaser-container{
@@ -245,7 +253,7 @@ ul li {
         margin-right: -1rem;
         float: left;
         background-image: none;
-        font-size: 1rem;
+        font-size: .85rem;
         line-height: 1rem;
     }
     &:after {
@@ -253,12 +261,14 @@ ul li {
       content: "\f013";
       display: inline;
       float: left;
-      left: -12px;
+      left: -10px;
       margin-top: 6px;
       background: #fafafa;
-      padding: 3px;
+      padding: 3px 3px 3px 6px;
       position: relative;
       pointer-events: none;
+        border-left: solid $color-gray-lightest thin;
+ 
     }
   }
 }
@@ -342,13 +352,16 @@ ul li {
 
 .filter-p{
     margin-bottom: -1rem;
+    label{
+        font-size: .77rem;
+    }
 }
 .nopad{
     padding: 0 0 0 0;
 }
 
 label{
-    font-size: .78rem;
+    font-size: .85rem;
     @media(max-width: $small-screen) {
         font-size: 1.3rem;
     }
