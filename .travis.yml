@@ -16,6 +16,7 @@ branches:
         - master
 
 script:
+  - git branch
   - bundle exec rspec
 
 bundler_args: "--without development"
