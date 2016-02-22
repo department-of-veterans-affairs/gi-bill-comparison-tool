@@ -127,7 +127,7 @@ class InstitutionsController < ApplicationController
 
     # Search parameters
     @inputs[:source] = params[:source].try(:downcase)
-    @inputs[:institution_search] = params[:institution_search]
+    @inputs[:institution_search] = params[:institution_search].try(:strip)
     @inputs[:type_name] = params[:type_name].try(:downcase)
     @inputs[:state] = params[:state].try(:downcase)
     @inputs[:country] = params[:country].try(:downcase)
