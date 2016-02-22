@@ -384,11 +384,11 @@ Estimator.prototype.getTuitionFees = function () {
   this.setDependents();
 
   if (this.old_gi_bill == true)
-    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per year</span>';
   else if (this.institution_type == 'ojt') 
   	estimated = 'N/A';
 	else if (this.gi_bill_chap == 31)
-		estimated = this.isFlightOrCorrespondence() ? '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>' : '<span class="search-text-values">Full Cost of Attendance</span';
+		estimated = this.isFlightOrCorrespondence() ? '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per year</span>' : '<span class="search-text-values">Full Cost of Attendance</span';
   else if (this.isFlight())
     estimated = this.formatCurrency(this.FLTTFCAP * this.tier) + '</br><span class="estimate-qualifier">per year</span>';
   else if (this.isCorrespondence())
@@ -413,19 +413,19 @@ Estimator.prototype.getHousingAllowance = function () {
   this.setDependents();
 
 	if (this.gi_bill_chap == 31  && this.isFlightOrCorrespondence()) 
-    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.old_gi_bill && this.only_tuition_fees)
     estimated = this.formatCurrency(this.monthly_rate) + '</br><span class="estimate-qualifier">per month</span>';
  	else if (this.old_gi_bill || this.vre_only) 
     estimated = this.formatCurrency(this.monthly_rate) + '</br><span class="estimate-qualifier">per month</span>';
   else if (this.military_status == 'active duty')
-    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.military_status == 'spouse' && this.spouse_active_duty)
-  	estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
+  	estimated = '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.isFlight())
-  	estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
+  	estimated = '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.isCorrespondence())
-  	estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per month</span>';
+  	estimated = '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per month</span>';
   else if (this.isOjt())
   	estimated = this.formatCurrency(this.tier * this.bah) + '</br><span class="estimate-qualifier">per month</span>';
   else if (this.online)
@@ -448,11 +448,11 @@ Estimator.prototype.getBookStipend = function () {
   this.setDependents();
 
   if (this.old_gi_bill)
-    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per year</span>';
   else if (this.isFlight())
-    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per year</span>';
   else if (this.isCorrespondence())
-    estimated = '<span class="estimator-dollar-sign">$</span><span class="search-value-each">0</span></br><span class="estimate-qualifier">per year</span>';
+    estimated = '<span class="estimator-dollar-sign">$</span><span class="value-in-js">0</span></br><span class="estimate-qualifier">per year</span>';
   else if (this.gi_bill_chap == 31)
     estimated = '<span class="search-text-values">Full Cost of Books & Supplies</span>';
   else

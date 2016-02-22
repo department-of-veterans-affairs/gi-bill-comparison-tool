@@ -1,0 +1,11 @@
+<% if label.present? %>
+	<label for="<%= name %>"><%= label %></label>
+<% end %>
+
+<select id="<%= name %>" name="<%= name %>" class="filter">
+<% values.each_pair do |value, count| %>
+	<option value="<%= value %>" <%= 'selected' if compare_downcase(value, checked_if) %>>
+  	<%= value.upcase %> (<%= count %>)
+		</option>
+	<% end %>
+</select>

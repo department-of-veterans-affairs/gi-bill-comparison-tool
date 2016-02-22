@@ -28,7 +28,7 @@ set :tmp_dir, '/home/ec2-user/tmp'
 set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/database.yml')
+# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
 
 # Default value for linked_dirs is []
@@ -46,7 +46,18 @@ set :default_env, {
 
 set :assets_roles, [:app]
 
+# Copy database.yml to shared
+task :mv_yml do
+  on roles(:all) do
+    %W(config/database.yml config/secrets.yml).each do |f|
+      upload!(f, "#{shared_path}/#{f}")
+      set :linked_files, fetch(:linked_files, []).push(f)
+    end
+  end
+end
+
 namespace :deploy do
+  before :starting, :mv_yml
 
   before :finished, :set_permissions do
     on roles(:app) do

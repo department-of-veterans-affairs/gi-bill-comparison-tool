@@ -1,0 +1,7 @@
+<p class="filter-p">
+	<input type="<%= itype %>" id="<%= name %>_<%= value %>" name="<%= name %>" 
+		class="filter" value="<%= value %>" 
+		<%= "checked" if compare_downcase(value, checked_if) %> 
+	/>
+	<label for="<%= name %>_<%= value %>"><%= label %> (<%= count %>)</label>
+</p>

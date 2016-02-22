@@ -1,82 +1,78 @@
-<div id="<%= school_summary[:facility_code] %>"  
+<% url += URI.encode("&facility_code=#{school_summary.facility_code}") %>
+
+<div id="<%= school_summary.facility_code %>"  
   class="school_summary large-4 medium-5-center small-12-center columns"
 
-  data-id="<%= school_summary[:id] %>" 
-  data-facility-code="<%= school_summary[:facility_code] %>"
-  data-institution="<%= school_summary[:institution] %>"
-  data-city="<%= school_summary[:city] %>"
-  data-state="<%= school_summary[:state] %>" 
-  data-country="<%= school_summary[:country] %>" 
-  data-type="<%= school_summary[:name].try(:downcase) %>"
+  data-id="<%= school_summary.id %>" 
+  data-facility-code="<%= school_summary.facility_code %> %>"
+  data-institution="<%= school_summary.institution %>"
+  data-city="<%= school_summary.city %>"
+  data-state="<%= school_summary.state %>" 
+  data-country="<%= school_summary.country %>" 
+  data-type="<%= school_summary.name.try(:downcase) %>"
 
-  <% if school_summary[:name].try(:downcase) == Institution::EMPLOYER %>
+  <% if school_summary.name.try(:downcase) == Institution::EMPLOYER %>
       data-institution-type="employer"
   <% else %>
       data-institution-type ="school"
   <% end %>    
 
-  data-poe="<%= school_summary[:poe] %>"
-  data-student-veteran="<%= school_summary[:student_veteran] %>"
-  data-eight-keys="<%= school_summary[:eight_keys] %>"
-  data-yr="<%= school_summary[:yr] %>"
-  data-bah="<%= school_summary[:bah].present? ? school_summary[:bah] : 0 %>"
+  data-poe="<%= school_summary.poe %>"
+  data-student-veteran="<%= school_summary.student_veteran %>"
+  data-eight-keys="<%= school_summary.eight_keys %>"
+  data-yr="<%= school_summary.yr %>"
+  data-bah="<%= school_summary.bah.present? ? school_summary.bah : 0 %>"
 >   
-
-	<% if school_summary[:caution_flag] %>
+	<% if school_summary.caution_flag %>
 		<div class="caution">
-			<a class="searchresults-caution noback" href="<%= school_summary[:profile_url] %>"><i id="caution-jump-flag-icon" class="fa fa-exclamation-triangle"></i> Caution Flag</a>
-        </div>
+			<a class="searchresults-caution noback" href="<%= url %>">
+        <i id="caution-jump-flag-icon" class="fa fa-exclamation-triangle"></i> Caution Flag
+      </a>
+    </div>
 	<% end %>
     
-<div class="search-content"><!-- Start SEARCH RESULTS CONTENT DIV -->
-   <!-- Divs added to preserve consistent heights regardless of # of lines -->
-    
+  <div class="search-content"><!-- Start SEARCH RESULTS CONTENT DIV -->
+    <!-- Divs added to preserve consistent heights regardless of # of lines --> 
     <div class="search-insitution-name"><!-- Institution name -->
-        <h6><a class="a-<%= school_summary[:id] %> noback" href="<%= school_summary[:profile_url] %>">
-            <%= school_summary[:institution].upcase %></a></h6>
+      <h6><a class="a-<%= school_summary.id %> noback" href="<%= url %>">
+        <%= school_summary.institution.upcase %></a></h6>
     </div><!-- END Institution name -->
-    <div
+
     <div class="search-locality"><!-- locality data -->
-	<% if school_summary[:country].downcase == 'usa' %>
-		
-        <%= "#{school_summary[:city]}, #{school_summary[:state].upcase}"  %>
-		
-	<% else %>
-		<%= "#{school_summary[:city]}, #{school_summary[:country]}" %>
-	<% end %>
+	    <% if school_summary.country.downcase == 'usa' %>
+        <%= "#{school_summary.city}, #{school_summary.state.upcase}"  %>
+	    <% else %>
+        <%= "#{school_summary.city}, #{school_summary.country}" %>
+	    <% end %>
     </div><!-- END locality data -->
     
     <div class="search-vet-count"><!-- # of Student Vets -->
-	   <span class="vet-count-value"><%= school_summary[:gibill] %></span> GI Bill Students
+	    <span class="vet-count-value"><%= school_summary.gibill %></span> GI Bill Students
     </div><!-- END # of Student Vets -->
     
     <div class="search-benefits-values-container"><!-- Contains the benefit values divs -->
-
-        <div class="search-selections-label">You may be eligible for up to:</div>
-        
-		<div class="search-value-each small-4 column"> <!-- tuition -->
-            <div class="icon"><i class="fa fa-graduation-cap fa-search-result"></i></div>
-            <div id="<%= school_summary[:facility_code] %>-est-tuition-fees"></div>
+      <div class="search-selections-label">You may be eligible for up to:</div>  
+		    <div class="search-value-each small-4 column"> <!-- tuition -->
+          <div class="icon"><i class="fa fa-graduation-cap fa-search-result"></i></div>
+          <div id="<%= school_summary.facility_code %>-est-tuition-fees"></div>
         </div><!-- END tuition -->
         
-        
-		<div class="search-value-each small-4 column"><!-- housing -->
-            <div class="icon"><i class="fa fa-home fa-search-result"></i></div>
-            <div id="<%= school_summary[:facility_code] %>-est-housing-allowance"></div>
+		    <div class="search-value-each small-4 column"><!-- housing -->
+          <div class="icon"><i class="fa fa-home fa-search-result"></i></div>
+          <div id="<%= school_summary.facility_code %>-est-housing-allowance"></div>
         </div><!-- END Housing -->
     
-    
-		<div class="search-value-each small-4 column"><!-- Books -->
-            <div class="icon"><i class="fa fa-book fa-search-result"></i></div>
-            <div id="<%= school_summary[:facility_code] %>-est-book-stipend"></div>
+		    <div class="search-value-each small-4 column"><!-- Books -->
+          <div class="icon"><i class="fa fa-book fa-search-result"></i></div>
+          <div id="<%= school_summary.facility_code %>-est-book-stipend"></div>
         </div><!-- END books -->
-    
-    </div><!-- Contains the benefit values divs -->
-    <div class="row">
-    <div class="search-learnmore-div"><!-- Contains the learn more div for consistent position -->
-        <a class="button filter-button va-search-learnmore" href="<%= school_summary[:profile_url] %>">Learn More</a>
-    </div>
-     </div> 
-    </div><!-- END learn more div -->
+      </div><!-- Contains the benefit values divs -->
+
+      <div class="row">
+        <div class="search-learnmore-div"><!-- Contains the learn more div for consistent position -->
+          <a class="button filter-button va-search-learnmore" href="<%= url %>">Learn More</a>
+      </div>
+    </div> 
+  </div><!-- END learn more div -->
 </div>
 
