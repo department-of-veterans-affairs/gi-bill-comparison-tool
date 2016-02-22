@@ -22,16 +22,20 @@
 
 .modal-style{
   max-width: 800px;
-    width: 100%;
+  width: 100%;
   padding: 3rem;
   display:none;
   background: #FFF;
+    overflow: scroll;
     @media(max-width: $small-screen) {
-        width: 80%;
+        width: 90%;
+        overflow: scroll;
+        padding: 1rem;
+        max-height: 400px;
         h3, p{
-            font-size: 1.4rem;
-            padding: .5rem;
-            line-height: 1.6rem;
+            font-size: 1rem;
+            padding: 0;
+            line-height: 1.5rem;
         }
     }
 }
