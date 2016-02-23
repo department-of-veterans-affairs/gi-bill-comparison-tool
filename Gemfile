@@ -27,6 +27,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
@@ -48,7 +49,18 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+
+  # added per VEC deployment - SA
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-passenger'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-env-config'
 end
+
 
 group :development, :test do
 	gem 'rspec-rails', '~> 3.3.3'
@@ -57,13 +69,4 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.5.0'
   gem 'dotenv-rails'
   gem 'faker', '~> 1.6', '>= 1.6.1'
-end
-
-# added per VEC deployment - SA
-group :development do
-  gem 'capistrano', '~> 3.4.0'
-  gem 'capistrano-passenger'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-env-config'
 end
