@@ -1,7 +1,7 @@
 {
   "name": "gi-bill-comparison-tool",
   "scripts": {
-    "postdeploy": "bundle exec rake db:create db:migrate load_csv[data.csv]"
+    "postdeploy": "bundle exec rake db:migrate load_csv[data.csv]"
   },
   "env": {
   },
