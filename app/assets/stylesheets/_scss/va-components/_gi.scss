@@ -21,6 +21,8 @@ $va-alert-color: #741B30;
   z-index: 10000;
 }
 
+
+
 .reveal-modal #search_form {
   margin-bottom: 1em;
 }
@@ -89,7 +91,6 @@ a{
 }
 
 .teaser-container{
-  margin-bottom: 2rem;
     @media(max-width: $small-screen) {
         display: none;
     }    
