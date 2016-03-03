@@ -134,7 +134,7 @@ class Institution < ActiveRecord::Base
     else
       search_term = search_term.to_s.downcase
 
-      clause = ["facility_code = (?) OR lower(institution) LIKE (?) OR lower(city) LIKE (?)"]
+      clause = ["lower(facility_code) = (?) OR lower(institution) LIKE (?) OR lower(city) LIKE (?)"]
       terms = [search_term, "%#{search_term}%", "%#{search_term}%"]
 
       @rset = Institution.with_type.where(clause + terms)
