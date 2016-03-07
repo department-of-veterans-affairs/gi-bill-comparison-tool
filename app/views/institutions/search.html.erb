@@ -80,13 +80,15 @@ onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Too
       </div><!-- Utility Nav end --> 
     </div><!--end Section One-->
 <% else %>
+        <div class="section one">
+      <div class="row"><!-- results start -->
   <div class="search-count"> 
     There were no results that matched 
     <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>.  
-    Please try a <%= link_to "different search", root_path %>. 
+    Please try a <%= link_to "different search", root_path %>. </br></br></br>
   </div>
 <% end %>
-
+          </div></div>
 <!-- Other JS plugins can be included here -->
 <script>
   $(document).foundation();
