@@ -1,7 +1,5 @@
 #!/usr/bin/env puma
 
-ENV['RAILS_RELATIVE_URL_ROOT'] = "/gi-bill-comparison-tool"
-
 # Set the environment in which the rack's app will run. The value must be a string.
 #
 # The default is "development".
