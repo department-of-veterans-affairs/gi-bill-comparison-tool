@@ -1,6 +1,10 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Application should be deployed at (base URL)/gi-bill-comparison-tool
+  ENV['RAILS_RELATIVE_URL_ROOT'] = "/gi-bill-comparison-tool"
+  config.assets.prefix = ENV['RAILS_RELATIVE_URL_ROOT'] || 'assets'
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
