@@ -2,6 +2,6 @@
 
 require ::File.expand_path('../config/environment', __FILE__)
 
-map ENV['RAILS_RELATIVE_URL_ROOT'] || '/' do
+map Rails.application.config.relative_url_root || '/' do
   run Rails.application
 end
