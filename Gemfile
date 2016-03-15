@@ -68,4 +68,4 @@ group :development, :test do
   gem 'faker', '~> 1.6', '>= 1.6.1'
 end
 
-gem 'puma'
+gem 'puma', '~> 3.1.0'
