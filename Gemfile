@@ -67,3 +67,5 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'faker', '~> 1.6', '>= 1.6.1'
 end
+
+gem 'puma', '~> 2.16.0'

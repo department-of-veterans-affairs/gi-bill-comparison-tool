@@ -1,6 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Application should be deployed at (base URL)/gi-bill-comparison-tool
+  Rails.application.config.relative_url_root = "/gi-bill-comparison-tool"
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
