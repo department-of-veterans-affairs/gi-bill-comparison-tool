@@ -271,7 +271,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   pg
-  puma
+  puma (~> 3.1.0)
   rails (= 4.2.4)
   rspec-rails (~> 3.3.3)
   sass
