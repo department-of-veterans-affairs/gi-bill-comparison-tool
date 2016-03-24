@@ -128,6 +128,7 @@ a{
 }
 
 .ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content {
+  width: 600px !important;
   @media(max-width: $small-screen) {
     width: 93%;
   }
