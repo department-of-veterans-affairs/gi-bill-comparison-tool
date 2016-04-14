@@ -13,6 +13,5 @@
     "heroku-postgresql"
   ],
   "buildpacks": [
-
   ]
 }
