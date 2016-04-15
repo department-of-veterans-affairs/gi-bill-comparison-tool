@@ -7,9 +7,10 @@ services:
   - postgresql
 
 before_script:
-  - rake db:create
-  - rake db:migrate
-  - rake load_csv[data.csv]
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+  - bundle exec rake load_csv[data.csv]
+  - bundle exec rake ci
 
 branches:
     only:

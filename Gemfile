@@ -7,7 +7,7 @@ source 'https://rubygems.org'
 gem 'va_common', '~> 0.3.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.6'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -27,6 +27,12 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+# Security scanners
+gem 'brakeman'
+
+# for travis
+gem 'rainbow', '~> 2.1'
+gem 'bundler-audit'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -58,14 +64,13 @@ group :development do
   gem 'capistrano-env-config'
 end
 
-
 group :development, :test do
-	gem 'rspec-rails', '~> 3.3.3'
-  gem 'capybara', '~> 2.5.0'
-  gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'database_cleaner', '~> 1.5.0'
+	gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
   gem 'dotenv-rails'
-  gem 'faker', '~> 1.6', '>= 1.6.1'
+  gem 'faker'
 end
 
 gem 'puma', '3.2.0'

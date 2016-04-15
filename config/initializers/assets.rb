@@ -10,3 +10,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w(application_split2.css)
+Rails.application.config.assets.precompile += %w(social-icons/svg/facebook25.svg)
+Rails.application.config.assets.precompile += %w(social-icons/png/facebook25.png)
+Rails.application.config.assets.precompile += %w(social-icons/svg/twitter16.svg)
+Rails.application.config.assets.precompile += %w(social-icons/png/twitter16.png)
