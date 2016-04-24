@@ -67,8 +67,8 @@ group :development, :test do
   gem 'brakeman'
 
   # for travis
-  gem 'rainbow', '~> 2.1'
   gem 'bundler-audit'
 end
 
+gem 'rainbow', '~> 2.1'
 gem 'puma', '3.2.0'
