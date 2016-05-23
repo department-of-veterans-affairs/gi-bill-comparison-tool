@@ -5,8 +5,8 @@
   },
   "env": {
     "SECRET_KEY_BASE": {
-      description: "Secret key for signed cookies"
-      value: "abc123"
+      "description": "Secret key for signed cookies",
+      "value": "abc123"
     }
   },
   "addons": [
