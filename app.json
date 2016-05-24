@@ -1,14 +1,18 @@
 {
   "name": "gi-bill-comparison-tool",
+  "success_url": "/gi-bill-comparison-tool",
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate load_csv[data.csv]"
   },
   "env": {
+    "SECRET_KEY_BASE": {
+      "description": "Secret key for signed cookies",
+      "value": "abc123"
+    }
   },
   "addons": [
     "heroku-postgresql"
   ],
   "buildpacks": [
-
   ]
 }
