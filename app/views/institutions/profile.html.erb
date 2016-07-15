@@ -57,27 +57,21 @@
   content_for :title, "#{school_name} - GI Bill Comparison Tool" 
 %>
 
-<div id="content" class="interior"><!--Breadcrumb -->
-  <a href="#content" class="sr-only">Content starts here.</a>
-  <div class="splash">
+  <div class="section">
+   	<nav class="va-nav-breadcrumbs">
+      <ul class="row va-nav-breadcrumbs-list" role="menubar" aria-label="Primary">
+        <li><a href="/">Home</a></li>
+        <li><a href="/education/">Education Benefits</a></li>
+        <li><a href="/education/gi-bill/">GI Bill</a></li>
+        <li><a href="<%= root_path %>">GI Bill&reg; Comparison Tool</a></li>
+        <li class="active">Institution</li>
+      </ul>
+    </nav>
+	
     <div class="row">
-      <div class="small-12 columns">
-        <ul class="breadcrumbs" role="menubar" aria-label="Primary">
-          <li class="parent">
-            <a href="https://www.vets.gov/education/">Education Benefits</a>
-          </li>
-          <li class="parent">
-            <a href="https://www.vets.gov/education/gi-bill/">GI Bill</a>
-          </li>
-          <li class="parent">
-            <a href="<%= root_path %>">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool</a>
-          </li>
-          <li class="active">Institution</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  
+    	<h1 class="va-heading-sans">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool Search Results</h1>
+	</div>
+
   <div class="action-bar"><!--Horizontal Filters-->
     <div class="row">
       <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">

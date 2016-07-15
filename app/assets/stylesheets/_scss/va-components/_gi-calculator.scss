@@ -4,24 +4,38 @@
     box-sizing: border-box;
 }
 
-
-.calc-results-1, .calc-results-2, .profile-school-summary{
-    th, tr, td{
-     
-    @media(max-width: $small-screen) {
-        padding: .75rem .75rem;
-    }
-    }
-
-.calc-title{
-    text-align: left;
-    border-width: 0 0 3px 0;
+.calc-results-2 {
+  margin-top: 2rem;
 }
+
+.calc-results-1, 
+.calc-results-2, 
+.profile-school-summary{
+
+    th, tr, td{    
+      padding: 1rem;
+    }
+
+  .calc-title{
+      text-align: left;
+      border-width: 0 0 3px 0;
+  }
 }
 .calc-results-1{
-    table, tr, td, th{
-      background-color: #E8F5FA;  }
+  table, tr, td, th{
+    background-color: #E8F5FA;  
+  }  
+}
+ 
+.calc-results-2 {
+  tr {
+    &:nth-child(even) {
+      background: transparent;
     }
+  }   
+}
+ 
+     
 table{
     margin-top: 0;
 }

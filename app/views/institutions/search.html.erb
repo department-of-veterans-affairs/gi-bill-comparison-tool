@@ -1,21 +1,21 @@
 <% content_for :title, "Search Results - \"#{@inputs[:institution_search]}\" - GI Bill Comparison Tool" %>
 
 <% if @kilter.count_all > 0 %>
-  <div id="content" class="interior">
-    <a href="#content" class="sr-only">Content starts here.</a>
-    <div class="splash">
-      <div class="row">
-        <div class="small-12 columns">
-          <ul class="breadcrumbs" role="menubar" aria-label="Primary">
-            <li class="parent"><a href="https://www.vets.gov/education/">Education Benefits</a></li>
-            <li class="parent"><a href="https://www.vets.gov/education/gi-bill/">GI Bill</a></li>
-            <li class="parent"><a href="<%= root_path %>">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool</a></li>
-            <li class="active">Search</li>
-          </ul>
-        </div>
-      </div>
-    </div><!-- end splash -->
-
+   <div class="section">
+   	<nav class="va-nav-breadcrumbs">
+      <ul class="row va-nav-breadcrumbs-list" role="menubar" aria-label="Primary">
+        <li><a href="/">Home</a></li>
+        <li><a href="/education/">Education Benefits</a></li>
+        <li><a href="/education/gi-bill/">GI Bill</a></li>
+        <li><a href="<%= root_path %>">GI Bill&reg; Comparison Tool</a></li>
+        <li class="active">Search</li>
+      </ul>
+    </nav>
+	
+    <div class="row">
+    	<h1 class="va-heading-sans">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool Search Results</h1>
+	</div>
+	
     <div class="action-bar">
       <div class="row">
         <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">
@@ -79,6 +79,7 @@ onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Too
         </div>
       </div><!-- Utility Nav end --> 
     </div><!--end Section One-->
+
 <% else %>
         <div class="section one">
       <div class="row"><!-- results start -->
@@ -88,7 +89,9 @@ onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Too
     Please try a <%= link_to "different search", root_path %>. </br></br></br>
   </div>
 <% end %>
-          </div></div>
+
+</div>
+</div>
 <!-- Other JS plugins can be included here -->
 <script>
   $(document).foundation();

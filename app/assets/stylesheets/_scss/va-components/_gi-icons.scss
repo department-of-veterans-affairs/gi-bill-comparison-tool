@@ -20,15 +20,15 @@
 .fa-additional-resources{
     background-color: $color-primary;
     color: #fff;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 1rem;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 1.6rem;
     margin: .25rem;
-    margin-right: 1rem;
+    margin-right: 1.6rem;
     text-align: center;
     font-family: $roboto-slab;
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 2.5rem;
+    line-height: 3.2rem;
     display: inline-block;
 
     &:hover, :active {
@@ -62,7 +62,7 @@
 
 }
 .fa-profile-benefits{
-    font-size: 3rem;
+    font-size: 4.8rem;
     color: $va-primary-color;
     text-align: center;
     margin-bottom: 1rem;
@@ -73,6 +73,6 @@
 }
 .fa-search-result{
     color: $va-primary-color;
-    font-size: 2rem;
+    font-size: 3.2rem;
     margin-bottom: .5rem;
 }

@@ -116,6 +116,10 @@
   }
 }
 
+.usa-card-content ul {
+  padding: 1rem 0;
+}
+
 .usa-card-bordered {
   .usa-card-content {
     border: {
@@ -161,13 +165,10 @@
         color: #000;
         font-family: $font-sans;
         text-decoration: none;
-        font-size: 1rem;
         line-height: 2rem;
     }
-    }
+}
     
-.searchresults-caution{
-    }
 .search-count-headline{
     margin-left: 1.5rem;
     line-height: .8rem;
@@ -178,80 +179,72 @@
 
 }
 .search-insitution-name{
-    margin-top: 2rem;
-    min-height: 150px;
-    a{
-        font-family: $roboto-slab;
-        color: $va-primary-color;
-        font-weight: 800;
-        font-size: 1rem;
-        line-height: 0;
-    }
-    h6{
-      line-height: 1.25rem;  
-    }
+  font-size: 1.6rem;
+  margin-top: 3.2rem;
+  min-height: 150px;
+  
+  a {
+    font-family: $roboto-slab;
+    color: $va-primary-color;
+    font-weight: 800;
+    line-height: 0;
+  }
 }
-.search-locality{
-    font-size: .75rem;
-    margin: 0 0 0 0;
+.search-locality, .search-vet-count {
+    margin: 0;
 }
-.search-vet-count{
-    margin: 0 0 0 0;
-    font-size: 1rem;   
-}
+
 .vet-count-value{
     font-family: $roboto-slab;
-    font-size: 1.5rem;
+    font-size: 1.5em;
     color: $va-secondary-color;
 }
-.search-benefits-values-container{
-}
+
 .search-selections-label{
-    font-size: .75rem;
+    font-size: .75em;
     color: #aeb0b5;
     margin-bottom: 1.7rem;
 }
 .search-value-each{
     font-family: $roboto-slab;
-    font-size: 1.15rem;
+    font-size: 1.84rem;
     color: $va-secondary-color;
-    line-height: 1.1rem;
+    line-height: 1;
     text-align: center;
     display: inline-block;
     padding-left: 0;
     padding-right: 0;
     
     .search-text-values{
-    font-size: .65rem;
-    line-height: .75rem;
-    text-align: left;
-}
-    
+      font-size: .65rem;
+      line-height: .75rem;
+      text-align: left;
+    }    
 }
 .search-text-values{
     font-size: 1.25rem;
-    line-height: 1.5rem;
+    line-height: 1.5;
 }
 
 .estimate-qualifier{
-    font-size: .65rem;
+    font-size: 1.04rem;
     color: #444;
-    line-height: .65rem;
+    line-height: .65;
 }
 
 .estimator-dollar-sign{
-    font-size: .75rem;
+    font-size: 1.2rem;
     color: #999;
 }
-a.va-search-learnmore{
-    width: 94%;
-    margin: 1rem auto;
+
+a.va-search-learnmore {
+  width: 94%;
+  margin: 1rem auto;
 }
 
-.search-learnmore-div{
-    position:absolute;
-    bottom: 0;
-    left: 1rem;
-    width: 90%;
+.search-learnmore-div {
+  clear: both;
+  padding: 1rem .7rem .7rem;
+  text-align: center;
 }
 

@@ -25,11 +25,10 @@
   width: 100%;
   padding: 3rem;
   display:none;
-  background: #FFF;
-    overflow: scroll;
+  background: #fff;
+  overflow: auto;
     @media(max-width: $small-screen) {
         width: 90%;
-        overflow: scroll;
         padding: 1rem;
         max-height: 400px;
         h3, p{
@@ -38,12 +37,10 @@
             line-height: 1.5rem;
         }
     }
-}
-
-modal-style-wide{
-  width: 800px;
-  padding: 3rem;
-  display:none;
-  background: #FFF;
+  
+  a {
+    padding-right: 0;
+  }
+  
 }
 
