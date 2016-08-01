@@ -51,12 +51,12 @@ function Calculator(institution_type, institution) {
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
 
-Calculator.prototype.TFCAP = 21084.89;
-Calculator.prototype.AVGBAH = 1566;
+Calculator.prototype.TFCAP = 21970.46;
+Calculator.prototype.AVGBAH = 1611;
 Calculator.prototype.BSCAP = 1000;
 Calculator.prototype.BSOJTMONTH = 83;
-Calculator.prototype.FLTTFCAP = 12048.50;
-Calculator.prototype.CORRESPONDTFCAP = 10241.22;
+Calculator.prototype.FLTTFCAP = 12554.54;
+Calculator.prototype.CORRESPONDTFCAP = 10671.35;
 
 Calculator.prototype.MGIB3YRRATE = 1789;
 Calculator.prototype.MGIB2YRRATE = 1454;
