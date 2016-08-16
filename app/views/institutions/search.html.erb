@@ -11,46 +11,48 @@
         <li class="active">Search</li>
       </ul>
     </nav>
-	
+
     <div class="row">
     	<h1 class="va-heading-sans">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool Search Results</h1>
 	</div>
-	
+
     <div class="action-bar">
       <div class="row">
         <div class="small-10 medium-10 columns filter-horizontal" id="horiz-filters-noprint2">
           <%= render partial: 'yourself', locals: {use_label: false} %>
         </div>
         <div class="medium-2 columns">
-          <a href="<%= root_path %>" class="button filter-button">Reset Search</a>
-        </div>   
+          <a href="<%= root_path %>">
+            <button type="button">Reset Search</button>
+          </a>
+        </div>
       </div>
     </div><!--end action bar-->
-         
+
     <div class="section one">
       <div class="row"><!-- results start -->
         <div class="small-12 medium-3 columns">
           <ul class="accordion filtermargin" data-accordion>
             <li class="accordion-navigation search-filters-header">
               <a id="open-or-close-filters-accordion" href="#panel-filters">Filter Results</a>
-              <div id="panel-filters" class="content">           
+              <div id="panel-filters" class="content">
                 <div id="search-filters">
-                  <div class="usa-card-content">      
+                  <div class="usa-card-content">
                     <%= render partial: 'filter' %>
                   </div>
-                </div>   
+                </div>
               </div>
             </li>
           </ul>
         </div>
-      
+
         <div class="small-12 medium-9 columns">
-          <div class="search-count">Showing 
-            <strong><%= @kilter.count_filtered %></strong> results for the term 
-            <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>. 
+          <div class="search-count">Showing
+            <strong><%= @kilter.count_filtered %></strong> results for the term
+            <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>.
           </div>
-        
-          <%= render partial: 'school_summary', 
+
+          <%= render partial: 'school_summary',
             collection: @kilter.paged_filtered_rset,
             locals: { url: @kilter.to_href(profile_path, @inputs, page: @page) }
           %>
@@ -77,15 +79,15 @@ onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Too
 
          <a href="http://www.benefits.va.gov/GIBILL/docs/job_aids/ComparisonToolData.xlsx" onclick="track('Tool Tips', 'Full Data');" class="applinks">Download Data on All Schools (Excel)</a>
         </div>
-      </div><!-- Utility Nav end --> 
+      </div><!-- Utility Nav end -->
     </div><!--end Section One-->
 
 <% else %>
         <div class="section one">
       <div class="row"><!-- results start -->
-  <div class="search-count"> 
-    There were no results that matched 
-    <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>.  
+  <div class="search-count">
+    There were no results that matched
+    <strong><i>'<%= @inputs[:institution_search] %>'</i></strong>.
     Please try a <%= link_to "different search", root_path %>. </br></br></br>
   </div>
 <% end %>

@@ -19,7 +19,7 @@
 }
 
 .graph .graph-bar.vet{
-  fill: #B1B680; 
+  fill: #B1B680;
 }
 
 .graph .graph-bar.all{
@@ -49,12 +49,12 @@
 }
 
 </style>
-<% 
-  school_name = @school.institution || "" 
+<%
+  school_name = @school.institution || ""
   school_name = @school.institution.gsub(/\b-\b/, " - ")
       .split(/\s/).map(&:capitalize).join(" ").gsub(" - ", "-")
 
-  content_for :title, "#{school_name} - GI Bill Comparison Tool" 
+  content_for :title, "#{school_name} - GI Bill Comparison Tool"
 %>
 
   <div class="section">
@@ -67,7 +67,7 @@
         <li class="active">Institution</li>
       </ul>
     </nav>
-	
+
     <div class="row">
     	<h1 class="va-heading-sans">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool Search Results</h1>
 	</div>
@@ -78,7 +78,10 @@
         <%= render partial: 'yourself', locals: {use_label: false} %>
       </div>
       <div class="medium-2 columns">
-        <a href="<%= root_path %>" class="button filter-button">Reset Search</a>
+
+        <a href="<%= root_path %>">
+          <button type="button">Reset Search</button>
+        </a>
       </div>
     </div>
   </div><!--end action bar-->
@@ -99,16 +102,16 @@
       <div class="large-8 columns"><!--Left Container-->
         <div class="row"><!--Left 9 Columns-->
           <%= render partial: 'profile_overview' %>
-        </div>       
+        </div>
       </div><!-- End Left 8 col span -->
-    
+
       <div class="large-4 column"><!--Additional Resources-->
         <%= render partial: 'profile_additional_resources' %>
       </div>
     </div>
-    
+
 <!--Benefits Calculator-->
-<div class="row">  
+<div class="row">
 <div class="small-12 columns accordion-vert-spacing">
     <ul class="accordion" data-accordion>
         <li class="accordion-navigation">
@@ -120,20 +123,20 @@
     </ul>
   </div>
 </div><!--end row-->
-    
+
 <!--Outcomes-->
-    
-<div class="row">      
+
+<div class="row">
 <div class="small-12 columns accordion-vert-spacing">
     <ul class="accordion" data-accordion>
         <li class="accordion-navigation">
             <a href="#panel-outcomes" aria-expanded="true">Outcomes</a>
-            <div id="panel-outcomes" class="content active"> 
+            <div id="panel-outcomes" class="content active">
     <div class="row">
 		  <!-- Retention Rates -->
       <div class="medium-6 columns">
         <h4>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention" class="info-icons"><i id="retention-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h4>
-        <% 
+        <%
           isa_v = is_number?(@veteran_retention_rate)
           isa_c = is_number?(@all_student_retention_rate)
 
@@ -141,7 +144,7 @@
           crate = isa_c ? number_with_precision(@all_student_retention_rate.to_f * 100, precision: 2) : "null";
 
           if isa_v || isa_c
-        %> 
+        %>
           <div id="retention-rates" class="graph"></div>
           <script>
             new Graph({
@@ -156,13 +159,13 @@
 				<% else %>
 					<p>Retention Rate Data Not Available</p>
 				<% end %>
-      </div>     
+      </div>
       <!-- END RETENTION RATE -->
 
       <!-- Graduation Rates -->
       <div class="medium-6 columns">
 		  <h3>Graduation Rate<a id="go" rel="leanModal" name="status" href="#gradrates" class="info-icons"><i id="graduation-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
-      <% 
+      <%
         isa_v = is_number?(@school.graduation_rate_veteran)
         isa_c = is_number?(@school.graduation_rate_all_students)
 
@@ -170,7 +173,7 @@
         crate = isa_c ? number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2) : "null";
 
         if isa_v || isa_c
-      %>    
+      %>
         <div id="grad-rates" class="graph"></div>
         <script>
           new Graph({
@@ -187,8 +190,8 @@
       <% end %>
       </div>
       <!-- END GRAD RATE -->
-      </div>      
-   <div class="row">             
+      </div>
+   <div class="row">
 			<!-- Salary Rates -->
       <div class="medium-6 columns">
         <h3>Average Salaries<a id="go" rel="leanModal" name="status" href="#salaries" class="info-icons"><i id="average-salaries-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
@@ -197,9 +200,9 @@
           <script>
             new Graph({
               target:  '#salary-rates',
-              bars:    [ 
+              bars:    [
                 { name : 'vet', value : <%= "null" %> },
-                { name : 'all', value : <%= @school.salary_all_students %> } 
+                { name : 'all', value : <%= @school.salary_all_students %> }
               ],
               max: 120000,
               average: 34343
@@ -219,12 +222,12 @@
           <script>
             new Graph({
               target:  '#repayment-rates',
-              bars:    [ 
+              bars:    [
                 { name : 'vet', value : <%= "null" %> },
-                { name : 'all', 
-                  value : <%= number_with_precision(@school.repayment_rate_all_students * 100,precision: 2) %> } 
+                { name : 'all',
+                  value : <%= number_with_precision(@school.repayment_rate_all_students * 100,precision: 2) %> }
               ],
-              average: 67.0 
+              average: 67.0
             });
           </script>
         <% else %>
@@ -233,24 +236,24 @@
 
 </div><!-- END REPAYMENT RATE -->
     </div>
-                
+
 <div class="small-12 columns access-sheet clearfix">
-            <p>Access a comprehensive spreadsheet of <a id="veteran-outcome-spreadsheet-link-out" title="Veteran Outcome Measures" href="http://www.benefits.va.gov/gibill/docs/OutcomeMeasuresDashboard.xlsx" id="anch_373" target="_blank">Veteran Outcome Measures</a> (<i class="fa fa-file-excel-o info-icons"></i> | 14.4 MB)</p></div>      
+            <p>Access a comprehensive spreadsheet of <a id="veteran-outcome-spreadsheet-link-out" title="Veteran Outcome Measures" href="http://www.benefits.va.gov/gibill/docs/OutcomeMeasuresDashboard.xlsx" id="anch_373" target="_blank">Veteran Outcome Measures</a> (<i class="fa fa-file-excel-o info-icons"></i> | 14.4 MB)</p></div>
 
   </div>
         </li>
     </ul>
         </div>
 </div><!--end row-->
-    
-<!--School Summary--> 
-    
-<div class="row">      
+
+<!--School Summary-->
+
+<div class="row">
 <div class="small-12 columns accordion-vert-spacing">
     <ul class="accordion" data-accordion>
         <li class="accordion-navigation">
             <a href="#panel-school-summary" aria-expanded="true">School Summary</a>
-            <div id="panel-school-summary" class="content active"> 
+            <div id="panel-school-summary" class="content active">
 			<%= render partial: 'profile_summary' %>
             </div>
         </li>
@@ -258,14 +261,14 @@
   </div>
 </div><!--end row-->
 
-<!--Caution Flags/Complaints--> 
-    
-<div class="row">  
+<!--Caution Flags/Complaints-->
+
+<div class="row">
 <div class="small-12 columns accordion-vert-spacing">
     <ul class="accordion" data-accordion>
         <li class="accordion-navigation">
       <a href="#panel-caution-flags" aria-expanded="true">Caution Flags (<%= @school.complaints_main_campus_roll_up %> Student Complaints)</a>
-        <div id="panel-caution-flags" class="content active"> 
+        <div id="panel-caution-flags" class="content active">
 			<%= render partial: 'profile_complaints' %>
         </div>
         </li>
@@ -273,14 +276,14 @@
   </div>
 </div><!--end row-->
 
-<!--Historical School Information--> 
-    
-<div class="row">      
+<!--Historical School Information-->
+
+<div class="row">
 <div class="small-12 columns accordion-vert-spacing">
     <ul class="accordion" data-accordion>
         <li class="accordion-navigation">
             <a href="#panel-historical-info" aria-expanded="true">Historical School Information</a>
-            <div id="panel-historical-info" class="content active"> 
+            <div id="panel-historical-info" class="content active">
 			<%= render partial: 'profile_history' %>
         </div>
 	</div>
@@ -288,7 +291,7 @@
 <!--</div>end row-->
 
 <!-- Utility Nav start -->
-<div class="row">      
+<div class="row">
      <div class="small-12 columns">
 <a class="applinks" href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp"
 onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Tool</a>
@@ -298,10 +301,10 @@ onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Too
          <a href="http://www.benefits.va.gov/GIBILL/docs/job_aids/ComparisonToolData.xlsx" onclick="track('Tool Tips', 'Full Data');" class="applinks">Download Data on All Schools (Excel)</a>
 </div>
     </div>
-<!-- Utility Nav end --> 
+<!-- Utility Nav end -->
 </div><!--end row-->
-    
-    
+
+
 </div><!-- End Content -->
 <!-- modals -->
 
@@ -346,10 +349,10 @@ onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Too
 
   </div>
 </div><!-- END Repayment rates -->
-        
+
 </div><!-- End section one from top -->
 
-<script>    
+<script>
 // Makes the modals work!
 $("a[rel*=leanModal]").leanModal();
 </script>
