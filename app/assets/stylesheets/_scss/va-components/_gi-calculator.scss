@@ -8,11 +8,11 @@
   margin-top: 2rem;
 }
 
-.calc-results-1, 
-.calc-results-2, 
+.calc-results-1,
+.calc-results-2,
 .profile-school-summary{
 
-    th, tr, td{    
+    th, tr, td{
       padding: 1rem;
     }
 
@@ -23,19 +23,19 @@
 }
 .calc-results-1{
   table, tr, td, th{
-    background-color: #E8F5FA;  
-  }  
+    background-color: #E8F5FA;
+  }
 }
- 
+
 .calc-results-2 {
   tr {
     &:nth-child(even) {
       background: transparent;
     }
-  }   
+  }
 }
- 
-     
+
+
 table{
     margin-top: 0;
 }
@@ -49,15 +49,15 @@ table{
 }
 
 .align-right{
-    text-align: right; 
+    text-align: right;
 }
 
 .align-center{
-    text-align: center; 
+    text-align: center;
 }
 
 .align-left{
-    text-align: left; 
+    text-align: left;
 }
 
 .data-row{
@@ -68,9 +68,6 @@ table{
 }
 
 .term-calc-results{
-    tr, th{
-    border-width: 0 0 1px 0;
-    }
     th{
         text-align: left;
     }
