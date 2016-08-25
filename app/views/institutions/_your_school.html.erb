@@ -79,6 +79,8 @@ $(document).ready(function() {
   $("#search-button").click(function(e) {
     if (!$('#institution-search').val()) {
       e.preventDefault();
+    } else {
+      $('<%= form_id %>').submit();
     }
   });
 });
