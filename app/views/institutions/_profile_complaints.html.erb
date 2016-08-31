@@ -1,4 +1,4 @@
-<div id="small-12 columns">  
+<div id="small-12 columns">
   <% if @school.caution_flag %>
     <a id="caution-jump-flag" name="caution_jump_flag"></a>
       <table class="usa-table-borderless caution-profile-summary">
@@ -11,89 +11,93 @@
   <% else %>
     <!-- <p>No Caution Flags</p> -->
   <% end %>
-      
+
   <% if (@school.complaints_main_campus_roll_up > 0) %>
     <h3>Complaint Breakdown <span class="caption"><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#sourcedata" onclick="track('Tool Tips', 'Complaint Box / Source');" target="_blank" alt="Click here for more information." title="Download data file used for the GI Bill Comparison Tool.">Source</a></span></h3>
     <table class="complaints-table">
-    <thead>
-      <tr scope="col">
-        <th id="institution-name-complaint"><%= @school.institution %></td>
-        <th style=";">This Campus</td>
-        <th style=";"><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#complaints_all_campuses" onclick="track('Tool Tips', 'Complaints / All Campuses');" target="_blank" alt="Click here for more information." title="The number of closed, Principles of Excellence-related, complaints for schools with the same six-digit OPEID code.">All Campuses</a></td>
-      </tr>
-      <tr class="complaints-student">
-        <th><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#complaints" onclick="track('Tool Tips', 'Complaints / Breakdown');" target="_blank" alt="Click here for more information." title="The number of closed, Principles of Excellence-related, complaints submitted to VA through the GI Bill Feedback system.">Student Complaints</a></th>
-        <td id="complaint-total-fc"><%= @school.complaints_facility_code %></td>
-        <td id="complaint-total-all"><%= @school.complaints_main_campus_roll_up %></td>
-      </tr>
-      <tr class="inner-highlight">
-          <th>Complaint by Type</br><span class="caption">(Each complaint can have multiple types)</span></th>
-        <th>Total</td>
-        <th>Total</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Financial Issues (e.g., Tuition/Fee charges)</th>
-        <td id="complaint-financial-fc"><%= @school.complaints_financial_by_fac_code %></td>
-        <td id="complaint-financial-ope"><%= @school.complaints_financial_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Quality of Education</th>
-        <td id="complaint-quality-fc"><%= @school.complaints_quality_by_fac_code %></td>
-        <td id="complaint-quality-ope"><%= @school.complaints_quality_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Refund Issues</th>
-        <td id="complaint-refund-fc"><%= @school.complaints_refund_by_fac_code %></td>
-        <td id="complaint-refund-ope"><%= @school.complaints_refund_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Recruiting/Marketing Practices</th>
-        <td id="complaint-recruiting-fc"><%= @school.complaints_marketing_by_fac_code %></td>
-        <td id="complaint-recruiting-ope"><%= @school.complaints_marketing_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Accreditation</th>
-        <td id="complaint-accreditation-fc"><%= @school.complaints_accreditation_by_fac_code %></td>
-        <td id="complaint-accreditation-ope"><%= @school.complaints_accreditation_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Change in degree plan/requirements</th>
-        <td id="complaint-degree-plan-fc"><%= @school.complaints_degree_requirements_by_fac_code %></td>
-        <td id="complaint-degree-plan-ope"><%= @school.complaints_degree_requirements_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Student Loans</th>
-        <td id="complaint-loans-fc"><%= @school.complaints_student_loans_by_fac_code %></td>
-        <td id="complaint-loans-ope"><%= @school.complaints_student_loans_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Grade Policy</th>
-        <td id="complaint-grade-policy-fc"><%= @school.complaints_grades_by_fac_code %></td>
-        <td id="complaint-grade-policy-ope"><%= @school.complaints_grades_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Transfer of Credits</th>
-        <td id="complaint-credit-transfer-fc"><%= @school.complaints_credit_transfer_by_fac_code %></td>
-        <td id="complaint-credit-transfer-ope"><%= @school.complaints_credit_transfer_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Post-Graduation Job Opportunities</th>
-        <td id="complaint-job-prep-fc"><%= @school.complaints_job_by_fac_code %></td>
-        <td id="complaint-job-prep-ope"><%= @school.complaints_jobs_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Release of Transcripts</th>
-        <td id="complaint-transcripts-fc"><%= @school.complaints_transcript_by_fac_code %></td>
-        <td id="complaint-transcripts-ope"><%= @school.complaints_transcript_by_ope_id_do_not_sum %></td>
-      </tr>
-      <tr>
-        <td>Other</th>
-        <td id="complaint-other-fc"><%= @school.complaints_other_by_fac_code %></td>
-        <td id="complaint-other-ope"><%= @school.complaints_other_by_ope_id_do_not_sum %></td>
-      </tr>
-    </tbody>
+      <thead>
+        <th id="institution-name-complaint"><%= @school.institution %></th>
+        <th style=";">This Campus</th>
+        <th style=";"><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#complaints_all_campuses" onclick="track('Tool Tips', 'Complaints / All Campuses');" target="_blank" alt="Click here for more information." title="The number of closed, Principles of Excellence-related, complaints for schools with the same six-digit OPEID code.">All Campuses</a></th>
+      </thead>
+      <tbody>
+        <tr class="complaints-student">
+          <th><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#complaints" onclick="track('Tool Tips', 'Complaints / Breakdown');" target="_blank" alt="Click here for more information." title="The number of closed, Principles of Excellence-related, complaints submitted to VA through the GI Bill Feedback system.">Student Complaints</a></th>
+          <td id="complaint-total-fc"><%= @school.complaints_facility_code %></td>
+          <td id="complaint-total-all"><%= @school.complaints_main_campus_roll_up %></td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr class="inner-highlight">
+            <th>Complaint by Type</br><span class="caption">(Each complaint can have multiple types)</span></th>
+          <th>Total</td>
+          <th>Total</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Financial Issues (e.g., Tuition/Fee charges)</th>
+          <td id="complaint-financial-fc"><%= @school.complaints_financial_by_fac_code %></td>
+          <td id="complaint-financial-ope"><%= @school.complaints_financial_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Quality of Education</th>
+          <td id="complaint-quality-fc"><%= @school.complaints_quality_by_fac_code %></td>
+          <td id="complaint-quality-ope"><%= @school.complaints_quality_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Refund Issues</th>
+          <td id="complaint-refund-fc"><%= @school.complaints_refund_by_fac_code %></td>
+          <td id="complaint-refund-ope"><%= @school.complaints_refund_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Recruiting/Marketing Practices</th>
+          <td id="complaint-recruiting-fc"><%= @school.complaints_marketing_by_fac_code %></td>
+          <td id="complaint-recruiting-ope"><%= @school.complaints_marketing_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Accreditation</th>
+          <td id="complaint-accreditation-fc"><%= @school.complaints_accreditation_by_fac_code %></td>
+          <td id="complaint-accreditation-ope"><%= @school.complaints_accreditation_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Change in degree plan/requirements</th>
+          <td id="complaint-degree-plan-fc"><%= @school.complaints_degree_requirements_by_fac_code %></td>
+          <td id="complaint-degree-plan-ope"><%= @school.complaints_degree_requirements_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Student Loans</th>
+          <td id="complaint-loans-fc"><%= @school.complaints_student_loans_by_fac_code %></td>
+          <td id="complaint-loans-ope"><%= @school.complaints_student_loans_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Grade Policy</th>
+          <td id="complaint-grade-policy-fc"><%= @school.complaints_grades_by_fac_code %></td>
+          <td id="complaint-grade-policy-ope"><%= @school.complaints_grades_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Transfer of Credits</th>
+          <td id="complaint-credit-transfer-fc"><%= @school.complaints_credit_transfer_by_fac_code %></td>
+          <td id="complaint-credit-transfer-ope"><%= @school.complaints_credit_transfer_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Post-Graduation Job Opportunities</th>
+          <td id="complaint-job-prep-fc"><%= @school.complaints_job_by_fac_code %></td>
+          <td id="complaint-job-prep-ope"><%= @school.complaints_jobs_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Release of Transcripts</th>
+          <td id="complaint-transcripts-fc"><%= @school.complaints_transcript_by_fac_code %></td>
+          <td id="complaint-transcripts-ope"><%= @school.complaints_transcript_by_ope_id_do_not_sum %></td>
+        </tr>
+        <tr>
+          <td>Other</th>
+          <td id="complaint-other-fc"><%= @school.complaints_other_by_fac_code %></td>
+          <td id="complaint-other-ope"><%= @school.complaints_other_by_ope_id_do_not_sum %></td>
+        </tr>
+      </tbody>
     </table>
   <% end %>
 </div>
@@ -113,23 +117,23 @@
                         <p><a href="https://www.dodmou.com/Home/Faq" target="_blank">DoD Probation For Military Tuition Assistance</a></p>
     <p><a href="https://www.ftc.gov/news-events/press-releases/2016/01/ftc-brings-enforcement-action-against-devry-university" target="_blank">Federal Trade Commission Filed Suit for Deceptive Advertising</a></p>
                         <p><a href="https://studentaid.ed.gov/sa/sites/default/files/devry-limitation-notice.pdf" target="_blank">Notice of Intent Issued by Department of Education (ED)</a></p>
-        
+
         <p><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#caution" target="_blank">Suspended for 85/15 violation – Flight Program</a></p>
-    
+
     <p><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#caution" target="_blank">Denial of Recertification Application to Participate in the Federal Student Financial Assistance Programs</a></p>
-  
+
   <p><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#ISAA" target="_blank">Iowa SAA approval ends 9/18/16 (Potential lapse in program approval and payment of GI Bill benefits.)</a></p>
-  
+
   <p><a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#ACICS" target="_blank">Accreditor under review</a></p>
-  
-                
+
+
         </br><p> To learn more about caution flags, visit the <a href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp#caution" target="_blank">About this Tool</a> page.</p>
-</div></div> 
+</div></div>
 
 <!-- END Caution Flag -->
 
 
-<script>    
+<script>
 // Makes the modals work!
 $("a[rel*=leanModal]").leanModal();
 </script>
