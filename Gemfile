@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 #ruby-gemset=gitool
 
 # va new gem
-# gem 'va_common', '~> 0.4.1'
 gem 'va_common', '~> 0.4.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
