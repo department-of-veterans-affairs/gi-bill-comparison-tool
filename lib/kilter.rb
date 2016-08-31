@@ -1,5 +1,5 @@
 class Kilter
-	attr_reader :rset, :filtered_rset, :terms, :values, :tracked, :pages, 
+	attr_reader :rset, :filtered_rset, :terms, :values, :tracked, :pages,
 		:page_size, :page_number, :paged_filtered_rset, :columns, :count_all
 
 
@@ -63,7 +63,7 @@ class Kilter
 
 		query = @filtered_rset.to_sql
 
-		@columns = @filtered_rset.first.attributes.inject({}) do |m, c| 
+		@columns = @filtered_rset.first.attributes.inject({}) do |m, c|
 			m[c[0].to_sym] = nil
 			m
 		end
@@ -126,7 +126,7 @@ class Kilter
 			@values << value
 		end
 
-		self	
+		self
 	end
 
 	#############################################################################
@@ -139,7 +139,7 @@ class Kilter
 
 		tracked[col] = Hash.new(0) unless tracked.keys.include?(col)
 
-		self		
+		self
 	end
 
 	#############################################################################
@@ -174,8 +174,8 @@ class Kilter
 		return self unless @columns.include?(col)
 
 		@filtered_rset = @filtered_rset.order(col => dir)
-		
-		self	
+
+		self
 	end
 
 	#############################################################################
@@ -186,7 +186,7 @@ class Kilter
 		@page_size = page_size > 0 ? page_size : DEFAULT_ITEMS_PER_PAGE
 
 		# Add an extra page only if there is at least 1 extra record
-		@pages = count_filtered / @page_size + (count_filtered % @page_size == 0 ? 0 : 1) 
+		@pages = count_filtered / @page_size + (count_filtered % @page_size == 0 ? 0 : 1)
 		@pages = 1 if @pages == 0
 
 		self
@@ -194,7 +194,7 @@ class Kilter
 
 	#############################################################################
 	## page
-	## Returns a paginated subset of objects based on the page number and 
+	## Returns a paginated subset of objects based on the page number and
 	## page size.
 	#############################################################################
 	def page(num = 1)
@@ -204,7 +204,7 @@ class Kilter
 		@page_number = num
 
 		# offset n is the n+1 record
-		start = (@page_number - 1) * @page_size 
+		start = (@page_number - 1) * @page_size
 
 		@paged_filtered_rset = @filtered_rset.offset(start).limit(@page_size)
 
@@ -232,7 +232,7 @@ class Kilter
 		when "not between"
 			rhs =  "NOT BETWEEN ? AND ?"
 		when "like"
-			rhs = "LIKE ?"		
+			rhs = "LIKE ?"
 		when "not like"
 			rhs = "NOT LIKE ?"
 		else
@@ -241,7 +241,7 @@ class Kilter
 
 		lhs = "#{col.to_s}"
 		lhs = "LOWER(#{lhs})" if @columns[col] == :string
-		
+
 		"(#{lhs} #{rhs})"
 	end
 
@@ -252,13 +252,13 @@ class Kilter
   ## - vars: optional variable pairs
   ## - for_page: optional pagination page specifier
   #############################################################################
-  def to_href(where, vars = {}, for_page = {}) 
+  def to_href(where, vars = {}, for_page = {})
   	return where if vars.blank? && for_page.blank?
 
     vars ||= {}
 
-    url = where + "?" 
-    url += vars.inject("") do |vars, pair| 
+    url = where + "?"
+    url += vars.inject("") do |vars, pair|
       if pair[1].present? && pair[0] != :page
        	vars += "#{pair[0]}=#{pair[1]}&"
      	else
@@ -267,7 +267,7 @@ class Kilter
    	end
 
 		if for_page.present?
-			url += "#{for_page.keys[0]}=#{for_page.values[0]}" 
+			url += "#{for_page.keys[0]}=#{for_page.values[0]}"
 		end
 
     URI.encode(url)
@@ -291,25 +291,27 @@ class Kilter
   	range_start = MAX.call(@page_number - DEFAULT_PAGE_LINK_RANGE, 1)
   	range_end = MIN.call(@page_number + DEFAULT_PAGE_LINK_RANGE, @pages)
 
-    prev_str ||= "< Previous "
-    next_str ||= " Next >"
+    prev_str ||= "Previous"
+    next_str ||= "Next"
 
     links = []
+		prev_link = nil
+		next_link = nil
 
     # Create links for "< Previous " if the current page is not the first
     if @page_number > 1
-    	links << to_link(to_href(where, vars, page: @page_number - 1), prev_str) 
+    	prev_link = to_link(to_href(where, vars, page: @page_number - 1), prev_str, "va-pagination-prev")
     end
 
     # Display a link for "1 ..." if the start of the page range >= 2
     if range_start > 1
-    	links << to_link(to_href(where, vars, page: 1), "1") + " ..." 
+    	links << to_link(to_href(where, vars, page: 1), "1") + " ..."
     end
 
     # Create links for each page in the ragebut the current page
     (range_start .. range_end).each do |i|
     	if i == @page_number
-      	links << %Q(<span class="#{cur_pg_class}">#{i.to_s}</span>)
+      	links << %Q(<a class="#{cur_pg_class}">#{i.to_s}</a>)
     	else
       	links << to_link(to_href(where, vars, page: i), i)
       end
@@ -317,15 +319,21 @@ class Kilter
 
     # Create links for " ... n" if the end of the page range <= n
     if range_end < @pages
-    	links << "... " + to_link(to_href(where, vars, page: @pages), @pages)  
+    	links << "... " + to_link(to_href(where, vars, page: @pages), @pages)
     end
 
     # Create links for " Next >" if the current page is not the last
     if @page_number < @pages
-    	links << to_link(to_href(where, vars, page: @page_number + 1), next_str) 
+    	next_link = to_link(to_href(where, vars, page: @page_number + 1), next_str, "va-pagination-next")
     end
 
-    links.join(" ")
+    [
+			prev_link,
+			"<div class='va-pagination-inner'>",
+			*links,
+			"</div>",
+			next_link
+		].compact.join(" ")
   end
 end
 
