@@ -25,7 +25,7 @@ a img {border:none;}
 
 /* typography.css */
 html {font-size:100.01%;}
-body {font-size:82%;color:#222;background:#fff;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;}
+body {font-size:82%;color:#222;background:#fff;font-family:"Source Sans Pro", "Helvetica", "Arial", sans-serif;}
 h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
 h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
 h2 {font-size:2em;margin-bottom:0.75em;}
@@ -593,7 +593,7 @@ a {
     text-decoration: underline; }
 
 body {
-  font-family: "Lucida Grande", Helvetica, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
   padding: 12px;
   background-color: #333333; }
 
@@ -643,7 +643,7 @@ abbr.timeago {
     display: inline;
     float: left; }
     .group_tabs li a {
-      font-family: Helvetica, Arial, sans-serif;
+      font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
       display: block;
       float: left;
       text-decoration: none;
@@ -742,7 +742,7 @@ td {
     background: -moz-linear-gradient(#222222, #666666);
     background: linear-gradient(#222222, #666666);
     color: white;
-    font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+    font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
     font-size: 10px;
     font-weight: bold;
     text-align: center;

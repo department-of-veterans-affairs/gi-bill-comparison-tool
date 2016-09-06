@@ -12,6 +12,7 @@ $va-body-background-color: #fff;
 $va-start-color: #008674;
 $va-alert-color: #741B30;
 $va-gibct-gray-lightest: #fafafa;
+$source-sans: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
 
 
 //========================================================
@@ -110,7 +111,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6, .usa-serif, .usa-font-lead {
-  font-family: $roboto-slab;
+  font-family: $source-sans;
 }
 
 a{
@@ -162,7 +163,7 @@ a{
     }
 }
 .teaser-figure{
-    font-family: $roboto-slab;
+    font-family: $source-sans;
     font-size: 2.72rem;
     color: $va-primary-color;
     display: block;
