@@ -28,11 +28,11 @@ function Estimator() {
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
-Estimator.prototype.TFCAP = 21084.89;
-Estimator.prototype.AVGBAH = 1566;
+Estimator.prototype.TFCAP = 21970.46;
+Estimator.prototype.AVGBAH = 1611;
 Estimator.prototype.BSCAP  = 1000,
-Estimator.prototype.FLTTFCAP = 12048.50;
-Estimator.prototype.CORRESPONDTFCAP = 10241.22;
+Estimator.prototype.FLTTFCAP = 12554.54;
+Estimator.prototype.CORRESPONDTFCAP = 10671.35;
 
 Estimator.prototype.MGIB3YRRATE = 1789;
 Estimator.prototype.MGIB2YRRATE = 1454;
