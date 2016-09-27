@@ -106,7 +106,7 @@ class InstitutionsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: @kilter.page(@inputs[:page].try(:to_i)) }
+      format.json { render json: @kilter.page(@page) }
       format.html { redirect_to profile if profile.present? }
     end
   end
