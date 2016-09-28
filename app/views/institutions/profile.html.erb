@@ -49,6 +49,14 @@
 }
 
 </style>
+<% if @school.nil? %>
+  <div class="section one">
+    Unknown facility code.<br/>
+    Please <%= link_to "search", root_path %> for an institution. </br></br></br>
+  </div>
+
+<% else %>
+
 <%
   school_name = @school.institution || ""
   school_name = @school.institution.gsub(/\b-\b/, " - ")
@@ -351,6 +359,8 @@ onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Too
 </div><!-- END Repayment rates -->
 
 </div><!-- End section one from top -->
+
+<% end %>
 
 <script>
 // Makes the modals work!
