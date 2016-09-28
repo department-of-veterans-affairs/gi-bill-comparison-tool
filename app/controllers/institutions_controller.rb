@@ -97,7 +97,7 @@ class InstitutionsController < ApplicationController
     @kilter.set_size.page(@page)
 
     # Go directly to school if only one result
-    if @rset.length == 1 && @inputs[:source] == "home"
+    if @kilter.count_filtered == 1 && @inputs[:source] == "home"
       @inputs[:facility_code] = @kilter.filtered_rset.first.facility_code
       profile = @kilter.to_href(profile_path, @inputs)
     else
