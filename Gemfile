@@ -70,5 +70,9 @@ group :development, :test do
   gem 'bundler-audit'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
 gem 'rainbow', '~> 2.1'
 gem 'puma', '3.2.0'
