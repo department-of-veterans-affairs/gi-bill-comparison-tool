@@ -21,10 +21,10 @@ class InstitutionsController < ApplicationController
 
     @school = Institution.find_by(facility_code: params[:facility_code])
     @kilter = Kilter.new(Institution.none)
-
+ 
     @back_url = @kilter.to_href(search_page_path, @inputs, page: @page)
-    @veteran_retention_rate = @school.get_veteran_retention_rate
-    @all_student_retention_rate = @school.get_all_student_retention_rate
+    @veteran_retention_rate = @school.try(:get_veteran_retention_rate)
+    @all_student_retention_rate = @school.try(:get_all_student_retention_rate)
 
     respond_to do |format|
       format.json { render json: @school }
@@ -97,7 +97,7 @@ class InstitutionsController < ApplicationController
     @kilter.set_size.page(@page)
 
     # Go directly to school if only one result
-    if @rset.length == 1 && @inputs[:source] == "home"
+    if @kilter.count_filtered == 1 && @inputs[:source] == "home"
       @inputs[:facility_code] = @kilter.filtered_rset.first.facility_code
       profile = @kilter.to_href(profile_path, @inputs)
     else
@@ -106,7 +106,7 @@ class InstitutionsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: @kilter.page(@inputs[:page].try(:to_i)) }
+      format.json { render json: @kilter.page(@page) }
       format.html { redirect_to profile if profile.present? }
     end
   end

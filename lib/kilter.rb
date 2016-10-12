@@ -18,7 +18,7 @@ class Kilter
 		raise ArgumentError if rset.nil? || !rset.kind_of?(ActiveRecord::Relation)
 
 		@filtered_rset = rset
-		@count_all = @filtered_rset.length
+		@count_all = @filtered_rset.size
 
 		info
 		set_size(DEFAULT_ITEMS_PER_PAGE)
@@ -96,7 +96,7 @@ class Kilter
 	## count_filtered
 	#############################################################################
 	def count_filtered
-		filtered_rset.length
+		filtered_rset.size
 	end
 
 	#############################################################################
