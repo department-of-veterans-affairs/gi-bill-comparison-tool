@@ -134,10 +134,10 @@ RSpec.describe Institution, type: :model do
       end
     end
 
-    it "nil or empty returns all institutions" do
+    it "nil or empty returns up to max returned institutions" do
       [nil, "", "      "].each do |arg|
         inst = Institution.autocomplete(arg)
-        expect(inst.size).to eql(Institution.all.count)
+        expect(inst.size).to eql([Institution::AUTOCOMPLETE_MAX, Institution.all.count].min)
       end
     end
   end
