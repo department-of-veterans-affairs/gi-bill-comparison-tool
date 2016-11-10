@@ -8,6 +8,7 @@ class Institution < ActiveRecord::Base
     31 => 'Town', 32 => 'Town', 33 => 'Town',
     41 => 'Rural', 42 => 'Rural', 43 => 'Rural'
   }
+  AUTOCOMPLETE_MAX = 40
 
   belongs_to :institution_type, inverse_of: :institutions
 
@@ -112,7 +113,7 @@ class Institution < ActiveRecord::Base
     search_term = search_term.try(:strip).try(:downcase)
 
     Institution.select("facility_code as value, institution as label")
-      .where("lower(institution) LIKE (?)", "#{search_term}%")
+      .where("lower(institution) LIKE (?)", "#{search_term}%").limit(AUTOCOMPLETE_MAX)
   end
 
   #############################################################################

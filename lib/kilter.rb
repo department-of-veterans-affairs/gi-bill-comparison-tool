@@ -149,19 +149,17 @@ class Kilter
 	## performed on all tracked fields.
 	#############################################################################
 	def count(col = nil)
-		count_operation = col.nil? || col.empty?
+		count_operation = col.blank?
 
 		return self unless (@tracked.keys.include?(col) || count_operation)
 		return @tracked[col] unless count_operation
 
-		@filtered_rset.each do |r|
-			@tracked.keys.each do |k|
-				# use send to handle columns that may be overriden in models
-				value = r.send(k.to_s)
-				@tracked[k][value.to_s] += 1 unless (value.nil? || value.try(:empty?))
+		@tracked.keys.each do |k|
+			groups = model.from(@filtered_rset).group(k.to_s).count
+			groups.each do |val,num|
+				@tracked[k][val.to_s] = num unless val.blank?
 			end
 		end
-
 		self
 	end
 
