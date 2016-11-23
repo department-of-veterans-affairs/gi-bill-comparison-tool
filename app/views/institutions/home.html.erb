@@ -3,12 +3,10 @@
 <div id="content" class="interior">
   <a href="#content" class="sr-only">Content starts here.</a>
 </div>
-  <div class="section one">
-    <div class="row">
-      <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
-      <input name="source" value="home" type="hidden" />
-      
-        
+<div class="section one">
+  <div class="row">
+    <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
+    <input name="source" value="home" type="hidden" />
   </div>
   <div class="row">
     <nav class="va-nav-breadcrumbs">
@@ -19,129 +17,111 @@
         <li class="active">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool</li>
       </ul>
     </nav>
-
-    <h1 class="va-heading-sans">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool</h1>
-
-    <!-- Home Page Teaser -->
-    <div class="small-12 medium-8 columns teaser-container">
-      <h4 class="home-teaser">Learn about education programs and compare estimated benefits by school.</h4>
-      </div>
   </div>
   <div class="row">
     <div class="small-12 medium-8 columns">
-        
+      <h1 class="va-heading-sans">GI Bill<sup class="trademark">&reg;</sup> Comparison Tool</h1>
+
+      <!-- Home Page Teaser -->
+      <div class="small-12 columns teaser-container">
+        <h4 class="home-teaser">Learn about education programs and compare estimated benefits by school.</h4>
+      </div>
       <div class="usa-card nested">
         <div id="about-you" class="usa-card-header nested">
           Step 1: Tell Us About Yourself
         </div>
         <div class="usa-card-content nested">
           <!-- About Yourself Section -->
-            <div class="medium-6 columns">
-          <%= render partial: 'yourself', locals: { use_label: true } %>
-            </div>
-            <div class="medium-6 columns teaser-pad teaser-container">
-                <p>Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>
-              
-                <div class="medium-4 columns box">
-                    
-                    <div class="icon">
-                        <i class="fa fa-graduation-cap fa-teaser"></i>
-                    </div>
-                    <span class="teaser-figure"><b>$</b></span>
-                    <span class="teaser-head"><p>Tuition &amp; Fees</p></span>
-                </div>
+          <div class="medium-6 columns">
+            <%= render partial: 'yourself', locals: { use_label: true } %>
+          </div>
+          <div class="medium-6 columns teaser-pad teaser-container">
+            <p>Whether you want to apply your GI Bill benefits to college classes or an on-the-job training program, this tool will help you make the most of them.</p>
+
             <div class="medium-4 columns box">
-                    
-                    <div class="icon">
-                        <i class="fa fa-home fa-teaser"></i>
-                    </div>
-                    <span class="teaser-figure"><b>$</b></span>
-                    <span class="teaser-head"><p>Housing</p></span>
-                </div>
+              <div class="icon">
+                <i class="fa fa-graduation-cap fa-teaser"></i>
+              </div>
+              <span class="teaser-figure"><b>$</b></span>
+              <span class="teaser-head"><p>Tuition &amp; Fees</p></span>
+            </div>
+
             <div class="medium-4 columns box">
-                    
-                    <div class="icon">
-                        <i class="fa fa-book fa-teaser"></i>
-                    </div>
-                    <span class="teaser-figure"><b>$</b></span>
-                    <span class="teaser-head"><p>Books</p></span>
+              <div class="icon">
+                <i class="fa fa-home fa-teaser"></i>
+              </div>
+              <span class="teaser-figure"><b>$</b></span>
+              <span class="teaser-head"><p>Housing</p></span>
             </div>
+
+            <div class="medium-4 columns box">
+              <div class="icon">
+                <i class="fa fa-book fa-teaser"></i>
+              </div>
+              <span class="teaser-figure"><b>$</b></span>
+              <span class="teaser-head"><p>Books</p></span>
             </div>
+          </div>
         </div>
       </div>
 
-        <div class="usa-card">
-          <div id="about-your-school" class="usa-card-header">
-            Step 2: About Your School
-          </div>
-          <div class="usa-card-content">
-              <!-- About Your School Section -->
-              <a name="about_your_school"></a>
-              <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
-          </div>
+      <div class="usa-card">
+        <div id="about-your-school" class="usa-card-header">
+          Step 2: About Your School
         </div>
+        <div class="usa-card-content">
+          <!-- About Your School Section -->
+          <a name="about_your_school"></a>
+          <%= render partial: 'your_school', locals: { use_label: true, advanced: true, form_id: '#input-section' } %>
+        </div>
+      </div>
       <% end %>
     </div>
-      
-<div class="small-12 medium-4 column">
-        <%= render partial: 'profile_additional_resources' %>
-</div>      
 
-      </div>
+    <div class="small-12 medium-4 column">
+      <%= render partial: 'profile_additional_resources' %>
     </div>
+
   </div>
-  <div class="section one">
-    <div class="row">
-      <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
+</div>
+</div>
+<div class="section one">
+  <div class="row">
+    <%= form_tag(search_page_path, id: "input-section", style: "", method: :get) do %>
       <input name="source" value="home" type="hidden" />
-      
-        
+    <% end %>
   </div>
   <div class="row">
 
-<!-- Utility Nav start -->
-      
-     <div class="small-12 columns">
-<a class="applinks" href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp"
-onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Tool</a>
+    <!-- Utility Nav start -->
+    <div class="small-12 columns">
+      <a class="applinks" href="http://www.benefits.va.gov/gibill/comparison_tool/about_this_tool.asp"
+      onclick="track('Tool Tips', 'About this Tool');" target="_blank" >About this Tool</a>
 
-<!--         <a class="applinks" href="mailto:223D.VBAVACO@va.gov?subject=Comparison Tool Data" title="Send us an email at 223D.VBAVACO@va.gov with “Comparison Tool” in the subject line.">Report Data Inaccuracies</a>-->
-
-         <a href="http://www.benefits.va.gov/GIBILL/docs/job_aids/ComparisonToolData.xlsx" onclick="track('Tool Tips', 'Full Data');" class="applinks">Download Data on All Schools (Excel)</a>
-</div>
-<!-- Utility Nav end -->           
-</div>
-
-
-
-      <% end %>
-      
-      
-   
-
-      </div>
+      <!--         <a class="applinks" href="mailto:223D.VBAVACO@va.gov?subject=Comparison Tool Data" title="Send us an email at 223D.VBAVACO@va.gov with “Comparison Tool” in the subject line.">Report Data Inaccuracies</a>-->
+      <a href="http://www.benefits.va.gov/GIBILL/docs/job_aids/ComparisonToolData.xlsx" onclick="track('Tool Tips', 'Full Data');" class="applinks">Download Data on All Schools (Excel)</a>
     </div>
+    <!-- Utility Nav end -->
   </div>
-
-
-
-
-
-  <!-- About School Modal -->
-  <div id="aboutSchool" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
-    <div>
-      <h3>Post 9/11 GI Bill Approved Programs</h3>
-      
-      <a class="modal_close" href=""><i class="fa fa-close"></i></a>
-          
-       <p>You can use the <a title="Post-9/11 GI Bill" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_380" target="_blank">Post-9/11 GI Bill</a> at colleges, universities, trade schools, and for on-the-job training, apprenticeship, and flight schools. To see what programs are currently approved for VA benefits, go to our <a title="website" href="http://www.benefits.va.gov/gibill/index.asp" id="anch_381" target="_blank">website</a>. You can use the Post 9/11 GI Bill for tutorial assistance, licensing/certification tests (attorney license, cosmetology license, etc.) and national exams (SAT, LSAT, etc.).</p>
-      
-        <p>The Post 9/11 GI Bill Comparison Tool uses a list of schools offering approved programs from VA’s database. The GI Bill Comparison Tool will update its list of approved programs quarterly. However, new information is added to the VA database every day. <a title="Click here" href="http://inquiry.vba.va.gov/weamspub/buildSearchInstitutionCriteria.do" id="anch_382" target="_blank">Click here</a> to access a list of approved schools by state.</p>
-    </div>
-  </div> 
-  <!--END About School Modal -->
 </div>
-<script>    
+</div>
+</div>
+
+<!-- About School Modal -->
+<div id="aboutSchool" class="modal-style" style="display: none; position: fixed; opacity: 1; z-index: 11000; left: 50%; margin-left: -202px; top: 200px;">
+  <div>
+    <h3>Post 9/11 GI Bill Approved Programs</h3>
+
+    <a class="modal_close" href=""><i class="fa fa-close"></i></a>
+
+    <p>You can use the <a title="Post-9/11 GI Bill" href="http://www.benefits.va.gov/gibill/post911_gibill.asp" id="anch_380" target="_blank">Post-9/11 GI Bill</a> at colleges, universities, trade schools, and for on-the-job training, apprenticeship, and flight schools. To see what programs are currently approved for VA benefits, go to our <a title="website" href="http://www.benefits.va.gov/gibill/index.asp" id="anch_381" target="_blank">website</a>. You can use the Post 9/11 GI Bill for tutorial assistance, licensing/certification tests (attorney license, cosmetology license, etc.) and national exams (SAT, LSAT, etc.).</p>
+
+    <p>The Post 9/11 GI Bill Comparison Tool uses a list of schools offering approved programs from VA’s database. The GI Bill Comparison Tool will update its list of approved programs quarterly. However, new information is added to the VA database every day. <a title="Click here" href="http://inquiry.vba.va.gov/weamspub/buildSearchInstitutionCriteria.do" id="anch_382" target="_blank">Click here</a> to access a list of approved schools by state.</p>
+  </div>
+</div>
+<!--END About School Modal -->
+</div>
+<script>
 // Makes the modals work!
 $("a[rel*=leanModal]").leanModal();
 </script>
