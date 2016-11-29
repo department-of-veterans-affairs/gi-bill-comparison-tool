@@ -17,6 +17,7 @@
 .env
 
 /spec/tmp
+.rbenv-gemsets
 
 ## Environment normalisation:
 /.bundle
