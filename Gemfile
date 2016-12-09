@@ -56,7 +56,8 @@ group :development, :test do
   gem 'byebug'
   gem 'simplecov'
 
-	gem 'rspec-rails'
+  gem 'rspec-rails'
+  gem 'therubyracer'
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
