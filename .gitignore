@@ -33,3 +33,5 @@
 app/.DS_Store
 app/views/.DS_Store
 vendor/cache
+
+/coverage
