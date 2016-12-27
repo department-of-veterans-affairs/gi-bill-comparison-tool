@@ -17,6 +17,7 @@
 .env
 
 /spec/tmp
+.rbenv-gemsets
 
 ## Environment normalisation:
 /.bundle
@@ -32,3 +33,5 @@
 app/.DS_Store
 app/views/.DS_Store
 vendor/cache
+
+/coverage

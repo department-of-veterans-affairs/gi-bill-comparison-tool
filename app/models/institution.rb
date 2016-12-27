@@ -3,7 +3,7 @@ class Institution < ActiveRecord::Base
 
   EMPLOYER = 'ojt'
   LOCALE = {
-    11 => 'City', 12 => 'City', 13 => 'City', 
+    11 => 'City', 12 => 'City', 13 => 'City',
     21 => 'Suburban', 22 => 'Suburban', 23 => 'Suburban',
     31 => 'Town', 32 => 'Town', 33 => 'Town',
     41 => 'Rural', 42 => 'Rural', 43 => 'Rural'
@@ -17,8 +17,8 @@ class Institution < ActiveRecord::Base
   validates :country, presence: true
   validates :institution_type_id, presence: true
 
-  scope :with_type, -> { 
-    select('institutions.*, institution_types.name').joins(:institution_type) 
+  scope :with_type, -> {
+    select('institutions.*, institution_types.name').joins(:institution_type)
   }
 
   #############################################################################
@@ -79,7 +79,7 @@ class Institution < ActiveRecord::Base
   def ojt?
     institution_type.name.downcase == 'ojt'
   end
-  
+
   #############################################################################
   ## school?
   ## True if school is not ojt.
@@ -118,11 +118,11 @@ class Institution < ActiveRecord::Base
 
   #############################################################################
   ## search
-  ## Searchs for schools containing the search_term in their name or city. 
-  ## Also used when a facility_code is passed in. 
+  ## Searchs for schools containing the search_term in their name or city.
+  ## Also used when a facility_code is passed in.
   ##
-  ## Search for cities and institutions are based on LIKE %term% and will 
-  ## return every city and institution matching the wildcard %term%. Searching 
+  ## Search for cities and institutions are based on LIKE %term% and will
+  ## return every city and institution matching the wildcard %term%. Searching
   ## by facility code is exact match.
   ##
   ## NOTE: facility_code is used for uniqueness, therefore it is possible that
@@ -130,7 +130,7 @@ class Institution < ActiveRecord::Base
   ## different facility codes.
   #############################################################################
   def self.search(search_term)
-    if search_term.empty?
+    if search_term.blank?
       @rset = Institution.with_type
     else
       search_term = search_term.to_s.downcase
@@ -148,7 +148,7 @@ class Institution < ActiveRecord::Base
   #############################################################################
   def get_veteran_retention_rate
     # If upper class use ba, otherwise use otb
-    upper_class = [3, 4].include?(pred_degree_awarded)  || 
+    upper_class = [3, 4].include?(pred_degree_awarded)  ||
       va_highest_degree_offered.try(:downcase) == "4-year"
 
     if upper_class
@@ -166,7 +166,7 @@ class Institution < ActiveRecord::Base
   #############################################################################
   def get_all_student_retention_rate
     # If upper class use ba, otherwise use otb
-    upper_class = [3, 4].include?(pred_degree_awarded)  || 
+    upper_class = [3, 4].include?(pred_degree_awarded)  ||
       va_highest_degree_offered.try(:downcase) == "4-year"
 
     if upper_class
@@ -174,7 +174,7 @@ class Institution < ActiveRecord::Base
     else
       rate = retention_all_students_otb.present? ? retention_all_students_otb : retention_all_students_ba
     end
-  
+
     rate
   end
 
@@ -184,10 +184,10 @@ class Institution < ActiveRecord::Base
   #############################################################################
   def highest_degree
     degrees = {
-      0 => nil, "ncd" => "Certificate", 1 => "Certificate", 
-      "2-year" => 2, 2 => 2, 3 => 4, 4 => 4, "4-year" => 4 
+      0 => nil, "ncd" => "Certificate", 1 => "Certificate",
+      "2-year" => 2, 2 => 2, 3 => 4, 4 => 4, "4-year" => 4
     }
-    
-    degrees[pred_degree_awarded] || degrees[va_highest_degree_offered.try(:downcase)] || "No Data" 
+
+    degrees[pred_degree_awarded] || degrees[va_highest_degree_offered.try(:downcase)] || "No Data"
   end
 end
