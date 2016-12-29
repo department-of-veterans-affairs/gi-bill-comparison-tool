@@ -34,12 +34,12 @@ Estimator.prototype.BSCAP  = 1000,
 Estimator.prototype.FLTTFCAP = 12554.54;
 Estimator.prototype.CORRESPONDTFCAP = 10671.35;
 
-Estimator.prototype.MGIB3YRRATE = 1789;
-Estimator.prototype.MGIB2YRRATE = 1454;
-Estimator.prototype.SRRATE = 368;
+Estimator.prototype.MGIB3YRRATE = 1857;
+Estimator.prototype.MGIB2YRRATE = 1509;
+Estimator.prototype.SRRATE = 369;
 
-Estimator.prototype.DEARATE = 1021;
-Estimator.prototype.DEARATEOJT = 745;
+Estimator.prototype.DEARATE = 1024;
+Estimator.prototype.DEARATEOJT = 747;
 
 Estimator.prototype.VRE0DEPRATE = 605.44;
 Estimator.prototype.VRE1DEPRATE = 751.00;
