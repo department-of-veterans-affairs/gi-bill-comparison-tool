@@ -58,12 +58,12 @@ Calculator.prototype.BSOJTMONTH = 83;
 Calculator.prototype.FLTTFCAP = 12554.54;
 Calculator.prototype.CORRESPONDTFCAP = 10671.35;
 
-Calculator.prototype.MGIB3YRRATE = 1789;
-Calculator.prototype.MGIB2YRRATE = 1454;
-Calculator.prototype.SRRATE = 368;
+Calculator.prototype.MGIB3YRRATE = 1857;
+Calculator.prototype.MGIB2YRRATE = 1509;
+Calculator.prototype.SRRATE = 369;
 
-Calculator.prototype.DEARATE = 1021;
-Calculator.prototype.DEARATEOJT = 745;
+Calculator.prototype.DEARATE = 1024;
+Calculator.prototype.DEARATEOJT = 747;
 
 Calculator.prototype.VRE0DEPRATE = 605.44;
 Calculator.prototype.VRE1DEPRATE = 751.00;
