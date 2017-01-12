@@ -1,5 +1,7 @@
 pipeline {
-  agent label:'rails-testing'
+  agent {
+    label 'rails-testing'
+  }
   stages {
     stage('Checkout Code') {
       steps {
