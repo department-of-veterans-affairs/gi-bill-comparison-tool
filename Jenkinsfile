@@ -11,7 +11,7 @@ pipeline {
 
     stage('Install bundle') {
       steps {
-        sh 'bash --login -c "bundle install --path vendor/bundle --without development"'
+        sh 'bash --login -c "bundle install -j 4 --without development"'
       }
     }
 
