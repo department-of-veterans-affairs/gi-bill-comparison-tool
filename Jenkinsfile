@@ -23,7 +23,7 @@ pipeline {
 
     stage('Run tests') {
       steps {
-        sh 'bash --login -c "bundle exec rake ci"'
+        sh 'bash --login -c "bundle exec rake ci lint security"'
       }
     }
   }

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 
-#ruby=ruby-2.3.0
-#ruby-gemset=gitool
+# ruby=ruby-2.3.0
+# ruby-gemset=gitool
 
 # va new gem
 gem 'va_common', '~> 0.4.4'
@@ -55,6 +56,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'simplecov'
+
+  # Linters
+  gem 'rubocop', '~> 0.42.0', require: false
 
   gem 'rspec-rails'
   gem 'therubyracer'
