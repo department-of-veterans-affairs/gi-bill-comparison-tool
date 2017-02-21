@@ -145,8 +145,8 @@
       <div class="medium-6 columns">
         <h4>Retention Rate<a id="go" rel="leanModal" name="status" href="#retention" class="info-icons"><i id="retention-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h4>
         <%
-          isa_v = is_number?(@veteran_retention_rate)
-          isa_c = is_number?(@all_student_retention_rate)
+          isa_v = number?(@veteran_retention_rate)
+          isa_c = number?(@all_student_retention_rate)
 
           vrate = isa_v ? number_with_precision(@veteran_retention_rate.to_f * 100, precision: 2) : "null";
           crate = isa_c ? number_with_precision(@all_student_retention_rate.to_f * 100, precision: 2) : "null";
@@ -174,8 +174,8 @@
       <div class="medium-6 columns">
 		  <h3>Graduation Rate<a id="go" rel="leanModal" name="status" href="#gradrates" class="info-icons"><i id="graduation-rate-info" class="fa fa-info-circle info-icons outcomes-learnmore"></i></a></h3>
       <%
-        isa_v = is_number?(@school.graduation_rate_veteran)
-        isa_c = is_number?(@school.graduation_rate_all_students)
+        isa_v = number?(@school.graduation_rate_veteran)
+        isa_c = number?(@school.graduation_rate_all_students)
 
         vrate = isa_v ? number_with_precision(@school.graduation_rate_veteran.to_f * 100, precision: 2) : "null";
         crate = isa_c ? number_with_precision(@school.graduation_rate_all_students.to_f * 100, precision: 2) : "null";
