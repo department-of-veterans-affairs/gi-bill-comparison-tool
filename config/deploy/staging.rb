@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
@@ -31,8 +32,6 @@ role :db, [ENV['STAGING_APP_SERVER1'], ENV['STAGING_APP_SERVER2']], user: 'ec2-u
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-
-
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a
@@ -47,11 +46,9 @@ role :db, [ENV['STAGING_APP_SERVER1'], ENV['STAGING_APP_SERVER2']], user: 'ec2-u
 #    auth_methods: %w(password)
 #  }
 
-set :ssh_options, {
-  keys: ENV['STAGING_APP_SERVER_KEY_PATH'],
-  forward_agent: false,
-  auth_methods: %w(publickey)
-}
+set :ssh_options, keys: ENV['STAGING_APP_SERVER_KEY_PATH'],
+                  forward_agent: false,
+                  auth_methods: %w(publickey)
 
 #
 # The server-based syntax can be used to override options:

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InstitutionsController < ApplicationController
   def home
     @url = Rails.env.production? ? request.host : 'http://localhost:3000'
@@ -21,7 +23,7 @@ class InstitutionsController < ApplicationController
 
     @school = Institution.find_by(facility_code: params[:facility_code])
     @kilter = Kilter.new(Institution.none)
- 
+
     @back_url = @kilter.to_href(search_page_path, @inputs, page: @page)
     @veteran_retention_rate = @school.try(:get_veteran_retention_rate)
     @all_student_retention_rate = @school.try(:get_all_student_retention_rate)
@@ -48,21 +50,21 @@ class InstitutionsController < ApplicationController
     @kilter = Kilter.new(@rset)
 
     @kilter.track(:name).track(:state).track(:country).track(:student_veteran)
-      .track(:yr).track(:poe).track(:eight_keys)
+           .track(:yr).track(:poe).track(:eight_keys)
 
     # Institution types are "all", "employer" (ojt), "school" (!ojt)
-    if @inputs[:type_name].present? && @inputs[:type_name] != "all"
-      @kilter.add(:name, Institution::EMPLOYER, @inputs[:type_name] == "school" ? "!=" : "=")
+    if @inputs[:type_name].present? && @inputs[:type_name] != 'all'
+      @kilter.add(:name, Institution::EMPLOYER, @inputs[:type_name] == 'school' ? '!=' : '=')
     end
 
     # States are "all", or distinct states in the rset
-    if @inputs[:state].present? && @inputs[:state] != "all"
-      @kilter.add(:state, @inputs[:state]) 
+    if @inputs[:state].present? && @inputs[:state] != 'all'
+      @kilter.add(:state, @inputs[:state])
     end
 
     # Countries are "all", or distinct countries in the rset
-    if @inputs[:country].present? && @inputs[:country] != "all"
-      @kilter.add(:country, @inputs[:country]) 
+    if @inputs[:country].present? && @inputs[:country] != 'all'
+      @kilter.add(:country, @inputs[:country])
     end
 
     # Student veterans groups are nil or boolean text values
@@ -86,7 +88,7 @@ class InstitutionsController < ApplicationController
     end
 
     # Types may be "all", or distinct institution types
-    if @inputs[:types].present? && @inputs[:type_name] != "all"
+    if @inputs[:types].present? && @inputs[:type_name] != 'all'
       @kilter.add(:name, @inputs[:types])
     end
 
@@ -97,11 +99,11 @@ class InstitutionsController < ApplicationController
     @kilter.set_size.page(@page)
 
     # Go directly to school if only one result
-    if @kilter.count_filtered == 1 && @inputs[:source] == "home"
+    if @kilter.count_filtered == 1 && @inputs[:source] == 'home'
       @inputs[:facility_code] = @kilter.filtered_rset.first.facility_code
       profile = @kilter.to_href(profile_path, @inputs)
     else
-      @inputs[:source] = "search"
+      @inputs[:source] = 'search'
       profile = nil
     end
 

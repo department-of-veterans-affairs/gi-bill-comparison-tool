@@ -1,25 +1,26 @@
+# frozen_string_literal: true
 module InstitutionsHelper
   def compare_downcase(v1, v2)
     v1 = v1.try(:downcase)
     v2 = v2.try(:downcase)
 
-    return v1 == v2
+    v1 == v2
   end
 
   def to_caps(string)
-    string.blank? ? '' : string.split(' ').map{|w| w.capitalize}.join(' ')
+    string.blank? ? '' : string.split(' ').map(&:capitalize).join(' ')
   end
 
-  def is_number?(v)
+  def number?(v)
     return false if v.blank?
-    
+
     !(v.to_s =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
   end
 
-  def format_number_or_null(v, what) 
-    if is_number?(v)
+  def format_number_or_null(v, what)
+    if number?(v)
       what = v == 1 ? what : what.pluralize
-      number_with_delimiter(v) + " " + what
+      number_with_delimiter(v) + ' ' + what
     elsif v.blank?
       pluralize(0, what)
     else
@@ -28,7 +29,7 @@ module InstitutionsHelper
   end
 
   def format_pct_or_null(v)
-    if is_number?(v)
+    if number?(v)
       number_with_precision(v, precision: 2)
     elsif v.blank?
       0
@@ -38,17 +39,14 @@ module InstitutionsHelper
   end
 
   def to_school_size(size)
-    return "Unknown" if size.blank?
+    return 'Unknown' if size.blank?
 
-    display = "Unknown"
     if size <= 2000
-      display = "Small"
-    elsif size <= 15000
-      display = "Medium"
+      'Small'
+    elsif size <= 15_000
+      'Medium'
     else
-      display = "Large"
+      'Large'
     end
-
-    display
   end
 end

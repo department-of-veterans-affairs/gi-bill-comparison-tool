@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'active_support/concern'
 
 ###############################################################################
 ## Tristateable
-## Reads a column, bypassing activerecord field accessors, so that we can 
-## differentiate between nil values and boolean false (by default nils in 
+## Reads a column, bypassing activerecord field accessors, so that we can
+## differentiate between nil values and boolean false (by default nils in
 ## activerecord are converted to false).
 ##
 ## Naturally, booleans can only hold true/false, so these fields should be
@@ -12,22 +13,22 @@ require 'active_support/concern'
 module Tristateable
   extend ActiveSupport::Concern
 
-  TRUTHY = %w(yes true t 1 on)
-  
-  class_methods do 
+  TRUTHY = %w(yes true t 1 on).freeze
+
+  class_methods do
     def to_bool(val)
       TRUTHY.include?(val.to_s)
     end
   end
 
-	#############################################################################
-	## tristate_boolean
-	## Reads the field and interprets the result as nil, false, or true. Note, 
-	## in Ruby anything that isn't false or nil os true. However, we deviate
-	## from that to account for GIBCT truth values (c.f. Truthy)
-	#############################################################################
+  #############################################################################
+  ## tristate_boolean
+  ## Reads the field and interprets the result as nil, false, or true. Note,
+  ## in Ruby anything that isn't false or nil os true. However, we deviate
+  ## from that to account for GIBCT truth values (c.f. Truthy)
+  #############################################################################
   def tristate_boolean(field_sym)
-   	raw = read_attribute(field_sym)
-    raw.present? ? TRUTHY.include?(raw.try(:downcase)) : nil  
+    raw = self[field_sym]
+    raw.present? ? TRUTHY.include?(raw.try(:downcase)) : nil
   end
 end

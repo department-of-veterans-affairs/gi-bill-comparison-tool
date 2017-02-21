@@ -1,60 +1,61 @@
+# frozen_string_literal: true
 require 'csv'
 
-desc "Load database from CSV -- invoke with rake load_csv[file_name.csv]"
-task :load_csv, [:csv_file] => [:environment, :build_db] do |t, args|
+desc 'Load database from CSV -- invoke with rake load_csv[file_name.csv]'
+task :load_csv, [:csv_file] => [:environment, :build_db] do |_t, args|
   puts "Loading #{args[:csv_file]} ... "
   count = 0
 
   ActiveRecord::Base.transaction do
-    CSV.foreach(args[:csv_file], headers: true, encoding: "iso-8859-1:utf-8", header_converters: :symbol) do |row|
-  		count += 1
-    
-      row = LoadCsvHelper.convert(row.to_hash) 		
-  		if !(i = Institution.create(row)).persisted?
+    CSV.foreach(args[:csv_file], headers: true, encoding: 'iso-8859-1:utf-8', header_converters: :symbol) do |row|
+      count += 1
+
+      row = LoadCsvHelper.convert(row.to_hash)
+      unless (i = Institution.create(row)).persisted?
         reason = i.errors.to_a.join(', ')
 
         puts "\nRecord: #{count}: #{i.institution} not created! - #{reason}\n"
         Rails.logger.error "Record: #{count}, #{i.institution} not created! - #{reason}"
       end
 
-  		print "\r Records: #{count}" 
+      print "\r Records: #{count}"
     end
   end
 
-	puts "\nDone ... Woo Hoo!"
+  puts "\nDone ... Woo Hoo!"
 end
 
 task build_db: :environment do
   # TODO: Back up DB prior to drop
-  
-	puts "Clearing logs ..."
-	Rake::Task['log:clear'].invoke
 
-  puts "Delete records in Institution in preparation for loading ..."
+  puts 'Clearing logs ...'
+  Rake::Task['log:clear'].invoke
+
+  puts 'Delete records in Institution in preparation for loading ...'
   Institution.delete_all
 
-  puts "Delete records in InstitutionType in preparation for loading ..."
+  puts 'Delete records in InstitutionType in preparation for loading ...'
   InstitutionType.delete_all
 
-  puts "Running migrations ..."
+  puts 'Running migrations ...'
   Rake::Task['db:migrate'].invoke
 
-	puts "Seeding database ..."
-	Rake::Task['db:seed'].invoke
+  puts 'Seeding database ...'
+  Rake::Task['db:seed'].invoke
 
-	puts "Done!\n\n\n"
+  puts "Done!\n\n\n"
 end
 
 ###############################################################################
 ## LoadCsvHelper
 ###############################################################################
 class LoadCsvHelper
-  TRUTHY = %w(yes true t 1)
-  COLUMNS_NOT_IN_CSV = %w(id institution_type_id created_at updated_at)
+  TRUTHY = %w(yes true t 1).freeze
+  COLUMNS_NOT_IN_CSV = %w(id institution_type_id created_at updated_at).freeze
 
-  CONVERSIONS = { 
-    string: :to_str, float: :to_float, integer: :to_int, boolean: :to_bool 
-  }
+  CONVERSIONS = {
+    string: :to_str, float: :to_float, integer: :to_int, boolean: :to_bool
+  }.freeze
 
   #############################################################################
   ## get_columns
@@ -70,19 +71,19 @@ class LoadCsvHelper
 
   #############################################################################
   ## convert(row)
-  ## Converts the columns in the csv row to an appropriate data type for the 
+  ## Converts the columns in the csv row to an appropriate data type for the
   ## Institution and InstitutionType models.
   #############################################################################
   def self.convert(row)
     # For each column name in the CSV, get the column's data type and convert
     # the row to the appropriate type.
-    cnv_row = {};
+    cnv_row = {}
 
     get_columns.each do |name|
       col_type = Institution.columns_hash[name].type
 
-      if conversion = CONVERSIONS[col_type]
-        cnv = LoadCsvHelper.send(conversion, row[name.to_sym])
+      if CONVERSIONS[col_type]
+        cnv = LoadCsvHelper.send(CONVERSIONS[col_type], row[name.to_sym])
 
         if col_type == :integer || col_type == :float
           cnv_row[name.to_sym] = cnv if cnv.present?
@@ -122,9 +123,9 @@ class LoadCsvHelper
   ## to_bool(value)
   ## Converts the string value to a boolean.
   #############################################################################
-	def self.to_bool(value)
+  def self.to_bool(value)
     TRUTHY.include?(value.try(:downcase))
-	end
+  end
 
   #############################################################################
   ## to_int(value)

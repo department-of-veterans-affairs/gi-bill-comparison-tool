@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
@@ -30,16 +31,10 @@ set :pty, true
 # Default value for :linked_files is []
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
-
-# Default value for linked_dirs is []
-#set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
-
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
-set :default_env, {
-  "RAILS_RELATIVE_URL_ROOT" => '/gi-bill-comparison-tool'
-}
+set :default_env, 'RAILS_RELATIVE_URL_ROOT' => '/gi-bill-comparison-tool'
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
@@ -49,7 +44,7 @@ set :assets_roles, [:app]
 # Copy database.yml to shared
 task :mv_yml do
   on roles(:all) do
-    %W(config/database.yml config/secrets.yml).each do |f|
+    %w(config/database.yml config/secrets.yml).each do |f|
       upload!(f, "#{shared_path}/#{f}")
       set :linked_files, fetch(:linked_files, []).push(f)
     end

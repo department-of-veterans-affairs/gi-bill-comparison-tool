@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 set :branch, 'production'
 
 # server-based syntax
@@ -9,8 +10,8 @@ set :branch, 'production'
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server 'gi1.vets.gov', user: 'ec2-user', roles: %w{app db}
-server 'gi2.vets.gov', user: 'ec2-user', roles: %w{app}
+server 'gi1.vets.gov', user: 'ec2-user', roles: %w(app db)
+server 'gi2.vets.gov', user: 'ec2-user', roles: %w(app)
 
 # role-based syntax
 # ==================
@@ -46,11 +47,9 @@ server 'gi2.vets.gov', user: 'ec2-user', roles: %w{app}
 #    auth_methods: %w(password)
 #  }
 
-set :ssh_options, {
-  keys: ENV['PRODUCTION_APP_SERVER_KEY_PATH'],
-  forward_agent: false,
-  auth_methods: %w(publickey)
-}
+set :ssh_options, keys: ENV['PRODUCTION_APP_SERVER_KEY_PATH'],
+                  forward_agent: false,
+                  auth_methods: %w(publickey)
 
 #
 # The server-based syntax can be used to override options:
