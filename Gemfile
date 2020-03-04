@@ -80,4 +80,4 @@ group :production do
 end
 
 gem 'rainbow', '~> 2.1'
-gem 'puma', '3.2.0'
+gem 'puma', '3.12.4'

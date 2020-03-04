@@ -148,7 +148,7 @@ GEM
       ast (~> 2.2)
     pg (0.18.4)
     powerpack (0.1.1)
-    puma (3.2.0)
+    puma (3.12.4)
     rack (1.6.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -304,7 +304,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   pg
-  puma (= 3.2.0)
+  puma (= 3.12.4)
   rails (~> 4.2.7)
   rails_12factor
   rainbow (~> 2.1)
